@@ -1,6 +1,9 @@
 import { swagger } from "@elysiajs/swagger";
 import { trpc } from "@elysiajs/trpc";
 import { Elysia } from "elysia";
-import { router } from "./routers";
+import cors from "@elysiajs/cors";
+import { appRouter } from "./routers";
 
-new Elysia().use(swagger()).use(trpc(router)).listen(8080);
+const app = new Elysia().use(swagger()).use(cors()).use(trpc(appRouter)).get("/", () => "Hello").listen(3000);
+
+console.log(`🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`);
