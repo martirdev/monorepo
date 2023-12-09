@@ -11,11 +11,11 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       - name: Build, tag, and push image to Yandex Cloud Container Registry
+        working-directory: ./shield
         env:
           CR_REGISTRY: crpgvh3nlf7rueqfkpp9
           CR_REPOSITORY: shield
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          cd shield
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
