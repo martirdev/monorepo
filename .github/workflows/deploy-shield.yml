@@ -11,7 +11,7 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
       - name: Build, tag, and push image to Yandex Cloud Container Registry
-        working-directory: ./shield
+        working-directory: shield
         env:
           CR_REGISTRY: crpgvh3nlf7rueqfkpp9
           CR_REPOSITORY: shield
