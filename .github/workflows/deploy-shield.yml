@@ -1,5 +1,5 @@
 name: Deploy shield to YC
-run-name: ${{ github.actor }} start deploing to YC
+run-name: ${{ github.actor }} start deploing shield to YC
 on: [workflow_dispatch]
 jobs:
   Deploy:
@@ -23,10 +23,6 @@ jobs:
       - name: Deploy Serverless Container
         id: deploy-sls-container
         uses: yc-actions/yc-sls-container-deploy@v2
-        env:
-          CR_REGISTRY: crpgvh3nlf7rueqfkpp9
-          CR_REPOSITORY: shield
-          IMAGE_TAG: ${{ github.sha }}
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           container-name: shield
@@ -36,5 +32,5 @@ jobs:
           revision-memory: 512Mb
           revision-core-fraction: 100
           revision-concurrency: 8
-          revision-image-url: cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+          revision-image-url: cr.yandex/crpgvh3nlf7rueqfkpp9/shield:${{ github.sha }}
           revision-execution-timeout: 10
