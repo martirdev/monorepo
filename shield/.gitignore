@@ -44,3 +44,4 @@ package-lock.json
 
 # db
 **/migrations/
+**/generated/
