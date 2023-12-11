@@ -1,6 +1,6 @@
 import { initTRPC } from "@trpc/server";
-import { PrismaClient } from '@prisma/client'
 import { z } from "zod";
+import { PrismaClient } from '../../prisma/generated/client'
 
 const prisma = new PrismaClient()
 
