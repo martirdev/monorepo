@@ -14,4 +14,4 @@ COPY prisma prisma
 ENV NODE_ENV production
 CMD ["bun", "run", "start:prod"]
 
-EXPOSE 3000
+EXPOSE 8080
