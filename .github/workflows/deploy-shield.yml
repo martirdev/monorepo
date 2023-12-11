@@ -34,3 +34,4 @@ jobs:
           revision-concurrency: 8
           revision-image-url: cr.yandex/crpgvh3nlf7rueqfkpp9/shield:${{ github.sha }}
           revision-execution-timeout: 10
+          revision-secrets: DATABASE_URL=e6qou55m288s767ej1ca/e6q1lne50v7m5bvudbih/DATABASE_URL
