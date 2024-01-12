@@ -1,5 +1,12 @@
-const ProductCardTable = function ProductCardTable() {
-    return <div className="text-4xl py-5">Это таблица!!</div>;
-};
+import { memo } from "react";
+import ProductCardList from "../../widgets/product-card-list/ProductCardList";
+
+const ProductCardTable = memo(function ProductCardTable() {
+    return (
+        <div className="w-full items-center justify-center">
+            <ProductCardList />
+        </div>
+    );
+});
 
 export default ProductCardTable;
