@@ -5,17 +5,57 @@ import { AppleOutlined, TwitterOutlined } from "@ant-design/icons";
 
 import { TEMPOPARY_MOCK_PRODUCTS } from "../../widgets/product-card-list/temporaryConsts";
 import { ProductType } from "./types";
+import { currency } from "../../utils/intl/numbers";
+
+const getMarketplacelogo = (marketplaceName: string) => {
+    switch (marketplaceName) {
+        case "ym":
+            return <AppleOutlined />;
+        case "ozon":
+            return <TwitterOutlined />;
+    }
+};
+
+const columns: ColumnsType<ProductType> = [
+    {
+        title: "Артикул",
+        dataIndex: "acrticule",
+        key: "acrticule",
+        defaultSortOrder: "descend",
+        sorter: (a, b) => Number(a.acrticule) - Number(b.acrticule),
+    },
+    {
+        title: "Название",
+        dataIndex: "name",
+    },
+    {
+        title: "Маркетплейсы",
+        key: "marketplaces",
+        dataIndex: "marketplaces",
+        render: (_, { marketplaces }) => (
+            <>
+                {marketplaces.map((marketplace, dataIndex) => {
+                    return (
+                        <Tooltip title={currency.format(marketplace.price)}>
+                            <Tag
+                                color={
+                                    marketplace.isSynchronized ? "green" : "red"
+                                }
+                                key={dataIndex}
+                                icon={getMarketplacelogo(marketplace.type)}
+                            >
+                                {marketplace.name}
+                            </Tag>
+                        </Tooltip>
+                    );
+                })}
+            </>
+        ),
+    },
+];
 
 const ProductCardList = memo(function ProductCardTable() {
     const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-    const getMarketplacelogo = (marketplaceName: string) => {
-        switch (marketplaceName) {
-            case "ym":
-                return <AppleOutlined />;
-            case "ozon":
-                return <TwitterOutlined />;
-        }
-    };
 
     const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
         console.log("selectedRowKeys changed: ", newSelectedRowKeys);
@@ -27,45 +67,6 @@ const ProductCardList = memo(function ProductCardTable() {
         onChange: onSelectChange,
     };
 
-    const columns: ColumnsType<ProductType> = [
-        {
-            title: "Артикул",
-            dataIndex: "acrticule",
-            key: "acrticule",
-            defaultSortOrder: "descend",
-            sorter: (a, b) => Number(a.acrticule) - Number(b.acrticule),
-        },
-        {
-            title: "Название",
-            dataIndex: "name",
-        },
-        {
-            title: "Маркетплейсы",
-            key: "marketplaces",
-            dataIndex: "marketplaces",
-            render: (_, { marketplaces }) => (
-                <>
-                    {marketplaces.map((marketplace, dataIndex) => {
-                        return (
-                            <Tooltip title={marketplace.price + " ₽"}>
-                                <Tag
-                                    color={
-                                        marketplace.isSynchronized
-                                            ? "green"
-                                            : "red"
-                                    }
-                                    key={dataIndex}
-                                    icon={getMarketplacelogo(marketplace.type)}
-                                >
-                                    {marketplace.name}
-                                </Tag>
-                            </Tooltip>
-                        );
-                    })}
-                </>
-            ),
-        },
-    ];
     return (
         <div>
             <Table
@@ -73,7 +74,6 @@ const ProductCardList = memo(function ProductCardTable() {
                 dataSource={TEMPOPARY_MOCK_PRODUCTS}
                 rowSelection={rowSelection}
             />
-            ;
         </div>
     );
 });
