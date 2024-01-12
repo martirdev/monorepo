@@ -6,4 +6,4 @@ import { appRouter } from "./routers";
 
 const app = new Elysia().use(swagger()).use(cors()).use(trpc(appRouter)).get("/", () => "Hello").listen(8080);
 
-console.log(`🦊 Elysia is running at http://${app.server?.hostname}:${app.server?.port}`);
+console.log(`backend-example is running at http://${app.server?.hostname}:${app.server?.port}`);
