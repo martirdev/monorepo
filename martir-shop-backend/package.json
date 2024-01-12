@@ -1,0 +1,26 @@
+{
+  "name": "shield",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts",
+    "start:prod": "bun src/index.ts"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^0.7.2",
+    "@elysiajs/swagger": "^0.7.4",
+    "@elysiajs/trpc": "^0.7.0",
+    "@elysiajs/websocket": "^0.2.8",
+    "@notionhq/client": "^2.2.14",
+    "@prisma/client": "5.7.0",
+    "@trpc/server": "^10.44.1",
+    "elysia": "latest",
+    "notion-to-md": "^3.1.1",
+    "prisma": "5.7.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "module": "src/index.js"
+}
