@@ -1,5 +1,5 @@
-name: Deploy shield to YC
-run-name: ${{ github.actor }} start deploing shield to YC
+name: Deploy backend-example to YC
+run-name: ${{ github.actor }} start deploing backend-example to YC
 on: [workflow_dispatch]
 jobs:
   Deploy:
