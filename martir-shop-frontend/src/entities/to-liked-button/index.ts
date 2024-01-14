@@ -1,0 +1,1 @@
+export {ToLikedButton} from './ToLikedButton';

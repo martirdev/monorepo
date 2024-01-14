@@ -1,0 +1,1 @@
+export {MainItemCard} from './MainItemCard';
