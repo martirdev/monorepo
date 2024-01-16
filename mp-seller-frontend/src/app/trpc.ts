@@ -1,5 +1,5 @@
 import { createTRPCReact, httpBatchLink } from "@trpc/react-query";
-import type { Router } from "../../../shield/src/routers";
+import type { Router } from "../../../mp-seller-backend/src/routers";
 
 export const trpc = createTRPCReact<Router>();
 
