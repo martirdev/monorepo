@@ -1,1 +1,1 @@
-export { MarketplaceIcon } from "./MPLogo";
+export {MarketplaceIcon} from './MPLogo';
