@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum MarketPlaces {
+  ym
+  ozon
+}
+
+model Place {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  MarketplaceKey   MarketplaceKey? @relation(fields: [marketplaceKeyId], references: [id])
+  marketplaceKeyId String?         @db.ObjectId
+}
+
+model MarketplaceKey {
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  api_key           String       @unique
+  encrypted_api_key String
+  type              MarketPlaces
+  places            Place[]
+}
