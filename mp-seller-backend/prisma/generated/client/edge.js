@@ -31,12 +31,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.8.1
- * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
+ * Prisma Client JS version: 5.7.0
+ * Query Engine version: 79fb5193cf0a8fdbef536e4b4a159cad677ab1b9
  */
 Prisma.prismaVersion = {
-  client: "5.8.1",
-  engine: "78caf6feeaed953168c64e15a249c3e9a033ebe2"
+  client: "5.7.0",
+  engine: "79fb5193cf0a8fdbef536e4b4a159cad677ab1b9"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -139,16 +139,16 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../..",
-  "clientVersion": "5.8.1",
-  "engineVersion": "78caf6feeaed953168c64e15a249c3e9a033ebe2",
+  "clientVersion": "5.7.0",
+  "engineVersion": "79fb5193cf0a8fdbef536e4b4a159cad677ab1b9",
   "datasourceNames": [
     "db"
   ],
   "activeProvider": "mongodb",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -158,7 +158,8 @@ const config = {
     }
   },
   "inlineSchema": "Z2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgPSAicHJpc21hLWNsaWVudC1qcyIKICBvdXRwdXQgICA9ICIuL2dlbmVyYXRlZC9jbGllbnQiCn0KCmRhdGFzb3VyY2UgZGIgewogIHByb3ZpZGVyID0gIm1vbmdvZGIiCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpCn0KCmVudW0gTWFya2V0UGxhY2VzIHsKICB5bQogIG96b24KfQoKbW9kZWwgUGxhY2UgewogIGlkICAgU3RyaW5nIEBpZCBAZGVmYXVsdChhdXRvKCkpIEBtYXAoIl9pZCIpIEBkYi5PYmplY3RJZAogIG5hbWUgU3RyaW5nCgogIE1hcmtldHBsYWNlS2V5ICAgTWFya2V0cGxhY2VLZXk/IEByZWxhdGlvbihmaWVsZHM6IFttYXJrZXRwbGFjZUtleUlkXSwgcmVmZXJlbmNlczogW2lkXSkKICBtYXJrZXRwbGFjZUtleUlkIFN0cmluZz8gICAgICAgICBAZGIuT2JqZWN0SWQKfQoKbW9kZWwgTWFya2V0cGxhY2VLZXkgewogIGlkICAgICAgICAgICAgICAgIFN0cmluZyAgICAgICBAaWQgQGRlZmF1bHQoYXV0bygpKSBAbWFwKCJfaWQiKSBAZGIuT2JqZWN0SWQKICBhcGlfa2V5ICAgICAgICAgICBTdHJpbmcgICAgICAgQHVuaXF1ZQogIGVuY3J5cHRlZF9hcGlfa2V5IFN0cmluZwogIHR5cGUgICAgICAgICAgICAgIE1hcmtldFBsYWNlcwogIHBsYWNlcyAgICAgICAgICAgIFBsYWNlW10KfQo=",
-  "inlineSchemaHash": "a4efd950e688a0095b52ea42c0a2531910e34aa1883a0322f3715c7950255a1e"
+  "inlineSchemaHash": "a4efd950e688a0095b52ea42c0a2531910e34aa1883a0322f3715c7950255a1e",
+  "noEngine": false
 }
 config.dirname = '/'
 
