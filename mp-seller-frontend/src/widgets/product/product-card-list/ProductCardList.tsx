@@ -5,7 +5,7 @@ import type { ColumnsType } from "antd/es/table";
 import { TEMPOPARY_MOCK_PRODUCTS } from "./temporaryConsts";
 import { ProductType } from "./types";
 import { currency } from "../../../utils/intl/numbers";
-import { getMarketplacelogo } from "../../../shared/mp-logos/getMarketplacelogo";
+import { MarketplaceIcon } from "../../../shared/mp-logos";
 
 const columns: ColumnsType<ProductType> = [
     {
@@ -35,9 +35,10 @@ const columns: ColumnsType<ProductType> = [
                                 key={marketplace.id}
                             >
                                 <div className="flex gap-1 p-1">
-                                    <div>
-                                        {getMarketplacelogo(marketplace.type)}
-                                    </div>
+                                    <MarketplaceIcon
+                                        type={marketplace.type}
+                                        className="w-5"
+                                    />
                                     <div>{marketplace.name}</div>
                                 </div>
                             </Tag>

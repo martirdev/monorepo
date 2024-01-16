@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import ClientRoot from "./client-root/ClientRoot";
-import ProductCardTable from "./product-card-table/ProductCardTable";
-import Places from "./places/Places";
+import ClientRoot from "./client-root";
+import ProductCardTable from "./product-card-table";
+import Places from "./places";
 
 const router = createBrowserRouter([
     {

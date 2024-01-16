@@ -1,19 +1,17 @@
-import { Key, memo, useState } from "react";
+import { Key, memo, useCallback, useMemo, useState } from "react";
 import { Table, Tag } from "antd";
 import type { ColumnsType } from "antd/es/table";
 
 import { MOCK_SHOPS } from "./temporaryConsts";
 import { KeyForMarketplaceType } from "./types";
-import { getMarketplacelogo } from "../../../shared/mp-logos/getMarketplacelogo";
+import { MarketplaceIcon } from "../../../shared/mp-logos";
 
 const columns: ColumnsType<KeyForMarketplaceType> = [
     {
         title: "",
         dataIndex: "type",
         key: "type",
-        render: (_, { type }) =>
-            // <div className="w-8">{getMarketplacelogo(type)}</div>
-            getMarketplacelogo(type),
+        render: (_, { type }) => <MarketplaceIcon type={type} />,
         width: "1%",
     },
     {
@@ -38,15 +36,21 @@ const columns: ColumnsType<KeyForMarketplaceType> = [
 const PlacesList = memo(function PlacesList() {
     const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
-    const onSelectChange = (newSelectedRowKeys: Key[]) => {
-        console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
-    };
+    const onSelectChange = useCallback(
+        (newSelectedRowKeys: Key[]) => {
+            console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+            setSelectedRowKeys(newSelectedRowKeys);
+        },
+        [setSelectedRowKeys]
+    );
 
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange,
-    };
+    const rowSelection = useMemo(
+        () => ({
+            selectedRowKeys,
+            onChange: onSelectChange,
+        }),
+        [selectedRowKeys, onSelectChange]
+    );
 
     return (
         <div>
