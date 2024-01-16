@@ -7,6 +7,6 @@ export type KeyForMarketplaceType = {
     id: string;
     key: string;
     api_key: string;
-    type: "ozon" | "ym"; // тип ключа
+    type: 'ozon' | 'ym'; // тип ключа
     places: PlaceType[];
 };

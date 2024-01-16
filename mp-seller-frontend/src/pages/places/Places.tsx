@@ -1,4 +1,4 @@
-import PlacesList from "../../widgets/shops/place-list";
+import PlacesList from '_widgets/place-list';
 
 const Places = function Places() {
     return (
