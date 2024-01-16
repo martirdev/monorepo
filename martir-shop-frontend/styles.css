@@ -48,6 +48,15 @@ a {
   color: #fff !important;
 }
 
+.prose details {
+    margin-bottom: 1.5rem;
+}
+.prose summary {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 1rem 0;
+}
+
 .ant-form-item {
   margin-bottom: 0 !important;
 }
