@@ -207,8 +207,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.8.1
-   * Query Engine version: 78caf6feeaed953168c64e15a249c3e9a033ebe2
+   * Prisma Client JS version: 5.7.0
+   * Query Engine version: 79fb5193cf0a8fdbef536e4b4a159cad677ab1b9
    */
   export type PrismaVersion = {
     client: string
@@ -1139,7 +1139,7 @@ export namespace Prisma {
   type PlaceGetPayload<S extends boolean | null | undefined | PlaceDefaultArgs> = $Result.GetResult<Prisma.$PlacePayload, S>
 
   type PlaceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<PlaceFindManyArgs, 'select' | 'include' | 'distinct'> & {
+    Omit<PlaceFindManyArgs, 'select' | 'include' | 'distinct' > & {
       select?: PlaceCountAggregateInputType | true
     }
 
@@ -2119,7 +2119,7 @@ export namespace Prisma {
   type MarketplaceKeyGetPayload<S extends boolean | null | undefined | MarketplaceKeyDefaultArgs> = $Result.GetResult<Prisma.$MarketplaceKeyPayload, S>
 
   type MarketplaceKeyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<MarketplaceKeyFindManyArgs, 'select' | 'include' | 'distinct'> & {
+    Omit<MarketplaceKeyFindManyArgs, 'select' | 'include' | 'distinct' > & {
       select?: MarketplaceKeyCountAggregateInputType | true
     }
 

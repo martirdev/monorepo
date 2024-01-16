@@ -165,10 +165,6 @@ declare type ComputedFieldsMap = {
     [fieldName: string]: ComputedField;
 };
 
-declare type ConnectionInfo = {
-    schemaName?: string;
-};
-
 declare interface Context {
     /**
      * Get a value from the context.
@@ -854,10 +850,6 @@ export declare interface DriverAdapter extends Queryable {
      * Starts new transation.
      */
     startTransaction(): Promise<Result_4<Transaction>>;
-    /**
-     * Optional method that returns extra connection info
-     */
-    getConnectionInfo?(): Result_4<ConnectionInfo>;
 }
 
 /** Client */
@@ -1006,7 +998,7 @@ export declare const empty: Sql;
 export declare type EmptyToUnknown<T> = T;
 
 declare abstract class Engine<InteractiveTransactionPayload = unknown> {
-    abstract onBeforeExit(callback: () => Promise<void>): void;
+    abstract on(event: EngineEventType, listener: (args?: any) => any): void;
     abstract start(): Promise<void>;
     abstract stop(): Promise<void>;
     abstract version(forceRun?: boolean): Promise<string> | string;
@@ -1038,7 +1030,7 @@ declare interface EngineConfig {
     previewFeatures?: string[];
     engineEndpoint?: string;
     activeProvider?: string;
-    logEmitter: LogEmitter;
+    logEmitter: EventEmitter;
     /**
      * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-planetscale`.
      * If set, this is only used in the library engine, and all queries would be performed through it,
@@ -1080,9 +1072,7 @@ declare interface EngineConfig {
     getQueryEngineWasmModule?: () => Promise<unknown>;
 }
 
-declare type EngineEvent<E extends EngineEventType> = E extends QueryEventType ? QueryEvent : LogEvent;
-
-declare type EngineEventType = QueryEventType | LogEventType;
+declare type EngineEventType = 'query' | 'info' | 'warn' | 'error' | 'beforeExit';
 
 declare type EngineSpan = {
     span: boolean;
@@ -1157,7 +1147,10 @@ declare interface ErrorWithBatchIndex {
     batchRequestIdx?: number;
 }
 
-declare type EventCallback<E extends ExtendedEventType> = [E] extends ['beforeExit'] ? () => Promise<void> : [E] extends [LogLevel] ? (event: EngineEvent<E>) => void : never;
+declare interface EventEmitter {
+    on(event: string, listener: (...args: any[]) => void): unknown;
+    emit(event: string, args?: any): boolean;
+}
 
 export declare type Exact<A, W> = (A extends unknown ? (W extends A ? {
     [K in keyof A]: Exact<A[K], W[K]>;
@@ -1190,8 +1183,6 @@ declare interface ExceptionWithName {
     name: string;
     stack?: string;
 }
-
-declare type ExtendedEventType = LogLevel | 'beforeExit';
 
 declare type ExtendedSpanOptions = SpanOptions & {
     /** The name of the span */
@@ -1387,7 +1378,7 @@ export declare function getPrismaClient(config: GetPrismaClientConfig): {
          * @param middleware to hook
          */
         $use(middleware: QueryMiddleware): void;
-        $on<E extends ExtendedEventType>(eventType: E, callback: EventCallback<E>): void;
+        $on(eventType: EngineEventType, callback: (event: any) => void): void;
         $connect(): Promise<void>;
         /**
          * Disconnect from the database
@@ -1830,20 +1821,6 @@ declare type LogDefinition = {
     level: LogLevel;
     emit: 'stdout' | 'event';
 };
-
-declare type LogEmitter = {
-    on<E extends EngineEventType>(event: E, listener: (event: EngineEvent<E>) => void): LogEmitter;
-    emit(event: QueryEventType, payload: QueryEvent): void;
-    emit(event: LogEventType, payload: LogEvent): void;
-};
-
-declare type LogEvent = {
-    timestamp: Date;
-    message: string;
-    target: string;
-};
-
-declare type LogEventType = 'info' | 'warn' | 'error';
 
 declare type LogLevel = 'info' | 'query' | 'warn' | 'error';
 
@@ -2341,16 +2318,6 @@ declare type QueryEngineResult<T> = {
     elapsed: number;
 };
 
-declare type QueryEvent = {
-    timestamp: Date;
-    query: string;
-    params: string;
-    duration: number;
-    target: string;
-};
-
-declare type QueryEventType = 'query';
-
 declare type QueryMiddleware = (params: QueryMiddlewareParams, next: (params: QueryMiddlewareParams) => Promise<unknown>) => Promise<unknown>;
 
 declare type QueryMiddlewareParams = {
@@ -2424,7 +2391,7 @@ declare class RequestHandler {
     client: Client;
     dataloader: DataLoader<RequestParams>;
     private logEmitter?;
-    constructor(client: Client, logEmitter?: LogEmitter);
+    constructor(client: Client, logEmitter?: EventEmitter);
     request(params: RequestParams): Promise<any>;
     mapQueryEngineResult({ dataPath, unpacker }: RequestParams, response: QueryEngineResult<any>): any;
     /**

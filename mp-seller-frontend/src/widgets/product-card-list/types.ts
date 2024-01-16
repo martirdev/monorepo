@@ -8,7 +8,9 @@ type MarketplaceInfoType = {
 
 export type ProductType = {
     id: string;
-    acrticule: string;
+    key: string;
+
+    articule: string;
     name: string;
     marketplaces: Array<MarketplaceInfoType>;
 };
