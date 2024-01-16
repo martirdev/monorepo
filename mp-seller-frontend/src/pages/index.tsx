@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ClientRoot from "./client-root/ClientRoot";
 import ProductCardTable from "./product-card-table/ProductCardTable";
-import Settings from "./settings/Settings";
+import Places from "./places/Places";
 
 const router = createBrowserRouter([
     {
@@ -13,8 +13,8 @@ const router = createBrowserRouter([
                 element: <ProductCardTable />,
             },
             {
-                path: "settings",
-                element: <Settings />,
+                path: "places",
+                element: <Places />,
             },
         ],
     },
