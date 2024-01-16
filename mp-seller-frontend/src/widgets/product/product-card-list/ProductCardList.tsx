@@ -1,28 +1,19 @@
-import { memo, useState } from "react";
+import { Key, memo, useState } from "react";
 import { Table, Tag, Tooltip } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { AppleOutlined, TwitterOutlined } from "@ant-design/icons";
 
-import { TEMPOPARY_MOCK_PRODUCTS } from "../../widgets/product-card-list/temporaryConsts";
+import { TEMPOPARY_MOCK_PRODUCTS } from "./temporaryConsts";
 import { ProductType } from "./types";
-import { currency } from "../../utils/intl/numbers";
-
-const getMarketplacelogo = (marketplaceName: string) => {
-    switch (marketplaceName) {
-        case "ym":
-            return <AppleOutlined />;
-        case "ozon":
-            return <TwitterOutlined />;
-    }
-};
+import { currency } from "../../../utils/intl/numbers";
+import { MarketplaceIcon } from "../../../shared/mp-logos";
 
 const columns: ColumnsType<ProductType> = [
     {
         title: "Артикул",
-        dataIndex: "acrticule",
-        key: "acrticule",
+        dataIndex: "articule",
+        key: "articule",
         defaultSortOrder: "descend",
-        sorter: (a, b) => Number(a.acrticule) - Number(b.acrticule),
+        sorter: (a, b) => Number(a.articule) - Number(b.articule),
     },
     {
         title: "Название",
@@ -34,17 +25,22 @@ const columns: ColumnsType<ProductType> = [
         dataIndex: "marketplaces",
         render: (_, { marketplaces }) => (
             <>
-                {marketplaces.map((marketplace, dataIndex) => {
+                {marketplaces.map((marketplace) => {
                     return (
                         <Tooltip title={currency.format(marketplace.price)}>
                             <Tag
                                 color={
                                     marketplace.isSynchronized ? "green" : "red"
                                 }
-                                key={dataIndex}
-                                icon={getMarketplacelogo(marketplace.type)}
+                                key={marketplace.id}
                             >
-                                {marketplace.name}
+                                <div className="flex gap-1 p-1">
+                                    <MarketplaceIcon
+                                        type={marketplace.type}
+                                        className="w-5"
+                                    />
+                                    <div>{marketplace.name}</div>
+                                </div>
                             </Tag>
                         </Tooltip>
                     );
@@ -55,9 +51,9 @@ const columns: ColumnsType<ProductType> = [
 ];
 
 const ProductCardList = memo(function ProductCardTable() {
-    const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+    const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
-    const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    const onSelectChange = (newSelectedRowKeys: Key[]) => {
         console.log("selectedRowKeys changed: ", newSelectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
     };

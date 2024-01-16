@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const PATHS = {
     table: "/",
-    settings: "/settings",
+    places: "/places",
 };
 
 const items: MenuProps["items"] = [
@@ -15,8 +15,8 @@ const items: MenuProps["items"] = [
         title: "Таблица карточек товаров",
     },
     {
-        label: <Link to={PATHS.settings}>Настройки</Link>,
-        key: "settings",
+        label: <Link to={PATHS.places}>Магазины</Link>,
+        key: "Shops",
         title: "Добавление магазинов, расположенных на маркетплейсах",
     },
 ];
