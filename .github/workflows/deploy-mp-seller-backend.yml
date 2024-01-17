@@ -1,12 +1,12 @@
 name: Deploy mp-seller-backend to YC
 run-name: ${{ github.actor }} start deploing mp-seller-backend to YC
 on: [workflow_dispatch]
+defaults:
+  run:
+    working-directory: ./mp-seller-backend
 jobs:
   Deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./mp-seller-backend
     steps:
       - uses: actions/checkout@v3
       - name: Login to Yandex Cloud Container Registry
