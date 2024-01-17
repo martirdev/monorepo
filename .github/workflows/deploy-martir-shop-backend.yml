@@ -29,6 +29,7 @@ jobs:
           folder-id: b1g79im8d52lhp1u91lr
           revision-cores: 1
           revision-memory: 512Mb
+          revision-service-account-id: ajeb022ctef0jsdeaeo4
           revision-core-fraction: 100
           revision-concurrency: 8
           revision-image-url: cr.yandex/crpqnutp8br023q3u5pq/shop-api:${{ github.sha }}
