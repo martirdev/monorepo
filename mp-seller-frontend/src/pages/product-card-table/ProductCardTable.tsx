@@ -1,5 +1,6 @@
-import { memo } from "react";
-import ProductCardList from "../../widgets/product-card-list/ProductCardList";
+import {memo} from 'react';
+
+import ProductCardList from '_widgets/product-card-list';
 
 const ProductCardTable = memo(function ProductCardTable() {
     return (

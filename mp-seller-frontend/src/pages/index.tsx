@@ -1,23 +1,24 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import ClientRoot from "./client-root/ClientRoot";
-import ProductCardTable from "./product-card-table/ProductCardTable";
-import Settings from "./settings/Settings";
+import {RouterProvider, createBrowserRouter} from 'react-router-dom';
+
+import ClientRoot from './client-root';
+import Places from './places';
+import ProductCardTable from './product-card-table';
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: '/',
         element: <ClientRoot />,
         children: [
             {
                 index: true,
-                element: <ProductCardTable />,
+                element: <ProductCardTable />
             },
             {
-                path: "settings",
-                element: <Settings />,
-            },
-        ],
-    },
+                path: 'places',
+                element: <Places />
+            }
+        ]
+    }
 ]);
 
 export const Routing = () => {

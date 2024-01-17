@@ -1,6 +1,7 @@
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import {Outlet, ScrollRestoration} from 'react-router-dom';
 
-import { Header } from "../../widgets/header";
+import {Header} from '_widgets/header';
+
 const ClientRoot = function ClientRoot() {
     return (
         <>
