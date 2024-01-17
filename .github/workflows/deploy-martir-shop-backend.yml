@@ -10,7 +10,7 @@ jobs:
         id: login-cr
         uses: yc-actions/yc-cr-login@v1
         with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_MARTIR_SHOP_BACKEND }}
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         working-directory: backend-example
         env:
@@ -24,13 +24,13 @@ jobs:
         id: deploy-sls-container
         uses: yc-actions/yc-sls-container-deploy@v2
         with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_MARTIR_SHOP_BACKEND }}
           container-name: shop-api
           folder-id: b1g79im8d52lhp1u91lr
           revision-cores: 1
           revision-memory: 512Mb
           revision-core-fraction: 100
           revision-concurrency: 8
-          revision-image-url: cr.yandex/crpgvh3nlf7rueqfkpp9/backend-example:${{ github.sha }}
+          revision-image-url: cr.yandex/crpqnutp8br023q3u5pq/shop-api:${{ github.sha }}
           revision-execution-timeout: 10
           revision-secrets: NOTION_API_KEY=e6qt4bsim9ms21ld72vp/e6qqb0o29cere7okjo75/NOTION_API
