@@ -1,0 +1,37 @@
+name: Deploy mp-seller-backend to YC
+run-name: ${{ github.actor }} start deploing mp-seller-backend to YC
+on: [workflow_dispatch]
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to Yandex Cloud Container Registry
+        id: login-cr
+        uses: yc-actions/yc-cr-login@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_MP_SELLER_BACKEND }}
+      - name: Build, tag, and push image to Yandex Cloud Container Registry
+        working-directory: backend-example
+        env:
+          CR_REGISTRY: crpi44rvtfekdq3aiu3q
+          CR_REPOSITORY: seller-api
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG .
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG
+      - name: Deploy Serverless Container
+        id: deploy-sls-container
+        uses: yc-actions/yc-sls-container-deploy@v2
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_MP_SELLER_BACKEND }}
+          container-name: seller-api
+          folder-id: b1gckgdn26qaerhgh5ii
+          revision-cores: 1
+          revision-memory: 512Mb
+          revision-service-account-id: ajemqbnmsulstltpdsj7
+          revision-core-fraction: 100
+          revision-concurrency: 8
+          revision-image-url: cr.yandex/crpi44rvtfekdq3aiu3q/seller-api:${{ github.sha }}
+          revision-execution-timeout: 10
+          revision-network-id: enpkcvpn6u6gd2rpldfu
