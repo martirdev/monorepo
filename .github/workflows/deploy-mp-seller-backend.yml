@@ -4,9 +4,6 @@ on: [workflow_dispatch]
 jobs:
   Deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./mp-seller-backend
     steps:
       - uses: actions/checkout@v3
       - name: Login to Yandex Cloud Container Registry
@@ -15,7 +12,7 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_MP_SELLER_BACKEND }}
       - name: Build, tag, and push image to Yandex Cloud Container Registry
-        working-directory: backend-example
+        working-directory: mp-seller-backend
         env:
           CR_REGISTRY: crpi44rvtfekdq3aiu3q
           CR_REPOSITORY: seller-api
