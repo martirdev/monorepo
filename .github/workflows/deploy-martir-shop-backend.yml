@@ -12,7 +12,7 @@ jobs:
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_MARTIR_SHOP_BACKEND }}
       - name: Build, tag, and push image to Yandex Cloud Container Registry
-        working-directory: backend-example
+        working-directory: martir-shop-backend
         env:
           CR_REGISTRY: crpqnutp8br023q3u5pq
           CR_REPOSITORY: shop-api
@@ -34,4 +34,5 @@ jobs:
           revision-concurrency: 8
           revision-image-url: cr.yandex/crpqnutp8br023q3u5pq/shop-api:${{ github.sha }}
           revision-execution-timeout: 10
+          revision-network-id: enpt5q5srijbov196lu1
           revision-secrets: NOTION_API_KEY=e6qt4bsim9ms21ld72vp/e6qqb0o29cere7okjo75/NOTION_API
