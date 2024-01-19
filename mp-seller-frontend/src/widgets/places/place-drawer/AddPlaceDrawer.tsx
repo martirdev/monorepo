@@ -14,6 +14,7 @@ const AddPlaceDrawer = memo<AddPlaceDrawerType>(function AddPlaceDrawer({onClose
     const [form] = Form.useForm<FieldType>();
     const marketpaceValue = Form.useWatch('marketpace', form);
 
+    //В момент перезда на бекендовскую ручку решить, нужно ли выносить из компонента onFinish и onFinishFailed!
     const onFinish = values => {
         console.log('Success:', values);
     };
@@ -21,6 +22,7 @@ const AddPlaceDrawer = memo<AddPlaceDrawerType>(function AddPlaceDrawer({onClose
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
     };
+
     return (
         <Drawer title={title} onClose={onClose} open={open} width={480}>
             <Form
