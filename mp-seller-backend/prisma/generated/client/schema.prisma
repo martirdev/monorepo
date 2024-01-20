@@ -15,8 +15,9 @@ enum MarketPlaces {
 }
 
 model Place {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  mp_id String?
+  name  String
 
   MarketplaceKey   MarketplaceKey? @relation(fields: [marketplaceKeyId], references: [id])
   marketplaceKeyId String?         @db.ObjectId
@@ -28,4 +29,5 @@ model MarketplaceKey {
   encrypted_api_key String
   type              MarketPlaces
   places            Place[]
+  client_id         String? // Field for operating with Ozon
 }

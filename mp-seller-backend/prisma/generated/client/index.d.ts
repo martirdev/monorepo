@@ -207,7 +207,7 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 5.7.0
+   * Prisma Client JS version: 5.8.1
    * Query Engine version: 79fb5193cf0a8fdbef536e4b4a159cad677ab1b9
    */
   export type PrismaVersion = {
@@ -972,18 +972,21 @@ export namespace Prisma {
 
   export type PlaceMinAggregateOutputType = {
     id: string | null
+    mp_id: string | null
     name: string | null
     marketplaceKeyId: string | null
   }
 
   export type PlaceMaxAggregateOutputType = {
     id: string | null
+    mp_id: string | null
     name: string | null
     marketplaceKeyId: string | null
   }
 
   export type PlaceCountAggregateOutputType = {
     id: number
+    mp_id: number
     name: number
     marketplaceKeyId: number
     _all: number
@@ -992,18 +995,21 @@ export namespace Prisma {
 
   export type PlaceMinAggregateInputType = {
     id?: true
+    mp_id?: true
     name?: true
     marketplaceKeyId?: true
   }
 
   export type PlaceMaxAggregateInputType = {
     id?: true
+    mp_id?: true
     name?: true
     marketplaceKeyId?: true
   }
 
   export type PlaceCountAggregateInputType = {
     id?: true
+    mp_id?: true
     name?: true
     marketplaceKeyId?: true
     _all?: true
@@ -1083,6 +1089,7 @@ export namespace Prisma {
 
   export type PlaceGroupByOutputType = {
     id: string
+    mp_id: string | null
     name: string
     marketplaceKeyId: string | null
     _count: PlaceCountAggregateOutputType | null
@@ -1106,6 +1113,7 @@ export namespace Prisma {
 
   export type PlaceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    mp_id?: boolean
     name?: boolean
     marketplaceKeyId?: boolean
     MarketplaceKey?: boolean | Place$MarketplaceKeyArgs<ExtArgs>
@@ -1113,6 +1121,7 @@ export namespace Prisma {
 
   export type PlaceSelectScalar = {
     id?: boolean
+    mp_id?: boolean
     name?: boolean
     marketplaceKeyId?: boolean
   }
@@ -1129,6 +1138,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      mp_id: string | null
       name: string
       marketplaceKeyId: string | null
     }, ExtArgs["result"]["place"]>
@@ -1139,7 +1149,7 @@ export namespace Prisma {
   type PlaceGetPayload<S extends boolean | null | undefined | PlaceDefaultArgs> = $Result.GetResult<Prisma.$PlacePayload, S>
 
   type PlaceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<PlaceFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<PlaceFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: PlaceCountAggregateInputType | true
     }
 
@@ -1554,6 +1564,7 @@ export namespace Prisma {
    */ 
   interface PlaceFieldRefs {
     readonly id: FieldRef<"Place", 'String'>
+    readonly mp_id: FieldRef<"Place", 'String'>
     readonly name: FieldRef<"Place", 'String'>
     readonly marketplaceKeyId: FieldRef<"Place", 'String'>
   }
@@ -1943,6 +1954,7 @@ export namespace Prisma {
     api_key: string | null
     encrypted_api_key: string | null
     type: $Enums.MarketPlaces | null
+    client_id: string | null
   }
 
   export type MarketplaceKeyMaxAggregateOutputType = {
@@ -1950,6 +1962,7 @@ export namespace Prisma {
     api_key: string | null
     encrypted_api_key: string | null
     type: $Enums.MarketPlaces | null
+    client_id: string | null
   }
 
   export type MarketplaceKeyCountAggregateOutputType = {
@@ -1957,6 +1970,7 @@ export namespace Prisma {
     api_key: number
     encrypted_api_key: number
     type: number
+    client_id: number
     _all: number
   }
 
@@ -1966,6 +1980,7 @@ export namespace Prisma {
     api_key?: true
     encrypted_api_key?: true
     type?: true
+    client_id?: true
   }
 
   export type MarketplaceKeyMaxAggregateInputType = {
@@ -1973,6 +1988,7 @@ export namespace Prisma {
     api_key?: true
     encrypted_api_key?: true
     type?: true
+    client_id?: true
   }
 
   export type MarketplaceKeyCountAggregateInputType = {
@@ -1980,6 +1996,7 @@ export namespace Prisma {
     api_key?: true
     encrypted_api_key?: true
     type?: true
+    client_id?: true
     _all?: true
   }
 
@@ -2060,6 +2077,7 @@ export namespace Prisma {
     api_key: string
     encrypted_api_key: string
     type: $Enums.MarketPlaces
+    client_id: string | null
     _count: MarketplaceKeyCountAggregateOutputType | null
     _min: MarketplaceKeyMinAggregateOutputType | null
     _max: MarketplaceKeyMaxAggregateOutputType | null
@@ -2084,6 +2102,7 @@ export namespace Prisma {
     api_key?: boolean
     encrypted_api_key?: boolean
     type?: boolean
+    client_id?: boolean
     places?: boolean | MarketplaceKey$placesArgs<ExtArgs>
     _count?: boolean | MarketplaceKeyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["marketplaceKey"]>
@@ -2093,6 +2112,7 @@ export namespace Prisma {
     api_key?: boolean
     encrypted_api_key?: boolean
     type?: boolean
+    client_id?: boolean
   }
 
   export type MarketplaceKeyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2111,6 +2131,7 @@ export namespace Prisma {
       api_key: string
       encrypted_api_key: string
       type: $Enums.MarketPlaces
+      client_id: string | null
     }, ExtArgs["result"]["marketplaceKey"]>
     composites: {}
   }
@@ -2119,7 +2140,7 @@ export namespace Prisma {
   type MarketplaceKeyGetPayload<S extends boolean | null | undefined | MarketplaceKeyDefaultArgs> = $Result.GetResult<Prisma.$MarketplaceKeyPayload, S>
 
   type MarketplaceKeyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<MarketplaceKeyFindManyArgs, 'select' | 'include' | 'distinct' > & {
+    Omit<MarketplaceKeyFindManyArgs, 'select' | 'include' | 'distinct'> & {
       select?: MarketplaceKeyCountAggregateInputType | true
     }
 
@@ -2537,6 +2558,7 @@ export namespace Prisma {
     readonly api_key: FieldRef<"MarketplaceKey", 'String'>
     readonly encrypted_api_key: FieldRef<"MarketplaceKey", 'String'>
     readonly type: FieldRef<"MarketplaceKey", 'MarketPlaces'>
+    readonly client_id: FieldRef<"MarketplaceKey", 'String'>
   }
     
 
@@ -2920,6 +2942,7 @@ export namespace Prisma {
 
   export const PlaceScalarFieldEnum: {
     id: 'id',
+    mp_id: 'mp_id',
     name: 'name',
     marketplaceKeyId: 'marketplaceKeyId'
   };
@@ -2931,7 +2954,8 @@ export namespace Prisma {
     id: 'id',
     api_key: 'api_key',
     encrypted_api_key: 'encrypted_api_key',
-    type: 'type'
+    type: 'type',
+    client_id: 'client_id'
   };
 
   export type MarketplaceKeyScalarFieldEnum = (typeof MarketplaceKeyScalarFieldEnum)[keyof typeof MarketplaceKeyScalarFieldEnum]
@@ -3008,6 +3032,7 @@ export namespace Prisma {
     OR?: PlaceWhereInput[]
     NOT?: PlaceWhereInput | PlaceWhereInput[]
     id?: StringFilter<"Place"> | string
+    mp_id?: StringNullableFilter<"Place"> | string | null
     name?: StringFilter<"Place"> | string
     marketplaceKeyId?: StringNullableFilter<"Place"> | string | null
     MarketplaceKey?: XOR<MarketplaceKeyNullableRelationFilter, MarketplaceKeyWhereInput> | null
@@ -3015,6 +3040,7 @@ export namespace Prisma {
 
   export type PlaceOrderByWithRelationInput = {
     id?: SortOrder
+    mp_id?: SortOrder
     name?: SortOrder
     marketplaceKeyId?: SortOrder
     MarketplaceKey?: MarketplaceKeyOrderByWithRelationInput
@@ -3025,6 +3051,7 @@ export namespace Prisma {
     AND?: PlaceWhereInput | PlaceWhereInput[]
     OR?: PlaceWhereInput[]
     NOT?: PlaceWhereInput | PlaceWhereInput[]
+    mp_id?: StringNullableFilter<"Place"> | string | null
     name?: StringFilter<"Place"> | string
     marketplaceKeyId?: StringNullableFilter<"Place"> | string | null
     MarketplaceKey?: XOR<MarketplaceKeyNullableRelationFilter, MarketplaceKeyWhereInput> | null
@@ -3032,6 +3059,7 @@ export namespace Prisma {
 
   export type PlaceOrderByWithAggregationInput = {
     id?: SortOrder
+    mp_id?: SortOrder
     name?: SortOrder
     marketplaceKeyId?: SortOrder
     _count?: PlaceCountOrderByAggregateInput
@@ -3044,6 +3072,7 @@ export namespace Prisma {
     OR?: PlaceScalarWhereWithAggregatesInput[]
     NOT?: PlaceScalarWhereWithAggregatesInput | PlaceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Place"> | string
+    mp_id?: StringNullableWithAggregatesFilter<"Place"> | string | null
     name?: StringWithAggregatesFilter<"Place"> | string
     marketplaceKeyId?: StringNullableWithAggregatesFilter<"Place"> | string | null
   }
@@ -3056,6 +3085,7 @@ export namespace Prisma {
     api_key?: StringFilter<"MarketplaceKey"> | string
     encrypted_api_key?: StringFilter<"MarketplaceKey"> | string
     type?: EnumMarketPlacesFilter<"MarketplaceKey"> | $Enums.MarketPlaces
+    client_id?: StringNullableFilter<"MarketplaceKey"> | string | null
     places?: PlaceListRelationFilter
   }
 
@@ -3064,6 +3094,7 @@ export namespace Prisma {
     api_key?: SortOrder
     encrypted_api_key?: SortOrder
     type?: SortOrder
+    client_id?: SortOrder
     places?: PlaceOrderByRelationAggregateInput
   }
 
@@ -3075,6 +3106,7 @@ export namespace Prisma {
     NOT?: MarketplaceKeyWhereInput | MarketplaceKeyWhereInput[]
     encrypted_api_key?: StringFilter<"MarketplaceKey"> | string
     type?: EnumMarketPlacesFilter<"MarketplaceKey"> | $Enums.MarketPlaces
+    client_id?: StringNullableFilter<"MarketplaceKey"> | string | null
     places?: PlaceListRelationFilter
   }, "id" | "api_key">
 
@@ -3083,6 +3115,7 @@ export namespace Prisma {
     api_key?: SortOrder
     encrypted_api_key?: SortOrder
     type?: SortOrder
+    client_id?: SortOrder
     _count?: MarketplaceKeyCountOrderByAggregateInput
     _max?: MarketplaceKeyMaxOrderByAggregateInput
     _min?: MarketplaceKeyMinOrderByAggregateInput
@@ -3096,41 +3129,49 @@ export namespace Prisma {
     api_key?: StringWithAggregatesFilter<"MarketplaceKey"> | string
     encrypted_api_key?: StringWithAggregatesFilter<"MarketplaceKey"> | string
     type?: EnumMarketPlacesWithAggregatesFilter<"MarketplaceKey"> | $Enums.MarketPlaces
+    client_id?: StringNullableWithAggregatesFilter<"MarketplaceKey"> | string | null
   }
 
   export type PlaceCreateInput = {
     id?: string
+    mp_id?: string | null
     name: string
     MarketplaceKey?: MarketplaceKeyCreateNestedOneWithoutPlacesInput
   }
 
   export type PlaceUncheckedCreateInput = {
     id?: string
+    mp_id?: string | null
     name: string
     marketplaceKeyId?: string | null
   }
 
   export type PlaceUpdateInput = {
+    mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     MarketplaceKey?: MarketplaceKeyUpdateOneWithoutPlacesNestedInput
   }
 
   export type PlaceUncheckedUpdateInput = {
+    mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     marketplaceKeyId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PlaceCreateManyInput = {
     id?: string
+    mp_id?: string | null
     name: string
     marketplaceKeyId?: string | null
   }
 
   export type PlaceUpdateManyMutationInput = {
+    mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlaceUncheckedUpdateManyInput = {
+    mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     marketplaceKeyId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -3140,6 +3181,7 @@ export namespace Prisma {
     api_key: string
     encrypted_api_key: string
     type: $Enums.MarketPlaces
+    client_id?: string | null
     places?: PlaceCreateNestedManyWithoutMarketplaceKeyInput
   }
 
@@ -3148,6 +3190,7 @@ export namespace Prisma {
     api_key: string
     encrypted_api_key: string
     type: $Enums.MarketPlaces
+    client_id?: string | null
     places?: PlaceUncheckedCreateNestedManyWithoutMarketplaceKeyInput
   }
 
@@ -3155,6 +3198,7 @@ export namespace Prisma {
     api_key?: StringFieldUpdateOperationsInput | string
     encrypted_api_key?: StringFieldUpdateOperationsInput | string
     type?: EnumMarketPlacesFieldUpdateOperationsInput | $Enums.MarketPlaces
+    client_id?: NullableStringFieldUpdateOperationsInput | string | null
     places?: PlaceUpdateManyWithoutMarketplaceKeyNestedInput
   }
 
@@ -3162,6 +3206,7 @@ export namespace Prisma {
     api_key?: StringFieldUpdateOperationsInput | string
     encrypted_api_key?: StringFieldUpdateOperationsInput | string
     type?: EnumMarketPlacesFieldUpdateOperationsInput | $Enums.MarketPlaces
+    client_id?: NullableStringFieldUpdateOperationsInput | string | null
     places?: PlaceUncheckedUpdateManyWithoutMarketplaceKeyNestedInput
   }
 
@@ -3170,18 +3215,21 @@ export namespace Prisma {
     api_key: string
     encrypted_api_key: string
     type: $Enums.MarketPlaces
+    client_id?: string | null
   }
 
   export type MarketplaceKeyUpdateManyMutationInput = {
     api_key?: StringFieldUpdateOperationsInput | string
     encrypted_api_key?: StringFieldUpdateOperationsInput | string
     type?: EnumMarketPlacesFieldUpdateOperationsInput | $Enums.MarketPlaces
+    client_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MarketplaceKeyUncheckedUpdateManyInput = {
     api_key?: StringFieldUpdateOperationsInput | string
     encrypted_api_key?: StringFieldUpdateOperationsInput | string
     type?: EnumMarketPlacesFieldUpdateOperationsInput | $Enums.MarketPlaces
+    client_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3222,18 +3270,21 @@ export namespace Prisma {
 
   export type PlaceCountOrderByAggregateInput = {
     id?: SortOrder
+    mp_id?: SortOrder
     name?: SortOrder
     marketplaceKeyId?: SortOrder
   }
 
   export type PlaceMaxOrderByAggregateInput = {
     id?: SortOrder
+    mp_id?: SortOrder
     name?: SortOrder
     marketplaceKeyId?: SortOrder
   }
 
   export type PlaceMinOrderByAggregateInput = {
     id?: SortOrder
+    mp_id?: SortOrder
     name?: SortOrder
     marketplaceKeyId?: SortOrder
   }
@@ -3297,6 +3348,7 @@ export namespace Prisma {
     api_key?: SortOrder
     encrypted_api_key?: SortOrder
     type?: SortOrder
+    client_id?: SortOrder
   }
 
   export type MarketplaceKeyMaxOrderByAggregateInput = {
@@ -3304,6 +3356,7 @@ export namespace Prisma {
     api_key?: SortOrder
     encrypted_api_key?: SortOrder
     type?: SortOrder
+    client_id?: SortOrder
   }
 
   export type MarketplaceKeyMinOrderByAggregateInput = {
@@ -3311,6 +3364,7 @@ export namespace Prisma {
     api_key?: SortOrder
     encrypted_api_key?: SortOrder
     type?: SortOrder
+    client_id?: SortOrder
   }
 
   export type EnumMarketPlacesWithAggregatesFilter<$PrismaModel = never> = {
@@ -3329,6 +3383,11 @@ export namespace Prisma {
     connect?: MarketplaceKeyWhereUniqueInput
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+    unset?: boolean
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -3341,11 +3400,6 @@ export namespace Prisma {
     delete?: MarketplaceKeyWhereInput | boolean
     connect?: MarketplaceKeyWhereUniqueInput
     update?: XOR<XOR<MarketplaceKeyUpdateToOneWithWhereWithoutPlacesInput, MarketplaceKeyUpdateWithoutPlacesInput>, MarketplaceKeyUncheckedUpdateWithoutPlacesInput>
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-    unset?: boolean
   }
 
   export type PlaceCreateNestedManyWithoutMarketplaceKeyInput = {
@@ -3503,6 +3557,7 @@ export namespace Prisma {
     api_key: string
     encrypted_api_key: string
     type: $Enums.MarketPlaces
+    client_id?: string | null
   }
 
   export type MarketplaceKeyUncheckedCreateWithoutPlacesInput = {
@@ -3510,6 +3565,7 @@ export namespace Prisma {
     api_key: string
     encrypted_api_key: string
     type: $Enums.MarketPlaces
+    client_id?: string | null
   }
 
   export type MarketplaceKeyCreateOrConnectWithoutPlacesInput = {
@@ -3532,21 +3588,25 @@ export namespace Prisma {
     api_key?: StringFieldUpdateOperationsInput | string
     encrypted_api_key?: StringFieldUpdateOperationsInput | string
     type?: EnumMarketPlacesFieldUpdateOperationsInput | $Enums.MarketPlaces
+    client_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MarketplaceKeyUncheckedUpdateWithoutPlacesInput = {
     api_key?: StringFieldUpdateOperationsInput | string
     encrypted_api_key?: StringFieldUpdateOperationsInput | string
     type?: EnumMarketPlacesFieldUpdateOperationsInput | $Enums.MarketPlaces
+    client_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PlaceCreateWithoutMarketplaceKeyInput = {
     id?: string
+    mp_id?: string | null
     name: string
   }
 
   export type PlaceUncheckedCreateWithoutMarketplaceKeyInput = {
     id?: string
+    mp_id?: string | null
     name: string
   }
 
@@ -3580,24 +3640,29 @@ export namespace Prisma {
     OR?: PlaceScalarWhereInput[]
     NOT?: PlaceScalarWhereInput | PlaceScalarWhereInput[]
     id?: StringFilter<"Place"> | string
+    mp_id?: StringNullableFilter<"Place"> | string | null
     name?: StringFilter<"Place"> | string
     marketplaceKeyId?: StringNullableFilter<"Place"> | string | null
   }
 
   export type PlaceCreateManyMarketplaceKeyInput = {
     id?: string
+    mp_id?: string | null
     name: string
   }
 
   export type PlaceUpdateWithoutMarketplaceKeyInput = {
+    mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlaceUncheckedUpdateWithoutMarketplaceKeyInput = {
+    mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlaceUncheckedUpdateManyWithoutMarketplaceKeyInput = {
+    mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
   }
 
