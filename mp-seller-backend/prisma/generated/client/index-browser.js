@@ -16,11 +16,11 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 5.7.0
+ * Prisma Client JS version: 5.8.1
  * Query Engine version: 79fb5193cf0a8fdbef536e4b4a159cad677ab1b9
  */
 Prisma.prismaVersion = {
-  client: "5.7.0",
+  client: "5.8.1",
   engine: "79fb5193cf0a8fdbef536e4b4a159cad677ab1b9"
 }
 
@@ -102,6 +102,7 @@ Prisma.NullTypes = {
 
 exports.Prisma.PlaceScalarFieldEnum = {
   id: 'id',
+  mp_id: 'mp_id',
   name: 'name',
   marketplaceKeyId: 'marketplaceKeyId'
 };
@@ -110,7 +111,8 @@ exports.Prisma.MarketplaceKeyScalarFieldEnum = {
   id: 'id',
   api_key: 'api_key',
   encrypted_api_key: 'encrypted_api_key',
-  type: 'type'
+  type: 'type',
+  client_id: 'client_id'
 };
 
 exports.Prisma.SortOrder = {

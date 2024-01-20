@@ -35,3 +35,4 @@ jobs:
           revision-image-url: cr.yandex/crpi44rvtfekdq3aiu3q/seller-api:${{ github.sha }}
           revision-execution-timeout: 10
           revision-network-id: enpkcvpn6u6gd2rpldfu
+          revision-secrets: DATABASE_URL=e6qs6sh52uk17eup8n15/e6qq72en1s0vo2a5p4dq/DB_URL
