@@ -1,11 +1,10 @@
-import {Table, Tag} from 'antd';
-import type {ColumnsType} from 'antd/es/table';
-import {Key, memo, useCallback, useMemo, useState} from 'react';
+import { Table, Tag } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import { Key, memo, useCallback, useMemo, useState } from 'react';
 
-import {MarketplaceIcon} from '_shared/mp-logos';
+import { MarketplaceIcon } from '_shared/mp-logos';
 
-import {MOCK_SHOPS} from './temporaryConsts';
-import {KeyForMarketplaceType} from './types';
+import { KeyForMarketplaceType, PlacesListType } from './types';
 
 const columns: ColumnsType<KeyForMarketplaceType> = [
     {
@@ -34,7 +33,7 @@ const columns: ColumnsType<KeyForMarketplaceType> = [
     }
 ];
 
-const PlacesList = memo(function PlacesList() {
+const PlacesList = memo<PlacesListType>(function PlacesList({placesDataSource}) {
     const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
 
     const onSelectChange = useCallback(
@@ -55,7 +54,7 @@ const PlacesList = memo(function PlacesList() {
 
     return (
         <div>
-            <Table columns={columns} dataSource={MOCK_SHOPS} rowSelection={rowSelection} />
+            <Table columns={columns} dataSource={placesDataSource} rowSelection={rowSelection} />
         </div>
     );
 });

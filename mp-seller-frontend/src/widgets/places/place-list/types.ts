@@ -10,3 +10,7 @@ export type KeyForMarketplaceType = {
     type: 'ozon' | 'ym'; // тип ключа
     places: PlaceType[];
 };
+
+export type PlacesListType = {
+    placesDataSource: Array<KeyForMarketplaceType>;
+}
