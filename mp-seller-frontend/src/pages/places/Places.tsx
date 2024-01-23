@@ -1,13 +1,17 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Input } from 'antd';
-import { useCallback, useState } from 'react';
+import {PlusOutlined} from '@ant-design/icons';
+import {Button, Input} from 'antd';
+import {SearchProps} from 'antd/es/input';
+import {useCallback, useMemo, useState} from 'react';
 
 import AddPlaceDrawer from '_widgets/places/place-drawer';
 import PlacesList from '_widgets/places/place-list';
+import {MOCK_SHOPS} from '_widgets/places/place-list/temporaryConsts';
+import {KeyForMarketplaceType} from '_widgets/places/place-list/types';
 
 const {Search} = Input;
 
 const Places = function Places() {
+    const [search, setSearch] = useState('');
     const [openAddDrawer, setOpenAddDrawer] = useState(false);
 
     const showAddDrawer = useCallback(() => {
@@ -16,17 +20,33 @@ const Places = function Places() {
 
     const onClose = useCallback(() => {
         setOpenAddDrawer(false);
-    },[]);
+    }, []);
+
+    const onSearch: SearchProps['onSearch'] = value => setSearch(value);
+
+    const tableData = useMemo(
+        () =>
+            MOCK_SHOPS.filter(item =>
+                item.places.some(place => place.name.toLowerCase().includes(search.toLowerCase()))
+            ),
+        [search]
+    );
+    const dataSource: Array<KeyForMarketplaceType> = tableData || MOCK_SHOPS;
 
     return (
         <div className="mx-40 mt-16">
             <div className="mb-14 flex justify-between">
-                <Search placeholder="здесь будет поиск, пока его нет :(" onSearch={() => {}} className="max-w-sm w-full" />
+                <Search
+                    placeholder="Введите название магазина"
+                    onSearch={onSearch}
+                    allowClear
+                    className="w-full max-w-sm"
+                />
                 <Button type="primary" icon={<PlusOutlined />} onClick={showAddDrawer}>
                     Добавить магазин
                 </Button>
             </div>
-            <PlacesList />
+            <PlacesList placesDataSource={dataSource} />
 
             <AddPlaceDrawer onClose={onClose} open={openAddDrawer} title={'Добавление магазина'} />
         </div>
