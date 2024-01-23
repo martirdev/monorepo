@@ -25,7 +25,10 @@ const Places = function Places() {
     const onSearch: SearchProps['onSearch'] = value => setSearch(value);
 
     const tableData = useMemo(
-        () => MOCK_SHOPS.filter(item => item.places.some(place => place.name.includes(search))),
+        () =>
+            MOCK_SHOPS.filter(item =>
+                item.places.some(place => place.name.toLowerCase().includes(search.toLowerCase()))
+            ),
         [search]
     );
     const dataSource: Array<KeyForMarketplaceType> = tableData || MOCK_SHOPS;
