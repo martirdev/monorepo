@@ -9,3 +9,52 @@ datasource db {
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
+
+model Images {
+  id               String @id @default(uuid())
+  productVersionId String
+
+  url            String
+  productVersion ProductVersion @relation(fields: [productVersionId], references: [id])
+}
+
+model Category {
+  id               String  @id @default(uuid())
+  parentCategoryId String?
+
+  name               String
+  productVersions    ProductVersion[]
+  parentCategory     Category?        @relation("Category", fields: [parentCategoryId], references: [id])
+  childrenCategories Category[]       @relation("Category")
+}
+
+model ParamValues {
+  id String @id @default(uuid())
+
+  name            String
+  value           String
+  productVersions ProductVersion[]
+}
+
+model Product {
+  id String @id @default(uuid())
+
+  count     Int
+  versions  ProductVersion[]
+  createdAt DateTime         @default(now())
+}
+
+model ProductVersion {
+  id         String  @id @default(uuid())
+  categoryId String?
+  productId  String
+
+  name        String
+  description String
+  price       Float
+  createdAt   DateTime      @default(now())
+  params      ParamValues[]
+  images      Images[]
+  product     Product       @relation(fields: [productId], references: [id])
+  category    Category?     @relation(fields: [categoryId], references: [id])
+}
