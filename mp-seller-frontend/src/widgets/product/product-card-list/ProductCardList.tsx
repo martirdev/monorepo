@@ -1,9 +1,10 @@
 import {Table, Tag, Tooltip} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
-import {Key, memo, useState} from 'react';
+import {memo, useCallback, useState} from 'react';
 
 import {MarketplaceIcon} from '_shared/mp-logos';
 import {currency} from '_shared/utils/intl/numbers';
+import {BottomMenu} from '_widgets/bottom-menu';
 
 import {TEMPOPARY_MOCK_PRODUCTS} from './temporaryConsts';
 import {ProductType} from './types';
@@ -44,9 +45,9 @@ const columns: ColumnsType<ProductType> = [
 ];
 
 const ProductCardList = memo(function ProductCardTable() {
-    const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
+    const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 
-    const onSelectChange = (newSelectedRowKeys: Key[]) => {
+    const onSelectChange = (newSelectedRowKeys: string[]) => {
         console.log('selectedRowKeys changed: ', newSelectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
     };
@@ -56,9 +57,19 @@ const ProductCardList = memo(function ProductCardTable() {
         onChange: onSelectChange
     };
 
+    const resetSelection = useCallback(() => {
+        setSelectedRowKeys([]);
+    }, [setSelectedRowKeys]);
+
     return (
-        <div>
-            <Table columns={columns} dataSource={TEMPOPARY_MOCK_PRODUCTS} rowSelection={rowSelection} />
+        <div className="flex flex-col gap-1">
+            <Table
+                columns={columns}
+                dataSource={TEMPOPARY_MOCK_PRODUCTS}
+                rowSelection={rowSelection}
+                className="flex-1"
+            />
+            {selectedRowKeys.length > 0 && <BottomMenu selectedRowKeys={selectedRowKeys} onCancel={resetSelection} />}
         </div>
     );
 });
