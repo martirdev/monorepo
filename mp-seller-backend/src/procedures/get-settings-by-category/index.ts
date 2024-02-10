@@ -50,6 +50,7 @@ export const getSettingsByCategory = procedure
         }
         const settings = await loadOzonSettingsByCategory(
           mpKey.api_key,
+          mpKey.client_id ?? "",
           input.categoryId,
           input.descriptionCategoryId
         );

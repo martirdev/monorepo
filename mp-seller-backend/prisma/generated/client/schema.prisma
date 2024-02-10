@@ -21,6 +21,7 @@ model Place {
 
   MarketplaceKey   MarketplaceKey? @relation(fields: [marketplaceKeyId], references: [id])
   marketplaceKeyId String?         @db.ObjectId
+  Product          Product[]
 }
 
 model MarketplaceKey {
@@ -30,4 +31,12 @@ model MarketplaceKey {
   type              MarketPlaces
   places            Place[]
   client_id         String? // Field for operating with Ozon
+}
+
+model Product {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  place_id String @db.ObjectId
+
+  data  Json
+  place Place @relation(fields: [place_id], references: [id])
 }

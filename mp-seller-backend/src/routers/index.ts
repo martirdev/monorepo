@@ -12,6 +12,9 @@ export const appRouter = router({
 
   getMarketplaceCategories,
   getSettingsByCategory,
+
+  getProduct,
+  createProduct,
 });
 
 export type Router = typeof appRouter;

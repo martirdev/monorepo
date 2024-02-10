@@ -115,6 +115,12 @@ exports.Prisma.MarketplaceKeyScalarFieldEnum = {
   client_id: 'client_id'
 };
 
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  place_id: 'place_id',
+  data: 'data'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -131,7 +137,8 @@ exports.MarketPlaces = exports.$Enums.MarketPlaces = {
 
 exports.Prisma.ModelName = {
   Place: 'Place',
-  MarketplaceKey: 'MarketplaceKey'
+  MarketplaceKey: 'MarketplaceKey',
+  Product: 'Product'
 };
 
 /**
