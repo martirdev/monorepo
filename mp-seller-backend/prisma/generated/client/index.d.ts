@@ -23,6 +23,11 @@ export type Place = $Result.DefaultSelection<Prisma.$PlacePayload>
  * 
  */
 export type MarketplaceKey = $Result.DefaultSelection<Prisma.$MarketplaceKeyPayload>
+/**
+ * Model Product
+ * 
+ */
+export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>
 
 /**
  * Enums
@@ -150,6 +155,16 @@ export class PrismaClient<
     * ```
     */
   get marketplaceKey(): Prisma.MarketplaceKeyDelegate<ExtArgs>;
+
+  /**
+   * `prisma.product`: Exposes CRUD operations for the **Product** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Products
+    * const products = await prisma.product.findMany()
+    * ```
+    */
+  get product(): Prisma.ProductDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -621,7 +636,8 @@ export namespace Prisma {
 
   export const ModelName: {
     Place: 'Place',
-    MarketplaceKey: 'MarketplaceKey'
+    MarketplaceKey: 'MarketplaceKey',
+    Product: 'Product'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -638,7 +654,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'place' | 'marketplaceKey'
+      modelProps: 'place' | 'marketplaceKey' | 'product'
       txIsolationLevel: never
     },
     model: {
@@ -790,6 +806,80 @@ export namespace Prisma {
           }
         }
       }
+      Product: {
+        payload: Prisma.$ProductPayload<ExtArgs>
+        fields: Prisma.ProductFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProductFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProductFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          findFirst: {
+            args: Prisma.ProductFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProductFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          findMany: {
+            args: Prisma.ProductFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>[]
+          }
+          create: {
+            args: Prisma.ProductCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          createMany: {
+            args: Prisma.ProductCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ProductDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          update: {
+            args: Prisma.ProductUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProductDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProductUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ProductUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          aggregate: {
+            args: Prisma.ProductAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateProduct>
+          }
+          groupBy: {
+            args: Prisma.ProductGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ProductGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ProductFindRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ProductAggregateRawArgs<ExtArgs>,
+            result: Prisma.JsonObject
+          }
+          count: {
+            args: Prisma.ProductCountArgs<ExtArgs>,
+            result: $Utils.Optional<ProductCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -920,6 +1010,40 @@ export namespace Prisma {
   /**
    * Count Types
    */
+
+
+  /**
+   * Count Type PlaceCountOutputType
+   */
+
+  export type PlaceCountOutputType = {
+    Product: number
+  }
+
+  export type PlaceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Product?: boolean | PlaceCountOutputTypeCountProductArgs
+  }
+
+  // Custom InputTypes
+
+  /**
+   * PlaceCountOutputType without action
+   */
+  export type PlaceCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PlaceCountOutputType
+     */
+    select?: PlaceCountOutputTypeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * PlaceCountOutputType without action
+   */
+  export type PlaceCountOutputTypeCountProductArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductWhereInput
+  }
+
 
 
   /**
@@ -1117,6 +1241,8 @@ export namespace Prisma {
     name?: boolean
     marketplaceKeyId?: boolean
     MarketplaceKey?: boolean | Place$MarketplaceKeyArgs<ExtArgs>
+    Product?: boolean | Place$ProductArgs<ExtArgs>
+    _count?: boolean | PlaceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["place"]>
 
   export type PlaceSelectScalar = {
@@ -1128,6 +1254,8 @@ export namespace Prisma {
 
   export type PlaceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     MarketplaceKey?: boolean | Place$MarketplaceKeyArgs<ExtArgs>
+    Product?: boolean | Place$ProductArgs<ExtArgs>
+    _count?: boolean | PlaceCountOutputTypeDefaultArgs<ExtArgs>
   }
 
 
@@ -1135,6 +1263,7 @@ export namespace Prisma {
     name: "Place"
     objects: {
       MarketplaceKey: Prisma.$MarketplaceKeyPayload<ExtArgs> | null
+      Product: Prisma.$ProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1535,6 +1664,8 @@ export namespace Prisma {
 
     MarketplaceKey<T extends Place$MarketplaceKeyArgs<ExtArgs> = {}>(args?: Subset<T, Place$MarketplaceKeyArgs<ExtArgs>>): Prisma__MarketplaceKeyClient<$Result.GetResult<Prisma.$MarketplaceKeyPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
+    Product<T extends Place$ProductArgs<ExtArgs> = {}>(args?: Subset<T, Place$ProductArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1920,6 +2051,27 @@ export namespace Prisma {
      */
     include?: MarketplaceKeyInclude<ExtArgs> | null
     where?: MarketplaceKeyWhereInput
+  }
+
+
+  /**
+   * Place.Product
+   */
+  export type Place$ProductArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+    where?: ProductWhereInput
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    cursor?: ProductWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
   }
 
 
@@ -2937,6 +3089,954 @@ export namespace Prisma {
 
 
   /**
+   * Model Product
+   */
+
+  export type AggregateProduct = {
+    _count: ProductCountAggregateOutputType | null
+    _min: ProductMinAggregateOutputType | null
+    _max: ProductMaxAggregateOutputType | null
+  }
+
+  export type ProductMinAggregateOutputType = {
+    id: string | null
+    place_id: string | null
+  }
+
+  export type ProductMaxAggregateOutputType = {
+    id: string | null
+    place_id: string | null
+  }
+
+  export type ProductCountAggregateOutputType = {
+    id: number
+    place_id: number
+    data: number
+    _all: number
+  }
+
+
+  export type ProductMinAggregateInputType = {
+    id?: true
+    place_id?: true
+  }
+
+  export type ProductMaxAggregateInputType = {
+    id?: true
+    place_id?: true
+  }
+
+  export type ProductCountAggregateInputType = {
+    id?: true
+    place_id?: true
+    data?: true
+    _all?: true
+  }
+
+  export type ProductAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Product to aggregate.
+     */
+    where?: ProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Products to fetch.
+     */
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Products.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Products
+    **/
+    _count?: true | ProductCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProductMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProductMaxAggregateInputType
+  }
+
+  export type GetProductAggregateType<T extends ProductAggregateArgs> = {
+        [P in keyof T & keyof AggregateProduct]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProduct[P]>
+      : GetScalarType<T[P], AggregateProduct[P]>
+  }
+
+
+
+
+  export type ProductGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductWhereInput
+    orderBy?: ProductOrderByWithAggregationInput | ProductOrderByWithAggregationInput[]
+    by: ProductScalarFieldEnum[] | ProductScalarFieldEnum
+    having?: ProductScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProductCountAggregateInputType | true
+    _min?: ProductMinAggregateInputType
+    _max?: ProductMaxAggregateInputType
+  }
+
+  export type ProductGroupByOutputType = {
+    id: string
+    place_id: string
+    data: JsonValue
+    _count: ProductCountAggregateOutputType | null
+    _min: ProductMinAggregateOutputType | null
+    _max: ProductMaxAggregateOutputType | null
+  }
+
+  type GetProductGroupByPayload<T extends ProductGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProductGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProductGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProductGroupByOutputType[P]>
+            : GetScalarType<T[P], ProductGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    place_id?: boolean
+    data?: boolean
+    place?: boolean | PlaceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["product"]>
+
+  export type ProductSelectScalar = {
+    id?: boolean
+    place_id?: boolean
+    data?: boolean
+  }
+
+  export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    place?: boolean | PlaceDefaultArgs<ExtArgs>
+  }
+
+
+  export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Product"
+    objects: {
+      place: Prisma.$PlacePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      place_id: string
+      data: Prisma.JsonValue
+    }, ExtArgs["result"]["product"]>
+    composites: {}
+  }
+
+
+  type ProductGetPayload<S extends boolean | null | undefined | ProductDefaultArgs> = $Result.GetResult<Prisma.$ProductPayload, S>
+
+  type ProductCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ProductFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ProductCountAggregateInputType | true
+    }
+
+  export interface ProductDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Product'], meta: { name: 'Product' } }
+    /**
+     * Find zero or one Product that matches the filter.
+     * @param {ProductFindUniqueArgs} args - Arguments to find a Product
+     * @example
+     * // Get one Product
+     * const product = await prisma.product.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ProductFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductFindUniqueArgs<ExtArgs>>
+    ): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Product that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ProductFindUniqueOrThrowArgs} args - Arguments to find a Product
+     * @example
+     * // Get one Product
+     * const product = await prisma.product.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ProductFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Product that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductFindFirstArgs} args - Arguments to find a Product
+     * @example
+     * // Get one Product
+     * const product = await prisma.product.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ProductFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductFindFirstArgs<ExtArgs>>
+    ): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Product that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductFindFirstOrThrowArgs} args - Arguments to find a Product
+     * @example
+     * // Get one Product
+     * const product = await prisma.product.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ProductFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Products that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Products
+     * const products = await prisma.product.findMany()
+     * 
+     * // Get first 10 Products
+     * const products = await prisma.product.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const productWithIdOnly = await prisma.product.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ProductFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Product.
+     * @param {ProductCreateArgs} args - Arguments to create a Product.
+     * @example
+     * // Create one Product
+     * const Product = await prisma.product.create({
+     *   data: {
+     *     // ... data to create a Product
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ProductCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductCreateArgs<ExtArgs>>
+    ): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Products.
+     *     @param {ProductCreateManyArgs} args - Arguments to create many Products.
+     *     @example
+     *     // Create many Products
+     *     const product = await prisma.product.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ProductCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Product.
+     * @param {ProductDeleteArgs} args - Arguments to delete one Product.
+     * @example
+     * // Delete one Product
+     * const Product = await prisma.product.delete({
+     *   where: {
+     *     // ... filter to delete one Product
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ProductDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductDeleteArgs<ExtArgs>>
+    ): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Product.
+     * @param {ProductUpdateArgs} args - Arguments to update one Product.
+     * @example
+     * // Update one Product
+     * const product = await prisma.product.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ProductUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductUpdateArgs<ExtArgs>>
+    ): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Products.
+     * @param {ProductDeleteManyArgs} args - Arguments to filter Products to delete.
+     * @example
+     * // Delete a few Products
+     * const { count } = await prisma.product.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ProductDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Products.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Products
+     * const product = await prisma.product.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ProductUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Product.
+     * @param {ProductUpsertArgs} args - Arguments to update or create a Product.
+     * @example
+     * // Update or create a Product
+     * const product = await prisma.product.upsert({
+     *   create: {
+     *     // ... data to create a Product
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Product we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ProductUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductUpsertArgs<ExtArgs>>
+    ): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Products that matches the filter.
+     * @param {ProductFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const product = await prisma.product.findRaw({
+     *   filter: { age: { $gt: 25 } } 
+     * })
+    **/
+    findRaw(
+      args?: ProductFindRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a Product.
+     * @param {ProductAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const product = await prisma.product.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+    **/
+    aggregateRaw(
+      args?: ProductAggregateRawArgs
+    ): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Count the number of Products.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductCountArgs} args - Arguments to filter Products to count.
+     * @example
+     * // Count the number of Products
+     * const count = await prisma.product.count({
+     *   where: {
+     *     // ... the filter for the Products we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProductCountArgs>(
+      args?: Subset<T, ProductCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProductCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Product.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProductAggregateArgs>(args: Subset<T, ProductAggregateArgs>): Prisma.PrismaPromise<GetProductAggregateType<T>>
+
+    /**
+     * Group by Product.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProductGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProductGroupByArgs['orderBy'] }
+        : { orderBy?: ProductGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProductGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProductGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Product model
+   */
+  readonly fields: ProductFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Product.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    place<T extends PlaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PlaceDefaultArgs<ExtArgs>>): Prisma__PlaceClient<$Result.GetResult<Prisma.$PlacePayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Product model
+   */ 
+  interface ProductFieldRefs {
+    readonly id: FieldRef<"Product", 'String'>
+    readonly place_id: FieldRef<"Product", 'String'>
+    readonly data: FieldRef<"Product", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Product findUnique
+   */
+  export type ProductFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter, which Product to fetch.
+     */
+    where: ProductWhereUniqueInput
+  }
+
+
+  /**
+   * Product findUniqueOrThrow
+   */
+  export type ProductFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter, which Product to fetch.
+     */
+    where: ProductWhereUniqueInput
+  }
+
+
+  /**
+   * Product findFirst
+   */
+  export type ProductFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter, which Product to fetch.
+     */
+    where?: ProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Products to fetch.
+     */
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Products.
+     */
+    cursor?: ProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Products.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Products.
+     */
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
+  }
+
+
+  /**
+   * Product findFirstOrThrow
+   */
+  export type ProductFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter, which Product to fetch.
+     */
+    where?: ProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Products to fetch.
+     */
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Products.
+     */
+    cursor?: ProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Products.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Products.
+     */
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
+  }
+
+
+  /**
+   * Product findMany
+   */
+  export type ProductFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter, which Products to fetch.
+     */
+    where?: ProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Products to fetch.
+     */
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Products.
+     */
+    cursor?: ProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Products.
+     */
+    skip?: number
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
+  }
+
+
+  /**
+   * Product create
+   */
+  export type ProductCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Product.
+     */
+    data: XOR<ProductCreateInput, ProductUncheckedCreateInput>
+  }
+
+
+  /**
+   * Product createMany
+   */
+  export type ProductCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Products.
+     */
+    data: ProductCreateManyInput | ProductCreateManyInput[]
+  }
+
+
+  /**
+   * Product update
+   */
+  export type ProductUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Product.
+     */
+    data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>
+    /**
+     * Choose, which Product to update.
+     */
+    where: ProductWhereUniqueInput
+  }
+
+
+  /**
+   * Product updateMany
+   */
+  export type ProductUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Products.
+     */
+    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyInput>
+    /**
+     * Filter which Products to update
+     */
+    where?: ProductWhereInput
+  }
+
+
+  /**
+   * Product upsert
+   */
+  export type ProductUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Product to update in case it exists.
+     */
+    where: ProductWhereUniqueInput
+    /**
+     * In case the Product found by the `where` argument doesn't exist, create a new Product with this data.
+     */
+    create: XOR<ProductCreateInput, ProductUncheckedCreateInput>
+    /**
+     * In case the Product was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Product delete
+   */
+  export type ProductDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter which Product to delete.
+     */
+    where: ProductWhereUniqueInput
+  }
+
+
+  /**
+   * Product deleteMany
+   */
+  export type ProductDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Products to delete
+     */
+    where?: ProductWhereInput
+  }
+
+
+  /**
+   * Product findRaw
+   */
+  export type ProductFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Product aggregateRaw
+   */
+  export type ProductAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+
+  /**
+   * Product without action
+   */
+  export type ProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductInclude<ExtArgs> | null
+  }
+
+
+
+  /**
    * Enums
    */
 
@@ -2959,6 +4059,15 @@ export namespace Prisma {
   };
 
   export type MarketplaceKeyScalarFieldEnum = (typeof MarketplaceKeyScalarFieldEnum)[keyof typeof MarketplaceKeyScalarFieldEnum]
+
+
+  export const ProductScalarFieldEnum: {
+    id: 'id',
+    place_id: 'place_id',
+    data: 'data'
+  };
+
+  export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -3011,6 +4120,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -3036,6 +4152,7 @@ export namespace Prisma {
     name?: StringFilter<"Place"> | string
     marketplaceKeyId?: StringNullableFilter<"Place"> | string | null
     MarketplaceKey?: XOR<MarketplaceKeyNullableRelationFilter, MarketplaceKeyWhereInput> | null
+    Product?: ProductListRelationFilter
   }
 
   export type PlaceOrderByWithRelationInput = {
@@ -3044,6 +4161,7 @@ export namespace Prisma {
     name?: SortOrder
     marketplaceKeyId?: SortOrder
     MarketplaceKey?: MarketplaceKeyOrderByWithRelationInput
+    Product?: ProductOrderByRelationAggregateInput
   }
 
   export type PlaceWhereUniqueInput = Prisma.AtLeast<{
@@ -3055,6 +4173,7 @@ export namespace Prisma {
     name?: StringFilter<"Place"> | string
     marketplaceKeyId?: StringNullableFilter<"Place"> | string | null
     MarketplaceKey?: XOR<MarketplaceKeyNullableRelationFilter, MarketplaceKeyWhereInput> | null
+    Product?: ProductListRelationFilter
   }, "id">
 
   export type PlaceOrderByWithAggregationInput = {
@@ -3132,11 +4251,57 @@ export namespace Prisma {
     client_id?: StringNullableWithAggregatesFilter<"MarketplaceKey"> | string | null
   }
 
+  export type ProductWhereInput = {
+    AND?: ProductWhereInput | ProductWhereInput[]
+    OR?: ProductWhereInput[]
+    NOT?: ProductWhereInput | ProductWhereInput[]
+    id?: StringFilter<"Product"> | string
+    place_id?: StringFilter<"Product"> | string
+    data?: JsonFilter<"Product">
+    place?: XOR<PlaceRelationFilter, PlaceWhereInput>
+  }
+
+  export type ProductOrderByWithRelationInput = {
+    id?: SortOrder
+    place_id?: SortOrder
+    data?: SortOrder
+    place?: PlaceOrderByWithRelationInput
+  }
+
+  export type ProductWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ProductWhereInput | ProductWhereInput[]
+    OR?: ProductWhereInput[]
+    NOT?: ProductWhereInput | ProductWhereInput[]
+    place_id?: StringFilter<"Product"> | string
+    data?: JsonFilter<"Product">
+    place?: XOR<PlaceRelationFilter, PlaceWhereInput>
+  }, "id">
+
+  export type ProductOrderByWithAggregationInput = {
+    id?: SortOrder
+    place_id?: SortOrder
+    data?: SortOrder
+    _count?: ProductCountOrderByAggregateInput
+    _max?: ProductMaxOrderByAggregateInput
+    _min?: ProductMinOrderByAggregateInput
+  }
+
+  export type ProductScalarWhereWithAggregatesInput = {
+    AND?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
+    OR?: ProductScalarWhereWithAggregatesInput[]
+    NOT?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Product"> | string
+    place_id?: StringWithAggregatesFilter<"Product"> | string
+    data?: JsonWithAggregatesFilter<"Product">
+  }
+
   export type PlaceCreateInput = {
     id?: string
     mp_id?: string | null
     name: string
     MarketplaceKey?: MarketplaceKeyCreateNestedOneWithoutPlacesInput
+    Product?: ProductCreateNestedManyWithoutPlaceInput
   }
 
   export type PlaceUncheckedCreateInput = {
@@ -3144,18 +4309,21 @@ export namespace Prisma {
     mp_id?: string | null
     name: string
     marketplaceKeyId?: string | null
+    Product?: ProductUncheckedCreateNestedManyWithoutPlaceInput
   }
 
   export type PlaceUpdateInput = {
     mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     MarketplaceKey?: MarketplaceKeyUpdateOneWithoutPlacesNestedInput
+    Product?: ProductUpdateManyWithoutPlaceNestedInput
   }
 
   export type PlaceUncheckedUpdateInput = {
     mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
     marketplaceKeyId?: NullableStringFieldUpdateOperationsInput | string | null
+    Product?: ProductUncheckedUpdateManyWithoutPlaceNestedInput
   }
 
   export type PlaceCreateManyInput = {
@@ -3232,6 +4400,43 @@ export namespace Prisma {
     client_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ProductCreateInput = {
+    id?: string
+    data: InputJsonValue
+    place: PlaceCreateNestedOneWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateInput = {
+    id?: string
+    place_id: string
+    data: InputJsonValue
+  }
+
+  export type ProductUpdateInput = {
+    data?: InputJsonValue | InputJsonValue
+    place?: PlaceUpdateOneRequiredWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateInput = {
+    place_id?: StringFieldUpdateOperationsInput | string
+    data?: InputJsonValue | InputJsonValue
+  }
+
+  export type ProductCreateManyInput = {
+    id?: string
+    place_id: string
+    data: InputJsonValue
+  }
+
+  export type ProductUpdateManyMutationInput = {
+    data?: InputJsonValue | InputJsonValue
+  }
+
+  export type ProductUncheckedUpdateManyInput = {
+    place_id?: StringFieldUpdateOperationsInput | string
+    data?: InputJsonValue | InputJsonValue
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3266,6 +4471,16 @@ export namespace Prisma {
   export type MarketplaceKeyNullableRelationFilter = {
     is?: MarketplaceKeyWhereInput | null
     isNot?: MarketplaceKeyWhereInput | null
+  }
+
+  export type ProductListRelationFilter = {
+    every?: ProductWhereInput
+    some?: ProductWhereInput
+    none?: ProductWhereInput
+  }
+
+  export type ProductOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type PlaceCountOrderByAggregateInput = {
@@ -3376,11 +4591,71 @@ export namespace Prisma {
     _min?: NestedEnumMarketPlacesFilter<$PrismaModel>
     _max?: NestedEnumMarketPlacesFilter<$PrismaModel>
   }
+  export type JsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  }
+
+  export type PlaceRelationFilter = {
+    is?: PlaceWhereInput
+    isNot?: PlaceWhereInput
+  }
+
+  export type ProductCountOrderByAggregateInput = {
+    id?: SortOrder
+    place_id?: SortOrder
+    data?: SortOrder
+  }
+
+  export type ProductMaxOrderByAggregateInput = {
+    id?: SortOrder
+    place_id?: SortOrder
+  }
+
+  export type ProductMinOrderByAggregateInput = {
+    id?: SortOrder
+    place_id?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
 
   export type MarketplaceKeyCreateNestedOneWithoutPlacesInput = {
     create?: XOR<MarketplaceKeyCreateWithoutPlacesInput, MarketplaceKeyUncheckedCreateWithoutPlacesInput>
     connectOrCreate?: MarketplaceKeyCreateOrConnectWithoutPlacesInput
     connect?: MarketplaceKeyWhereUniqueInput
+  }
+
+  export type ProductCreateNestedManyWithoutPlaceInput = {
+    create?: XOR<ProductCreateWithoutPlaceInput, ProductUncheckedCreateWithoutPlaceInput> | ProductCreateWithoutPlaceInput[] | ProductUncheckedCreateWithoutPlaceInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutPlaceInput | ProductCreateOrConnectWithoutPlaceInput[]
+    createMany?: ProductCreateManyPlaceInputEnvelope
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+  }
+
+  export type ProductUncheckedCreateNestedManyWithoutPlaceInput = {
+    create?: XOR<ProductCreateWithoutPlaceInput, ProductUncheckedCreateWithoutPlaceInput> | ProductCreateWithoutPlaceInput[] | ProductUncheckedCreateWithoutPlaceInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutPlaceInput | ProductCreateOrConnectWithoutPlaceInput[]
+    createMany?: ProductCreateManyPlaceInputEnvelope
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -3400,6 +4675,34 @@ export namespace Prisma {
     delete?: MarketplaceKeyWhereInput | boolean
     connect?: MarketplaceKeyWhereUniqueInput
     update?: XOR<XOR<MarketplaceKeyUpdateToOneWithWhereWithoutPlacesInput, MarketplaceKeyUpdateWithoutPlacesInput>, MarketplaceKeyUncheckedUpdateWithoutPlacesInput>
+  }
+
+  export type ProductUpdateManyWithoutPlaceNestedInput = {
+    create?: XOR<ProductCreateWithoutPlaceInput, ProductUncheckedCreateWithoutPlaceInput> | ProductCreateWithoutPlaceInput[] | ProductUncheckedCreateWithoutPlaceInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutPlaceInput | ProductCreateOrConnectWithoutPlaceInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutPlaceInput | ProductUpsertWithWhereUniqueWithoutPlaceInput[]
+    createMany?: ProductCreateManyPlaceInputEnvelope
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutPlaceInput | ProductUpdateWithWhereUniqueWithoutPlaceInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutPlaceInput | ProductUpdateManyWithWhereWithoutPlaceInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
+  }
+
+  export type ProductUncheckedUpdateManyWithoutPlaceNestedInput = {
+    create?: XOR<ProductCreateWithoutPlaceInput, ProductUncheckedCreateWithoutPlaceInput> | ProductCreateWithoutPlaceInput[] | ProductUncheckedCreateWithoutPlaceInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutPlaceInput | ProductCreateOrConnectWithoutPlaceInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutPlaceInput | ProductUpsertWithWhereUniqueWithoutPlaceInput[]
+    createMany?: ProductCreateManyPlaceInputEnvelope
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutPlaceInput | ProductUpdateWithWhereUniqueWithoutPlaceInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutPlaceInput | ProductUpdateManyWithWhereWithoutPlaceInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
   export type PlaceCreateNestedManyWithoutMarketplaceKeyInput = {
@@ -3446,6 +4749,20 @@ export namespace Prisma {
     update?: PlaceUpdateWithWhereUniqueWithoutMarketplaceKeyInput | PlaceUpdateWithWhereUniqueWithoutMarketplaceKeyInput[]
     updateMany?: PlaceUpdateManyWithWhereWithoutMarketplaceKeyInput | PlaceUpdateManyWithWhereWithoutMarketplaceKeyInput[]
     deleteMany?: PlaceScalarWhereInput | PlaceScalarWhereInput[]
+  }
+
+  export type PlaceCreateNestedOneWithoutProductInput = {
+    create?: XOR<PlaceCreateWithoutProductInput, PlaceUncheckedCreateWithoutProductInput>
+    connectOrCreate?: PlaceCreateOrConnectWithoutProductInput
+    connect?: PlaceWhereUniqueInput
+  }
+
+  export type PlaceUpdateOneRequiredWithoutProductNestedInput = {
+    create?: XOR<PlaceCreateWithoutProductInput, PlaceUncheckedCreateWithoutProductInput>
+    connectOrCreate?: PlaceCreateOrConnectWithoutProductInput
+    upsert?: PlaceUpsertWithoutProductInput
+    connect?: PlaceWhereUniqueInput
+    update?: XOR<XOR<PlaceUpdateToOneWithWhereWithoutProductInput, PlaceUpdateWithoutProductInput>, PlaceUncheckedUpdateWithoutProductInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -3551,6 +4868,17 @@ export namespace Prisma {
     _min?: NestedEnumMarketPlacesFilter<$PrismaModel>
     _max?: NestedEnumMarketPlacesFilter<$PrismaModel>
   }
+  export type NestedJsonFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+  }
 
   export type MarketplaceKeyCreateWithoutPlacesInput = {
     id?: string
@@ -3571,6 +4899,25 @@ export namespace Prisma {
   export type MarketplaceKeyCreateOrConnectWithoutPlacesInput = {
     where: MarketplaceKeyWhereUniqueInput
     create: XOR<MarketplaceKeyCreateWithoutPlacesInput, MarketplaceKeyUncheckedCreateWithoutPlacesInput>
+  }
+
+  export type ProductCreateWithoutPlaceInput = {
+    id?: string
+    data: InputJsonValue
+  }
+
+  export type ProductUncheckedCreateWithoutPlaceInput = {
+    id?: string
+    data: InputJsonValue
+  }
+
+  export type ProductCreateOrConnectWithoutPlaceInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutPlaceInput, ProductUncheckedCreateWithoutPlaceInput>
+  }
+
+  export type ProductCreateManyPlaceInputEnvelope = {
+    data: ProductCreateManyPlaceInput | ProductCreateManyPlaceInput[]
   }
 
   export type MarketplaceKeyUpsertWithoutPlacesInput = {
@@ -3598,16 +4945,43 @@ export namespace Prisma {
     client_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ProductUpsertWithWhereUniqueWithoutPlaceInput = {
+    where: ProductWhereUniqueInput
+    update: XOR<ProductUpdateWithoutPlaceInput, ProductUncheckedUpdateWithoutPlaceInput>
+    create: XOR<ProductCreateWithoutPlaceInput, ProductUncheckedCreateWithoutPlaceInput>
+  }
+
+  export type ProductUpdateWithWhereUniqueWithoutPlaceInput = {
+    where: ProductWhereUniqueInput
+    data: XOR<ProductUpdateWithoutPlaceInput, ProductUncheckedUpdateWithoutPlaceInput>
+  }
+
+  export type ProductUpdateManyWithWhereWithoutPlaceInput = {
+    where: ProductScalarWhereInput
+    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutPlaceInput>
+  }
+
+  export type ProductScalarWhereInput = {
+    AND?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    OR?: ProductScalarWhereInput[]
+    NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    id?: StringFilter<"Product"> | string
+    place_id?: StringFilter<"Product"> | string
+    data?: JsonFilter<"Product">
+  }
+
   export type PlaceCreateWithoutMarketplaceKeyInput = {
     id?: string
     mp_id?: string | null
     name: string
+    Product?: ProductCreateNestedManyWithoutPlaceInput
   }
 
   export type PlaceUncheckedCreateWithoutMarketplaceKeyInput = {
     id?: string
     mp_id?: string | null
     name: string
+    Product?: ProductUncheckedCreateNestedManyWithoutPlaceInput
   }
 
   export type PlaceCreateOrConnectWithoutMarketplaceKeyInput = {
@@ -3645,6 +5019,65 @@ export namespace Prisma {
     marketplaceKeyId?: StringNullableFilter<"Place"> | string | null
   }
 
+  export type PlaceCreateWithoutProductInput = {
+    id?: string
+    mp_id?: string | null
+    name: string
+    MarketplaceKey?: MarketplaceKeyCreateNestedOneWithoutPlacesInput
+  }
+
+  export type PlaceUncheckedCreateWithoutProductInput = {
+    id?: string
+    mp_id?: string | null
+    name: string
+    marketplaceKeyId?: string | null
+  }
+
+  export type PlaceCreateOrConnectWithoutProductInput = {
+    where: PlaceWhereUniqueInput
+    create: XOR<PlaceCreateWithoutProductInput, PlaceUncheckedCreateWithoutProductInput>
+  }
+
+  export type PlaceUpsertWithoutProductInput = {
+    update: XOR<PlaceUpdateWithoutProductInput, PlaceUncheckedUpdateWithoutProductInput>
+    create: XOR<PlaceCreateWithoutProductInput, PlaceUncheckedCreateWithoutProductInput>
+    where?: PlaceWhereInput
+  }
+
+  export type PlaceUpdateToOneWithWhereWithoutProductInput = {
+    where?: PlaceWhereInput
+    data: XOR<PlaceUpdateWithoutProductInput, PlaceUncheckedUpdateWithoutProductInput>
+  }
+
+  export type PlaceUpdateWithoutProductInput = {
+    mp_id?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    MarketplaceKey?: MarketplaceKeyUpdateOneWithoutPlacesNestedInput
+  }
+
+  export type PlaceUncheckedUpdateWithoutProductInput = {
+    mp_id?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: StringFieldUpdateOperationsInput | string
+    marketplaceKeyId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProductCreateManyPlaceInput = {
+    id?: string
+    data: InputJsonValue
+  }
+
+  export type ProductUpdateWithoutPlaceInput = {
+    data?: InputJsonValue | InputJsonValue
+  }
+
+  export type ProductUncheckedUpdateWithoutPlaceInput = {
+    data?: InputJsonValue | InputJsonValue
+  }
+
+  export type ProductUncheckedUpdateManyWithoutPlaceInput = {
+    data?: InputJsonValue | InputJsonValue
+  }
+
   export type PlaceCreateManyMarketplaceKeyInput = {
     id?: string
     mp_id?: string | null
@@ -3654,11 +5087,13 @@ export namespace Prisma {
   export type PlaceUpdateWithoutMarketplaceKeyInput = {
     mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    Product?: ProductUpdateManyWithoutPlaceNestedInput
   }
 
   export type PlaceUncheckedUpdateWithoutMarketplaceKeyInput = {
     mp_id?: NullableStringFieldUpdateOperationsInput | string | null
     name?: StringFieldUpdateOperationsInput | string
+    Product?: ProductUncheckedUpdateManyWithoutPlaceNestedInput
   }
 
   export type PlaceUncheckedUpdateManyWithoutMarketplaceKeyInput = {
@@ -3672,6 +5107,10 @@ export namespace Prisma {
    * Aliases for legacy arg types
    */
     /**
+     * @deprecated Use PlaceCountOutputTypeDefaultArgs instead
+     */
+    export type PlaceCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PlaceCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use MarketplaceKeyCountOutputTypeDefaultArgs instead
      */
     export type MarketplaceKeyCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MarketplaceKeyCountOutputTypeDefaultArgs<ExtArgs>
@@ -3683,6 +5122,10 @@ export namespace Prisma {
      * @deprecated Use MarketplaceKeyDefaultArgs instead
      */
     export type MarketplaceKeyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MarketplaceKeyDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ProductDefaultArgs instead
+     */
+    export type ProductArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProductDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany
