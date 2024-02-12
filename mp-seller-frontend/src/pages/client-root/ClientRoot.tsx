@@ -5,7 +5,7 @@ import {Header} from '_widgets/header';
 const ClientRoot = function ClientRoot() {
     return (
         <>
-            <div className="min-h-screen overflow-x-hidden">
+            <div className="h-full overflow-hidden">
                 <Header />
                 <Outlet />
             </div>
