@@ -1,12 +1,17 @@
 import {ExclamationCircleOutlined} from '@ant-design/icons';
 import {Button, Divider, Modal} from 'antd';
+import {useCallback, useMemo} from 'react';
 
 import {BottomMenuPropsType, ItemsType} from './types';
 
 const BottomMenu: BottomMenuPropsType = ({selectedRowKeys, onCancel}) => {
     const [modal, contextHolder] = Modal.useModal();
 
-    const confirm = () => {
+    const handleCancel = useCallback(() => {
+        console.log('Модальное окно было закрыто без выполнения действий');
+    }, []);
+
+    const confirm = useMemo(() => {
         modal.confirm({
             title: 'Вы уверены, что хотите удалить карточку товара?',
             icon: <ExclamationCircleOutlined />,
@@ -21,28 +26,28 @@ const BottomMenu: BottomMenuPropsType = ({selectedRowKeys, onCancel}) => {
                         .join('\n')}`
                 );
             },
-            onCancel() {
-                console.log('кликнули на отменить удаление');
-            }
+            onCancel: handleCancel
         });
-    };
+    }, [handleCancel]);
 
-    const items: ItemsType = [
-        {
-            label: <Button onClick={onCancel}>Отменить</Button>,
-            key: 'cancel',
-            title: 'Отменить выделение'
-        },
-        {
-            label: (
-                <Button type="primary" danger onClick={confirm}>
-                    Удалить
-                </Button>
-            ),
-            key: 'delete',
-            title: 'Удалить выбранные элементы таблицы'
-        }
-    ];
+    const items: ItemsType = useMemo(() => {
+        return [
+            {
+                label: <Button onClick={onCancel}>Отменить</Button>,
+                key: 'cancel',
+                title: 'Отменить выделение'
+            },
+            {
+                label: (
+                    <Button type="primary" danger onClick={confirm}>
+                        Удалить
+                    </Button>
+                ),
+                key: 'delete',
+                title: 'Удалить выбранные элементы таблицы'
+            }
+        ];
+    }, [onCancel, confirm]);
 
     return (
         <div className="w-full">

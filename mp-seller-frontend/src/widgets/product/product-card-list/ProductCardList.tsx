@@ -47,10 +47,13 @@ const columns: ColumnsType<ProductType> = [
 const ProductCardList = memo(function ProductCardTable() {
     const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 
-    const onSelectChange = (newSelectedRowKeys: string[]) => {
-        console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
-    };
+    const onSelectChange = useCallback(
+        (newSelectedRowKeys: string[]) => {
+            console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+            setSelectedRowKeys(newSelectedRowKeys);
+        },
+        [setSelectedRowKeys]
+    );
 
     const rowSelection = {
         selectedRowKeys,
