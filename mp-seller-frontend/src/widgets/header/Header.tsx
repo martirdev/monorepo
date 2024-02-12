@@ -22,7 +22,7 @@ const items: MenuProps['items'] = [
 ];
 
 const Header: React.FC = () => {
-    const [current, setCurrent] = useState('product-card-table');
+    const [current, setCurrent] = useState<string>();
 
     const onClick: MenuProps['onClick'] = e => {
         setCurrent(e.key);

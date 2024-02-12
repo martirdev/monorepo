@@ -5,6 +5,13 @@ WORKDIR /app
 COPY package.json .
 COPY bun.lockb .
 
+RUN apt-get update && \
+    apt-get install wget --yes && \
+    mkdir --parents ~/.mongodb && \
+    wget "https://storage.yandexcloud.net/cloud-certs/CA.pem" \
+    --output-document ~/.mongodb/root.crt && \
+    chmod 0644 ~/.mongodb/root.crt
+
 RUN bun install --production
 
 COPY src src

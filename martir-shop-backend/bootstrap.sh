@@ -1,6 +1,6 @@
-IAMToken="t1.9euelZqPxpeYyYmTjYyVy5uJnJCJm-3rnpWaipWXj4rIic6RnZLNjcedl5Hl9PdSQXVS-e8FekGK3fT3EnByUvnvBXpBis3n9euelZqSy5ORnp6NyI6JncyKyMyUke_8xeuelZqSy5ORnp6NyI6JncyKyMyUkQ.d81KpKqPNB94ITQ9lE_6ifQ-4TQi54F2flTD4ANHrvquvMXF72CL5l3bFGm0JAFOF9oh8aO3sihkxdLGfwpyAQ"
-YCFolderID="b1g79im8d52lhp1u91lr"
-ServiceAccountID="ajeb022ctef0jsdeaeo4"
+IAMToken=""
+YCFolderID=""
+ServiceAccountID=""
 
 echo "Creating github-deploy-robot service account"
 curl \
