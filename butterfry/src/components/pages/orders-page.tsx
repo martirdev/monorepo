@@ -11,6 +11,7 @@ import { Badge } from "../shared/badge";
 import { OrderSheet } from "../widgets/order-sheet";
 import Link from "next/link";
 import { Suspense } from "react";
+import { currency, dateFormater } from "@/lib/locale";
 
 export function OrdersPage() {
   return (
@@ -29,7 +30,7 @@ export function OrdersPage() {
             <TableRow>
               <TableHead>№</TableHead>
               <TableHead>Клиент</TableHead>
-              <TableHead>Дата</TableHead>
+              <TableHead>Время</TableHead>
               <TableHead className="text-right">Итог</TableHead>
               <TableHead>Статус</TableHead>
             </TableRow>
@@ -38,8 +39,10 @@ export function OrdersPage() {
             <TableRow>
               <TableCell className="font-medium">3210</TableCell>
               <TableCell>Olivia Martin</TableCell>
-              <TableCell>February 20, 2022</TableCell>
-              <TableCell className="text-right">$42.25</TableCell>
+              <TableCell>
+                {dateFormater("20240223T12:30").format("YYYY.MM.DD HH:mm")}
+              </TableCell>
+              <TableCell className="text-right">{currency(12342.0)}</TableCell>
               <TableCell>
                 <Badge variant="outline">Завершен</Badge>
               </TableCell>

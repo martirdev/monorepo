@@ -58,3 +58,18 @@ model ProductVersion {
   product     Product       @relation(fields: [productId], references: [id])
   category    Category?     @relation(fields: [categoryId], references: [id])
 }
+
+model User {
+  id        String    @id @default(uuid())
+  yandex_id String
+  name      String
+  surname   String
+  sessions  Session[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
