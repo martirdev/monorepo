@@ -141,6 +141,19 @@ exports.Prisma.ProductVersionScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  yandex_id: 'yandex_id',
+  name: 'name',
+  surname: 'surname'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  expiresAt: 'expiresAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -162,7 +175,9 @@ exports.Prisma.ModelName = {
   Category: 'Category',
   ParamValues: 'ParamValues',
   Product: 'Product',
-  ProductVersion: 'ProductVersion'
+  ProductVersion: 'ProductVersion',
+  User: 'User',
+  Session: 'Session'
 };
 
 /**

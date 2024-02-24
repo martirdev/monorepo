@@ -7,7 +7,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/shared/dropdown-menu";
+import { Toaster } from "@/components/shared/sonner";
 import { SideNavLinks } from "@/components/widgets/side-nav-links";
+import { getUser } from "@/lib/external-api";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
@@ -21,11 +23,27 @@ export const metadata: Metadata = {
   description: "Сервис для управления товарами",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getUser();
+
+  if (!user) {
+    return (
+      <html lang="ru">
+        <body className={inter.className}>
+          <div className="flex items-center justify-center h-full">
+            <Link href={`${process.env.BACKEND_API}/yandex/login`}>
+              <Button size="sm">Войти через Yandex</Button>
+            </Link>
+          </div>
+        </body>
+      </html>
+    );
+  }
+
   return (
     <html lang="ru">
       <body className={inter.className}>
@@ -38,7 +56,7 @@ export default function RootLayout({
                   href="#"
                 >
                   <div className="h-6 w-6" />
-                  <span className="">Butterfry</span>
+                  <span>Butterfry</span>
                 </Link>
               </div>
               <div className="flex-1 overflow-auto py-2">
@@ -48,15 +66,11 @@ export default function RootLayout({
           </div>
           <div className="flex flex-col">
             <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
-              <Link className="lg:hidden" href="#">
-                <div className="h-6 w-6" />
-                <span className="sr-only">Главная</span>
-              </Link>
-              <div className="ml-auto">
+              <div className="ml-auto flex gap-2 items-center">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button
-                      className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800 dark:border-gray-800"
+                      className="block rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800 dark:border-gray-800"
                       size="icon"
                       variant="ghost"
                     >
@@ -71,16 +85,19 @@ export default function RootLayout({
                         }}
                         width="32"
                       />
-                      <span className="sr-only">Toggle user menu</span>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>Максим Пушкарев</DropdownMenuLabel>
+                    <DropdownMenuLabel>
+                      {user.surname} {user.name}
+                    </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>Настройки</DropdownMenuItem>
                     <DropdownMenuItem>Поддержка</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Выйти</DropdownMenuItem>
+                    <Link href={`${process.env.BACKEND_API}/yandex/logout`}>
+                      <DropdownMenuItem>Выйти</DropdownMenuItem>
+                    </Link>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
@@ -88,6 +105,7 @@ export default function RootLayout({
             <main>{children}</main>
           </div>
         </div>
+        <Toaster />
       </body>
     </html>
   );

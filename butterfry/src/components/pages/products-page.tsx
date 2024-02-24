@@ -11,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProductSheet } from "../widgets/product-sheet";
 import { Suspense } from "react";
+import { currency, unit } from "@/lib/locale";
 
 export function ProductsPage() {
   return (
@@ -29,9 +30,11 @@ export function ProductsPage() {
             <TableRow>
               <TableHead className="w-[80px]" />
               <TableHead>Название</TableHead>
-              <TableHead className="hidden md:table-cell">Цена</TableHead>
+              <TableHead className="hidden md:table-cell text-right">
+                Цена
+              </TableHead>
               <TableHead className="hidden md:table-cell">Категория</TableHead>
-              <TableHead>Количество</TableHead>
+              <TableHead className="text-right">Количество</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -46,9 +49,11 @@ export function ProductsPage() {
                 />
               </TableCell>
               <TableCell className="font-medium">Glimmer Lamps</TableCell>
-              <TableCell className="hidden md:table-cell">$49.99</TableCell>
+              <TableCell className="hidden md:table-cell text-right">
+                {currency(49.99)}
+              </TableCell>
               <TableCell className="hidden md:table-cell">Home Decor</TableCell>
-              <TableCell>5</TableCell>
+              <TableCell className="text-right">{unit(5)}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
@@ -61,11 +66,13 @@ export function ProductsPage() {
                 />
               </TableCell>
               <TableCell className="font-medium">Aqua Filters</TableCell>
-              <TableCell className="hidden md:table-cell">$29.99</TableCell>
+              <TableCell className="hidden md:table-cell text-right">
+                {currency(29.99)}
+              </TableCell>
               <TableCell className="hidden md:table-cell">
                 Kitchen Appliances
               </TableCell>
-              <TableCell>4</TableCell>
+              <TableCell className="text-right">{unit(4)}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
@@ -78,9 +85,11 @@ export function ProductsPage() {
                 />
               </TableCell>
               <TableCell className="font-medium">Eco Planters</TableCell>
-              <TableCell className="hidden md:table-cell">$19.99</TableCell>
+              <TableCell className="hidden md:table-cell text-right">
+                {currency(19.99)}
+              </TableCell>
               <TableCell className="hidden md:table-cell">Gardening</TableCell>
-              <TableCell>8</TableCell>
+              <TableCell className="text-right">{unit(8)}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
@@ -93,9 +102,11 @@ export function ProductsPage() {
                 />
               </TableCell>
               <TableCell className="font-medium">Zest Juicers</TableCell>
-              <TableCell className="hidden md:table-cell">$59.99</TableCell>
+              <TableCell className="hidden md:table-cell text-right">
+                {currency(59.99)}
+              </TableCell>
               <TableCell className="hidden md:table-cell">Appliances</TableCell>
-              <TableCell>9</TableCell>
+              <TableCell className="text-right">{unit(9)}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>
@@ -108,9 +119,11 @@ export function ProductsPage() {
                 />
               </TableCell>
               <TableCell className="font-medium">Flexi Wearables</TableCell>
-              <TableCell className="hidden md:table-cell">$69.99</TableCell>
+              <TableCell className="hidden md:table-cell text-right">
+                {currency(69.99)}
+              </TableCell>
               <TableCell className="hidden md:table-cell">Fitness</TableCell>
-              <TableCell>12</TableCell>
+              <TableCell className="text-right">{unit(12)}</TableCell>
             </TableRow>
           </TableBody>
         </Table>

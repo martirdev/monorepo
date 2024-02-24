@@ -14,14 +14,21 @@
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-slot": "^1.0.2",
+    "@tanstack/react-form": "^0.13.6",
+    "@tanstack/zod-form-adapter": "^0.13.6",
+    "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "dayjs": "^1.11.10",
     "lucide-react": "^0.330.0",
     "next": "14.1.0",
+    "next-themes": "^0.2.1",
     "react": "^18",
     "react-dom": "^18",
+    "sonner": "^1.4.0",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",
