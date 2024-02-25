@@ -39,3 +39,4 @@ jobs:
             NOTION_API_KEY=e6qt4bsim9ms21ld72vp/e6qqb0o29cere7okjo75/NOTION_API
             YANDEX_CLIENT_ID=e6qs3rcv6nuqduta49fl/e6qf4htkgnhas3o6cn12/YANDEX_CLIENT_ID
             YANDEX_CLIENT_SECRET=e6qs3rcv6nuqduta49fl/e6qf4htkgnhas3o6cn12/YANDEX_CLIENT_SECRET
+            DATABASE_URL=e6qlqm9jmsan0ohbr4ls/e6q93lji1tj57d6cm4f9/DATABASE_URL
