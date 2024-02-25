@@ -35,4 +35,7 @@ jobs:
           revision-image-url: cr.yandex/crpqnutp8br023q3u5pq/shop-api:${{ github.sha }}
           revision-execution-timeout: 10
           revision-network-id: enpt5q5srijbov196lu1
-          revision-secrets: NOTION_API_KEY=e6qt4bsim9ms21ld72vp/e6qqb0o29cere7okjo75/NOTION_API
+          revision-secrets: |
+            NOTION_API_KEY=e6qt4bsim9ms21ld72vp/e6qqb0o29cere7okjo75/NOTION_API
+            YANDEX_CLIENT_ID=e6qs3rcv6nuqduta49fl/e6qf4htkgnhas3o6cn12/YANDEX_CLIENT_ID
+            YANDEX_CLIENT_SECRET=e6qs3rcv6nuqduta49fl/e6qf4htkgnhas3o6cn12/YANDEX_CLIENT_SECRET
