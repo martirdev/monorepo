@@ -24,7 +24,7 @@ const makeYandexProvider = () => {
   return new Yandex(
     client_id,
     client_secret,
-    "http://localhost:8080/yandex/login/callback"
+    `${process.env.DOMAIN}/yandex/login/callback`
   );
 };
 
