@@ -6335,6 +6335,7 @@ export namespace Prisma {
     yandex_id: string | null
     name: string | null
     surname: string | null
+    avatar: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -6342,6 +6343,7 @@ export namespace Prisma {
     yandex_id: string | null
     name: string | null
     surname: string | null
+    avatar: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -6349,6 +6351,7 @@ export namespace Prisma {
     yandex_id: number
     name: number
     surname: number
+    avatar: number
     _all: number
   }
 
@@ -6358,6 +6361,7 @@ export namespace Prisma {
     yandex_id?: true
     name?: true
     surname?: true
+    avatar?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -6365,6 +6369,7 @@ export namespace Prisma {
     yandex_id?: true
     name?: true
     surname?: true
+    avatar?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -6372,6 +6377,7 @@ export namespace Prisma {
     yandex_id?: true
     name?: true
     surname?: true
+    avatar?: true
     _all?: true
   }
 
@@ -6452,6 +6458,7 @@ export namespace Prisma {
     yandex_id: string
     name: string
     surname: string
+    avatar: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -6476,6 +6483,7 @@ export namespace Prisma {
     yandex_id?: boolean
     name?: boolean
     surname?: boolean
+    avatar?: boolean
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -6485,6 +6493,7 @@ export namespace Prisma {
     yandex_id?: boolean
     name?: boolean
     surname?: boolean
+    avatar?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6503,6 +6512,7 @@ export namespace Prisma {
       yandex_id: string
       name: string
       surname: string
+      avatar: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -6902,6 +6912,7 @@ export namespace Prisma {
     readonly yandex_id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly surname: FieldRef<"User", 'String'>
+    readonly avatar: FieldRef<"User", 'String'>
   }
     
 
@@ -8213,7 +8224,8 @@ export namespace Prisma {
     id: 'id',
     yandex_id: 'yandex_id',
     name: 'name',
-    surname: 'surname'
+    surname: 'surname',
+    avatar: 'avatar'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -8588,6 +8600,7 @@ export namespace Prisma {
     yandex_id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     surname?: StringFilter<"User"> | string
+    avatar?: StringNullableFilter<"User"> | string | null
     sessions?: SessionListRelationFilter
   }
 
@@ -8596,6 +8609,7 @@ export namespace Prisma {
     yandex_id?: SortOrder
     name?: SortOrder
     surname?: SortOrder
+    avatar?: SortOrderInput | SortOrder
     sessions?: SessionOrderByRelationAggregateInput
   }
 
@@ -8607,6 +8621,7 @@ export namespace Prisma {
     yandex_id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     surname?: StringFilter<"User"> | string
+    avatar?: StringNullableFilter<"User"> | string | null
     sessions?: SessionListRelationFilter
   }, "id">
 
@@ -8615,6 +8630,7 @@ export namespace Prisma {
     yandex_id?: SortOrder
     name?: SortOrder
     surname?: SortOrder
+    avatar?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -8628,6 +8644,7 @@ export namespace Prisma {
     yandex_id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     surname?: StringWithAggregatesFilter<"User"> | string
+    avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type SessionWhereInput = {
@@ -8938,6 +8955,7 @@ export namespace Prisma {
     yandex_id: string
     name: string
     surname: string
+    avatar?: string | null
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
@@ -8946,6 +8964,7 @@ export namespace Prisma {
     yandex_id: string
     name: string
     surname: string
+    avatar?: string | null
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8954,6 +8973,7 @@ export namespace Prisma {
     yandex_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
@@ -8962,6 +8982,7 @@ export namespace Prisma {
     yandex_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -8970,6 +8991,7 @@ export namespace Prisma {
     yandex_id: string
     name: string
     surname: string
+    avatar?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -8977,6 +8999,7 @@ export namespace Prisma {
     yandex_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -8984,6 +9007,7 @@ export namespace Prisma {
     yandex_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SessionCreateInput = {
@@ -9365,6 +9389,7 @@ export namespace Prisma {
     yandex_id?: SortOrder
     name?: SortOrder
     surname?: SortOrder
+    avatar?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -9372,6 +9397,7 @@ export namespace Prisma {
     yandex_id?: SortOrder
     name?: SortOrder
     surname?: SortOrder
+    avatar?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -9379,6 +9405,7 @@ export namespace Prisma {
     yandex_id?: SortOrder
     name?: SortOrder
     surname?: SortOrder
+    avatar?: SortOrder
   }
 
   export type UserRelationFilter = {
@@ -10470,6 +10497,7 @@ export namespace Prisma {
     yandex_id: string
     name: string
     surname: string
+    avatar?: string | null
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -10477,6 +10505,7 @@ export namespace Prisma {
     yandex_id: string
     name: string
     surname: string
+    avatar?: string | null
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -10500,6 +10529,7 @@ export namespace Prisma {
     yandex_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -10507,6 +10537,7 @@ export namespace Prisma {
     yandex_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     surname?: StringFieldUpdateOperationsInput | string
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductVersionCreateManyCategoryInput = {

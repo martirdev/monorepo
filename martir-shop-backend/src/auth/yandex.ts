@@ -7,10 +7,9 @@ import {
 import Elysia from "elysia";
 import { Yandex } from "../shared/lucia/yandex-provider";
 import { yandexUserInfo } from "../shared/external-api/yandex";
-import { prisma } from "../shared/trpc";
 import { lucia } from "../shared/lucia";
-
-const SESSION_COOKIE = "auth_session";
+import { findOrCreateUser, makeSessionCookie } from "./utils";
+import { SESSION_COOKIE } from "./consts";
 
 const makeYandexProvider = () => {
   const client_id = process.env.YANDEX_CLIENT_ID;
@@ -71,43 +70,13 @@ export const yandexAuth = new Elysia({ prefix: "/yandex" })
         storedCodeVerifier
       );
       const yaUser = await yandexUserInfo(tokens.accessToken);
+      const user = await findOrCreateUser(yaUser);
 
-      const user = await prisma.user.findFirst({
-        where: {
-          yandex_id: yaUser.id,
-        },
-      });
-
-      if (user) {
-        const session = await lucia.createSession(user.id, {});
-        const sessionCookie = lucia.createSessionCookie(session.id);
-
-        set.status = 302;
-        cookie[SESSION_COOKIE].set({
-          ...sessionCookie.attributes,
-          domain: process.env.HOST,
-          value: sessionCookie.value,
-        });
-        return (set.redirect = cookie.from.value);
-      }
-
-      const newUser = await prisma.user.create({
-        data: {
-          name: yaUser.display_name,
-          surname: yaUser.last_name,
-          yandex_id: yaUser.id,
-        },
-      });
-
-      const session = await lucia.createSession(newUser.id, {});
+      const session = await lucia.createSession(user.id, {});
       const sessionCookie = lucia.createSessionCookie(session.id);
 
       set.status = 302;
-      cookie[SESSION_COOKIE].set({
-        ...sessionCookie.attributes,
-        domain: process.env.HOST,
-        value: sessionCookie.value,
-      });
+      cookie[SESSION_COOKIE].set(makeSessionCookie(sessionCookie));
       return (set.redirect = cookie.from.value);
     } catch (e) {
       console.error(e);
@@ -119,21 +88,4 @@ export const yandexAuth = new Elysia({ prefix: "/yandex" })
       set.status = 500;
       return e;
     }
-  })
-  .get("/logout", async ({ set, cookie, headers }) => {
-    if (!headers.referer) {
-      throw new Error("Refferer not set");
-    }
-
-    await lucia.invalidateSession(cookie.session.value);
-    const blankCookie = lucia.createBlankSessionCookie();
-
-    cookie[SESSION_COOKIE].set({
-      ...blankCookie.attributes,
-      domain: process.env.HOST,
-      value: blankCookie.value,
-    });
-
-    set.status = 302;
-    return (set.redirect = headers.referer);
   });
