@@ -1,7 +1,12 @@
 import axios from "axios";
 import { cookies } from "next/headers";
 
-type UserResponse = { id: string; name: string; surname: string };
+type UserResponse = {
+  id: string;
+  name: string;
+  surname: string;
+  avatar?: string;
+};
 
 export const getUser = async () => {
   const authSession = cookies().get("auth_session")?.value;

@@ -64,6 +64,7 @@ model User {
   yandex_id String
   name      String
   surname   String
+  avatar    String?
   sessions  Session[]
 }
 

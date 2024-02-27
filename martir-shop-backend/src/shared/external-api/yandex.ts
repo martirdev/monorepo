@@ -1,4 +1,4 @@
-type UserInfoResponse = {
+export type UserInfoResponse = {
   id: string;
   login: string;
   client_id: string;

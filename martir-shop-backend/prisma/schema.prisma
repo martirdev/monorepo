@@ -11,52 +11,47 @@ datasource db {
 }
 
 model Images {
-  id               String @id @default(uuid())
+  id               String         @id @default(uuid())
   productVersionId String
-
-  url            String
-  productVersion ProductVersion @relation(fields: [productVersionId], references: [id])
+  url              String
+  productVersion   ProductVersion @relation(fields: [productVersionId], references: [id])
 }
 
 model Category {
-  id               String  @id @default(uuid())
-  parentCategoryId String?
-
+  id                 String           @id @default(uuid())
   name               String
-  productVersions    ProductVersion[]
+  parentCategoryId   String?
   parentCategory     Category?        @relation("Category", fields: [parentCategoryId], references: [id])
   childrenCategories Category[]       @relation("Category")
+  productVersions    ProductVersion[]
 }
 
 model ParamValues {
-  id String @id @default(uuid())
-
+  id              String           @id @default(uuid())
   name            String
   value           String
-  productVersions ProductVersion[]
+  productVersions ProductVersion[] @relation("ParamValuesToProductVersion")
 }
 
 model Product {
-  id String @id @default(uuid())
-
+  id        String           @id @default(uuid())
   count     Int
-  versions  ProductVersion[]
   createdAt DateTime         @default(now())
+  versions  ProductVersion[]
 }
 
 model ProductVersion {
-  id         String  @id @default(uuid())
-  categoryId String?
-  productId  String
-
+  id          String        @id @default(uuid())
+  categoryId  String?
+  productId   String
   name        String
   description String
   price       Float
   createdAt   DateTime      @default(now())
-  params      ParamValues[]
   images      Images[]
-  product     Product       @relation(fields: [productId], references: [id])
   category    Category?     @relation(fields: [categoryId], references: [id])
+  product     Product       @relation(fields: [productId], references: [id])
+  params      ParamValues[] @relation("ParamValuesToProductVersion")
 }
 
 model User {
@@ -64,6 +59,7 @@ model User {
   yandex_id String
   name      String
   surname   String
+  avatar    String?
   sessions  Session[]
 }
 
@@ -71,5 +67,5 @@ model Session {
   id        String   @id @default(uuid())
   userId    String
   expiresAt DateTime
-  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

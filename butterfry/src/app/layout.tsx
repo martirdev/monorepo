@@ -53,7 +53,7 @@ export default async function RootLayout({
               <div className="flex h-[60px] items-center border-b px-6">
                 <Link
                   className="flex items-center gap-2 font-semibold"
-                  href="#"
+                  href="/"
                 >
                   <div className="h-6 w-6" />
                   <span>Butterfry</span>
@@ -74,11 +74,11 @@ export default async function RootLayout({
                       size="icon"
                       variant="ghost"
                     >
-                      <Image
+                      <img
                         alt="Avatar"
                         className="rounded-full"
                         height="32"
-                        src="/placeholder.svg"
+                        src={`${process.env.AVATAR_URL}/${user.avatar}`}
                         style={{
                           aspectRatio: "32/32",
                           objectFit: "cover",
@@ -95,7 +95,7 @@ export default async function RootLayout({
                     <DropdownMenuItem>Настройки</DropdownMenuItem>
                     <DropdownMenuItem>Поддержка</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <Link href={`${process.env.BACKEND_API}/yandex/logout`}>
+                    <Link href={`${process.env.BACKEND_API}/logout`}>
                       <DropdownMenuItem>Выйти</DropdownMenuItem>
                     </Link>
                   </DropdownMenuContent>
