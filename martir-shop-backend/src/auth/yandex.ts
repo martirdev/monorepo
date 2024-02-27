@@ -85,6 +85,7 @@ export const yandexAuth = new Elysia({ prefix: "/yandex" })
         set.status = 302;
         cookie[SESSION_COOKIE].set({
           ...sessionCookie.attributes,
+          domain: process.env.HOST,
           value: sessionCookie.value,
         });
         return (set.redirect = cookie.from.value);
@@ -104,6 +105,7 @@ export const yandexAuth = new Elysia({ prefix: "/yandex" })
       set.status = 302;
       cookie[SESSION_COOKIE].set({
         ...sessionCookie.attributes,
+        domain: process.env.HOST,
         value: sessionCookie.value,
       });
       return (set.redirect = cookie.from.value);
@@ -128,6 +130,7 @@ export const yandexAuth = new Elysia({ prefix: "/yandex" })
 
     cookie[SESSION_COOKIE].set({
       ...blankCookie.attributes,
+      domain: process.env.HOST,
       value: blankCookie.value,
     });
 
