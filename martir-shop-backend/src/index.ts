@@ -5,13 +5,18 @@ import { Elysia } from "elysia";
 import { auth } from "./auth/auth";
 import { yandexAuth } from "./auth/yandex";
 import { appRouter } from "./routers";
+import { createContext } from "./shared/trpc";
 
 const app = new Elysia()
   .use(swagger())
   .use(cors())
   .use(auth)
   .use(yandexAuth)
-  .use(trpc(appRouter))
+  .use(
+    trpc(appRouter, {
+      createContext,
+    })
+  )
   .get("/ping", () => "pong")
   .listen(8080);
 
