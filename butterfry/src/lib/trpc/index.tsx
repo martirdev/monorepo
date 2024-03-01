@@ -4,7 +4,7 @@ import { createTRPCReact, httpBatchLink } from "@trpc/react-query";
 import { PropsWithChildren, memo, useState } from "react";
 import type { Router } from "../../../../martir-shop-backend/src/routers";
 
-export const trpc = createTRPCReact<any>();
+export const trpc = createTRPCReact<Router>();
 
 const useTRPc = (token?: string) => {
   const [queryClient] = useState(() => new QueryClient());
