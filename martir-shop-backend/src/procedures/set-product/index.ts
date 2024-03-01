@@ -4,7 +4,7 @@ import { TRPCError } from "@trpc/server";
 
 const paramsValidator = z.object({
   id: z.string(),
-  categoryId: z.string(),
+  categoryId: z.string().optional(),
   description: z.string(),
   name: z.string(),
   price: z.number(),
@@ -19,7 +19,11 @@ const paramsValidator = z.object({
 
 export const setProduct = procedure
   .input(paramsValidator)
-  .query(async ({ input }) => {
+  .mutation(async ({ input, ctx }) => {
+    if (!ctx.user) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
     try {
       const existingProduct = await prisma.product.findUnique({
         where: {
@@ -50,6 +54,11 @@ export const setProduct = procedure
           data: {
             id: input.id,
             count: 0,
+            user: {
+              connect: {
+                id: ctx.user.id,
+              },
+            },
             versions: {
               create: {
                 categoryId: input.categoryId,

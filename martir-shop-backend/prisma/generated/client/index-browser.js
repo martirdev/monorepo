@@ -109,14 +109,14 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.ImagesScalarFieldEnum = {
   id: 'id',
-  productVersionId: 'productVersionId',
-  url: 'url'
+  url: 'url',
+  productVersionId: 'productVersionId'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
-  parentCategoryId: 'parentCategoryId',
-  name: 'name'
+  name: 'name',
+  parentCategoryId: 'parentCategoryId'
 };
 
 exports.Prisma.ParamValuesScalarFieldEnum = {
@@ -128,6 +128,7 @@ exports.Prisma.ParamValuesScalarFieldEnum = {
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
   count: 'count',
+  userId: 'userId',
   createdAt: 'createdAt'
 };
 
