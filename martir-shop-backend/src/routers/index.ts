@@ -1,12 +1,12 @@
-import { router } from "../shared/trpc";
-import { getContentById } from "../procedures/get-content-by-id";
-import { getProducts } from "../procedures/get-products";
-import { getProductVersion } from "../procedures/get-product-version";
-import { setProduct } from "../procedures/set-product";
 import { getCategories } from "../procedures/get-categories";
-import { setCategory } from "../procedures/set-category";
+import { getContentById } from "../procedures/get-content-by-id";
 import { getParamNames } from "../procedures/get-param-names";
-import { getProductVersions } from "../procedures/get-product-versions";
+import { getProduct } from "../procedures/get-product";
+import { getProductVersion } from "../procedures/get-product-version";
+import { getProducts } from "../procedures/get-products";
+import { setCategory } from "../procedures/set-category";
+import { setProduct } from "../procedures/set-product";
+import { router } from "../shared/trpc";
 
 export const appRouter = router({
   getContentById,
@@ -17,9 +17,9 @@ export const appRouter = router({
   setCategory,
 
   setProduct,
+  getProduct,
   getProducts,
   getProductVersion,
-  getProductVersions,
 });
 
 export type Router = typeof appRouter;

@@ -1,13 +1,23 @@
 "use client";
+import { Button } from "@/components/shared/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/shared/dropdown-menu";
+import { EmptyTableState } from "@/components/shared/empty-table-state";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/shared/pagination";
+import { Skeleton } from "@/components/shared/skeleton";
 import {
   Table,
   TableBody,
@@ -17,14 +27,12 @@ import {
   TableRow,
 } from "@/components/shared/table";
 import { currency, unit } from "@/lib/locale";
+import { trpc } from "@/lib/trpc";
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { memo } from "react";
-import { trpc } from "../../lib/trpc";
-import { Skeleton } from "../shared/skeleton";
-import { Button } from "../shared/button";
-import { EmptyTableState } from "../shared/empty-table-state";
-import Link from "next/link";
 
 const ITEMS_PER_PAGE = 20;
 const CREATE_BUTTON = (
@@ -59,6 +67,7 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
                 Цена
               </TableHead>
               <TableHead className="text-right">Количество</TableHead>
+              <TableHead className="w-8" />
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -80,6 +89,7 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
                   <TableCell className="text-right">
                     <Skeleton className="w-20 h-5 ml-auto" />
                   </TableCell>
+                  <TableCell />
                 </TableRow>
               ))}
             {!isLoading && !data?.products.length && (
@@ -117,6 +127,35 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
                   </TableCell>
                   <TableCell className="text-right">
                     {unit(product.count)}
+                  </TableCell>
+                  <TableCell className="w-8">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                          <span className="sr-only">Открыть меню</span>
+                          <DotsHorizontalIcon className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-[230px]">
+                        <DropdownMenuLabel>Действия</DropdownMenuLabel>
+                        <Link
+                          href={{ query: { mode: "edit", id: product.id } }}
+                        >
+                          <DropdownMenuItem>Редактировать</DropdownMenuItem>
+                        </Link>
+                        <Link
+                          href={{ query: { mode: "copy", id: product.id } }}
+                        >
+                          <DropdownMenuItem>Копировать</DropdownMenuItem>
+                        </Link>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>Изменить остаток</DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem className="text-destructive">
+                          Убрать в архив
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </TableCell>
                 </TableRow>
               ))}
