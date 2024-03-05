@@ -111,7 +111,7 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
                 <TableRow key={product.id}>
                   <TableCell>
                     <Image
-                      alt="Product image"
+                      alt="Изображение товара"
                       className="aspect-square rounded-md object-cover"
                       height="40"
                       src="/placeholder.svg"

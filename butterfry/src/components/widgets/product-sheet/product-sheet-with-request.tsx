@@ -29,6 +29,8 @@ export const ProductSheetWithRequest = memo<ProductSheetWithRequestPropsType>(
         name: selectedVersion.name,
         description: selectedVersion.description,
         price: selectedVersion.price,
+        params: selectedVersion.params,
+        images: selectedVersion.images,
       };
     }, [data?.versions, version]);
 

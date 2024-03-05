@@ -15,7 +15,12 @@ export const getProduct = procedure
         },
       },
       include: {
-        versions: true,
+        versions: {
+          include: {
+            images: true,
+            params: true,
+          },
+        },
       },
     });
   });
