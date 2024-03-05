@@ -30,7 +30,7 @@ const ProductCardFilter = memo<ProductCardFilterType>(function ProductCardFilter
         return placesData.flatMap(({places}) => {
             return places.map(({id, name}) => ({value: id, label: name}));
         });
-    }, [search]);
+    }, [filterData]);
 
     return (
         <div className="overflow-auto">
