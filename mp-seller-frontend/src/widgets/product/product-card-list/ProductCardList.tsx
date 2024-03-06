@@ -1,4 +1,5 @@
-import {Table, Tag, Tooltip} from 'antd';
+import {Checkbox, Table, Tag, Tooltip} from 'antd';
+import type {GetProp} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {memo, useCallback, useState} from 'react';
 
@@ -6,6 +7,7 @@ import {MarketplaceIcon} from '_shared/mp-logos';
 import {currency} from '_shared/utils/intl/numbers';
 import {BottomMenu} from '_widgets/bottom-menu';
 
+import ProductCardFilter from '../product-card-filter/ProductCardFilter';
 import {TEMPOPARY_MOCK_PRODUCTS} from './temporaryConsts';
 import {ProductType} from './types';
 
@@ -44,6 +46,10 @@ const columns: ColumnsType<ProductType> = [
     }
 ];
 
+const onChange: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
+    console.log('checked = ', checkedValues);
+};
+
 const ProductCardList = memo(function ProductCardTable() {
     const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
 
@@ -65,13 +71,17 @@ const ProductCardList = memo(function ProductCardTable() {
     }, [setSelectedRowKeys]);
 
     return (
-        <div className="flex flex-col gap-1">
-            <Table
-                columns={columns}
-                dataSource={TEMPOPARY_MOCK_PRODUCTS}
-                rowSelection={rowSelection}
-                className="flex-1"
-            />
+        <div className="flex flex-1 flex-col gap-1">
+            <div className="mx-40 mt-2 flex justify-between gap-16">
+                <ProductCardFilter onChange={onChange} />
+
+                <Table
+                    columns={columns}
+                    dataSource={TEMPOPARY_MOCK_PRODUCTS}
+                    rowSelection={rowSelection}
+                    className="flex-1"
+                />
+            </div>
             {selectedRowKeys.length > 0 && <BottomMenu selectedRowKeys={selectedRowKeys} onCancel={resetSelection} />}
         </div>
     );
