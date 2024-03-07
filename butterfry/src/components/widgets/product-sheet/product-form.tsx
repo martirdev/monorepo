@@ -123,7 +123,6 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                           .regex(/(https?:\/\/.+)|(^\s*$)/gm, {
                             message: "Неверный формат ссылки",
                           }),
-                        // .url({ message: "Неверный формат ссылки" }),
                       }}
                     >
                       {(field) => {
@@ -132,7 +131,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                             <div className="flex gap-2">
                               <img
                                 src={field.state.value ?? "/placeholder.svg"}
-                                alt={field.state.value ?? "Заглушка"}
+                                alt={field.state.value ?? "Изображение товара"}
                                 className="aspect-square rounded-md object-cover block"
                                 onError={({ currentTarget }) => {
                                   currentTarget.onerror = null;

@@ -29,6 +29,7 @@ import {
 import { currency, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { last } from "lodash";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -107,23 +108,27 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
             )}
             {!isLoading &&
               !!data?.products.length &&
-              data?.products.map((product) => (
+              data?.products.map(({ versions = [], ...product }) => (
                 <TableRow key={product.id}>
                   <TableCell>
-                    <Image
+                    <img
+                      src={last(versions)?.images[0]?.url ?? "/placeholder.svg"}
                       alt="Изображение товара"
-                      className="aspect-square rounded-md object-cover"
-                      height="40"
-                      src="/placeholder.svg"
-                      width="40"
+                      className="aspect-square rounded-md object-cover block"
+                      onError={({ currentTarget }) => {
+                        currentTarget.onerror = null;
+                        currentTarget.src = "/placeholder.svg";
+                      }}
+                      width={40}
+                      height={40}
                     />
                   </TableCell>
                   <TableCell className="font-medium">
-                    {product.versions[0].name}
+                    {last(versions)?.name}
                   </TableCell>
                   <TableCell className="hidden md:table-cell"></TableCell>
                   <TableCell className="hidden md:table-cell text-right">
-                    {currency(product.versions[0].price)}
+                    {currency(last(versions)?.price ?? "")}
                   </TableCell>
                   <TableCell className="text-right">
                     {unit(product.count)}
