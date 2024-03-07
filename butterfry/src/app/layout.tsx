@@ -1,3 +1,4 @@
+import { LoginPage } from "@/components/pages/login-page";
 import { Button } from "@/components/shared/button";
 import {
   DropdownMenu,
@@ -8,14 +9,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shared/dropdown-menu";
 import { Toaster } from "@/components/shared/sonner";
-import { TrpcProvider } from "@/lib/trpc";
 import { SideNavLinks } from "@/components/widgets/side-nav-links";
 import { getUser } from "@/lib/external-api";
+import { TrpcProvider } from "@/lib/trpc";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import "./globals.css";
-import { cookies } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,17 +34,7 @@ export default async function RootLayout({
   const authSession = cookies().get("auth_session")?.value;
 
   if (!user) {
-    return (
-      <html lang="ru">
-        <body className={inter.className}>
-          <div className="flex items-center justify-center h-full">
-            <Link href={`${process.env.BACKEND_API}/yandex/login`}>
-              <Button size="sm">Войти через Yandex</Button>
-            </Link>
-          </div>
-        </body>
-      </html>
-    );
+    return <LoginPage />;
   }
 
   return (
