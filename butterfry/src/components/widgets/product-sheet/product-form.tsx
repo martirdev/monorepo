@@ -10,7 +10,7 @@ import {
 } from "@/components/shared/sheet";
 import { Textarea } from "@/components/shared/textarea";
 import { trpc } from "@/lib/trpc";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { PlusIcon, ReloadIcon, TrashIcon } from "@radix-ui/react-icons";
 import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { useSearchParams } from "next/navigation";
@@ -63,7 +63,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
     defaultValues: initValues || FORM_INIT_VALUES,
     onSubmit: async ({ value }) => {
       if (mode === "edit" && !id) {
-        throw new Error("ID обязателен для данного режима");
+        throw new Error("ID обязателен для режима редактирования");
       }
 
       mutation.mutate({
@@ -71,10 +71,10 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
         name: value.name,
         description: value.description,
         price: value.price,
-
-        // TODO: Добавить поля в форму
-        params: [],
-        images: [],
+        params: value.params.filter((param) => param.value && param.name),
+        images: value.images
+          .filter((image) => !!image.url)
+          .map((image) => image.url),
       });
     },
     validatorAdapter: zodValidator,
@@ -106,6 +106,82 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
             />
           </div>
         )}
+        <form.Field name="images" mode="array">
+          {(imagesFields) => {
+            return (
+              <div className="space-y-2">
+                <Label htmlFor={imagesFields.name}>Изображения</Label>
+                <div className="space-y-2">
+                  {imagesFields.state.value.map((_field, i) => (
+                    <imagesFields.Field
+                      index={i}
+                      name="url"
+                      key={i}
+                      validators={{
+                        onChange: z
+                          .string()
+                          .regex(/(https?:\/\/.+)|(^\s*$)/gm, {
+                            message: "Неверный формат ссылки",
+                          }),
+                      }}
+                    >
+                      {(field) => {
+                        return (
+                          <div className="space-y-2">
+                            <div className="flex gap-2">
+                              <img
+                                src={field.state.value ?? "/placeholder.svg"}
+                                alt={field.state.value ?? "Изображение товара"}
+                                className="aspect-square rounded-md object-cover block"
+                                onError={({ currentTarget }) => {
+                                  currentTarget.onerror = null;
+                                  currentTarget.src = "/placeholder.svg";
+                                }}
+                                width={40}
+                                height={40}
+                              />
+                              <Input
+                                id={field.name}
+                                name={field.name}
+                                value={field.state.value}
+                                onBlur={field.handleBlur}
+                                onChange={(e) =>
+                                  field.handleChange(e.target.value)
+                                }
+                                autoFocus
+                              />
+                              <Button
+                                variant="secondary"
+                                size="icon"
+                                onClick={() => {
+                                  imagesFields.removeValue(i);
+                                }}
+                              >
+                                <TrashIcon />
+                              </Button>
+                            </div>
+                            {!!field.state.meta.errors.length && (
+                              <div className="text-sm text-destructive">
+                                {field.state.meta.errors.join("; ")}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }}
+                    </imagesFields.Field>
+                  ))}
+                </div>
+                <Button
+                  size="icon"
+                  variant="secondary"
+                  onClick={() => imagesFields.pushValue({ url: "" })}
+                >
+                  <PlusIcon />
+                </Button>
+              </div>
+            );
+          }}
+        </form.Field>
         <form.Field name="name">
           {(field) => {
             return (
@@ -167,6 +243,86 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                     {field.state.meta.errors.join("; ")}
                   </div>
                 )}
+              </div>
+            );
+          }}
+        </form.Field>
+        <form.Field name="params" mode="array">
+          {(paramsFields) => {
+            return (
+              <div className="space-y-2">
+                <Label>Дополнительные параметры</Label>
+                <div className="space-y-2">
+                  {paramsFields.state.value.map((_field, i) => {
+                    return (
+                      <div key={i} className="flex gap-2">
+                        <div className="flex-1">
+                          <paramsFields.Field name="name" index={i}>
+                            {(field) => {
+                              return (
+                                <div>
+                                  <Label htmlFor={field.name}>Название</Label>
+                                  <Input
+                                    id={field.name}
+                                    name={field.name}
+                                    value={field.state.value}
+                                    onBlur={field.handleBlur}
+                                    onChange={(e) =>
+                                      field.handleChange(e.target.value)
+                                    }
+                                  />
+                                </div>
+                              );
+                            }}
+                          </paramsFields.Field>
+                        </div>
+                        <div className="flex-1">
+                          <paramsFields.Field name="value" index={i}>
+                            {(field) => {
+                              return (
+                                <div>
+                                  <Label>Значение</Label>
+                                  <Input
+                                    id={field.name}
+                                    name={field.name}
+                                    value={field.state.value}
+                                    onBlur={field.handleBlur}
+                                    onChange={(e) =>
+                                      field.handleChange(e.target.value)
+                                    }
+                                  />
+                                </div>
+                              );
+                            }}
+                          </paramsFields.Field>
+                        </div>
+                        <div className="self-end">
+                          <Button
+                            variant="secondary"
+                            size="icon"
+                            onClick={() => {
+                              paramsFields.removeValue(i);
+                            }}
+                          >
+                            <TrashIcon />
+                          </Button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <Button
+                  size="icon"
+                  variant="secondary"
+                  onClick={() =>
+                    paramsFields.pushValue({
+                      name: "",
+                      value: "",
+                    })
+                  }
+                >
+                  <PlusIcon />
+                </Button>
               </div>
             );
           }}
