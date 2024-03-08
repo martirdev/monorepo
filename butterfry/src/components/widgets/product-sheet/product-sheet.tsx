@@ -32,6 +32,7 @@ export const ProductSheet = memo<ProductSheetPropsType>(function ProductSheet({
     <Sheet open={!!mode} onOpenChange={close}>
       <SheetContent
         container={typeof window === "object" ? document.body : undefined}
+        className="overflow-auto"
       >
         <ProductForm
           id={id}
