@@ -132,7 +132,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                               <img
                                 src={field.state.value ?? "/placeholder.svg"}
                                 alt={field.state.value ?? "Изображение товара"}
-                                className="aspect-square rounded-md object-cover block"
+                                className="aspect-square rounded-md object-cover block shrink-0"
                                 onError={({ currentTarget }) => {
                                   currentTarget.onerror = null;
                                   currentTarget.src = "/placeholder.svg";
@@ -153,6 +153,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                               <Button
                                 variant="secondary"
                                 size="icon"
+                                className="shrink-0"
                                 onClick={() => {
                                   imagesFields.removeValue(i);
                                 }}
