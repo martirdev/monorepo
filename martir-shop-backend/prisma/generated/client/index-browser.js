@@ -132,6 +132,12 @@ exports.Prisma.ProductScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ProductCountHistoryScalarFieldEnum = {
+  id: 'id',
+  value: 'value',
+  productId: 'productId'
+};
+
 exports.Prisma.ProductVersionScalarFieldEnum = {
   id: 'id',
   categoryId: 'categoryId',
@@ -177,6 +183,7 @@ exports.Prisma.ModelName = {
   Category: 'Category',
   ParamValues: 'ParamValues',
   Product: 'Product',
+  ProductCountHistory: 'ProductCountHistory',
   ProductVersion: 'ProductVersion',
   User: 'User',
   Session: 'Session'
