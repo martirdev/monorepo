@@ -34,12 +34,20 @@ model ParamValues {
 }
 
 model Product {
-  id        String           @id @default(uuid())
-  count     Int
-  userId    String
-  createdAt DateTime         @default(now())
-  user      User             @relation(fields: [userId], references: [id])
-  versions  ProductVersion[]
+  id                  String                @id @default(uuid())
+  count               Int
+  userId              String
+  createdAt           DateTime              @default(now())
+  user                User                  @relation(fields: [userId], references: [id])
+  versions            ProductVersion[]
+  productCountHistory ProductCountHistory[]
+}
+
+model ProductCountHistory {
+  id        String  @id @default(uuid())
+  value     Int
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 model ProductVersion {

@@ -30,10 +30,10 @@ import { currency, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { last } from "lodash";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { memo } from "react";
+import { ChangeProductCountMenuItem } from "./change-product-count-menu-item";
 
 const ITEMS_PER_PAGE = 20;
 const CREATE_BUTTON = (
@@ -48,7 +48,7 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
   const searchParams = useSearchParams();
 
   const page = Number(searchParams.get("page") ?? 0);
-  const { data, isLoading } = trpc.getProducts.useQuery({
+  const { data, isLoading, refetch } = trpc.getProducts.useQuery({
     take: ITEMS_PER_PAGE,
     skip: ITEMS_PER_PAGE * page,
   });
@@ -61,7 +61,7 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[80px]" />
+              <TableHead className="w-[80px] min-w-[80px]" />
               <TableHead>Название</TableHead>
               <TableHead className="hidden md:table-cell">Категория</TableHead>
               <TableHead className="hidden md:table-cell text-right">
@@ -154,7 +154,18 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
                           <DropdownMenuItem>Копировать</DropdownMenuItem>
                         </Link>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Изменить остаток</DropdownMenuItem>
+                        <ChangeProductCountMenuItem
+                          id={product.id}
+                          name="Пополнить"
+                          multiplier={1}
+                          onSubmit={refetch}
+                        />
+                        <ChangeProductCountMenuItem
+                          id={product.id}
+                          name="Списать"
+                          multiplier={-1}
+                          onSubmit={refetch}
+                        />
                         <DropdownMenuSeparator />
                         <DropdownMenuItem className="text-destructive">
                           Убрать в архив

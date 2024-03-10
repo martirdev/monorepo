@@ -7,3 +7,5 @@ export function cn(...inputs: ClassValue[]) {
 
 export const wait = (time: number) =>
   new Promise<void>((resolve) => setTimeout(() => resolve(), time));
+
+export const preventDefault = (e: Event) => e.preventDefault();

@@ -37,7 +37,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
 }) {
   const searchparams = useSearchParams();
 
-  const mutation = trpc.setProduct.useMutation({
+  const { mutate, isLoading } = trpc.setProduct.useMutation({
     onSuccess: (data) => {
       const params = new URLSearchParams(searchparams);
       params.set("id", data.id || id || "");
@@ -66,7 +66,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
         throw new Error("ID обязателен для режима редактирования");
       }
 
-      mutation.mutate({
+      mutate({
         id: mode === "edit" ? id! : v4(),
         name: value.name,
         description: value.description,
@@ -162,7 +162,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                               </Button>
                             </div>
                             {!!field.state.meta.errors.length && (
-                              <div className="text-sm text-destructive">
+                              <div className="text-xs text-destructive">
                                 {field.state.meta.errors.join("; ")}
                               </div>
                             )}
@@ -240,7 +240,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                   onChange={(e) => field.handleChange(e.target.valueAsNumber)}
                 />
                 {!!field.state.meta.errors.length && (
-                  <div className="text-sm text-destructive">
+                  <div className="text-xs text-destructive">
                     {field.state.meta.errors.join("; ")}
                   </div>
                 )}
@@ -330,10 +330,8 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
         </form.Field>
       </div>
       <SheetFooter>
-        <Button disabled={mutation.isLoading} onClick={form.handleSubmit}>
-          {mutation.isLoading && (
-            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-          )}
+        <Button disabled={isLoading} onClick={form.handleSubmit}>
+          {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
           Сохранить
         </Button>
       </SheetFooter>

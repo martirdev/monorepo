@@ -34,6 +34,11 @@ export type ParamValues = $Result.DefaultSelection<Prisma.$ParamValuesPayload>
  */
 export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>
 /**
+ * Model ProductCountHistory
+ * 
+ */
+export type ProductCountHistory = $Result.DefaultSelection<Prisma.$ProductCountHistoryPayload>
+/**
  * Model ProductVersion
  * 
  */
@@ -210,6 +215,16 @@ export class PrismaClient<
     * ```
     */
   get product(): Prisma.ProductDelegate<ExtArgs>;
+
+  /**
+   * `prisma.productCountHistory`: Exposes CRUD operations for the **ProductCountHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ProductCountHistories
+    * const productCountHistories = await prisma.productCountHistory.findMany()
+    * ```
+    */
+  get productCountHistory(): Prisma.ProductCountHistoryDelegate<ExtArgs>;
 
   /**
    * `prisma.productVersion`: Exposes CRUD operations for the **ProductVersion** model.
@@ -714,6 +729,7 @@ export namespace Prisma {
     Category: 'Category',
     ParamValues: 'ParamValues',
     Product: 'Product',
+    ProductCountHistory: 'ProductCountHistory',
     ProductVersion: 'ProductVersion',
     User: 'User',
     Session: 'Session'
@@ -733,7 +749,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'images' | 'category' | 'paramValues' | 'product' | 'productVersion' | 'user' | 'session'
+      modelProps: 'images' | 'category' | 'paramValues' | 'product' | 'productCountHistory' | 'productVersion' | 'user' | 'session'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -998,6 +1014,72 @@ export namespace Prisma {
           count: {
             args: Prisma.ProductCountArgs<ExtArgs>,
             result: $Utils.Optional<ProductCountAggregateOutputType> | number
+          }
+        }
+      }
+      ProductCountHistory: {
+        payload: Prisma.$ProductCountHistoryPayload<ExtArgs>
+        fields: Prisma.ProductCountHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProductCountHistoryFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductCountHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProductCountHistoryFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductCountHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.ProductCountHistoryFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductCountHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProductCountHistoryFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductCountHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.ProductCountHistoryFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductCountHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.ProductCountHistoryCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductCountHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.ProductCountHistoryCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.ProductCountHistoryDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductCountHistoryPayload>
+          }
+          update: {
+            args: Prisma.ProductCountHistoryUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductCountHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProductCountHistoryDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProductCountHistoryUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.ProductCountHistoryUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$ProductCountHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.ProductCountHistoryAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateProductCountHistory>
+          }
+          groupBy: {
+            args: Prisma.ProductCountHistoryGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<ProductCountHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProductCountHistoryCountArgs<ExtArgs>,
+            result: $Utils.Optional<ProductCountHistoryCountAggregateOutputType> | number
           }
         }
       }
@@ -1427,10 +1509,12 @@ export namespace Prisma {
 
   export type ProductCountOutputType = {
     versions: number
+    productCountHistory: number
   }
 
   export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     versions?: boolean | ProductCountOutputTypeCountVersionsArgs
+    productCountHistory?: boolean | ProductCountOutputTypeCountProductCountHistoryArgs
   }
 
   // Custom InputTypes
@@ -1451,6 +1535,14 @@ export namespace Prisma {
    */
   export type ProductCountOutputTypeCountVersionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ProductVersionWhereInput
+  }
+
+
+  /**
+   * ProductCountOutputType without action
+   */
+  export type ProductCountOutputTypeCountProductCountHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductCountHistoryWhereInput
   }
 
 
@@ -4520,6 +4612,7 @@ export namespace Prisma {
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     versions?: boolean | Product$versionsArgs<ExtArgs>
+    productCountHistory?: boolean | Product$productCountHistoryArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["product"]>
 
@@ -4533,6 +4626,7 @@ export namespace Prisma {
   export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     versions?: boolean | Product$versionsArgs<ExtArgs>
+    productCountHistory?: boolean | Product$productCountHistoryArgs<ExtArgs>
     _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -4542,6 +4636,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       versions: Prisma.$ProductVersionPayload<ExtArgs>[]
+      productCountHistory: Prisma.$ProductCountHistoryPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4917,6 +5012,8 @@ export namespace Prisma {
 
     versions<T extends Product$versionsArgs<ExtArgs> = {}>(args?: Subset<T, Product$versionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductVersionPayload<ExtArgs>, T, 'findMany'> | Null>;
 
+    productCountHistory<T extends Product$productCountHistoryArgs<ExtArgs> = {}>(args?: Subset<T, Product$productCountHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductCountHistoryPayload<ExtArgs>, T, 'findMany'> | Null>;
+
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5282,6 +5379,27 @@ export namespace Prisma {
 
 
   /**
+   * Product.productCountHistory
+   */
+  export type Product$productCountHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
+    where?: ProductCountHistoryWhereInput
+    orderBy?: ProductCountHistoryOrderByWithRelationInput | ProductCountHistoryOrderByWithRelationInput[]
+    cursor?: ProductCountHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProductCountHistoryScalarFieldEnum | ProductCountHistoryScalarFieldEnum[]
+  }
+
+
+  /**
    * Product without action
    */
   export type ProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5293,6 +5411,936 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: ProductInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model ProductCountHistory
+   */
+
+  export type AggregateProductCountHistory = {
+    _count: ProductCountHistoryCountAggregateOutputType | null
+    _avg: ProductCountHistoryAvgAggregateOutputType | null
+    _sum: ProductCountHistorySumAggregateOutputType | null
+    _min: ProductCountHistoryMinAggregateOutputType | null
+    _max: ProductCountHistoryMaxAggregateOutputType | null
+  }
+
+  export type ProductCountHistoryAvgAggregateOutputType = {
+    value: number | null
+  }
+
+  export type ProductCountHistorySumAggregateOutputType = {
+    value: number | null
+  }
+
+  export type ProductCountHistoryMinAggregateOutputType = {
+    id: string | null
+    value: number | null
+    productId: string | null
+  }
+
+  export type ProductCountHistoryMaxAggregateOutputType = {
+    id: string | null
+    value: number | null
+    productId: string | null
+  }
+
+  export type ProductCountHistoryCountAggregateOutputType = {
+    id: number
+    value: number
+    productId: number
+    _all: number
+  }
+
+
+  export type ProductCountHistoryAvgAggregateInputType = {
+    value?: true
+  }
+
+  export type ProductCountHistorySumAggregateInputType = {
+    value?: true
+  }
+
+  export type ProductCountHistoryMinAggregateInputType = {
+    id?: true
+    value?: true
+    productId?: true
+  }
+
+  export type ProductCountHistoryMaxAggregateInputType = {
+    id?: true
+    value?: true
+    productId?: true
+  }
+
+  export type ProductCountHistoryCountAggregateInputType = {
+    id?: true
+    value?: true
+    productId?: true
+    _all?: true
+  }
+
+  export type ProductCountHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProductCountHistory to aggregate.
+     */
+    where?: ProductCountHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProductCountHistories to fetch.
+     */
+    orderBy?: ProductCountHistoryOrderByWithRelationInput | ProductCountHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProductCountHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProductCountHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProductCountHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ProductCountHistories
+    **/
+    _count?: true | ProductCountHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProductCountHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProductCountHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProductCountHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProductCountHistoryMaxAggregateInputType
+  }
+
+  export type GetProductCountHistoryAggregateType<T extends ProductCountHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateProductCountHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProductCountHistory[P]>
+      : GetScalarType<T[P], AggregateProductCountHistory[P]>
+  }
+
+
+
+
+  export type ProductCountHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductCountHistoryWhereInput
+    orderBy?: ProductCountHistoryOrderByWithAggregationInput | ProductCountHistoryOrderByWithAggregationInput[]
+    by: ProductCountHistoryScalarFieldEnum[] | ProductCountHistoryScalarFieldEnum
+    having?: ProductCountHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProductCountHistoryCountAggregateInputType | true
+    _avg?: ProductCountHistoryAvgAggregateInputType
+    _sum?: ProductCountHistorySumAggregateInputType
+    _min?: ProductCountHistoryMinAggregateInputType
+    _max?: ProductCountHistoryMaxAggregateInputType
+  }
+
+  export type ProductCountHistoryGroupByOutputType = {
+    id: string
+    value: number
+    productId: string
+    _count: ProductCountHistoryCountAggregateOutputType | null
+    _avg: ProductCountHistoryAvgAggregateOutputType | null
+    _sum: ProductCountHistorySumAggregateOutputType | null
+    _min: ProductCountHistoryMinAggregateOutputType | null
+    _max: ProductCountHistoryMaxAggregateOutputType | null
+  }
+
+  type GetProductCountHistoryGroupByPayload<T extends ProductCountHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProductCountHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProductCountHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProductCountHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], ProductCountHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProductCountHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    value?: boolean
+    productId?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["productCountHistory"]>
+
+  export type ProductCountHistorySelectScalar = {
+    id?: boolean
+    value?: boolean
+    productId?: boolean
+  }
+
+  export type ProductCountHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductDefaultArgs<ExtArgs>
+  }
+
+
+  export type $ProductCountHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ProductCountHistory"
+    objects: {
+      product: Prisma.$ProductPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      value: number
+      productId: string
+    }, ExtArgs["result"]["productCountHistory"]>
+    composites: {}
+  }
+
+
+  type ProductCountHistoryGetPayload<S extends boolean | null | undefined | ProductCountHistoryDefaultArgs> = $Result.GetResult<Prisma.$ProductCountHistoryPayload, S>
+
+  type ProductCountHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ProductCountHistoryFindManyArgs, 'select' | 'include' | 'distinct' > & {
+      select?: ProductCountHistoryCountAggregateInputType | true
+    }
+
+  export interface ProductCountHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ProductCountHistory'], meta: { name: 'ProductCountHistory' } }
+    /**
+     * Find zero or one ProductCountHistory that matches the filter.
+     * @param {ProductCountHistoryFindUniqueArgs} args - Arguments to find a ProductCountHistory
+     * @example
+     * // Get one ProductCountHistory
+     * const productCountHistory = await prisma.productCountHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends ProductCountHistoryFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductCountHistoryFindUniqueArgs<ExtArgs>>
+    ): Prisma__ProductCountHistoryClient<$Result.GetResult<Prisma.$ProductCountHistoryPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one ProductCountHistory that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {ProductCountHistoryFindUniqueOrThrowArgs} args - Arguments to find a ProductCountHistory
+     * @example
+     * // Get one ProductCountHistory
+     * const productCountHistory = await prisma.productCountHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends ProductCountHistoryFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductCountHistoryFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__ProductCountHistoryClient<$Result.GetResult<Prisma.$ProductCountHistoryPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first ProductCountHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductCountHistoryFindFirstArgs} args - Arguments to find a ProductCountHistory
+     * @example
+     * // Get one ProductCountHistory
+     * const productCountHistory = await prisma.productCountHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends ProductCountHistoryFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductCountHistoryFindFirstArgs<ExtArgs>>
+    ): Prisma__ProductCountHistoryClient<$Result.GetResult<Prisma.$ProductCountHistoryPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first ProductCountHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductCountHistoryFindFirstOrThrowArgs} args - Arguments to find a ProductCountHistory
+     * @example
+     * // Get one ProductCountHistory
+     * const productCountHistory = await prisma.productCountHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends ProductCountHistoryFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductCountHistoryFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__ProductCountHistoryClient<$Result.GetResult<Prisma.$ProductCountHistoryPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more ProductCountHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductCountHistoryFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ProductCountHistories
+     * const productCountHistories = await prisma.productCountHistory.findMany()
+     * 
+     * // Get first 10 ProductCountHistories
+     * const productCountHistories = await prisma.productCountHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const productCountHistoryWithIdOnly = await prisma.productCountHistory.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends ProductCountHistoryFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductCountHistoryFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductCountHistoryPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a ProductCountHistory.
+     * @param {ProductCountHistoryCreateArgs} args - Arguments to create a ProductCountHistory.
+     * @example
+     * // Create one ProductCountHistory
+     * const ProductCountHistory = await prisma.productCountHistory.create({
+     *   data: {
+     *     // ... data to create a ProductCountHistory
+     *   }
+     * })
+     * 
+    **/
+    create<T extends ProductCountHistoryCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductCountHistoryCreateArgs<ExtArgs>>
+    ): Prisma__ProductCountHistoryClient<$Result.GetResult<Prisma.$ProductCountHistoryPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many ProductCountHistories.
+     *     @param {ProductCountHistoryCreateManyArgs} args - Arguments to create many ProductCountHistories.
+     *     @example
+     *     // Create many ProductCountHistories
+     *     const productCountHistory = await prisma.productCountHistory.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends ProductCountHistoryCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductCountHistoryCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ProductCountHistory.
+     * @param {ProductCountHistoryDeleteArgs} args - Arguments to delete one ProductCountHistory.
+     * @example
+     * // Delete one ProductCountHistory
+     * const ProductCountHistory = await prisma.productCountHistory.delete({
+     *   where: {
+     *     // ... filter to delete one ProductCountHistory
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends ProductCountHistoryDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductCountHistoryDeleteArgs<ExtArgs>>
+    ): Prisma__ProductCountHistoryClient<$Result.GetResult<Prisma.$ProductCountHistoryPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one ProductCountHistory.
+     * @param {ProductCountHistoryUpdateArgs} args - Arguments to update one ProductCountHistory.
+     * @example
+     * // Update one ProductCountHistory
+     * const productCountHistory = await prisma.productCountHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends ProductCountHistoryUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductCountHistoryUpdateArgs<ExtArgs>>
+    ): Prisma__ProductCountHistoryClient<$Result.GetResult<Prisma.$ProductCountHistoryPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more ProductCountHistories.
+     * @param {ProductCountHistoryDeleteManyArgs} args - Arguments to filter ProductCountHistories to delete.
+     * @example
+     * // Delete a few ProductCountHistories
+     * const { count } = await prisma.productCountHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends ProductCountHistoryDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, ProductCountHistoryDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ProductCountHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductCountHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ProductCountHistories
+     * const productCountHistory = await prisma.productCountHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends ProductCountHistoryUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductCountHistoryUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ProductCountHistory.
+     * @param {ProductCountHistoryUpsertArgs} args - Arguments to update or create a ProductCountHistory.
+     * @example
+     * // Update or create a ProductCountHistory
+     * const productCountHistory = await prisma.productCountHistory.upsert({
+     *   create: {
+     *     // ... data to create a ProductCountHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ProductCountHistory we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends ProductCountHistoryUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, ProductCountHistoryUpsertArgs<ExtArgs>>
+    ): Prisma__ProductCountHistoryClient<$Result.GetResult<Prisma.$ProductCountHistoryPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of ProductCountHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductCountHistoryCountArgs} args - Arguments to filter ProductCountHistories to count.
+     * @example
+     * // Count the number of ProductCountHistories
+     * const count = await prisma.productCountHistory.count({
+     *   where: {
+     *     // ... the filter for the ProductCountHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProductCountHistoryCountArgs>(
+      args?: Subset<T, ProductCountHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProductCountHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ProductCountHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductCountHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProductCountHistoryAggregateArgs>(args: Subset<T, ProductCountHistoryAggregateArgs>): Prisma.PrismaPromise<GetProductCountHistoryAggregateType<T>>
+
+    /**
+     * Group by ProductCountHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductCountHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProductCountHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProductCountHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: ProductCountHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProductCountHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProductCountHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ProductCountHistory model
+   */
+  readonly fields: ProductCountHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ProductCountHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProductCountHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the ProductCountHistory model
+   */ 
+  interface ProductCountHistoryFieldRefs {
+    readonly id: FieldRef<"ProductCountHistory", 'String'>
+    readonly value: FieldRef<"ProductCountHistory", 'Int'>
+    readonly productId: FieldRef<"ProductCountHistory", 'String'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * ProductCountHistory findUnique
+   */
+  export type ProductCountHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ProductCountHistory to fetch.
+     */
+    where: ProductCountHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * ProductCountHistory findUniqueOrThrow
+   */
+  export type ProductCountHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ProductCountHistory to fetch.
+     */
+    where: ProductCountHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * ProductCountHistory findFirst
+   */
+  export type ProductCountHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ProductCountHistory to fetch.
+     */
+    where?: ProductCountHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProductCountHistories to fetch.
+     */
+    orderBy?: ProductCountHistoryOrderByWithRelationInput | ProductCountHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProductCountHistories.
+     */
+    cursor?: ProductCountHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProductCountHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProductCountHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProductCountHistories.
+     */
+    distinct?: ProductCountHistoryScalarFieldEnum | ProductCountHistoryScalarFieldEnum[]
+  }
+
+
+  /**
+   * ProductCountHistory findFirstOrThrow
+   */
+  export type ProductCountHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ProductCountHistory to fetch.
+     */
+    where?: ProductCountHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProductCountHistories to fetch.
+     */
+    orderBy?: ProductCountHistoryOrderByWithRelationInput | ProductCountHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ProductCountHistories.
+     */
+    cursor?: ProductCountHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProductCountHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProductCountHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ProductCountHistories.
+     */
+    distinct?: ProductCountHistoryScalarFieldEnum | ProductCountHistoryScalarFieldEnum[]
+  }
+
+
+  /**
+   * ProductCountHistory findMany
+   */
+  export type ProductCountHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which ProductCountHistories to fetch.
+     */
+    where?: ProductCountHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ProductCountHistories to fetch.
+     */
+    orderBy?: ProductCountHistoryOrderByWithRelationInput | ProductCountHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ProductCountHistories.
+     */
+    cursor?: ProductCountHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ProductCountHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ProductCountHistories.
+     */
+    skip?: number
+    distinct?: ProductCountHistoryScalarFieldEnum | ProductCountHistoryScalarFieldEnum[]
+  }
+
+
+  /**
+   * ProductCountHistory create
+   */
+  export type ProductCountHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ProductCountHistory.
+     */
+    data: XOR<ProductCountHistoryCreateInput, ProductCountHistoryUncheckedCreateInput>
+  }
+
+
+  /**
+   * ProductCountHistory createMany
+   */
+  export type ProductCountHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ProductCountHistories.
+     */
+    data: ProductCountHistoryCreateManyInput | ProductCountHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * ProductCountHistory update
+   */
+  export type ProductCountHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ProductCountHistory.
+     */
+    data: XOR<ProductCountHistoryUpdateInput, ProductCountHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which ProductCountHistory to update.
+     */
+    where: ProductCountHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * ProductCountHistory updateMany
+   */
+  export type ProductCountHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ProductCountHistories.
+     */
+    data: XOR<ProductCountHistoryUpdateManyMutationInput, ProductCountHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which ProductCountHistories to update
+     */
+    where?: ProductCountHistoryWhereInput
+  }
+
+
+  /**
+   * ProductCountHistory upsert
+   */
+  export type ProductCountHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ProductCountHistory to update in case it exists.
+     */
+    where: ProductCountHistoryWhereUniqueInput
+    /**
+     * In case the ProductCountHistory found by the `where` argument doesn't exist, create a new ProductCountHistory with this data.
+     */
+    create: XOR<ProductCountHistoryCreateInput, ProductCountHistoryUncheckedCreateInput>
+    /**
+     * In case the ProductCountHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProductCountHistoryUpdateInput, ProductCountHistoryUncheckedUpdateInput>
+  }
+
+
+  /**
+   * ProductCountHistory delete
+   */
+  export type ProductCountHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which ProductCountHistory to delete.
+     */
+    where: ProductCountHistoryWhereUniqueInput
+  }
+
+
+  /**
+   * ProductCountHistory deleteMany
+   */
+  export type ProductCountHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ProductCountHistories to delete
+     */
+    where?: ProductCountHistoryWhereInput
+  }
+
+
+  /**
+   * ProductCountHistory without action
+   */
+  export type ProductCountHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProductCountHistory
+     */
+    select?: ProductCountHistorySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: ProductCountHistoryInclude<ExtArgs> | null
   }
 
 
@@ -8260,6 +9308,15 @@ export namespace Prisma {
   export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
+  export const ProductCountHistoryScalarFieldEnum: {
+    id: 'id',
+    value: 'value',
+    productId: 'productId'
+  };
+
+  export type ProductCountHistoryScalarFieldEnum = (typeof ProductCountHistoryScalarFieldEnum)[keyof typeof ProductCountHistoryScalarFieldEnum]
+
+
   export const ProductVersionScalarFieldEnum: {
     id: 'id',
     categoryId: 'categoryId',
@@ -8532,6 +9589,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Product"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     versions?: ProductVersionListRelationFilter
+    productCountHistory?: ProductCountHistoryListRelationFilter
   }
 
   export type ProductOrderByWithRelationInput = {
@@ -8541,6 +9599,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     versions?: ProductVersionOrderByRelationAggregateInput
+    productCountHistory?: ProductCountHistoryOrderByRelationAggregateInput
   }
 
   export type ProductWhereUniqueInput = Prisma.AtLeast<{
@@ -8553,6 +9612,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Product"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     versions?: ProductVersionListRelationFilter
+    productCountHistory?: ProductCountHistoryListRelationFilter
   }, "id">
 
   export type ProductOrderByWithAggregationInput = {
@@ -8575,6 +9635,53 @@ export namespace Prisma {
     count?: IntWithAggregatesFilter<"Product"> | number
     userId?: StringWithAggregatesFilter<"Product"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
+  }
+
+  export type ProductCountHistoryWhereInput = {
+    AND?: ProductCountHistoryWhereInput | ProductCountHistoryWhereInput[]
+    OR?: ProductCountHistoryWhereInput[]
+    NOT?: ProductCountHistoryWhereInput | ProductCountHistoryWhereInput[]
+    id?: StringFilter<"ProductCountHistory"> | string
+    value?: IntFilter<"ProductCountHistory"> | number
+    productId?: StringFilter<"ProductCountHistory"> | string
+    product?: XOR<ProductRelationFilter, ProductWhereInput>
+  }
+
+  export type ProductCountHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    value?: SortOrder
+    productId?: SortOrder
+    product?: ProductOrderByWithRelationInput
+  }
+
+  export type ProductCountHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ProductCountHistoryWhereInput | ProductCountHistoryWhereInput[]
+    OR?: ProductCountHistoryWhereInput[]
+    NOT?: ProductCountHistoryWhereInput | ProductCountHistoryWhereInput[]
+    value?: IntFilter<"ProductCountHistory"> | number
+    productId?: StringFilter<"ProductCountHistory"> | string
+    product?: XOR<ProductRelationFilter, ProductWhereInput>
+  }, "id">
+
+  export type ProductCountHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    value?: SortOrder
+    productId?: SortOrder
+    _count?: ProductCountHistoryCountOrderByAggregateInput
+    _avg?: ProductCountHistoryAvgOrderByAggregateInput
+    _max?: ProductCountHistoryMaxOrderByAggregateInput
+    _min?: ProductCountHistoryMinOrderByAggregateInput
+    _sum?: ProductCountHistorySumOrderByAggregateInput
+  }
+
+  export type ProductCountHistoryScalarWhereWithAggregatesInput = {
+    AND?: ProductCountHistoryScalarWhereWithAggregatesInput | ProductCountHistoryScalarWhereWithAggregatesInput[]
+    OR?: ProductCountHistoryScalarWhereWithAggregatesInput[]
+    NOT?: ProductCountHistoryScalarWhereWithAggregatesInput | ProductCountHistoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ProductCountHistory"> | string
+    value?: IntWithAggregatesFilter<"ProductCountHistory"> | number
+    productId?: StringWithAggregatesFilter<"ProductCountHistory"> | string
   }
 
   export type ProductVersionWhereInput = {
@@ -8898,6 +10005,7 @@ export namespace Prisma {
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutProductsInput
     versions?: ProductVersionCreateNestedManyWithoutProductInput
+    productCountHistory?: ProductCountHistoryCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateInput = {
@@ -8906,6 +10014,7 @@ export namespace Prisma {
     userId: string
     createdAt?: Date | string
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
+    productCountHistory?: ProductCountHistoryUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductUpdateInput = {
@@ -8914,6 +10023,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
     versions?: ProductVersionUpdateManyWithoutProductNestedInput
+    productCountHistory?: ProductCountHistoryUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateInput = {
@@ -8922,6 +10032,7 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
+    productCountHistory?: ProductCountHistoryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductCreateManyInput = {
@@ -8942,6 +10053,47 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductCountHistoryCreateInput = {
+    id?: string
+    value: number
+    product: ProductCreateNestedOneWithoutProductCountHistoryInput
+  }
+
+  export type ProductCountHistoryUncheckedCreateInput = {
+    id?: string
+    value: number
+    productId: string
+  }
+
+  export type ProductCountHistoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+    product?: ProductUpdateOneRequiredWithoutProductCountHistoryNestedInput
+  }
+
+  export type ProductCountHistoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+    productId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ProductCountHistoryCreateManyInput = {
+    id?: string
+    value: number
+    productId: string
+  }
+
+  export type ProductCountHistoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ProductCountHistoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+    productId?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProductVersionCreateInput = {
@@ -9307,6 +10459,16 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
+  export type ProductCountHistoryListRelationFilter = {
+    every?: ProductCountHistoryWhereInput
+    some?: ProductCountHistoryWhereInput
+    none?: ProductCountHistoryWhereInput
+  }
+
+  export type ProductCountHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProductCountOrderByAggregateInput = {
     id?: SortOrder
     count?: SortOrder
@@ -9366,6 +10528,37 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type ProductRelationFilter = {
+    is?: ProductWhereInput
+    isNot?: ProductWhereInput
+  }
+
+  export type ProductCountHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    value?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type ProductCountHistoryAvgOrderByAggregateInput = {
+    value?: SortOrder
+  }
+
+  export type ProductCountHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    value?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type ProductCountHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    value?: SortOrder
+    productId?: SortOrder
+  }
+
+  export type ProductCountHistorySumOrderByAggregateInput = {
+    value?: SortOrder
+  }
+
   export type FloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -9381,11 +10574,6 @@ export namespace Prisma {
     every?: ImagesWhereInput
     some?: ImagesWhereInput
     none?: ImagesWhereInput
-  }
-
-  export type ProductRelationFilter = {
-    is?: ProductWhereInput
-    isNot?: ProductWhereInput
   }
 
   export type ParamValuesListRelationFilter = {
@@ -9691,11 +10879,25 @@ export namespace Prisma {
     connect?: ProductVersionWhereUniqueInput | ProductVersionWhereUniqueInput[]
   }
 
+  export type ProductCountHistoryCreateNestedManyWithoutProductInput = {
+    create?: XOR<ProductCountHistoryCreateWithoutProductInput, ProductCountHistoryUncheckedCreateWithoutProductInput> | ProductCountHistoryCreateWithoutProductInput[] | ProductCountHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductCountHistoryCreateOrConnectWithoutProductInput | ProductCountHistoryCreateOrConnectWithoutProductInput[]
+    createMany?: ProductCountHistoryCreateManyProductInputEnvelope
+    connect?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
+  }
+
   export type ProductVersionUncheckedCreateNestedManyWithoutProductInput = {
     create?: XOR<ProductVersionCreateWithoutProductInput, ProductVersionUncheckedCreateWithoutProductInput> | ProductVersionCreateWithoutProductInput[] | ProductVersionUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductVersionCreateOrConnectWithoutProductInput | ProductVersionCreateOrConnectWithoutProductInput[]
     createMany?: ProductVersionCreateManyProductInputEnvelope
     connect?: ProductVersionWhereUniqueInput | ProductVersionWhereUniqueInput[]
+  }
+
+  export type ProductCountHistoryUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<ProductCountHistoryCreateWithoutProductInput, ProductCountHistoryUncheckedCreateWithoutProductInput> | ProductCountHistoryCreateWithoutProductInput[] | ProductCountHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductCountHistoryCreateOrConnectWithoutProductInput | ProductCountHistoryCreateOrConnectWithoutProductInput[]
+    createMany?: ProductCountHistoryCreateManyProductInputEnvelope
+    connect?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -9732,6 +10934,20 @@ export namespace Prisma {
     deleteMany?: ProductVersionScalarWhereInput | ProductVersionScalarWhereInput[]
   }
 
+  export type ProductCountHistoryUpdateManyWithoutProductNestedInput = {
+    create?: XOR<ProductCountHistoryCreateWithoutProductInput, ProductCountHistoryUncheckedCreateWithoutProductInput> | ProductCountHistoryCreateWithoutProductInput[] | ProductCountHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductCountHistoryCreateOrConnectWithoutProductInput | ProductCountHistoryCreateOrConnectWithoutProductInput[]
+    upsert?: ProductCountHistoryUpsertWithWhereUniqueWithoutProductInput | ProductCountHistoryUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: ProductCountHistoryCreateManyProductInputEnvelope
+    set?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
+    disconnect?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
+    delete?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
+    connect?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
+    update?: ProductCountHistoryUpdateWithWhereUniqueWithoutProductInput | ProductCountHistoryUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: ProductCountHistoryUpdateManyWithWhereWithoutProductInput | ProductCountHistoryUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: ProductCountHistoryScalarWhereInput | ProductCountHistoryScalarWhereInput[]
+  }
+
   export type ProductVersionUncheckedUpdateManyWithoutProductNestedInput = {
     create?: XOR<ProductVersionCreateWithoutProductInput, ProductVersionUncheckedCreateWithoutProductInput> | ProductVersionCreateWithoutProductInput[] | ProductVersionUncheckedCreateWithoutProductInput[]
     connectOrCreate?: ProductVersionCreateOrConnectWithoutProductInput | ProductVersionCreateOrConnectWithoutProductInput[]
@@ -9744,6 +10960,34 @@ export namespace Prisma {
     update?: ProductVersionUpdateWithWhereUniqueWithoutProductInput | ProductVersionUpdateWithWhereUniqueWithoutProductInput[]
     updateMany?: ProductVersionUpdateManyWithWhereWithoutProductInput | ProductVersionUpdateManyWithWhereWithoutProductInput[]
     deleteMany?: ProductVersionScalarWhereInput | ProductVersionScalarWhereInput[]
+  }
+
+  export type ProductCountHistoryUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<ProductCountHistoryCreateWithoutProductInput, ProductCountHistoryUncheckedCreateWithoutProductInput> | ProductCountHistoryCreateWithoutProductInput[] | ProductCountHistoryUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductCountHistoryCreateOrConnectWithoutProductInput | ProductCountHistoryCreateOrConnectWithoutProductInput[]
+    upsert?: ProductCountHistoryUpsertWithWhereUniqueWithoutProductInput | ProductCountHistoryUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: ProductCountHistoryCreateManyProductInputEnvelope
+    set?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
+    disconnect?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
+    delete?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
+    connect?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
+    update?: ProductCountHistoryUpdateWithWhereUniqueWithoutProductInput | ProductCountHistoryUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: ProductCountHistoryUpdateManyWithWhereWithoutProductInput | ProductCountHistoryUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: ProductCountHistoryScalarWhereInput | ProductCountHistoryScalarWhereInput[]
+  }
+
+  export type ProductCreateNestedOneWithoutProductCountHistoryInput = {
+    create?: XOR<ProductCreateWithoutProductCountHistoryInput, ProductUncheckedCreateWithoutProductCountHistoryInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutProductCountHistoryInput
+    connect?: ProductWhereUniqueInput
+  }
+
+  export type ProductUpdateOneRequiredWithoutProductCountHistoryNestedInput = {
+    create?: XOR<ProductCreateWithoutProductCountHistoryInput, ProductUncheckedCreateWithoutProductCountHistoryInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutProductCountHistoryInput
+    upsert?: ProductUpsertWithoutProductCountHistoryInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutProductCountHistoryInput, ProductUpdateWithoutProductCountHistoryInput>, ProductUncheckedUpdateWithoutProductCountHistoryInput>
   }
 
   export type ImagesCreateNestedManyWithoutProductVersionInput = {
@@ -10426,6 +11670,26 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ProductCountHistoryCreateWithoutProductInput = {
+    id?: string
+    value: number
+  }
+
+  export type ProductCountHistoryUncheckedCreateWithoutProductInput = {
+    id?: string
+    value: number
+  }
+
+  export type ProductCountHistoryCreateOrConnectWithoutProductInput = {
+    where: ProductCountHistoryWhereUniqueInput
+    create: XOR<ProductCountHistoryCreateWithoutProductInput, ProductCountHistoryUncheckedCreateWithoutProductInput>
+  }
+
+  export type ProductCountHistoryCreateManyProductInputEnvelope = {
+    data: ProductCountHistoryCreateManyProductInput | ProductCountHistoryCreateManyProductInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutProductsInput = {
     update: XOR<UserUpdateWithoutProductsInput, UserUncheckedUpdateWithoutProductsInput>
     create: XOR<UserCreateWithoutProductsInput, UserUncheckedCreateWithoutProductsInput>
@@ -10469,6 +11733,79 @@ export namespace Prisma {
   export type ProductVersionUpdateManyWithWhereWithoutProductInput = {
     where: ProductVersionScalarWhereInput
     data: XOR<ProductVersionUpdateManyMutationInput, ProductVersionUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type ProductCountHistoryUpsertWithWhereUniqueWithoutProductInput = {
+    where: ProductCountHistoryWhereUniqueInput
+    update: XOR<ProductCountHistoryUpdateWithoutProductInput, ProductCountHistoryUncheckedUpdateWithoutProductInput>
+    create: XOR<ProductCountHistoryCreateWithoutProductInput, ProductCountHistoryUncheckedCreateWithoutProductInput>
+  }
+
+  export type ProductCountHistoryUpdateWithWhereUniqueWithoutProductInput = {
+    where: ProductCountHistoryWhereUniqueInput
+    data: XOR<ProductCountHistoryUpdateWithoutProductInput, ProductCountHistoryUncheckedUpdateWithoutProductInput>
+  }
+
+  export type ProductCountHistoryUpdateManyWithWhereWithoutProductInput = {
+    where: ProductCountHistoryScalarWhereInput
+    data: XOR<ProductCountHistoryUpdateManyMutationInput, ProductCountHistoryUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type ProductCountHistoryScalarWhereInput = {
+    AND?: ProductCountHistoryScalarWhereInput | ProductCountHistoryScalarWhereInput[]
+    OR?: ProductCountHistoryScalarWhereInput[]
+    NOT?: ProductCountHistoryScalarWhereInput | ProductCountHistoryScalarWhereInput[]
+    id?: StringFilter<"ProductCountHistory"> | string
+    value?: IntFilter<"ProductCountHistory"> | number
+    productId?: StringFilter<"ProductCountHistory"> | string
+  }
+
+  export type ProductCreateWithoutProductCountHistoryInput = {
+    id?: string
+    count: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutProductsInput
+    versions?: ProductVersionCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutProductCountHistoryInput = {
+    id?: string
+    count: number
+    userId: string
+    createdAt?: Date | string
+    versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutProductCountHistoryInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutProductCountHistoryInput, ProductUncheckedCreateWithoutProductCountHistoryInput>
+  }
+
+  export type ProductUpsertWithoutProductCountHistoryInput = {
+    update: XOR<ProductUpdateWithoutProductCountHistoryInput, ProductUncheckedUpdateWithoutProductCountHistoryInput>
+    create: XOR<ProductCreateWithoutProductCountHistoryInput, ProductUncheckedCreateWithoutProductCountHistoryInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutProductCountHistoryInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutProductCountHistoryInput, ProductUncheckedUpdateWithoutProductCountHistoryInput>
+  }
+
+  export type ProductUpdateWithoutProductCountHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutProductsNestedInput
+    versions?: ProductVersionUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutProductCountHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    count?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ImagesCreateWithoutProductVersionInput = {
@@ -10515,6 +11852,7 @@ export namespace Prisma {
     count: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutProductsInput
+    productCountHistory?: ProductCountHistoryCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutVersionsInput = {
@@ -10522,6 +11860,7 @@ export namespace Prisma {
     count: number
     userId: string
     createdAt?: Date | string
+    productCountHistory?: ProductCountHistoryUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutVersionsInput = {
@@ -10612,6 +11951,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
+    productCountHistory?: ProductCountHistoryUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutVersionsInput = {
@@ -10619,6 +11959,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    productCountHistory?: ProductCountHistoryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ParamValuesUpsertWithWhereUniqueWithoutProductVersionsInput = {
@@ -10651,6 +11992,7 @@ export namespace Prisma {
     count: number
     createdAt?: Date | string
     versions?: ProductVersionCreateNestedManyWithoutProductInput
+    productCountHistory?: ProductCountHistoryCreateNestedManyWithoutProductInput
   }
 
   export type ProductUncheckedCreateWithoutUserInput = {
@@ -10658,6 +12000,7 @@ export namespace Prisma {
     count: number
     createdAt?: Date | string
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
+    productCountHistory?: ProductCountHistoryUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductCreateOrConnectWithoutUserInput = {
@@ -10898,6 +12241,11 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type ProductCountHistoryCreateManyProductInput = {
+    id?: string
+    value: number
+  }
+
   export type ProductVersionUpdateWithoutProductInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -10927,6 +12275,21 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductCountHistoryUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ProductCountHistoryUncheckedUpdateWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ProductCountHistoryUncheckedUpdateManyWithoutProductInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
   }
 
   export type ImagesCreateManyProductVersionInput = {
@@ -10983,6 +12346,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     versions?: ProductVersionUpdateManyWithoutProductNestedInput
+    productCountHistory?: ProductCountHistoryUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateWithoutUserInput = {
@@ -10990,6 +12354,7 @@ export namespace Prisma {
     count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
+    productCountHistory?: ProductCountHistoryUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductUncheckedUpdateManyWithoutUserInput = {
@@ -11054,6 +12419,10 @@ export namespace Prisma {
      * @deprecated Use ProductDefaultArgs instead
      */
     export type ProductArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProductDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ProductCountHistoryDefaultArgs instead
+     */
+    export type ProductCountHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ProductCountHistoryDefaultArgs<ExtArgs>
     /**
      * @deprecated Use ProductVersionDefaultArgs instead
      */

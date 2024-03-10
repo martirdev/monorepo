@@ -42,7 +42,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <TrpcProvider token={authSession}>
           <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
-            <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
+            <div className="hidden border-r bg-gray-50 lg:block">
               <div className="flex h-full max-h-screen flex-col gap-2">
                 <div className="flex h-[60px] items-center border-b px-6">
                   <Link
@@ -59,12 +59,12 @@ export default async function RootLayout({
               </div>
             </div>
             <div className="flex flex-col">
-              <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
+              <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-50 px-6">
                 <div className="ml-auto flex gap-2 items-center">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
-                        className="block rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800 dark:border-gray-800"
+                        className="block rounded-full border border-gray-200 w-8 h-8"
                         size="icon"
                         variant="ghost"
                       >
