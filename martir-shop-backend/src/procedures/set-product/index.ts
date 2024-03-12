@@ -1,6 +1,6 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { prisma, procedure } from "../../shared/trpc";
-import { TRPCError } from "@trpc/server";
 
 const paramsValidator = z.object({
   id: z.string(),

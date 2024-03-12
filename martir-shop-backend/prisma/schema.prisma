@@ -51,17 +51,68 @@ model ProductCountHistory {
 }
 
 model ProductVersion {
-  id          String        @id @default(uuid())
-  categoryId  String?
-  productId   String
-  name        String
-  description String
-  price       Float
-  createdAt   DateTime      @default(now())
-  images      Images[]
-  category    Category?     @relation(fields: [categoryId], references: [id])
-  product     Product       @relation(fields: [productId], references: [id])
-  params      ParamValues[] @relation("ParamValuesToProductVersion")
+  id            String                   @id @default(uuid())
+  categoryId    String?
+  productId     String
+  createdAt     DateTime                 @default(now())
+  name          String
+  description   String
+  price         Float
+  images        Images[]
+  orderVersions OrderVersionOnProducts[]
+  category      Category?                @relation(fields: [categoryId], references: [id])
+  product       Product                  @relation(fields: [productId], references: [id])
+  params        ParamValues[]            @relation("ParamValuesToProductVersion")
+}
+
+model Order {
+  id            String         @id @default(uuid())
+  createdAt     DateTime       @default(now())
+  userId        String
+  customerId    String
+  orderVersions OrderVersion[]
+  user          User           @relation(fields: [userId], references: [id])
+  customer      Customer       @relation(fields: [customerId], references: [id])
+}
+
+enum OrderStatus {
+  CREATED
+  IN_PROCESS
+  NEED_INFO
+  READY_TO_DELIVERY
+  IN_DELIVERY
+  COMPLETED
+  CANCELED
+  REFUND
+}
+
+model OrderVersion {
+  id        String                   @id @default(uuid())
+  createdAt DateTime                 @default(now())
+  orderId   String
+  address   String
+  status    OrderStatus
+  products  OrderVersionOnProducts[]
+  order     Order                    @relation(fields: [orderId], references: [id])
+}
+
+model OrderVersionOnProducts {
+  orderVersionId String
+  orderVersion   OrderVersion   @relation(fields: [orderVersionId], references: [id])
+  productId      String
+  product        ProductVersion @relation(fields: [productId], references: [id])
+  amount         Int
+
+  @@id([orderVersionId, productId])
+}
+
+model Customer {
+  id         String  @id @default(uuid())
+  firstName  String
+  secondName String
+  thirdName  String?
+  contact    String
+  Order      Order[]
 }
 
 model User {
@@ -72,6 +123,7 @@ model User {
   avatar    String?
   products  Product[]
   sessions  Session[]
+  orders    Order[]
 }
 
 model Session {
