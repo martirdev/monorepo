@@ -1,7 +1,10 @@
 import {CloseOutlined} from '@ant-design/icons';
 import {Drawer, Segmented, Select} from 'antd';
-import {memo, useState} from 'react';
+import {memo, useMemo, useState} from 'react';
 
+import GeneralInfoAboutProduct from './GeneralInfo';
+import OzonInfo from './OzonInfo';
+import YMinfo from './YMinfo';
 import {AddNewProductSidebarType, SelectedOptiontype} from './types';
 
 const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProductSidebar({onClose, open}) {
@@ -9,6 +12,8 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
         {label: 'Яндекс.Маркет', value: 'ym'},
         {label: 'Озон', value: 'ozon'}
     ]);
+
+    const [formOption, setFormOption] = useState('common');
 
     const [segmentedOptions, setSegmentedOptions] = useState<SelectedOptiontype>([{label: 'Общие ', value: 'common'}]);
 
@@ -41,11 +46,23 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
         setMPOptions(prevOptions => prevOptions.filter(option => option.value !== value));
     };
 
+    const chooseFormToShow = useMemo(() => {
+        switch (formOption) {
+            case 'common':
+                return <GeneralInfoAboutProduct />;
+            case 'ym':
+                return <YMinfo />;
+            case 'ozon':
+                return <OzonInfo />;
+        }
+    }, [formOption]);
+
     return (
         <Drawer
             title="Создание КТ"
             onClose={onClose}
             open={open}
+            width={520}
             extra={
                 <Select
                     placeholder="Добавить МП"
@@ -56,8 +73,15 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
                 />
             }
         >
-            <div>
-                <Segmented options={segmentedOptions} block />
+            <div className="flex flex-col gap-4">
+                <Segmented
+                    options={segmentedOptions}
+                    block
+                    onChange={value => {
+                        setFormOption(value.toString());
+                    }}
+                />
+                {chooseFormToShow}
             </div>
         </Drawer>
     );
