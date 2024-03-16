@@ -97,7 +97,7 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
   );
 
   return (
-    <form.Provider>
+    <>
       <SheetHeader>
         <SheetTitle>
           {TITLES_BY_MODE[mode ?? ""] ?? TITLES_BY_MODE.not_exist}
@@ -162,8 +162,7 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
                       <div key={i} className="flex gap-2">
                         <div className="flex-1">
                           <paramsFields.Field
-                            name="productId"
-                            index={i}
+                            name={`products[${i}].productId`}
                             validators={{
                               onChange: z.string({
                                 required_error: "Товар обязательный параметр",
@@ -190,8 +189,7 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
                         </div>
                         <div className="flex-1">
                           <paramsFields.Field
-                            name="amount"
-                            index={i}
+                            name={`products[${i}].amount`}
                             validators={{
                               onChange: z
                                 .number({
@@ -260,7 +258,7 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
           Сохранить
         </Button>
       </SheetFooter>
-    </form.Provider>
+    </>
   );
 });
 

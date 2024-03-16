@@ -16,7 +16,7 @@
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
-    "@tanstack/react-form": "^0.13.6",
+    "@tanstack/react-form": "^0.14.0",
     "@tanstack/react-query": "4",
     "@tanstack/zod-form-adapter": "^0.13.6",
     "@trpc/client": "10.45.0",
