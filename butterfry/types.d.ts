@@ -1,1 +1,1 @@
-type Undefinable<T> = T | undefined;
+type Undefinable<T> = T | undefined | null;

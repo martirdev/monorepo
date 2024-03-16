@@ -112,11 +112,13 @@ model Customer {
   secondName String
   thirdName  String?
   contact    String
-  Order      Order[]
+  userId     String
+  order      Order[]
+  user       User    @relation(fields: [userId], references: [id])
 }
 
 model User {
-  id        String    @id @default(uuid())
+  id        String     @id @default(uuid())
   yandex_id String
   name      String
   surname   String
@@ -124,6 +126,7 @@ model User {
   products  Product[]
   sessions  Session[]
   orders    Order[]
+  customers Customer[]
 }
 
 model Session {

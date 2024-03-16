@@ -21,15 +21,7 @@ const paramsValidator = z.object({
     })
   ),
   address: z.string(),
-  customer: z.union([
-    z.object({ id: z.string() }),
-    z.object({
-      firstName: z.string(),
-      secondName: z.string(),
-      thirdName: z.string(),
-      contact: z.string(),
-    }),
-  ]),
+  customer: z.string(),
 });
 
 export const setOrder = procedure
@@ -65,18 +57,6 @@ export const setOrder = procedure
           },
         });
       } else {
-        const customer =
-          "id" in input.customer
-            ? { id: input.customer.id }
-            : await prisma.customer.create({
-                data: {
-                  contact: input.customer.contact,
-                  firstName: input.customer.firstName,
-                  secondName: input.customer.secondName,
-                  thirdName: input.customer.thirdName,
-                },
-              });
-
         return await prisma.$transaction([
           prisma.productCountHistory.createMany({
             data: input.products.map((product) => ({
@@ -88,7 +68,7 @@ export const setOrder = procedure
             data: {
               id: input.id,
               userId: ctx.user.id,
-              customerId: customer.id,
+              customerId: input.customer,
               orderVersions: {
                 create: {
                   status: input.status,
