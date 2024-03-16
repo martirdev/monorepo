@@ -16,8 +16,8 @@ export const getOrder = procedure
       },
       include: {
         orderVersions: {
-          orderBy: {
-            createdAt: "desc",
+          include: {
+            products: true,
           },
         },
       },

@@ -7,7 +7,7 @@ const paramsValidator = z.object({
   take: z.number().positive(),
 });
 
-export const getOrders = procedure
+export const getCustomers = procedure
   .input(paramsValidator)
   .query(async ({ input, ctx }) => {
     if (!ctx.user) {
@@ -20,26 +20,16 @@ export const getOrders = procedure
       },
     };
 
-    const [total, orders] = await prisma.$transaction([
-      prisma.product.count({ where: condition }),
-      prisma.order.findMany({
+    const [total, customers] = await prisma.$transaction([
+      prisma.customer.count({
+        where: condition,
+      }),
+      prisma.customer.findMany({
         skip: input.skip ?? 0,
         take: input.take,
-        orderBy: {
-          createdAt: "desc",
-        },
         where: condition,
-        include: {
-          customer: true,
-          orderVersions: {
-            take: 1,
-            orderBy: {
-              createdAt: "desc",
-            },
-          },
-        },
       }),
     ]);
 
-    return { total, orders };
+    return { total, customers };
   });

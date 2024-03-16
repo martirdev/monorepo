@@ -149,7 +149,8 @@ type SelectPropsType = {
   className?: string;
   placeholder?: string;
   options?: { label?: string; value: string }[];
-} & React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>;
+} & React.ComponentProps<typeof SelectTrigger> &
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>;
 const Select = React.memo<SelectPropsType>(function Select({
   className,
   placeholder,
@@ -158,7 +159,7 @@ const Select = React.memo<SelectPropsType>(function Select({
 }) {
   return (
     <SSelect {...props}>
-      <SelectTrigger className={className}>
+      <SelectTrigger className={className} id={props.id} onBlur={props.onBlur}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

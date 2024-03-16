@@ -186,7 +186,8 @@ exports.Prisma.CustomerScalarFieldEnum = {
   firstName: 'firstName',
   secondName: 'secondName',
   thirdName: 'thirdName',
-  contact: 'contact'
+  contact: 'contact',
+  userId: 'userId'
 };
 
 exports.Prisma.UserScalarFieldEnum = {

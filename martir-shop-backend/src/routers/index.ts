@@ -1,5 +1,6 @@
 import { getCategories } from "../procedures/get-categories";
 import { getContentById } from "../procedures/get-content-by-id";
+import { getCustomers } from "../procedures/get-customers";
 import { getOrder } from "../procedures/get-order";
 import { getOrders } from "../procedures/get-orders";
 import { getParamNames } from "../procedures/get-param-names";
@@ -31,6 +32,8 @@ export const appRouter = router({
   getOrder,
   getOrders,
   setOrder,
+
+  getCustomers,
 });
 
 export type Router = typeof appRouter;
