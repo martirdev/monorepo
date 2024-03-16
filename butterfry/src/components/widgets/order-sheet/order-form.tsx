@@ -152,104 +152,100 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
           )}
         </form.Field>
         <form.Field name="products" mode="array">
-          {(paramsFields) => {
-            return (
+          {(paramsFields) => (
+            <div className="space-y-2">
+              <Label>Корзина</Label>
               <div className="space-y-2">
-                <Label>Корзина</Label>
-                <div className="space-y-2">
-                  {paramsFields.state.value.map((_field, i) => {
-                    return (
-                      <div key={i} className="flex gap-2">
-                        <div className="flex-1">
-                          <paramsFields.Field
-                            name={`products[${i}].productId`}
-                            validators={{
-                              onChange: z.string({
-                                required_error: "Товар обязательный параметр",
-                              }),
-                            }}
-                          >
-                            {(field) => (
-                              <div className="space-y-2">
-                                <Label htmlFor={field.name}>Товар</Label>
-                                <ProductsSelect
-                                  value={field.state.value}
-                                  onSelect={({ value }) =>
-                                    field.handleChange(value)
-                                  }
-                                />
-                                {!!field.state.meta.errors.length && (
-                                  <div className="text-xs text-destructive">
-                                    {field.state.meta.errors.join("; ")}
-                                  </div>
-                                )}
+                {paramsFields.state.value.map((_field, i) => (
+                  <div key={i} className="flex gap-2">
+                    <div className="flex-1">
+                      <form.Field
+                        name={`products[${i}].productId`}
+                        validators={{
+                          onChange: z.string({
+                            required_error: "Товар обязательный параметр",
+                          }),
+                        }}
+                      >
+                        {(field) => (
+                          <div className="space-y-2">
+                            <Label htmlFor={field.name}>Товар</Label>
+                            <ProductsSelect
+                              value={field.state.value}
+                              onSelect={({ value }) =>
+                                field.handleChange(value)
+                              }
+                            />
+                            {!!field.state.meta.errors.length && (
+                              <div className="text-xs text-destructive">
+                                {field.state.meta.errors.join("; ")}
                               </div>
                             )}
-                          </paramsFields.Field>
-                        </div>
-                        <div className="flex-1">
-                          <paramsFields.Field
-                            name={`products[${i}].amount`}
-                            validators={{
-                              onChange: z
-                                .number({
-                                  invalid_type_error:
-                                    "Количество должно быть числом",
-                                  required_error: "Количесто обязательно",
-                                })
-                                .positive("Количество должно быть больше 0"),
-                            }}
-                          >
-                            {(field) => (
-                              <div className="space-y-2">
-                                <Label>Количество</Label>
-                                <Input
-                                  type="number"
-                                  id={field.name}
-                                  name={field.name}
-                                  value={field.state.value}
-                                  onBlur={field.handleBlur}
-                                  onChange={(e) =>
-                                    field.handleChange(e.target.valueAsNumber)
-                                  }
-                                />
-                                {!!field.state.meta.errors.length && (
-                                  <div className="text-xs text-destructive">
-                                    {field.state.meta.errors.join("; ")}
-                                  </div>
-                                )}
+                          </div>
+                        )}
+                      </form.Field>
+                    </div>
+                    <div className="flex-1">
+                      <form.Field
+                        name={`products[${i}].amount`}
+                        validators={{
+                          onChange: z
+                            .number({
+                              invalid_type_error:
+                                "Количество должно быть числом",
+                              required_error: "Количесто обязательно",
+                            })
+                            .positive("Количество должно быть больше 0"),
+                        }}
+                      >
+                        {(field) => (
+                          <div className="space-y-2">
+                            <Label>Количество</Label>
+                            <Input
+                              type="number"
+                              id={field.name}
+                              name={field.name}
+                              value={field.state.value}
+                              onBlur={field.handleBlur}
+                              onChange={(e) =>
+                                field.handleChange(e.target.valueAsNumber)
+                              }
+                            />
+                            {!!field.state.meta.errors.length && (
+                              <div className="text-xs text-destructive">
+                                {field.state.meta.errors.join("; ")}
                               </div>
                             )}
-                          </paramsFields.Field>
-                        </div>
-                        <div className="mt-8">
-                          <Button
-                            variant="secondary"
-                            size="icon"
-                            onClick={() => paramsFields.removeValue(i)}
-                          >
-                            <TrashIcon />
-                          </Button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <Button
-                  size="icon"
-                  variant="secondary"
-                  onClick={() =>
-                    paramsFields.pushValue({
-                      productId: undefined!,
-                      amount: undefined!,
-                    })
-                  }
-                >
-                  <PlusIcon />
-                </Button>
+                          </div>
+                        )}
+                      </form.Field>
+                    </div>
+                    <div className="mt-8">
+                      <Button
+                        variant="secondary"
+                        size="icon"
+                        onClick={() => paramsFields.removeValue(i)}
+                      >
+                        <TrashIcon />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            );
-          }}
+              <Button
+                size="icon"
+                variant="secondary"
+                onClick={() =>
+                  paramsFields.pushValue({
+                    productId: undefined!,
+                    amount: undefined!,
+                  })
+                }
+              >
+                <PlusIcon />
+              </Button>
+            </div>
+          )}
         </form.Field>
       </div>
       <SheetFooter>
