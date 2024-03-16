@@ -59,68 +59,63 @@ const ChangeProductCountMenuItem = memo<ChangeProductCountMenuItemPropsType>(
           <DropdownMenuItem onSelect={preventDefault}>{name}</DropdownMenuItem>
         </DialogTrigger>
         <DialogPortal>
-          <form.Provider>
-            <DialogContent
-              className="w-[400px]"
-              onOpenAutoFocus={preventDefault}
-            >
-              <DialogHeader>
-                <DialogTitle>{name} товар на складе</DialogTitle>
-              </DialogHeader>
-              <div>
-                <form.Field
-                  name="value"
-                  validators={{
-                    onChange: z
-                      .number({
-                        invalid_type_error: "Количество должно быть числом",
-                        required_error: "Количесто обязательно",
-                      })
-                      .positive("Количество должно быть больше 0"),
-                  }}
-                >
-                  {(field) => (
-                    <div>
-                      <Label htmlFor={field.name} className="shrink-0">
-                        Количество
-                      </Label>
-                      <div className="flex gap-2 items-center">
-                        <Input
-                          type="number"
-                          id={field.name}
-                          name={field.name}
-                          value={field.state.value}
-                          onBlur={field.handleBlur}
-                          onChange={(e) =>
-                            field.handleChange(e.target.valueAsNumber)
-                          }
-                        />
-                        <span>шт.</span>
-                      </div>
-                      {!!field.state.meta.errors.length && (
-                        <div className="text-xs text-destructive">
-                          {field.state.meta.errors.join("; ")}
-                        </div>
-                      )}
+          <DialogContent className="w-[400px]" onOpenAutoFocus={preventDefault}>
+            <DialogHeader>
+              <DialogTitle>{name} товар на складе</DialogTitle>
+            </DialogHeader>
+            <div>
+              <form.Field
+                name="value"
+                validators={{
+                  onChange: z
+                    .number({
+                      invalid_type_error: "Количество должно быть числом",
+                      required_error: "Количесто обязательно",
+                    })
+                    .positive("Количество должно быть больше 0"),
+                }}
+              >
+                {(field) => (
+                  <div>
+                    <Label htmlFor={field.name} className="shrink-0">
+                      Количество
+                    </Label>
+                    <div className="flex gap-2 items-center">
+                      <Input
+                        type="number"
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) =>
+                          field.handleChange(e.target.valueAsNumber)
+                        }
+                      />
+                      <span>шт.</span>
                     </div>
-                  )}
-                </form.Field>
-              </div>
-              <DialogFooter>
-                <Button disabled={isLoading} onClick={form.handleSubmit}>
-                  {isLoading && (
-                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  {name}
+                    {!!field.state.meta.errors.length && (
+                      <div className="text-xs text-destructive">
+                        {field.state.meta.errors.join("; ")}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </form.Field>
+            </div>
+            <DialogFooter>
+              <Button disabled={isLoading} onClick={form.handleSubmit}>
+                {isLoading && (
+                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                {name}
+              </Button>
+              <DialogClose asChild>
+                <Button variant="secondary" disabled={isLoading}>
+                  Отменить
                 </Button>
-                <DialogClose asChild>
-                  <Button variant="secondary" disabled={isLoading}>
-                    Отменить
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </form.Provider>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
         </DialogPortal>
       </Dialog>
     );

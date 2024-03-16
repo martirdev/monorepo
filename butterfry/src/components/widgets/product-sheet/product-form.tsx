@@ -90,7 +90,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
   );
 
   return (
-    <form.Provider>
+    <>
       <SheetHeader>
         <SheetTitle>
           {TITLES_BY_MODE[mode ?? ""] ?? TITLES_BY_MODE.not_exist}
@@ -107,114 +107,101 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
           </div>
         )}
         <form.Field name="images" mode="array">
-          {(imagesFields) => {
-            return (
+          {(imagesFields) => (
+            <div className="space-y-2">
+              <Label htmlFor={imagesFields.name}>Изображения</Label>
               <div className="space-y-2">
-                <Label htmlFor={imagesFields.name}>Изображения</Label>
-                <div className="space-y-2">
-                  {imagesFields.state.value.map((_field, i) => (
-                    <imagesFields.Field
-                      index={i}
-                      name="url"
-                      key={i}
-                      validators={{
-                        onChange: z
-                          .string()
-                          .regex(/(https?:\/\/.+)|(^\s*$)/gm, {
-                            message: "Неверный формат ссылки",
-                          }),
-                      }}
-                    >
-                      {(field) => {
-                        return (
-                          <div className="space-y-2">
-                            <div className="flex gap-2">
-                              <img
-                                src={field.state.value ?? "/placeholder.svg"}
-                                alt={field.state.value ?? "Изображение товара"}
-                                className="aspect-square rounded-md object-cover block shrink-0"
-                                onError={({ currentTarget }) => {
-                                  currentTarget.onerror = null;
-                                  currentTarget.src = "/placeholder.svg";
-                                }}
-                                width={40}
-                                height={40}
-                              />
-                              <Input
-                                id={field.name}
-                                name={field.name}
-                                value={field.state.value}
-                                onBlur={field.handleBlur}
-                                onChange={(e) =>
-                                  field.handleChange(e.target.value)
-                                }
-                                autoFocus
-                              />
-                              <Button
-                                variant="secondary"
-                                size="icon"
-                                className="shrink-0"
-                                onClick={() => {
-                                  imagesFields.removeValue(i);
-                                }}
-                              >
-                                <TrashIcon />
-                              </Button>
-                            </div>
-                            {!!field.state.meta.errors.length && (
-                              <div className="text-xs text-destructive">
-                                {field.state.meta.errors.join("; ")}
-                              </div>
-                            )}
+                {imagesFields.state.value.map((_field, i) => (
+                  <form.Field
+                    key={i}
+                    name={`images[${i}].url`}
+                    validators={{
+                      onChange: z.string().regex(/(https?:\/\/.+)|(^\s*$)/gm, {
+                        message: "Неверный формат ссылки",
+                      }),
+                    }}
+                  >
+                    {(field) => (
+                      <div className="space-y-2">
+                        <div className="flex gap-2">
+                          <img
+                            src={field.state.value ?? "/placeholder.svg"}
+                            alt={field.state.value ?? "Изображение товара"}
+                            className="aspect-square rounded-md object-cover block shrink-0"
+                            onError={({ currentTarget }) => {
+                              currentTarget.onerror = null;
+                              currentTarget.src = "/placeholder.svg";
+                            }}
+                            width={40}
+                            height={40}
+                          />
+                          <Input
+                            id={field.name}
+                            name={field.name}
+                            value={field.state.value}
+                            onBlur={field.handleBlur}
+                            onChange={(e) => field.handleChange(e.target.value)}
+                            autoFocus
+                          />
+                          <Button
+                            variant="secondary"
+                            size="icon"
+                            className="shrink-0"
+                            onClick={() => {
+                              imagesFields.removeValue(i);
+                            }}
+                          >
+                            <TrashIcon />
+                          </Button>
+                        </div>
+                        {!!field.state.meta.errors.length && (
+                          <div className="text-xs text-destructive">
+                            {field.state.meta.errors.join("; ")}
                           </div>
-                        );
-                      }}
-                    </imagesFields.Field>
-                  ))}
-                </div>
-                <Button
-                  size="icon"
-                  variant="secondary"
-                  onClick={() => imagesFields.pushValue({ url: "" })}
-                >
-                  <PlusIcon />
-                </Button>
+                        )}
+                      </div>
+                    )}
+                  </form.Field>
+                ))}
               </div>
-            );
-          }}
+              <Button
+                size="icon"
+                variant="secondary"
+                onClick={() => imagesFields.pushValue({ url: "" })}
+              >
+                <PlusIcon />
+              </Button>
+            </div>
+          )}
         </form.Field>
         <form.Field name="name">
-          {(field) => {
-            return (
-              <div className="space-y-2">
-                <Label htmlFor={field.name}>Название</Label>
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                  autoFocus
-                />
-              </div>
-            );
-          }}
+          {(field) => (
+            <div className="space-y-2">
+              <Label htmlFor={field.name}>Название</Label>
+              <Input
+                id={field.name}
+                name={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                autoFocus
+              />
+            </div>
+          )}
         </form.Field>
         <form.Field name="description">
-          {(field) => {
-            return (
-              <div className="space-y-2">
-                <Label htmlFor={field.name}>Описание</Label>
-                <Textarea
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.value)}
-                />
-              </div>
-            );
-          }}
+          {(field) => (
+            <div className="space-y-2">
+              <Label htmlFor={field.name}>Описание</Label>
+              <Textarea
+                id={field.name}
+                name={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+              />
+            </div>
+          )}
         </form.Field>
         <form.Field
           name="price"
@@ -227,106 +214,96 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
               .positive("Стоймость должна быть больше 0"),
           }}
         >
-          {(field) => {
-            return (
-              <div className="space-y-2">
-                <Label htmlFor={field.name}>Стоймость</Label>
-                <Input
-                  type="number"
-                  id={field.name}
-                  name={field.name}
-                  value={field.state.value}
-                  onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.valueAsNumber)}
-                />
-                {!!field.state.meta.errors.length && (
-                  <div className="text-xs text-destructive">
-                    {field.state.meta.errors.join("; ")}
-                  </div>
-                )}
-              </div>
-            );
-          }}
+          {(field) => (
+            <div className="space-y-2">
+              <Label htmlFor={field.name}>Стоймость</Label>
+              <Input
+                type="number"
+                id={field.name}
+                name={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.valueAsNumber)}
+              />
+              {!!field.state.meta.errors.length && (
+                <div className="text-xs text-destructive">
+                  {field.state.meta.errors.join("; ")}
+                </div>
+              )}
+            </div>
+          )}
         </form.Field>
         <form.Field name="params" mode="array">
-          {(paramsFields) => {
-            return (
+          {(paramsFields) => (
+            <div className="space-y-2">
+              <Label>Дополнительные параметры</Label>
               <div className="space-y-2">
-                <Label>Дополнительные параметры</Label>
-                <div className="space-y-2">
-                  {paramsFields.state.value.map((_field, i) => {
-                    return (
-                      <div key={i} className="flex gap-2">
-                        <div className="flex-1">
-                          <paramsFields.Field name="name" index={i}>
-                            {(field) => {
-                              return (
-                                <div>
-                                  <Label htmlFor={field.name}>Название</Label>
-                                  <Input
-                                    id={field.name}
-                                    name={field.name}
-                                    value={field.state.value}
-                                    onBlur={field.handleBlur}
-                                    onChange={(e) =>
-                                      field.handleChange(e.target.value)
-                                    }
-                                  />
-                                </div>
-                              );
-                            }}
-                          </paramsFields.Field>
-                        </div>
-                        <div className="flex-1">
-                          <paramsFields.Field name="value" index={i}>
-                            {(field) => {
-                              return (
-                                <div>
-                                  <Label>Значение</Label>
-                                  <Input
-                                    id={field.name}
-                                    name={field.name}
-                                    value={field.state.value}
-                                    onBlur={field.handleBlur}
-                                    onChange={(e) =>
-                                      field.handleChange(e.target.value)
-                                    }
-                                  />
-                                </div>
-                              );
-                            }}
-                          </paramsFields.Field>
-                        </div>
-                        <div className="self-end">
-                          <Button
-                            variant="secondary"
-                            size="icon"
-                            onClick={() => {
-                              paramsFields.removeValue(i);
-                            }}
-                          >
-                            <TrashIcon />
-                          </Button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <Button
-                  size="icon"
-                  variant="secondary"
-                  onClick={() =>
-                    paramsFields.pushValue({
-                      name: "",
-                      value: "",
-                    })
-                  }
-                >
-                  <PlusIcon />
-                </Button>
+                {paramsFields.state.value.map((_field, i) => (
+                  <div key={i} className="flex gap-2">
+                    <div className="flex-1">
+                      <form.Field name={`params[${i}].name`}>
+                        {(field) => (
+                          <div>
+                            <Label htmlFor={field.name}>Название</Label>
+                            <Input
+                              id={field.name}
+                              name={field.name}
+                              value={field.state.value}
+                              onBlur={field.handleBlur}
+                              onChange={(e) =>
+                                field.handleChange(e.target.value)
+                              }
+                            />
+                          </div>
+                        )}
+                      </form.Field>
+                    </div>
+                    <div className="flex-1">
+                      <form.Field name={`params[${i}].value`}>
+                        {(field) => (
+                          <div>
+                            <Label>Значение</Label>
+                            <Input
+                              id={field.name}
+                              name={field.name}
+                              value={field.state.value}
+                              onBlur={field.handleBlur}
+                              onChange={(e) =>
+                                field.handleChange(e.target.value)
+                              }
+                            />
+                          </div>
+                        )}
+                      </form.Field>
+                    </div>
+                    <div className="self-end">
+                      <Button
+                        variant="secondary"
+                        size="icon"
+                        onClick={() => {
+                          paramsFields.removeValue(i);
+                        }}
+                      >
+                        <TrashIcon />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            );
-          }}
+              <Button
+                size="icon"
+                variant="secondary"
+                onClick={() =>
+                  paramsFields.pushValue({
+                    name: "",
+                    value: "",
+                  })
+                }
+              >
+                <PlusIcon />
+              </Button>
+            </div>
+          )}
         </form.Field>
       </div>
       <SheetFooter>
@@ -335,7 +312,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
           Сохранить
         </Button>
       </SheetFooter>
-    </form.Provider>
+    </>
   );
 });
 
