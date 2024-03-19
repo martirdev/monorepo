@@ -1,4 +1,5 @@
-import {Checkbox, Table, Tag, Tooltip} from 'antd';
+import {PlusOutlined} from '@ant-design/icons';
+import {Button, Checkbox, Table, Tag, Tooltip} from 'antd';
 import type {GetProp} from 'antd';
 import type {ColumnsType} from 'antd/es/table';
 import {memo, useCallback, useState} from 'react';
@@ -8,6 +9,7 @@ import {currency} from '_shared/utils/intl/numbers';
 import {BottomMenu} from '_widgets/bottom-menu';
 
 import ProductCardFilter from '../product-card-filter/ProductCardFilter';
+import AddNewProductSidebar from '../product-card-sidebar/AddNewProduct';
 import {TEMPOPARY_MOCK_PRODUCTS} from './temporaryConsts';
 import {ProductType} from './types';
 
@@ -52,6 +54,15 @@ const onChange: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
 
 const ProductCardList = memo(function ProductCardTable() {
     const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
+    const [openAddNewProductDrawer, setOpenAddNewProductDrawer] = useState(false);
+
+    const showDrawer = () => {
+        setOpenAddNewProductDrawer(true);
+    };
+
+    const onClose = () => {
+        setOpenAddNewProductDrawer(false);
+    };
 
     const onSelectChange = useCallback(
         (newSelectedRowKeys: string[]) => {
@@ -72,6 +83,10 @@ const ProductCardList = memo(function ProductCardTable() {
 
     return (
         <div className="flex flex-1 flex-col gap-1">
+            <Button icon={<PlusOutlined />} title="Создать карточку товара" onClick={showDrawer} type="primary">
+                Создать КТ
+            </Button>
+            <AddNewProductSidebar onClose={onClose} open={openAddNewProductDrawer} />
             <div className="mx-40 mt-2 flex justify-between gap-16">
                 <ProductCardFilter onChange={onChange} />
 
