@@ -8,7 +8,7 @@ import YMinfo from './YMinfo';
 import {AddNewProductSidebarType, SelectedOptiontype} from './types';
 
 const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProductSidebar({onClose, open}) {
-    const [MP_OPTIONS, setMPOptions] = useState([
+    const [mpOptions, setMPOptions] = useState([
         {label: 'Яндекс.Маркет', value: 'ym'},
         {label: 'Озон', value: 'ozon'}
     ]);
@@ -34,7 +34,7 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
     const onChange = (value: string) => {
         console.log(`selected ${value}`);
         // Находим выбранный элемент в MP_OPTIONS
-        const selectedOption = MP_OPTIONS.find(option => option.value === value);
+        const selectedOption = mpOptions.find(option => option.value === value);
 
         // Добавляем поле icon к выбранному элементу
         const selectedOptionWithIcon = {...selectedOption, icon: <CloseOutlined />};
@@ -67,9 +67,9 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
                 <Select
                     placeholder="Добавить МП"
                     onChange={onChange}
-                    options={MP_OPTIONS}
+                    options={mpOptions}
                     className="min-w-[144px]"
-                    disabled={MP_OPTIONS.length === 0}
+                    disabled={mpOptions.length === 0}
                 />
             }
         >
