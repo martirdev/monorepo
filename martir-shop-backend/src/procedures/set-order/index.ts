@@ -57,14 +57,7 @@ export const setOrder = procedure
           },
         });
       } else {
-        return await prisma.$transaction([
-          prisma.productCountHistory.createMany({
-            data: input.products.map((product) => ({
-              value: -1 * product.amount,
-              productId: product.id,
-            })),
-          }),
-          prisma.order.create({
+        return await prisma.order.create({
             data: {
               id: input.id,
               userId: ctx.user.id,
@@ -86,8 +79,7 @@ export const setOrder = procedure
                 },
               },
             },
-          }),
-        ]);
+          });
       }
     } catch (error) {
       console.error(error);
