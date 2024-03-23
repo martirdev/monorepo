@@ -12,7 +12,7 @@ type OrderSheetWithRequestPropsType = {
 
 export const OrderSheetWithRequest = memo<OrderSheetWithRequestPropsType>(
   function OrderSheetWithRequest({ id, mode, version }) {
-    const { data } = trpc.getOrder.useQuery({
+    const { data, refetch } = trpc.getOrder.useQuery({
       id,
     });
 
@@ -48,6 +48,8 @@ export const OrderSheetWithRequest = memo<OrderSheetWithRequestPropsType>(
         initValues={model}
         version={selectedVersion}
         versions={data?.orderVersions}
+        comments={data?.comments}
+        refetch={refetch}
       />
     );
   }

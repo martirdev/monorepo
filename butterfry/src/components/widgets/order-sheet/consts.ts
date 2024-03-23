@@ -8,9 +8,13 @@ export const TITLES_BY_MODE: Record<string, string> = {
   not_exist: "Режим не существует",
 };
 
-export const FORM_INIT_VALUES = {
+export const ORDER_FORM_INIT_VALUES = {
   customerId: undefined! as string,
   status: "CREATED" as Statuses,
   address: undefined! as string,
   products: [{ productId: undefined! as string, amount: undefined! as number }],
+};
+
+export const COMMENT_FORM_INIT_VALUES = {
+  text: undefined! as string,
 };
