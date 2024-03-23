@@ -21,7 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/shared/table";
-import { currency, dateFormater } from "@/lib/locale";
+import { currency, dateFormater, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
 import { last } from "lodash";
 import { useSearchParams } from "next/navigation";
@@ -60,6 +60,7 @@ const OrdersTable = memo<OrdersTablePropsType>(function OrdersTable({}) {
               <TableHead>Время</TableHead>
               <TableHead className="text-right">Итог</TableHead>
               <TableHead>Статус</TableHead>
+              <TableHead>Комментарии</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -81,7 +82,9 @@ const OrdersTable = memo<OrdersTablePropsType>(function OrdersTable({}) {
                   <TableCell>
                     <Skeleton className="w-20 h-5" />
                   </TableCell>
-                  <TableCell />
+                  <TableCell>
+                    <Skeleton className="w-20 h-5" />
+                  </TableCell>
                 </TableRow>
               ))}
             {!isLoading && !data?.orders.length && (
@@ -119,6 +122,11 @@ const OrdersTable = memo<OrdersTablePropsType>(function OrdersTable({}) {
                         ORDER_STATUSES_DICT[last(orderVersions)?.status ?? ""]
                           .label
                       }
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="secondary">
+                      {unit(order._count.comments)}
                     </Badge>
                   </TableCell>
                 </TableRow>

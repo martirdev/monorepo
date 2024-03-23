@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 export const currency = (number: number | string) => {
   const value = Intl.NumberFormat("ru", {
@@ -18,4 +19,5 @@ export const unit = (number: number | string) => {
 };
 
 dayjs.locale("ru");
+dayjs.extend(relativeTime);
 export const dateFormater = dayjs;

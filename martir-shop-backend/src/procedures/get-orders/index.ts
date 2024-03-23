@@ -30,6 +30,11 @@ export const getOrders = procedure
         },
         where: condition,
         include: {
+          _count: {
+            select: {
+              comments: true,
+            },
+          },
           customer: true,
           orderVersions: {
             take: 1,

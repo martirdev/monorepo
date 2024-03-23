@@ -15,6 +15,11 @@ export const getOrder = procedure
         },
       },
       include: {
+        comments: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
         orderVersions: {
           include: {
             products: true,

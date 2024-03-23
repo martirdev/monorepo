@@ -167,6 +167,14 @@ exports.Prisma.OrderScalarFieldEnum = {
   customerId: 'customerId'
 };
 
+exports.Prisma.CommentScalarFieldEnum = {
+  id: 'id',
+  createdAt: 'createdAt',
+  orderId: 'orderId',
+  text: 'text',
+  userId: 'userId'
+};
+
 exports.Prisma.OrderVersionScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
@@ -237,6 +245,7 @@ exports.Prisma.ModelName = {
   ProductCountHistory: 'ProductCountHistory',
   ProductVersion: 'ProductVersion',
   Order: 'Order',
+  Comment: 'Comment',
   OrderVersion: 'OrderVersion',
   OrderVersionOnProducts: 'OrderVersionOnProducts',
   Customer: 'Customer',

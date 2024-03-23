@@ -71,8 +71,19 @@ model Order {
   userId        String
   customerId    String
   orderVersions OrderVersion[]
+  comments      Comment[]
   user          User           @relation(fields: [userId], references: [id])
   customer      Customer       @relation(fields: [customerId], references: [id])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  orderId   String
+  text      String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  order     Order    @relation(fields: [orderId], references: [id])
 }
 
 enum OrderStatus {
@@ -127,6 +138,7 @@ model User {
   sessions  Session[]
   orders    Order[]
   customers Customer[]
+  comments  Comment[]
 }
 
 model Session {
