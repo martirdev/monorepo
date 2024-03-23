@@ -1,5 +1,4 @@
 import { getCategories } from "../procedures/get-categories";
-import { getComments } from "../procedures/get-comments";
 import { getContentById } from "../procedures/get-content-by-id";
 import { getCustomers } from "../procedures/get-customers";
 import { getOrder } from "../procedures/get-order";
@@ -36,7 +35,6 @@ export const appRouter = router({
   getOrders,
   setOrder,
 
-  getComments,
   setComment,
   removeComment,
 
