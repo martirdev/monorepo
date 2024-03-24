@@ -1,4 +1,5 @@
 import { createMarketplaceKey } from "../procedures/create-marketplace-keys";
+import { createProduct } from "../procedures/create-product";
 import { getMarketplaceCategories } from "../procedures/get-marketplace-categories";
 import { getMarketplaceKeys } from "../procedures/get-marketplace-keys";
 import { getSettingsByCategory } from "../procedures/get-settings-by-category";
@@ -13,7 +14,6 @@ export const appRouter = router({
   getMarketplaceCategories,
   getSettingsByCategory,
 
-  getProduct,
   createProduct,
 });
 
