@@ -124,7 +124,7 @@ model Customer {
   thirdName  String?
   contact    String
   userId     String
-  order      Order[]
+  orders     Order[]
   user       User    @relation(fields: [userId], references: [id])
 }
 

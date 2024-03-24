@@ -8,6 +8,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/shared/command";
+import { REFETCH_CUSTOMERS_EVENT } from "@/components/shared/consts";
 import {
   Popover,
   PopoverContent,
@@ -17,7 +18,7 @@ import { trpc } from "@/lib/trpc";
 import { cn } from "@/lib/utils";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { memo, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 
 const PAGE_LIMIT = 20;
 
@@ -30,7 +31,7 @@ const CustomersSelect = memo<CustomersSelectPropsType>(
   function CustomersSelect({ value, onSelect }) {
     const [open, setOpen] = useState(false);
 
-    const { data, isLoading } = trpc.getCustomers.useQuery({
+    const { data, isLoading, refetch } = trpc.getCustomers.useQuery({
       take: PAGE_LIMIT,
       skip: 0 * PAGE_LIMIT,
     });
@@ -41,6 +42,16 @@ const CustomersSelect = memo<CustomersSelectPropsType>(
         value: customer.id,
       }));
     }, [data?.customers]);
+
+    useEffect(() => {
+      const getData = () => refetch();
+
+      addEventListener(REFETCH_CUSTOMERS_EVENT.type, getData);
+
+      return () => {
+        removeEventListener(REFETCH_CUSTOMERS_EVENT.type, getData);
+      };
+    }, [refetch]);
 
     return (
       <Popover open={open} onOpenChange={setOpen}>

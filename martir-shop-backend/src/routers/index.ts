@@ -1,5 +1,6 @@
 import { getCategories } from "../procedures/get-categories";
 import { getContentById } from "../procedures/get-content-by-id";
+import { getCustomer } from "../procedures/get-customer";
 import { getCustomers } from "../procedures/get-customers";
 import { getOrder } from "../procedures/get-order";
 import { getOrders } from "../procedures/get-orders";
@@ -11,6 +12,7 @@ import { getProducts } from "../procedures/get-products";
 import { removeComment } from "../procedures/remove-comment";
 import { setCategory } from "../procedures/set-category";
 import { setComment } from "../procedures/set-comment";
+import { setCustomer } from "../procedures/set-customer";
 import { setOrder } from "../procedures/set-order";
 import { setProduct } from "../procedures/set-product";
 import { setProductCountHistory } from "../procedures/set-product-count-history";
@@ -38,7 +40,9 @@ export const appRouter = router({
   setComment,
   removeComment,
 
+  getCustomer,
   getCustomers,
+  setCustomer,
 });
 
 export type Router = typeof appRouter;

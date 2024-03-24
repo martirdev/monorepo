@@ -13,6 +13,10 @@ const LINKS = [
     label: "Заказы",
     value: "/orders",
   },
+  {
+    label: "Клиенты",
+    value: "/clients",
+  },
 ];
 
 export const SideNavLinks = memo(function SideNavLinks() {
