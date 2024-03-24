@@ -18,6 +18,21 @@ export const unit = (number: number | string) => {
   return `${value} шт.`;
 };
 
+type Credentials = {
+  firstName: string;
+  secondName: string;
+  thirdName?: string | null;
+};
+export const convertCredentialsToShort = (credentials: Credentials) => {
+  return [
+    credentials.secondName,
+    `${credentials.firstName.charAt(0)}.`,
+    credentials.thirdName ? `${credentials.thirdName.charAt(0)}.` : undefined,
+  ]
+    .filter(Boolean)
+    .join(" ");
+};
+
 dayjs.locale("ru");
 dayjs.extend(relativeTime);
 export const dateFormater = dayjs;

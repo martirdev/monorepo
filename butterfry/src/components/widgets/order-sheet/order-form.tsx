@@ -6,11 +6,6 @@ import { Button } from "@/components/shared/button";
 import { Input } from "@/components/shared/input";
 import { Label } from "@/components/shared/label";
 import { Select } from "@/components/shared/select";
-import {
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/shared/sheet";
 import { trpc } from "@/lib/trpc";
 import { PlusIcon, ReloadIcon, TrashIcon } from "@radix-ui/react-icons";
 import { useForm } from "@tanstack/react-form";
@@ -20,9 +15,8 @@ import { memo, useCallback, useMemo } from "react";
 import { toast } from "sonner";
 import { v4 } from "uuid";
 import { z } from "zod";
+import { CreateClientLink } from "../create-client-link";
 import { ORDER_FORM_INIT_VALUES, TITLES_BY_MODE } from "./consts";
-import { dateFormater } from "@/lib/locale";
-import { Textarea } from "@/components/shared/textarea";
 
 type OrderFormPropsType = {
   id: Undefinable<string>;
@@ -89,6 +83,13 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
     validatorAdapter: zodValidator,
   });
 
+  const onClientCreate = useCallback(
+    (id: string) => {
+      form.setFieldValue("customerId", id);
+    },
+    [form]
+  );
+
   const versionOptions = useMemo(
     () =>
       (versions ?? []).map((version, index) => ({
@@ -129,10 +130,13 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
         {(field) => (
           <div className="space-y-2">
             <Label htmlFor={field.name}>Покупатель</Label>
-            <CustomersSelect
-              onSelect={({ value }) => field.handleChange(value)}
-              value={field.state.value}
-            />
+            <div className="space-y-1">
+              <CustomersSelect
+                onSelect={({ value }) => field.handleChange(value)}
+                value={field.state.value}
+              />
+              <CreateClientLink onSave={onClientCreate} />
+            </div>
           </div>
         )}
       </form.Field>

@@ -28,6 +28,13 @@ export const getCustomers = procedure
         skip: input.skip ?? 0,
         take: input.take,
         where: condition,
+        include: {
+          _count: {
+            select: {
+              orders: true,
+            },
+          },
+        },
       }),
     ]);
 

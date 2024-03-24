@@ -2127,11 +2127,11 @@ export namespace Prisma {
    */
 
   export type CustomerCountOutputType = {
-    order: number
+    orders: number
   }
 
   export type CustomerCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    order?: boolean | CustomerCountOutputTypeCountOrderArgs
+    orders?: boolean | CustomerCountOutputTypeCountOrdersArgs
   }
 
   // Custom InputTypes
@@ -2150,7 +2150,7 @@ export namespace Prisma {
   /**
    * CustomerCountOutputType without action
    */
-  export type CustomerCountOutputTypeCountOrderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type CustomerCountOutputTypeCountOrdersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrderWhereInput
   }
 
@@ -11957,7 +11957,7 @@ export namespace Prisma {
     thirdName?: boolean
     contact?: boolean
     userId?: boolean
-    order?: boolean | Customer$orderArgs<ExtArgs>
+    orders?: boolean | Customer$ordersArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["customer"]>
@@ -11972,7 +11972,7 @@ export namespace Prisma {
   }
 
   export type CustomerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    order?: boolean | Customer$orderArgs<ExtArgs>
+    orders?: boolean | Customer$ordersArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | CustomerCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -11981,7 +11981,7 @@ export namespace Prisma {
   export type $CustomerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Customer"
     objects: {
-      order: Prisma.$OrderPayload<ExtArgs>[]
+      orders: Prisma.$OrderPayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -12356,7 +12356,7 @@ export namespace Prisma {
   export interface Prisma__CustomerClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    order<T extends Customer$orderArgs<ExtArgs> = {}>(args?: Subset<T, Customer$orderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, 'findMany'> | Null>;
+    orders<T extends Customer$ordersArgs<ExtArgs> = {}>(args?: Subset<T, Customer$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
@@ -12706,9 +12706,9 @@ export namespace Prisma {
 
 
   /**
-   * Customer.order
+   * Customer.orders
    */
-  export type Customer$orderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Customer$ordersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Order
      */
@@ -15492,7 +15492,7 @@ export namespace Prisma {
     thirdName?: StringNullableFilter<"Customer"> | string | null
     contact?: StringFilter<"Customer"> | string
     userId?: StringFilter<"Customer"> | string
-    order?: OrderListRelationFilter
+    orders?: OrderListRelationFilter
     user?: XOR<UserRelationFilter, UserWhereInput>
   }
 
@@ -15503,7 +15503,7 @@ export namespace Prisma {
     thirdName?: SortOrderInput | SortOrder
     contact?: SortOrder
     userId?: SortOrder
-    order?: OrderOrderByRelationAggregateInput
+    orders?: OrderOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
   }
 
@@ -15517,7 +15517,7 @@ export namespace Prisma {
     thirdName?: StringNullableFilter<"Customer"> | string | null
     contact?: StringFilter<"Customer"> | string
     userId?: StringFilter<"Customer"> | string
-    order?: OrderListRelationFilter
+    orders?: OrderListRelationFilter
     user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
 
@@ -15976,7 +15976,7 @@ export namespace Prisma {
     orderVersions?: OrderVersionCreateNestedManyWithoutOrderInput
     comments?: CommentCreateNestedManyWithoutOrderInput
     user: UserCreateNestedOneWithoutOrdersInput
-    customer: CustomerCreateNestedOneWithoutOrderInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateInput = {
@@ -15994,7 +15994,7 @@ export namespace Prisma {
     orderVersions?: OrderVersionUpdateManyWithoutOrderNestedInput
     comments?: CommentUpdateManyWithoutOrderNestedInput
     user?: UserUpdateOneRequiredWithoutOrdersNestedInput
-    customer?: CustomerUpdateOneRequiredWithoutOrderNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateInput = {
@@ -16184,7 +16184,7 @@ export namespace Prisma {
     secondName: string
     thirdName?: string | null
     contact: string
-    order?: OrderCreateNestedManyWithoutCustomerInput
+    orders?: OrderCreateNestedManyWithoutCustomerInput
     user: UserCreateNestedOneWithoutCustomersInput
   }
 
@@ -16195,7 +16195,7 @@ export namespace Prisma {
     thirdName?: string | null
     contact: string
     userId: string
-    order?: OrderUncheckedCreateNestedManyWithoutCustomerInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUpdateInput = {
@@ -16204,7 +16204,7 @@ export namespace Prisma {
     secondName?: StringFieldUpdateOperationsInput | string
     thirdName?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: StringFieldUpdateOperationsInput | string
-    order?: OrderUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUpdateManyWithoutCustomerNestedInput
     user?: UserUpdateOneRequiredWithoutCustomersNestedInput
   }
 
@@ -16215,7 +16215,7 @@ export namespace Prisma {
     thirdName?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    order?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerCreateManyInput = {
@@ -17463,9 +17463,9 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type CustomerCreateNestedOneWithoutOrderInput = {
-    create?: XOR<CustomerCreateWithoutOrderInput, CustomerUncheckedCreateWithoutOrderInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutOrderInput
+  export type CustomerCreateNestedOneWithoutOrdersInput = {
+    create?: XOR<CustomerCreateWithoutOrdersInput, CustomerUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutOrdersInput
     connect?: CustomerWhereUniqueInput
   }
 
@@ -17519,12 +17519,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOrdersInput, UserUpdateWithoutOrdersInput>, UserUncheckedUpdateWithoutOrdersInput>
   }
 
-  export type CustomerUpdateOneRequiredWithoutOrderNestedInput = {
-    create?: XOR<CustomerCreateWithoutOrderInput, CustomerUncheckedCreateWithoutOrderInput>
-    connectOrCreate?: CustomerCreateOrConnectWithoutOrderInput
-    upsert?: CustomerUpsertWithoutOrderInput
+  export type CustomerUpdateOneRequiredWithoutOrdersNestedInput = {
+    create?: XOR<CustomerCreateWithoutOrdersInput, CustomerUncheckedCreateWithoutOrdersInput>
+    connectOrCreate?: CustomerCreateOrConnectWithoutOrdersInput
+    upsert?: CustomerUpsertWithoutOrdersInput
     connect?: CustomerWhereUniqueInput
-    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutOrderInput, CustomerUpdateWithoutOrderInput>, CustomerUncheckedUpdateWithoutOrderInput>
+    update?: XOR<XOR<CustomerUpdateToOneWithWhereWithoutOrdersInput, CustomerUpdateWithoutOrdersInput>, CustomerUncheckedUpdateWithoutOrdersInput>
   }
 
   export type OrderVersionUncheckedUpdateManyWithoutOrderNestedInput = {
@@ -18895,7 +18895,7 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutOrdersInput, UserUncheckedCreateWithoutOrdersInput>
   }
 
-  export type CustomerCreateWithoutOrderInput = {
+  export type CustomerCreateWithoutOrdersInput = {
     id?: string
     firstName: string
     secondName: string
@@ -18904,7 +18904,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutCustomersInput
   }
 
-  export type CustomerUncheckedCreateWithoutOrderInput = {
+  export type CustomerUncheckedCreateWithoutOrdersInput = {
     id?: string
     firstName: string
     secondName: string
@@ -18913,9 +18913,9 @@ export namespace Prisma {
     userId: string
   }
 
-  export type CustomerCreateOrConnectWithoutOrderInput = {
+  export type CustomerCreateOrConnectWithoutOrdersInput = {
     where: CustomerWhereUniqueInput
-    create: XOR<CustomerCreateWithoutOrderInput, CustomerUncheckedCreateWithoutOrderInput>
+    create: XOR<CustomerCreateWithoutOrdersInput, CustomerUncheckedCreateWithoutOrdersInput>
   }
 
   export type OrderVersionUpsertWithWhereUniqueWithoutOrderInput = {
@@ -19007,18 +19007,18 @@ export namespace Prisma {
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type CustomerUpsertWithoutOrderInput = {
-    update: XOR<CustomerUpdateWithoutOrderInput, CustomerUncheckedUpdateWithoutOrderInput>
-    create: XOR<CustomerCreateWithoutOrderInput, CustomerUncheckedCreateWithoutOrderInput>
+  export type CustomerUpsertWithoutOrdersInput = {
+    update: XOR<CustomerUpdateWithoutOrdersInput, CustomerUncheckedUpdateWithoutOrdersInput>
+    create: XOR<CustomerCreateWithoutOrdersInput, CustomerUncheckedCreateWithoutOrdersInput>
     where?: CustomerWhereInput
   }
 
-  export type CustomerUpdateToOneWithWhereWithoutOrderInput = {
+  export type CustomerUpdateToOneWithWhereWithoutOrdersInput = {
     where?: CustomerWhereInput
-    data: XOR<CustomerUpdateWithoutOrderInput, CustomerUncheckedUpdateWithoutOrderInput>
+    data: XOR<CustomerUpdateWithoutOrdersInput, CustomerUncheckedUpdateWithoutOrdersInput>
   }
 
-  export type CustomerUpdateWithoutOrderInput = {
+  export type CustomerUpdateWithoutOrdersInput = {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     secondName?: StringFieldUpdateOperationsInput | string
@@ -19027,7 +19027,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutCustomersNestedInput
   }
 
-  export type CustomerUncheckedUpdateWithoutOrderInput = {
+  export type CustomerUncheckedUpdateWithoutOrdersInput = {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     secondName?: StringFieldUpdateOperationsInput | string
@@ -19070,7 +19070,7 @@ export namespace Prisma {
     createdAt?: Date | string
     orderVersions?: OrderVersionCreateNestedManyWithoutOrderInput
     user: UserCreateNestedOneWithoutOrdersInput
-    customer: CustomerCreateNestedOneWithoutOrderInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutCommentsInput = {
@@ -19137,7 +19137,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderVersions?: OrderVersionUpdateManyWithoutOrderNestedInput
     user?: UserUpdateOneRequiredWithoutOrdersNestedInput
-    customer?: CustomerUpdateOneRequiredWithoutOrderNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutCommentsInput = {
@@ -19173,7 +19173,7 @@ export namespace Prisma {
     createdAt?: Date | string
     comments?: CommentCreateNestedManyWithoutOrderInput
     user: UserCreateNestedOneWithoutOrdersInput
-    customer: CustomerCreateNestedOneWithoutOrderInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutOrderVersionsInput = {
@@ -19221,7 +19221,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUpdateManyWithoutOrderNestedInput
     user?: UserUpdateOneRequiredWithoutOrdersNestedInput
-    customer?: CustomerUpdateOneRequiredWithoutOrderNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutOrderVersionsInput = {
@@ -19511,7 +19511,7 @@ export namespace Prisma {
     createdAt?: Date | string
     orderVersions?: OrderVersionCreateNestedManyWithoutOrderInput
     comments?: CommentCreateNestedManyWithoutOrderInput
-    customer: CustomerCreateNestedOneWithoutOrderInput
+    customer: CustomerCreateNestedOneWithoutOrdersInput
   }
 
   export type OrderUncheckedCreateWithoutUserInput = {
@@ -19538,7 +19538,7 @@ export namespace Prisma {
     secondName: string
     thirdName?: string | null
     contact: string
-    order?: OrderCreateNestedManyWithoutCustomerInput
+    orders?: OrderCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerUncheckedCreateWithoutUserInput = {
@@ -19547,7 +19547,7 @@ export namespace Prisma {
     secondName: string
     thirdName?: string | null
     contact: string
-    order?: OrderUncheckedCreateNestedManyWithoutCustomerInput
+    orders?: OrderUncheckedCreateNestedManyWithoutCustomerInput
   }
 
   export type CustomerCreateOrConnectWithoutUserInput = {
@@ -20159,7 +20159,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderVersions?: OrderVersionUpdateManyWithoutOrderNestedInput
     comments?: CommentUpdateManyWithoutOrderNestedInput
-    customer?: CustomerUpdateOneRequiredWithoutOrderNestedInput
+    customer?: CustomerUpdateOneRequiredWithoutOrdersNestedInput
   }
 
   export type OrderUncheckedUpdateWithoutUserInput = {
@@ -20182,7 +20182,7 @@ export namespace Prisma {
     secondName?: StringFieldUpdateOperationsInput | string
     thirdName?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: StringFieldUpdateOperationsInput | string
-    order?: OrderUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateWithoutUserInput = {
@@ -20191,7 +20191,7 @@ export namespace Prisma {
     secondName?: StringFieldUpdateOperationsInput | string
     thirdName?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: StringFieldUpdateOperationsInput | string
-    order?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
+    orders?: OrderUncheckedUpdateManyWithoutCustomerNestedInput
   }
 
   export type CustomerUncheckedUpdateManyWithoutUserInput = {
