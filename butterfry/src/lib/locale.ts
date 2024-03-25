@@ -8,14 +8,14 @@ export const currency = (number: number | string) => {
     minimumFractionDigits: 2,
   }).format(Number(number));
 
-  return `${value} ₽`;
+  return `${value} ₽`;
 };
 
 export const unit = (number: number | string) => {
   const value = Intl.NumberFormat("ru", { maximumFractionDigits: 0 }).format(
     Number(number)
   );
-  return `${value} шт.`;
+  return `${value} шт.`;
 };
 
 type Credentials = {

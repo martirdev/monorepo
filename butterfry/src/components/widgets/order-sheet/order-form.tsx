@@ -134,8 +134,11 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
               <CustomersSelect
                 onSelect={({ value }) => field.handleChange(value)}
                 value={field.state.value}
+                disabled={mode !== "create"}
               />
-              <CreateClientLink onSave={onClientCreate} />
+              {mode === "create" && (
+                <CreateClientLink onSave={onClientCreate} />
+              )}
             </div>
           </div>
         )}

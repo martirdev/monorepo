@@ -30,7 +30,7 @@ import { currency, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { last } from "lodash";
-import Link from "next/link";
+import { Link } from "@/components/shared/link";
 import { useSearchParams } from "next/navigation";
 import { memo } from "react";
 import { ChangeProductCountMenuItem } from "./change-product-count-menu-item";
@@ -63,7 +63,6 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
             <TableRow>
               <TableHead className="w-[80px] min-w-[80px]" />
               <TableHead>Название</TableHead>
-              <TableHead className="hidden md:table-cell">Категория</TableHead>
               <TableHead className="hidden md:table-cell text-right">
                 Цена
               </TableHead>
@@ -78,10 +77,7 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
                   <TableCell>
                     <Skeleton className="aspect-square rounded-md object-cover w-10 h-10" />
                   </TableCell>
-                  <TableCell className="font-medium">
-                    <Skeleton className="w-32 h-5" />
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">
+                  <TableCell>
                     <Skeleton className="w-32 h-5" />
                   </TableCell>
                   <TableCell className="hidden md:table-cell text-right">
@@ -111,26 +107,31 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
               data?.products.map(({ versions = [], ...product }) => (
                 <TableRow key={product.id}>
                   <TableCell>
-                    <img
-                      src={last(versions)?.images[0]?.url ?? "/placeholder.svg"}
-                      alt="Изображение товара"
-                      className="aspect-square rounded-md object-cover block"
-                      onError={({ currentTarget }) => {
-                        currentTarget.onerror = null;
-                        currentTarget.src = "/placeholder.svg";
-                      }}
-                      width={40}
-                      height={40}
-                    />
+                    <Link href={{ query: { mode: "edit", id: product.id } }}>
+                      <img
+                        src={
+                          last(versions)?.images[0]?.url ?? "/placeholder.svg"
+                        }
+                        alt="Изображение товара"
+                        className="aspect-square rounded-md object-cover block"
+                        onError={({ currentTarget }) => {
+                          currentTarget.onerror = null;
+                          currentTarget.src = "/placeholder.svg";
+                        }}
+                        width={40}
+                        height={40}
+                      />
+                    </Link>
                   </TableCell>
-                  <TableCell className="font-medium">
-                    {last(versions)?.name}
+                  <TableCell className="font-medium whitespace-nowrap">
+                    <Link href={{ query: { mode: "edit", id: product.id } }}>
+                      {last(versions)?.name}
+                    </Link>
                   </TableCell>
-                  <TableCell className="hidden md:table-cell"></TableCell>
                   <TableCell className="hidden md:table-cell text-right">
                     {currency(last(versions)?.price ?? "")}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right whitespace-nowrap">
                     {unit(product.count)}
                   </TableCell>
                   <TableCell className="w-8">
@@ -166,10 +167,11 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
                           multiplier={-1}
                           onSubmit={refetch}
                         />
-                        <DropdownMenuSeparator />
+                        {/* TODO: MARTIR-47 Добавить архив продуктов */}
+                        {/* <DropdownMenuSeparator />
                         <DropdownMenuItem className="text-destructive">
                           Убрать в архив
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
