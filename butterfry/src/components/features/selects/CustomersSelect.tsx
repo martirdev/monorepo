@@ -24,11 +24,12 @@ const PAGE_LIMIT = 20;
 
 type CustomersSelectPropsType = {
   value: string;
+  disabled?: boolean;
   onSelect: (value: { label: string; value: string }) => void;
 };
 
 const CustomersSelect = memo<CustomersSelectPropsType>(
-  function CustomersSelect({ value, onSelect }) {
+  function CustomersSelect({ value, onSelect, disabled }) {
     const [open, setOpen] = useState(false);
 
     const { data, isLoading, refetch } = trpc.getCustomers.useQuery({
@@ -61,6 +62,7 @@ const CustomersSelect = memo<CustomersSelectPropsType>(
             variant="outline"
             aria-expanded={open}
             className="w-full px-3"
+            disabled={disabled}
           >
             {value && options.find((option) => option.value === value)?.label}
             <div className="flex items-center ml-auto">

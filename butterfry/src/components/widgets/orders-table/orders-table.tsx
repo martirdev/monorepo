@@ -109,15 +109,15 @@ const OrdersTable = memo<OrdersTablePropsType>(function OrdersTable({}) {
                       {transformId(order.id)}
                     </Link>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="whitespace-nowrap">
                     {order.customer.secondName} {order.customer.firstName}
                   </TableCell>
                   <TableCell>
-                    {dateFormater(order.createdAt).format("YYYY.MM.DD HH:mm")}
+                    {dateFormater(order.createdAt).format("YYYY.MM.DD HH:mm")}
                   </TableCell>
                   <TableCell className="text-right">{currency(0)}</TableCell>
                   <TableCell>
-                    <Badge variant="outline">
+                    <Badge variant="outline" className="whitespace-nowrap">
                       {
                         ORDER_STATUSES_DICT[last(orderVersions)?.status ?? ""]
                           .label
