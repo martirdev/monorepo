@@ -2,7 +2,6 @@
 import { Badge } from "@/components/shared/badge";
 import { Button } from "@/components/shared/button";
 import { EmptyTableState } from "@/components/shared/empty-table-state";
-import { Link } from "@/components/shared/link";
 import {
   Pagination,
   PaginationContent,
@@ -20,8 +19,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/shared/table";
+import { TextLink } from "@/components/shared/text-link";
 import { convertCredentialsToShort, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { memo } from "react";
 
@@ -89,9 +90,9 @@ const ClientsTable = memo<ClientsTablePropsType>(function ClientsTable({}) {
               data?.customers.map((client) => (
                 <TableRow key={client.id}>
                   <TableCell className="font-medium">
-                    <Link href={{ query: { mode: "edit", id: client.id } }}>
+                    <TextLink href={{ query: { mode: "edit", id: client.id } }}>
                       {convertCredentialsToShort(client)}
-                    </Link>
+                    </TextLink>
                   </TableCell>
                   <TableCell>{client.contact}</TableCell>
                   <TableCell>

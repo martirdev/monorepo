@@ -3,7 +3,6 @@ import { Badge } from "@/components/shared/badge";
 import { Button } from "@/components/shared/button";
 import { ORDER_STATUSES_DICT } from "@/components/shared/consts";
 import { EmptyTableState } from "@/components/shared/empty-table-state";
-import { Link } from "@/components/shared/link";
 import {
   Pagination,
   PaginationContent,
@@ -21,9 +20,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/shared/table";
+import { TextLink } from "@/components/shared/text-link";
 import { currency, dateFormater, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
 import { last } from "lodash";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { memo } from "react";
 
@@ -105,9 +106,9 @@ const OrdersTable = memo<OrdersTablePropsType>(function OrdersTable({}) {
               data?.orders.map(({ orderVersions = [], ...order }) => (
                 <TableRow key={order.id}>
                   <TableCell className="font-medium">
-                    <Link href={{ query: { mode: "edit", id: order.id } }}>
+                    <TextLink href={{ query: { mode: "edit", id: order.id } }}>
                       {transformId(order.id)}
-                    </Link>
+                    </TextLink>
                   </TableCell>
                   <TableCell className="whitespace-nowrap">
                     {order.customer.secondName} {order.customer.firstName}
