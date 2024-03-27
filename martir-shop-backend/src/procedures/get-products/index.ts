@@ -35,6 +35,11 @@ export const getProducts = procedure
         orderBy: { createdAt: "desc" },
         where: condition,
         include: {
+          productCountHistory: {
+            select: {
+              value: true,
+            },
+          },
           versions: {
             take: 1,
             orderBy: { createdAt: "desc" },

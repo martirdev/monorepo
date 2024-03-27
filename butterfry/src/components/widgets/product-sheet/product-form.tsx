@@ -40,9 +40,12 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
   const { mutate, isLoading } = trpc.setProduct.useMutation({
     onSuccess: (data) => {
       const params = new URLSearchParams(searchparams);
-      params.set("id", data.id || id || "");
-      params.set("mode", "edit");
-      params.delete("version");
+      if (mode === "edit") {
+        params.set("version", data.id);
+      } else {
+        params.set("id", data.id);
+        params.delete("version");
+      }
       window.history.pushState(null, "", `?${params.toString()}`);
       toast("Товар добавлен", {
         description: "Теперь вы можете управлять его остатком",
