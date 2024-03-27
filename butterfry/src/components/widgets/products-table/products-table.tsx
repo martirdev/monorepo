@@ -26,15 +26,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/shared/table";
+import { TextLink } from "@/components/shared/text-link";
 import { currency, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { last } from "lodash";
-import { Link } from "@/components/shared/link";
+import { sum } from "lodash/fp";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { memo } from "react";
 import { ChangeProductCountMenuItem } from "./change-product-count-menu-item";
-import { sum } from "lodash/fp";
 
 const ITEMS_PER_PAGE = 20;
 const CREATE_BUTTON = (
@@ -125,9 +126,11 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
                     </Link>
                   </TableCell>
                   <TableCell className="font-medium whitespace-nowrap">
-                    <Link href={{ query: { mode: "edit", id: product.id } }}>
+                    <TextLink
+                      href={{ query: { mode: "edit", id: product.id } }}
+                    >
                       {last(versions)?.name}
-                    </Link>
+                    </TextLink>
                   </TableCell>
                   <TableCell className="hidden md:table-cell text-right">
                     {currency(last(versions)?.price ?? "")}

@@ -86,8 +86,9 @@ export default async function RootLayout({
                         {user.surname} {user.name}
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem>Настройки</DropdownMenuItem>
-                      <DropdownMenuItem>Поддержка</DropdownMenuItem>
+                      <Link href="https://t.me/maximmartyr">
+                        <DropdownMenuItem>Поддержка</DropdownMenuItem>
+                      </Link>
                       <DropdownMenuSeparator />
                       <Link href={`${process.env.BACKEND_API}/logout`}>
                         <DropdownMenuItem>Выйти</DropdownMenuItem>

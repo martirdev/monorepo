@@ -1,9 +1,9 @@
 import React, { memo } from "react";
 import NextLink from "next/link";
 
-type LinkProps = React.ComponentProps<typeof NextLink>;
+type TextLinkProps = React.ComponentProps<typeof NextLink>;
 
-export const Link = memo<LinkProps>(function Link(props) {
+export const TextLink = memo<TextLinkProps>(function Link(props) {
   return (
     <NextLink
       {...props}

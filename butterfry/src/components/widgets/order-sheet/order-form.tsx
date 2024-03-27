@@ -149,7 +149,7 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
       <form.Field name="address">
         {(field) => (
           <div className="space-y-2">
-            <Label htmlFor={field.name}>Адресс</Label>
+            <Label htmlFor={field.name}>Адрес</Label>
             <Input
               id={field.name}
               name={field.name}
