@@ -115,7 +115,9 @@ const OrdersTable = memo<OrdersTablePropsType>(function OrdersTable({}) {
                   <TableCell>
                     {dateFormater(order.createdAt).format("YYYY.MM.DD HH:mm")}
                   </TableCell>
-                  <TableCell className="text-right">{currency(0)}</TableCell>
+                  <TableCell className="text-right">
+                    {currency(last(orderVersions)?.total ?? 0)}
+                  </TableCell>
                   <TableCell>
                     <Badge variant="outline" className="whitespace-nowrap">
                       {
