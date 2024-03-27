@@ -102,6 +102,7 @@ model OrderVersion {
   createdAt DateTime                 @default(now())
   orderId   String
   address   String
+  total     Float                    @default(0)
   status    OrderStatus
   products  OrderVersionOnProducts[]
   order     Order                    @relation(fields: [orderId], references: [id])

@@ -17,6 +17,7 @@
     "@trpc/server": "10.45.0",
     "arctic": "^1.2.0",
     "elysia": "latest",
+    "lodash": "^4.17.21",
     "lucia": "^3.0.1",
     "notion-to-md": "^3.1.1",
     "oslo": "^1.1.2",

@@ -180,6 +180,7 @@ exports.Prisma.OrderVersionScalarFieldEnum = {
   createdAt: 'createdAt',
   orderId: 'orderId',
   address: 'address',
+  total: 'total',
   status: 'status'
 };
 

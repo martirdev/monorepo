@@ -9910,8 +9910,18 @@ export namespace Prisma {
 
   export type AggregateOrderVersion = {
     _count: OrderVersionCountAggregateOutputType | null
+    _avg: OrderVersionAvgAggregateOutputType | null
+    _sum: OrderVersionSumAggregateOutputType | null
     _min: OrderVersionMinAggregateOutputType | null
     _max: OrderVersionMaxAggregateOutputType | null
+  }
+
+  export type OrderVersionAvgAggregateOutputType = {
+    total: number | null
+  }
+
+  export type OrderVersionSumAggregateOutputType = {
+    total: number | null
   }
 
   export type OrderVersionMinAggregateOutputType = {
@@ -9919,6 +9929,7 @@ export namespace Prisma {
     createdAt: Date | null
     orderId: string | null
     address: string | null
+    total: number | null
     status: $Enums.OrderStatus | null
   }
 
@@ -9927,6 +9938,7 @@ export namespace Prisma {
     createdAt: Date | null
     orderId: string | null
     address: string | null
+    total: number | null
     status: $Enums.OrderStatus | null
   }
 
@@ -9935,16 +9947,26 @@ export namespace Prisma {
     createdAt: number
     orderId: number
     address: number
+    total: number
     status: number
     _all: number
   }
 
+
+  export type OrderVersionAvgAggregateInputType = {
+    total?: true
+  }
+
+  export type OrderVersionSumAggregateInputType = {
+    total?: true
+  }
 
   export type OrderVersionMinAggregateInputType = {
     id?: true
     createdAt?: true
     orderId?: true
     address?: true
+    total?: true
     status?: true
   }
 
@@ -9953,6 +9975,7 @@ export namespace Prisma {
     createdAt?: true
     orderId?: true
     address?: true
+    total?: true
     status?: true
   }
 
@@ -9961,6 +9984,7 @@ export namespace Prisma {
     createdAt?: true
     orderId?: true
     address?: true
+    total?: true
     status?: true
     _all?: true
   }
@@ -10003,6 +10027,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: OrderVersionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OrderVersionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: OrderVersionMinAggregateInputType
@@ -10033,6 +10069,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: OrderVersionCountAggregateInputType | true
+    _avg?: OrderVersionAvgAggregateInputType
+    _sum?: OrderVersionSumAggregateInputType
     _min?: OrderVersionMinAggregateInputType
     _max?: OrderVersionMaxAggregateInputType
   }
@@ -10042,8 +10080,11 @@ export namespace Prisma {
     createdAt: Date
     orderId: string
     address: string
+    total: number
     status: $Enums.OrderStatus
     _count: OrderVersionCountAggregateOutputType | null
+    _avg: OrderVersionAvgAggregateOutputType | null
+    _sum: OrderVersionSumAggregateOutputType | null
     _min: OrderVersionMinAggregateOutputType | null
     _max: OrderVersionMaxAggregateOutputType | null
   }
@@ -10067,6 +10108,7 @@ export namespace Prisma {
     createdAt?: boolean
     orderId?: boolean
     address?: boolean
+    total?: boolean
     status?: boolean
     products?: boolean | OrderVersion$productsArgs<ExtArgs>
     order?: boolean | OrderDefaultArgs<ExtArgs>
@@ -10078,6 +10120,7 @@ export namespace Prisma {
     createdAt?: boolean
     orderId?: boolean
     address?: boolean
+    total?: boolean
     status?: boolean
   }
 
@@ -10099,6 +10142,7 @@ export namespace Prisma {
       createdAt: Date
       orderId: string
       address: string
+      total: number
       status: $Enums.OrderStatus
     }, ExtArgs["result"]["orderVersion"]>
     composites: {}
@@ -10501,6 +10545,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"OrderVersion", 'DateTime'>
     readonly orderId: FieldRef<"OrderVersion", 'String'>
     readonly address: FieldRef<"OrderVersion", 'String'>
+    readonly total: FieldRef<"OrderVersion", 'Float'>
     readonly status: FieldRef<"OrderVersion", 'OrderStatus'>
   }
     
@@ -14782,6 +14827,7 @@ export namespace Prisma {
     createdAt: 'createdAt',
     orderId: 'orderId',
     address: 'address',
+    total: 'total',
     status: 'status'
   };
 
@@ -15381,6 +15427,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"OrderVersion"> | Date | string
     orderId?: StringFilter<"OrderVersion"> | string
     address?: StringFilter<"OrderVersion"> | string
+    total?: FloatFilter<"OrderVersion"> | number
     status?: EnumOrderStatusFilter<"OrderVersion"> | $Enums.OrderStatus
     products?: OrderVersionOnProductsListRelationFilter
     order?: XOR<OrderRelationFilter, OrderWhereInput>
@@ -15391,6 +15438,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     orderId?: SortOrder
     address?: SortOrder
+    total?: SortOrder
     status?: SortOrder
     products?: OrderVersionOnProductsOrderByRelationAggregateInput
     order?: OrderOrderByWithRelationInput
@@ -15404,6 +15452,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"OrderVersion"> | Date | string
     orderId?: StringFilter<"OrderVersion"> | string
     address?: StringFilter<"OrderVersion"> | string
+    total?: FloatFilter<"OrderVersion"> | number
     status?: EnumOrderStatusFilter<"OrderVersion"> | $Enums.OrderStatus
     products?: OrderVersionOnProductsListRelationFilter
     order?: XOR<OrderRelationFilter, OrderWhereInput>
@@ -15414,10 +15463,13 @@ export namespace Prisma {
     createdAt?: SortOrder
     orderId?: SortOrder
     address?: SortOrder
+    total?: SortOrder
     status?: SortOrder
     _count?: OrderVersionCountOrderByAggregateInput
+    _avg?: OrderVersionAvgOrderByAggregateInput
     _max?: OrderVersionMaxOrderByAggregateInput
     _min?: OrderVersionMinOrderByAggregateInput
+    _sum?: OrderVersionSumOrderByAggregateInput
   }
 
   export type OrderVersionScalarWhereWithAggregatesInput = {
@@ -15428,6 +15480,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"OrderVersion"> | Date | string
     orderId?: StringWithAggregatesFilter<"OrderVersion"> | string
     address?: StringWithAggregatesFilter<"OrderVersion"> | string
+    total?: FloatWithAggregatesFilter<"OrderVersion"> | number
     status?: EnumOrderStatusWithAggregatesFilter<"OrderVersion"> | $Enums.OrderStatus
   }
 
@@ -16083,6 +16136,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     address: string
+    total?: number
     status: $Enums.OrderStatus
     products?: OrderVersionOnProductsCreateNestedManyWithoutOrderVersionInput
     order: OrderCreateNestedOneWithoutOrderVersionsInput
@@ -16093,6 +16147,7 @@ export namespace Prisma {
     createdAt?: Date | string
     orderId: string
     address: string
+    total?: number
     status: $Enums.OrderStatus
     products?: OrderVersionOnProductsUncheckedCreateNestedManyWithoutOrderVersionInput
   }
@@ -16101,6 +16156,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: StringFieldUpdateOperationsInput | string
+    total?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     products?: OrderVersionOnProductsUpdateManyWithoutOrderVersionNestedInput
     order?: OrderUpdateOneRequiredWithoutOrderVersionsNestedInput
@@ -16111,6 +16167,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderId?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
+    total?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     products?: OrderVersionOnProductsUncheckedUpdateManyWithoutOrderVersionNestedInput
   }
@@ -16120,6 +16177,7 @@ export namespace Prisma {
     createdAt?: Date | string
     orderId: string
     address: string
+    total?: number
     status: $Enums.OrderStatus
   }
 
@@ -16127,6 +16185,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: StringFieldUpdateOperationsInput | string
+    total?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   }
 
@@ -16135,6 +16194,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderId?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
+    total?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   }
 
@@ -16825,7 +16885,12 @@ export namespace Prisma {
     createdAt?: SortOrder
     orderId?: SortOrder
     address?: SortOrder
+    total?: SortOrder
     status?: SortOrder
+  }
+
+  export type OrderVersionAvgOrderByAggregateInput = {
+    total?: SortOrder
   }
 
   export type OrderVersionMaxOrderByAggregateInput = {
@@ -16833,6 +16898,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     orderId?: SortOrder
     address?: SortOrder
+    total?: SortOrder
     status?: SortOrder
   }
 
@@ -16841,7 +16907,12 @@ export namespace Prisma {
     createdAt?: SortOrder
     orderId?: SortOrder
     address?: SortOrder
+    total?: SortOrder
     status?: SortOrder
+  }
+
+  export type OrderVersionSumOrderByAggregateInput = {
+    total?: SortOrder
   }
 
   export type EnumOrderStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -18820,6 +18891,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     address: string
+    total?: number
     status: $Enums.OrderStatus
     products?: OrderVersionOnProductsCreateNestedManyWithoutOrderVersionInput
   }
@@ -18828,6 +18900,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     address: string
+    total?: number
     status: $Enums.OrderStatus
     products?: OrderVersionOnProductsUncheckedCreateNestedManyWithoutOrderVersionInput
   }
@@ -18942,6 +19015,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"OrderVersion"> | Date | string
     orderId?: StringFilter<"OrderVersion"> | string
     address?: StringFilter<"OrderVersion"> | string
+    total?: FloatFilter<"OrderVersion"> | number
     status?: EnumOrderStatusFilter<"OrderVersion"> | $Enums.OrderStatus
   }
 
@@ -19236,6 +19310,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     address: string
+    total?: number
     status: $Enums.OrderStatus
     order: OrderCreateNestedOneWithoutOrderVersionsInput
   }
@@ -19245,6 +19320,7 @@ export namespace Prisma {
     createdAt?: Date | string
     orderId: string
     address: string
+    total?: number
     status: $Enums.OrderStatus
   }
 
@@ -19297,6 +19373,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: StringFieldUpdateOperationsInput | string
+    total?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     order?: OrderUpdateOneRequiredWithoutOrderVersionsNestedInput
   }
@@ -19306,6 +19383,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     orderId?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
+    total?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   }
 
@@ -19983,6 +20061,7 @@ export namespace Prisma {
     id?: string
     createdAt?: Date | string
     address: string
+    total?: number
     status: $Enums.OrderStatus
   }
 
@@ -19997,6 +20076,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: StringFieldUpdateOperationsInput | string
+    total?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     products?: OrderVersionOnProductsUpdateManyWithoutOrderVersionNestedInput
   }
@@ -20005,6 +20085,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: StringFieldUpdateOperationsInput | string
+    total?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
     products?: OrderVersionOnProductsUncheckedUpdateManyWithoutOrderVersionNestedInput
   }
@@ -20013,6 +20094,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     address?: StringFieldUpdateOperationsInput | string
+    total?: FloatFieldUpdateOperationsInput | number
     status?: EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
   }
 
