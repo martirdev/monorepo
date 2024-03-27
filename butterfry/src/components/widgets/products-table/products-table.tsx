@@ -34,6 +34,7 @@ import { Link } from "@/components/shared/link";
 import { useSearchParams } from "next/navigation";
 import { memo } from "react";
 import { ChangeProductCountMenuItem } from "./change-product-count-menu-item";
+import { sum } from "lodash/fp";
 
 const ITEMS_PER_PAGE = 20;
 const CREATE_BUTTON = (
@@ -131,8 +132,10 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
                   <TableCell className="hidden md:table-cell text-right">
                     {currency(last(versions)?.price ?? "")}
                   </TableCell>
-                  <TableCell className="text-right whitespace-nowrap">
-                    {unit(product.count)}
+                  <TableCell className="text-right">
+                    {unit(
+                      sum(product.productCountHistory.map(({ value }) => value))
+                    )}
                   </TableCell>
                   <TableCell className="w-8">
                     <DropdownMenu>

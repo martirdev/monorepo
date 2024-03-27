@@ -63,7 +63,11 @@ export const setOrder = procedure
         },
         {}
       );
-      const diffProducts = mergeWith(previousOrderProducts, nextProducts, sum);
+      const diffProducts = mergeWith(
+        previousOrderProducts,
+        nextProducts,
+        (prev, next) => (prev ?? 0) + (next ?? 0)
+      );
 
       const productPrices = await prisma.productVersion.findMany({
         where: {
@@ -110,8 +114,6 @@ export const setOrder = procedure
           acc + (productPricesMap[product.id] ?? 0) * product.amount,
         0
       );
-
-      console.log({ totalPrice, productPricesMap });
 
       if (existingOrder) {
         return await prisma.orderVersion.create({

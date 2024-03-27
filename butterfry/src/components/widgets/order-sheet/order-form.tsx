@@ -38,9 +38,12 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
   const { mutate, isLoading } = trpc.setOrder.useMutation({
     onSuccess: (data) => {
       const params = new URLSearchParams(searchparams);
-      params.set("id", data.id || id || "");
-      params.set("mode", "edit");
-      params.delete("version");
+      if (mode === "edit") {
+        params.set("version", data.id);
+      } else {
+        params.set("id", data.id);
+        params.delete("version");
+      }
       window.history.pushState(null, "", `?${params.toString()}`);
       toast("Заказ создан", {
         description: "Теперь вы можете управлять его статусом",

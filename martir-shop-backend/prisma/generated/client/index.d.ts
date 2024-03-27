@@ -5021,68 +5021,44 @@ export namespace Prisma {
 
   export type AggregateProduct = {
     _count: ProductCountAggregateOutputType | null
-    _avg: ProductAvgAggregateOutputType | null
-    _sum: ProductSumAggregateOutputType | null
     _min: ProductMinAggregateOutputType | null
     _max: ProductMaxAggregateOutputType | null
   }
 
-  export type ProductAvgAggregateOutputType = {
-    count: number | null
-  }
-
-  export type ProductSumAggregateOutputType = {
-    count: number | null
-  }
-
   export type ProductMinAggregateOutputType = {
     id: string | null
-    count: number | null
     userId: string | null
     createdAt: Date | null
   }
 
   export type ProductMaxAggregateOutputType = {
     id: string | null
-    count: number | null
     userId: string | null
     createdAt: Date | null
   }
 
   export type ProductCountAggregateOutputType = {
     id: number
-    count: number
     userId: number
     createdAt: number
     _all: number
   }
 
 
-  export type ProductAvgAggregateInputType = {
-    count?: true
-  }
-
-  export type ProductSumAggregateInputType = {
-    count?: true
-  }
-
   export type ProductMinAggregateInputType = {
     id?: true
-    count?: true
     userId?: true
     createdAt?: true
   }
 
   export type ProductMaxAggregateInputType = {
     id?: true
-    count?: true
     userId?: true
     createdAt?: true
   }
 
   export type ProductCountAggregateInputType = {
     id?: true
-    count?: true
     userId?: true
     createdAt?: true
     _all?: true
@@ -5126,18 +5102,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: ProductAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ProductSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: ProductMinAggregateInputType
@@ -5168,20 +5132,15 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ProductCountAggregateInputType | true
-    _avg?: ProductAvgAggregateInputType
-    _sum?: ProductSumAggregateInputType
     _min?: ProductMinAggregateInputType
     _max?: ProductMaxAggregateInputType
   }
 
   export type ProductGroupByOutputType = {
     id: string
-    count: number
     userId: string
     createdAt: Date
     _count: ProductCountAggregateOutputType | null
-    _avg: ProductAvgAggregateOutputType | null
-    _sum: ProductSumAggregateOutputType | null
     _min: ProductMinAggregateOutputType | null
     _max: ProductMaxAggregateOutputType | null
   }
@@ -5202,7 +5161,6 @@ export namespace Prisma {
 
   export type ProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    count?: boolean
     userId?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -5213,7 +5171,6 @@ export namespace Prisma {
 
   export type ProductSelectScalar = {
     id?: boolean
-    count?: boolean
     userId?: boolean
     createdAt?: boolean
   }
@@ -5235,7 +5192,6 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      count: number
       userId: string
       createdAt: Date
     }, ExtArgs["result"]["product"]>
@@ -5638,7 +5594,6 @@ export namespace Prisma {
    */ 
   interface ProductFieldRefs {
     readonly id: FieldRef<"Product", 'String'>
-    readonly count: FieldRef<"Product", 'Int'>
     readonly userId: FieldRef<"Product", 'String'>
     readonly createdAt: FieldRef<"Product", 'DateTime'>
   }
@@ -14771,7 +14726,6 @@ export namespace Prisma {
 
   export const ProductScalarFieldEnum: {
     id: 'id',
-    count: 'count',
     userId: 'userId',
     createdAt: 'createdAt'
   };
@@ -14919,20 +14873,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -14943,6 +14883,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -15123,7 +15077,6 @@ export namespace Prisma {
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
     id?: StringFilter<"Product"> | string
-    count?: IntFilter<"Product"> | number
     userId?: StringFilter<"Product"> | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -15133,7 +15086,6 @@ export namespace Prisma {
 
   export type ProductOrderByWithRelationInput = {
     id?: SortOrder
-    count?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -15146,7 +15098,6 @@ export namespace Prisma {
     AND?: ProductWhereInput | ProductWhereInput[]
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
-    count?: IntFilter<"Product"> | number
     userId?: StringFilter<"Product"> | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
@@ -15156,14 +15107,11 @@ export namespace Prisma {
 
   export type ProductOrderByWithAggregationInput = {
     id?: SortOrder
-    count?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     _count?: ProductCountOrderByAggregateInput
-    _avg?: ProductAvgOrderByAggregateInput
     _max?: ProductMaxOrderByAggregateInput
     _min?: ProductMinOrderByAggregateInput
-    _sum?: ProductSumOrderByAggregateInput
   }
 
   export type ProductScalarWhereWithAggregatesInput = {
@@ -15171,7 +15119,6 @@ export namespace Prisma {
     OR?: ProductScalarWhereWithAggregatesInput[]
     NOT?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Product"> | string
-    count?: IntWithAggregatesFilter<"Product"> | number
     userId?: StringWithAggregatesFilter<"Product"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
   }
@@ -15848,7 +15795,6 @@ export namespace Prisma {
 
   export type ProductCreateInput = {
     id?: string
-    count: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutProductsInput
     versions?: ProductVersionCreateNestedManyWithoutProductInput
@@ -15857,7 +15803,6 @@ export namespace Prisma {
 
   export type ProductUncheckedCreateInput = {
     id?: string
-    count: number
     userId: string
     createdAt?: Date | string
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -15866,7 +15811,6 @@ export namespace Prisma {
 
   export type ProductUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
     versions?: ProductVersionUpdateManyWithoutProductNestedInput
@@ -15875,7 +15819,6 @@ export namespace Prisma {
 
   export type ProductUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -15884,20 +15827,17 @@ export namespace Prisma {
 
   export type ProductCreateManyInput = {
     id?: string
-    count: number
     userId: string
     createdAt?: Date | string
   }
 
   export type ProductUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16576,17 +16516,6 @@ export namespace Prisma {
     value?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -16615,47 +16544,20 @@ export namespace Prisma {
 
   export type ProductCountOrderByAggregateInput = {
     id?: SortOrder
-    count?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type ProductAvgOrderByAggregateInput = {
-    count?: SortOrder
-  }
-
   export type ProductMaxOrderByAggregateInput = {
     id?: SortOrder
-    count?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
   }
 
   export type ProductMinOrderByAggregateInput = {
     id?: SortOrder
-    count?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type ProductSumOrderByAggregateInput = {
-    count?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -16670,6 +16572,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type ProductRelationFilter = {
@@ -16701,6 +16614,22 @@ export namespace Prisma {
 
   export type ProductCountHistorySumOrderByAggregateInput = {
     value?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -17264,14 +17193,6 @@ export namespace Prisma {
     connect?: ProductCountHistoryWhereUniqueInput | ProductCountHistoryWhereUniqueInput[]
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -17344,6 +17265,14 @@ export namespace Prisma {
     create?: XOR<ProductCreateWithoutProductCountHistoryInput, ProductUncheckedCreateWithoutProductCountHistoryInput>
     connectOrCreate?: ProductCreateOrConnectWithoutProductCountHistoryInput
     connect?: ProductWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type ProductUpdateOneRequiredWithoutProductCountHistoryNestedInput = {
@@ -18117,6 +18046,20 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -18142,20 +18085,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -18617,7 +18546,6 @@ export namespace Prisma {
 
   export type ProductCreateWithoutProductCountHistoryInput = {
     id?: string
-    count: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutProductsInput
     versions?: ProductVersionCreateNestedManyWithoutProductInput
@@ -18625,7 +18553,6 @@ export namespace Prisma {
 
   export type ProductUncheckedCreateWithoutProductCountHistoryInput = {
     id?: string
-    count: number
     userId: string
     createdAt?: Date | string
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
@@ -18649,7 +18576,6 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutProductCountHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
     versions?: ProductVersionUpdateManyWithoutProductNestedInput
@@ -18657,7 +18583,6 @@ export namespace Prisma {
 
   export type ProductUncheckedUpdateWithoutProductCountHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
@@ -18724,7 +18649,6 @@ export namespace Prisma {
 
   export type ProductCreateWithoutVersionsInput = {
     id?: string
-    count: number
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutProductsInput
     productCountHistory?: ProductCountHistoryCreateNestedManyWithoutProductInput
@@ -18732,7 +18656,6 @@ export namespace Prisma {
 
   export type ProductUncheckedCreateWithoutVersionsInput = {
     id?: string
-    count: number
     userId: string
     createdAt?: Date | string
     productCountHistory?: ProductCountHistoryUncheckedCreateNestedManyWithoutProductInput
@@ -18848,7 +18771,6 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutVersionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutProductsNestedInput
     productCountHistory?: ProductCountHistoryUpdateManyWithoutProductNestedInput
@@ -18856,7 +18778,6 @@ export namespace Prisma {
 
   export type ProductUncheckedUpdateWithoutVersionsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     productCountHistory?: ProductCountHistoryUncheckedUpdateManyWithoutProductNestedInput
@@ -19540,7 +19461,6 @@ export namespace Prisma {
 
   export type ProductCreateWithoutUserInput = {
     id?: string
-    count: number
     createdAt?: Date | string
     versions?: ProductVersionCreateNestedManyWithoutProductInput
     productCountHistory?: ProductCountHistoryCreateNestedManyWithoutProductInput
@@ -19548,7 +19468,6 @@ export namespace Prisma {
 
   export type ProductUncheckedCreateWithoutUserInput = {
     id?: string
-    count: number
     createdAt?: Date | string
     versions?: ProductVersionUncheckedCreateNestedManyWithoutProductInput
     productCountHistory?: ProductCountHistoryUncheckedCreateNestedManyWithoutProductInput
@@ -19683,7 +19602,6 @@ export namespace Prisma {
     OR?: ProductScalarWhereInput[]
     NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
     id?: StringFilter<"Product"> | string
-    count?: IntFilter<"Product"> | number
     userId?: StringFilter<"Product"> | string
     createdAt?: DateTimeFilter<"Product"> | Date | string
   }
@@ -20169,7 +20087,6 @@ export namespace Prisma {
 
   export type ProductCreateManyUserInput = {
     id?: string
-    count: number
     createdAt?: Date | string
   }
 
@@ -20201,7 +20118,6 @@ export namespace Prisma {
 
   export type ProductUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     versions?: ProductVersionUpdateManyWithoutProductNestedInput
     productCountHistory?: ProductCountHistoryUpdateManyWithoutProductNestedInput
@@ -20209,7 +20125,6 @@ export namespace Prisma {
 
   export type ProductUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     versions?: ProductVersionUncheckedUpdateManyWithoutProductNestedInput
     productCountHistory?: ProductCountHistoryUncheckedUpdateManyWithoutProductNestedInput
@@ -20217,7 +20132,6 @@ export namespace Prisma {
 
   export type ProductUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    count?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

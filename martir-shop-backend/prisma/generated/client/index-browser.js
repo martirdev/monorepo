@@ -139,7 +139,6 @@ exports.Prisma.ParamValuesScalarFieldEnum = {
 
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
-  count: 'count',
   userId: 'userId',
   createdAt: 'createdAt'
 };
