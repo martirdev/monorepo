@@ -9,22 +9,10 @@ const paramsValidator = z.object({
 export const setProductCountHistory = procedure
   .input(paramsValidator)
   .mutation(async ({ input }) => {
-    return await prisma.$transaction([
-      prisma.productCountHistory.create({
-        data: {
-          productId: input.id,
-          value: input.value,
-        },
-      }),
-      prisma.product.update({
-        data: {
-          count: {
-            increment: input.value,
-          },
-        },
-        where: {
-          id: input.id,
-        },
-      }),
-    ]);
+    return await prisma.productCountHistory.create({
+      data: {
+        productId: input.id,
+        value: input.value,
+      },
+    });
   });
