@@ -53,7 +53,6 @@ export const setProduct = procedure
         return await prisma.product.create({
           data: {
             id: input.id,
-            count: 0,
             user: {
               connect: {
                 id: ctx.user.id,
