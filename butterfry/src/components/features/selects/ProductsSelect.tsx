@@ -13,6 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/shared/popover";
+import { useProject } from "@/lib/hooks/params";
 import { trpc } from "@/lib/trpc";
 import { cn } from "@/lib/utils";
 import { ReloadIcon } from "@radix-ui/react-icons";
@@ -32,16 +33,18 @@ const ProductsSelect = memo<ProductsSelectPropsType>(function ProductsSelect({
   onSelect,
 }) {
   const [open, setOpen] = useState(false);
+  const project = useProject();
 
   const { data, isLoading } = trpc.getProducts.useQuery({
     take: PAGE_LIMIT,
     skip: 0 * PAGE_LIMIT,
+    project,
   });
 
   const options = useMemo(() => {
     return (data?.products ?? []).map((product) => ({
       label: last(product.versions)?.name || `id: ${product.id}`,
-      value: last(product.versions)?.id,
+      value: last(product.versions)?.id ?? "",
     }));
   }, [data?.products]);
 

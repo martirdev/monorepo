@@ -20,6 +20,7 @@ import {
   TableRow,
 } from "@/components/shared/table";
 import { TextLink } from "@/components/shared/text-link";
+import { useProject } from "@/lib/hooks/params";
 import { convertCredentialsToShort, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
 import Link from "next/link";
@@ -37,11 +38,13 @@ type ClientsTablePropsType = {};
 
 const ClientsTable = memo<ClientsTablePropsType>(function ClientsTable({}) {
   const searchParams = useSearchParams();
+  const project = useProject();
 
   const page = Number(searchParams.get("page") ?? 0);
   const { data, isLoading } = trpc.getCustomers.useQuery({
     take: ITEMS_PER_PAGE,
     skip: ITEMS_PER_PAGE * page,
+    project,
   });
 
   const totalPages = Math.floor((data?.total ?? 0) / ITEMS_PER_PAGE) + 1;

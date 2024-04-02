@@ -23,6 +23,7 @@ const paramsValidator = z.object({
   ),
   address: z.string(),
   customer: z.string(),
+  project: z.string(),
 });
 
 export const setOrder = procedure
@@ -74,9 +75,6 @@ export const setOrder = procedure
           id: {
             in: Object.keys(diffProducts),
           },
-          product: {
-            userId: ctx.user.id,
-          },
         },
         select: {
           id: true,
@@ -91,15 +89,11 @@ export const setOrder = procedure
         return acc;
       }, {});
 
-      const productCountHistory = Object.entries(diffProducts).map(
-        ([versionId, value]) => ({
+      await prisma.productCountHistory.createMany({
+        data: Object.entries(diffProducts).map(([versionId, value]) => ({
           productId: productByVersionId[versionId].productId,
           value,
-        })
-      );
-
-      await prisma.productCountHistory.createMany({
-        data: productCountHistory,
+        })),
       });
 
       const productPricesMap = productPrices.reduce<Record<string, number>>(
@@ -121,6 +115,7 @@ export const setOrder = procedure
             total: totalPrice,
             orderId: input.id,
             status: input.status,
+            userId: ctx.user.id,
             products: {
               create: input.products.map((product) => ({
                 amount: product.amount,
@@ -138,10 +133,11 @@ export const setOrder = procedure
         return await prisma.order.create({
           data: {
             id: input.id,
-            userId: ctx.user.id,
             customerId: input.customer,
+            projectId: input.project,
             orderVersions: {
               create: {
+                userId: ctx.user.id,
                 total: totalPrice,
                 status: input.status,
                 products: {

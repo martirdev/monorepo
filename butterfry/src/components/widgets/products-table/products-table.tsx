@@ -33,9 +33,10 @@ import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { last } from "lodash";
 import { sum } from "lodash/fp";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { memo } from "react";
 import { ChangeProductCountMenuItem } from "./change-product-count-menu-item";
+import { useProject } from "@/lib/hooks/params";
 
 const ITEMS_PER_PAGE = 20;
 const CREATE_BUTTON = (
@@ -48,11 +49,13 @@ type ProductsTablePropsType = {};
 
 const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
   const searchParams = useSearchParams();
+  const project = useProject();
 
   const page = Number(searchParams.get("page") ?? 0);
   const { data, isLoading, refetch } = trpc.getProducts.useQuery({
     take: ITEMS_PER_PAGE,
     skip: ITEMS_PER_PAGE * page,
+    project,
   });
 
   const totalPages = Math.floor((data?.total ?? 0) / ITEMS_PER_PAGE) + 1;

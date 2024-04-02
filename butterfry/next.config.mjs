@@ -5,6 +5,7 @@ const nextConfig = {
   },
   env: {
     BACKEND_API: process.env.BACKEND_API,
+    AVATAR_URL: process.env.AVATAR_URL
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find((rule) =>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { cookies } from "next/headers";
 
-type UserResponse = {
+export type UserResponse = {
   id: string;
   name: string;
   surname: string;
