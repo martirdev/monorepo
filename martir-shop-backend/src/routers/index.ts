@@ -4,7 +4,6 @@ import { getCustomer } from "../procedures/get-customer";
 import { getCustomers } from "../procedures/get-customers";
 import { getOrder } from "../procedures/get-order";
 import { getOrders } from "../procedures/get-orders";
-import { getParamNames } from "../procedures/get-param-names";
 import { getProduct } from "../procedures/get-product";
 import { getProductCountHistory } from "../procedures/get-product-count-history";
 import { getProductVersion } from "../procedures/get-product-version";
@@ -22,8 +21,6 @@ import { router } from "../shared/trpc";
 
 export const appRouter = router({
   getContentById,
-
-  getParamNames,
 
   setProduct,
   getProduct,

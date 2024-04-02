@@ -133,7 +133,6 @@ exports.Prisma.ParamValuesScalarFieldEnum = {
 
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   projectId: 'projectId',
   createdAt: 'createdAt'
 };
@@ -146,7 +145,7 @@ exports.Prisma.ProductCountHistoryScalarFieldEnum = {
 
 exports.Prisma.ProductVersionScalarFieldEnum = {
   id: 'id',
-  categoryId: 'categoryId',
+  userId: 'userId',
   productId: 'productId',
   createdAt: 'createdAt',
   name: 'name',
@@ -157,7 +156,6 @@ exports.Prisma.ProductVersionScalarFieldEnum = {
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  userId: 'userId',
   projectId: 'projectId',
   customerId: 'customerId'
 };
@@ -172,8 +170,9 @@ exports.Prisma.CommentScalarFieldEnum = {
 
 exports.Prisma.OrderVersionScalarFieldEnum = {
   id: 'id',
-  createdAt: 'createdAt',
+  userId: 'userId',
   orderId: 'orderId',
+  createdAt: 'createdAt',
   address: 'address',
   total: 'total',
   status: 'status'

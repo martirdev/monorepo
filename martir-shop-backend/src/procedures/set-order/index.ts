@@ -115,6 +115,7 @@ export const setOrder = procedure
             total: totalPrice,
             orderId: input.id,
             status: input.status,
+            userId: ctx.user.id,
             products: {
               create: input.products.map((product) => ({
                 amount: product.amount,
@@ -132,11 +133,11 @@ export const setOrder = procedure
         return await prisma.order.create({
           data: {
             id: input.id,
-            userId: ctx.user.id,
             customerId: input.customer,
             projectId: input.project,
             orderVersions: {
               create: {
+                userId: ctx.user.id,
                 total: totalPrice,
                 status: input.status,
                 products: {

@@ -26,10 +26,8 @@ model ParamValues {
 
 model Product {
   id                  String                @id @default(uuid())
-  userId              String
   projectId           String
   createdAt           DateTime              @default(now())
-  user                User                  @relation(fields: [userId], references: [id])
   project             Project               @relation(fields: [projectId], references: [id])
   versions            ProductVersion[]
   productCountHistory ProductCountHistory[]
@@ -44,7 +42,7 @@ model ProductCountHistory {
 
 model ProductVersion {
   id            String                   @id @default(uuid())
-  categoryId    String?
+  userId        String
   productId     String
   createdAt     DateTime                 @default(now())
   name          String
@@ -52,19 +50,18 @@ model ProductVersion {
   price         Float
   images        Images[]
   orderVersions OrderVersionOnProducts[]
-  product       Product                  @relation(fields: [productId], references: [id])
   params        ParamValues[]            @relation("ParamValuesToProductVersion")
+  product       Product                  @relation(fields: [productId], references: [id])
+  user          User                     @relation(fields: [userId], references: [id])
 }
 
 model Order {
   id            String         @id @default(uuid())
   createdAt     DateTime       @default(now())
-  userId        String
   projectId     String
   customerId    String
   orderVersions OrderVersion[]
   comments      Comment[]
-  user          User           @relation(fields: [userId], references: [id])
   customer      Customer       @relation(fields: [customerId], references: [id])
   project       Project        @relation(fields: [projectId], references: [id])
 }
@@ -92,13 +89,15 @@ enum OrderStatus {
 
 model OrderVersion {
   id        String                   @id @default(uuid())
-  createdAt DateTime                 @default(now())
+  userId    String
   orderId   String
+  createdAt DateTime                 @default(now())
   address   String
   total     Float                    @default(0)
   status    OrderStatus
   products  OrderVersionOnProducts[]
   order     Order                    @relation(fields: [orderId], references: [id])
+  user      User                     @relation(fields: [userId], references: [id])
 }
 
 model OrderVersionOnProducts {
@@ -156,9 +155,9 @@ model User {
   name            String
   surname         String
   avatar          String?
-  products        Product[]
   sessions        Session[]
-  orders          Order[]
+  productVersions ProductVersion[]
+  orderVersions   OrderVersion[]
   customers       Customer[]
   comments        Comment[]
   usersOnProjects UsersOnProjects[]

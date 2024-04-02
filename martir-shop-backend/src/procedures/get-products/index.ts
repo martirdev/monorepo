@@ -5,7 +5,6 @@ import { TRPCError } from "@trpc/server";
 const paramsValidator = z.object({
   skip: z.number().nonnegative().optional(),
   take: z.number().positive(),
-  name: z.string().optional(),
   project: z.string(),
 });
 
@@ -18,13 +17,6 @@ export const getProducts = procedure
 
     const condition = {
       projectId: input.project,
-      versions: {
-        some: {
-          name: {
-            contains: input.name,
-          },
-        },
-      },
     };
 
     const [products, total] = await prisma.$transaction([

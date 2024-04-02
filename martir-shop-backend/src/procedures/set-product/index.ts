@@ -36,7 +36,7 @@ export const setProduct = procedure
       if (existingProduct) {
         return await prisma.productVersion.create({
           data: {
-            categoryId: input.categoryId,
+            userId: ctx.user.id,
             name: input.name,
             description: input.description,
             price: input.price,
@@ -60,14 +60,9 @@ export const setProduct = procedure
                 id: input.project,
               },
             },
-            user: {
-              connect: {
-                id: ctx.user.id,
-              },
-            },
             versions: {
               create: {
-                categoryId: input.categoryId,
+                userId: ctx.user.id,
                 name: input.name,
                 description: input.description,
                 price: input.price,
