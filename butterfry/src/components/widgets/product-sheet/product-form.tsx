@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { v4 } from "uuid";
 import { z } from "zod";
 import { FORM_INIT_VALUES, TITLES_BY_MODE } from "./consts";
+import { useProject } from "@/lib/hooks/params";
 
 type ProductFormPropsType = {
   id: Undefinable<string>;
@@ -36,6 +37,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
   versions,
 }) {
   const searchparams = useSearchParams();
+  const project = useProject();
 
   const { mutate, isLoading } = trpc.setProduct.useMutation({
     onSuccess: (data) => {
@@ -74,6 +76,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
         name: value.name,
         description: value.description,
         price: value.price,
+        project,
         params: value.params.filter((param) => param.value && param.name),
         images: value.images
           .filter((image) => !!image.url)

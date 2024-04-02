@@ -15,6 +15,7 @@ const paramsValidator = z.object({
       value: z.string(),
     })
   ),
+  project: z.string().optional(),
 });
 
 export const setProduct = procedure
@@ -28,6 +29,7 @@ export const setProduct = procedure
       const existingProduct = await prisma.product.findUnique({
         where: {
           id: input.id,
+          projectId: input.project,
         },
       });
 
@@ -53,6 +55,11 @@ export const setProduct = procedure
         return await prisma.product.create({
           data: {
             id: input.id,
+            project: {
+              connect: {
+                id: input.project,
+              },
+            },
             user: {
               connect: {
                 id: ctx.user.id,

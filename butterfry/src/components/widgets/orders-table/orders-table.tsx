@@ -21,6 +21,7 @@ import {
   TableRow,
 } from "@/components/shared/table";
 import { TextLink } from "@/components/shared/text-link";
+import { useProject } from "@/lib/hooks/params";
 import { currency, dateFormater, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
 import { last } from "lodash";
@@ -41,11 +42,13 @@ type OrdersTablePropsType = {};
 
 const OrdersTable = memo<OrdersTablePropsType>(function OrdersTable({}) {
   const searchParams = useSearchParams();
+  const project = useProject();
 
   const page = Number(searchParams.get("page") ?? 0);
   const { data, isLoading } = trpc.getOrders.useQuery({
     take: ITEMS_PER_PAGE,
     skip: ITEMS_PER_PAGE * page,
+    project,
   });
 
   const totalPages = Math.floor((data?.total ?? 0) / ITEMS_PER_PAGE) + 1;

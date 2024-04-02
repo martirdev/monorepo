@@ -6,6 +6,7 @@ const paramsValidator = z.object({
   skip: z.number().nonnegative().optional(),
   take: z.number().positive(),
   name: z.string().optional(),
+  project: z.string(),
 });
 
 export const getProducts = procedure
@@ -16,9 +17,7 @@ export const getProducts = procedure
     }
 
     const condition = {
-      userId: {
-        equals: ctx.user.id,
-      },
+      projectId: input.project,
       versions: {
         some: {
           name: {

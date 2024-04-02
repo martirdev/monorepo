@@ -10,9 +10,7 @@ export const getOrder = procedure
   .query(async ({ input }) => {
     return await prisma.order.findFirst({
       where: {
-        id: {
-          equals: input.id,
-        },
+        id: input.id,
       },
       include: {
         comments: {

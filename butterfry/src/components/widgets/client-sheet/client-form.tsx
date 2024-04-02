@@ -16,6 +16,7 @@ import { memo } from "react";
 import { toast } from "sonner";
 import { v4 } from "uuid";
 import { CLIENT_FORM_INIT_VALUES, TITLES_BY_MODE } from "./consts";
+import { useProject } from "@/lib/hooks/params";
 
 type ClientFormPropsType = {
   id: Undefinable<string>;
@@ -29,6 +30,7 @@ const ClientForm = memo<ClientFormPropsType>(function ClientForm({
   initValues,
 }) {
   const searchparams = useSearchParams();
+  const project = useProject();
 
   const { mutate, isLoading } = trpc.setCustomer.useMutation({
     onSuccess: (data) => {
@@ -54,6 +56,7 @@ const ClientForm = memo<ClientFormPropsType>(function ClientForm({
         id: mode === "edit" ? id! : v4(),
         firstName: value.firstName,
         secondName: value.secondName,
+        project,
         thirdName: value.thirdName || undefined,
         contact: value.contact,
       });

@@ -8,6 +8,7 @@ const paramsValidator = z.object({
   secondName: z.string(),
   thirdName: z.string().optional(),
   contact: z.string(),
+  project: z.string(),
 });
 
 export const setCustomer = procedure
@@ -25,6 +26,7 @@ export const setCustomer = procedure
       create: {
         id: input.id,
         userId: ctx.user.id,
+        projectId: input.project,
         firstName: input.firstName,
         secondName: input.secondName,
         thirdName: input.thirdName,

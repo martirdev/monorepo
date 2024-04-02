@@ -125,12 +125,6 @@ exports.Prisma.ImagesScalarFieldEnum = {
   productVersionId: 'productVersionId'
 };
 
-exports.Prisma.CategoryScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  parentCategoryId: 'parentCategoryId'
-};
-
 exports.Prisma.ParamValuesScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -140,6 +134,7 @@ exports.Prisma.ParamValuesScalarFieldEnum = {
 exports.Prisma.ProductScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  projectId: 'projectId',
   createdAt: 'createdAt'
 };
 
@@ -163,6 +158,7 @@ exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
   userId: 'userId',
+  projectId: 'projectId',
   customerId: 'customerId'
 };
 
@@ -191,11 +187,24 @@ exports.Prisma.OrderVersionOnProductsScalarFieldEnum = {
 
 exports.Prisma.CustomerScalarFieldEnum = {
   id: 'id',
+  projectId: 'projectId',
+  userId: 'userId',
   firstName: 'firstName',
   secondName: 'secondName',
   thirdName: 'thirdName',
-  contact: 'contact',
-  userId: 'userId'
+  contact: 'contact'
+};
+
+exports.Prisma.ProjectScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.UsersOnProjectsScalarFieldEnum = {
+  userId: 'userId',
+  projectId: 'projectId',
+  assignedAt: 'assignedAt',
+  role: 'role'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -237,9 +246,14 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
   REFUND: 'REFUND'
 };
 
+exports.Role = exports.$Enums.Role = {
+  OWNER: 'OWNER',
+  EDITOR: 'EDITOR',
+  VIEWER: 'VIEWER'
+};
+
 exports.Prisma.ModelName = {
   Images: 'Images',
-  Category: 'Category',
   ParamValues: 'ParamValues',
   Product: 'Product',
   ProductCountHistory: 'ProductCountHistory',
@@ -249,6 +263,8 @@ exports.Prisma.ModelName = {
   OrderVersion: 'OrderVersion',
   OrderVersionOnProducts: 'OrderVersionOnProducts',
   Customer: 'Customer',
+  Project: 'Project',
+  UsersOnProjects: 'UsersOnProjects',
   User: 'User',
   Session: 'Session'
 };

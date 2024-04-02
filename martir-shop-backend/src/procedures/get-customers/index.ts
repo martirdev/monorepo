@@ -5,6 +5,7 @@ import { prisma, procedure } from "../../shared/trpc";
 const paramsValidator = z.object({
   skip: z.number().nonnegative().optional(),
   take: z.number().positive(),
+  project: z.string(),
 });
 
 export const getCustomers = procedure
@@ -15,9 +16,7 @@ export const getCustomers = procedure
     }
 
     const condition = {
-      userId: {
-        equals: ctx.user.id,
-      },
+      projectId: input.project,
     };
 
     const [total, customers] = await prisma.$transaction([

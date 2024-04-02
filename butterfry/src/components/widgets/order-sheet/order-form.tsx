@@ -17,6 +17,7 @@ import { v4 } from "uuid";
 import { z } from "zod";
 import { CreateClientLink } from "../create-client-link";
 import { ORDER_FORM_INIT_VALUES, TITLES_BY_MODE } from "./consts";
+import { useProject } from "@/lib/hooks/params";
 
 type OrderFormPropsType = {
   id: Undefinable<string>;
@@ -34,6 +35,7 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
   versions,
 }) {
   const searchparams = useSearchParams();
+  const project = useProject();
 
   const { mutate, isLoading } = trpc.setOrder.useMutation({
     onSuccess: (data) => {
@@ -77,6 +79,7 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
         address: value.address,
         customer: value.customerId,
         status: value.status,
+        project,
         products: value.products.map(({ productId, amount }) => ({
           id: productId,
           amount: amount,

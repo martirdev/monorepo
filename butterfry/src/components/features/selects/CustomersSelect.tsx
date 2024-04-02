@@ -14,6 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/shared/popover";
+import { useProject } from "@/lib/hooks/params";
 import { trpc } from "@/lib/trpc";
 import { cn } from "@/lib/utils";
 import { ReloadIcon } from "@radix-ui/react-icons";
@@ -31,10 +32,12 @@ type CustomersSelectPropsType = {
 const CustomersSelect = memo<CustomersSelectPropsType>(
   function CustomersSelect({ value, onSelect, disabled }) {
     const [open, setOpen] = useState(false);
+    const project = useProject();
 
     const { data, isLoading, refetch } = trpc.getCustomers.useQuery({
       take: PAGE_LIMIT,
       skip: 0 * PAGE_LIMIT,
+      project,
     });
 
     const options = useMemo(() => {

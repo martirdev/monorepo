@@ -10,9 +10,7 @@ export const getProductCountHistory = procedure
   .query(async ({ input }) => {
     return await prisma.productCountHistory.findMany({
       where: {
-        id: {
-          equals: input.id,
-        },
+        id: input.id,
       },
     });
   });
