@@ -71,7 +71,10 @@ const SettingsTable = memo<SettingsTablePropsType>(function SettingsTable({}) {
         </div>
         <div className="flex flex-col gap-4">
           {data?.map(({ user, assignedAt }) => (
-            <div className="flex items-center justify-between space-x-4">
+            <div
+              className="flex items-center justify-between space-x-4"
+              key={user.id}
+            >
               <div className="flex items-center space-x-4">
                 <span className="relative shrink-0 rounded-full">
                   <img
