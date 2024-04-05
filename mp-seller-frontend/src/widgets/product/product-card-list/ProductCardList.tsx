@@ -83,9 +83,17 @@ const ProductCardList = memo(function ProductCardTable() {
 
     return (
         <div className="flex flex-1 flex-col gap-1">
-            <Button icon={<PlusOutlined />} title="Создать карточку товара" onClick={showDrawer} type="primary">
-                Создать КТ
-            </Button>
+            <div className="mr-40 mt-4 flex justify-end">
+                <Button
+                    icon={<PlusOutlined />}
+                    title="Создать карточку товара"
+                    onClick={showDrawer}
+                    type="primary"
+                    className="w-40 "
+                >
+                    Создать КТ
+                </Button>
+            </div>
             <AddNewProductSidebar onClose={onClose} open={openAddNewProductDrawer} />
             <div className="mx-40 mt-2 flex justify-between gap-16">
                 <ProductCardFilter onChange={onChange} />

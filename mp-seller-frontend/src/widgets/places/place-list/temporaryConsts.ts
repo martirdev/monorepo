@@ -9,7 +9,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '1',
-                name: 'Place 1'
+                name: 'ЛампаДа'
             }
         ]
     },
@@ -21,7 +21,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '2',
-                name: 'Place 2'
+                name: 'LoveMe Shop'
             }
         ]
     },
@@ -33,7 +33,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '3',
-                name: 'Place 3'
+                name: 'ТВОЕ'
             }
         ]
     },
@@ -45,7 +45,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '4',
-                name: 'Place 4'
+                name: 'Бытовая химия на каждый день'
             }
         ]
     },
@@ -57,7 +57,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '5',
-                name: 'Place 5'
+                name: 'ZARA'
             }
         ]
     },
@@ -69,7 +69,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '6',
-                name: 'Place 6'
+                name: 'Спортивные товары'
             }
         ]
     },
@@ -81,7 +81,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '7',
-                name: 'Place 7'
+                name: 'Детский мир'
             }
         ]
     },
@@ -93,7 +93,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '8',
-                name: 'Place 8'
+                name: 'Канцтовары'
             }
         ]
     },
@@ -105,7 +105,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '9',
-                name: 'Place 9'
+                name: 'Цветы96'
             }
         ]
     },
@@ -117,7 +117,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '10',
-                name: 'Place 10'
+                name: 'Universal Shop'
             }
         ]
     },
@@ -129,7 +129,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '11',
-                name: 'Place 11'
+                name: 'Эльдорадо'
             }
         ]
     },
@@ -141,7 +141,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '12',
-                name: 'Place 12'
+                name: 'ZARA'
             }
         ]
     },
@@ -153,7 +153,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '13',
-                name: 'Place 13'
+                name: 'Дары моря'
             }
         ]
     },
@@ -165,7 +165,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '14',
-                name: 'Place 14'
+                name: 'Бады для женщин'
             }
         ]
     },
@@ -177,7 +177,7 @@ export const MOCK_SHOPS: Array<KeyForMarketplaceType> = [
         places: [
             {
                 id: '15',
-                name: 'Place 15'
+                name: 'Бады для мужчин'
             }
         ]
     }
