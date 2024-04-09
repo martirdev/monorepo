@@ -29,7 +29,7 @@ export const ProductItem = ({
         <h4 className="font-semibold text-lg">{name}</h4>
         <div className="flex flex-col gap-1 text-sm">
           {properties.map((property) => (
-            <p>
+            <p key={property.key}>
               <span className="mr-1 text-sm text-gray-400">
                 {property.key}:
               </span>

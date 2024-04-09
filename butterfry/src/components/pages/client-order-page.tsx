@@ -153,6 +153,7 @@ export default async function ClientOrderPage({ params }: Props) {
                     userName={`${comment.user.surname} ${comment.user.name}`}
                     date={comment.createdAt}
                     content={comment.text}
+                    key={comment.id}
                   />
                 ))}
               </div>
