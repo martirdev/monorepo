@@ -1,29 +1,19 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createTRPCReact, httpBatchLink } from "@trpc/react-query";
+import { createTRPCClient, createTRPCReact } from "@trpc/react-query";
 import { PropsWithChildren, memo, useState } from "react";
 import type { Router } from "../../../../martir-shop-backend/src/routers";
+import { makeSettings } from "./utils";
+import { cookies } from "next/headers";
 
+const queryClient = new QueryClient();
 export const trpc = createTRPCReact<Router>();
 
 const useTRPc = (token?: string) => {
-  const [queryClient] = useState(() => new QueryClient());
-  const [trpcClient] = useState(() =>
-    trpc.createClient({
-      links: [
-        httpBatchLink({
-          url: `${process.env.BACKEND_API}/trpc`,
-          headers() {
-            return {
-              authorization: token ? `Bearer ${token}` : undefined,
-            };
-          },
-        }),
-      ],
-    })
-  );
+  const [trpcQueryClient] = useState(() => queryClient);
+  const [trpcClient] = useState(() => trpc.createClient(makeSettings(token)));
 
-  return { queryClient, trpcClient };
+  return { queryClient: trpcQueryClient, trpcClient };
 };
 
 export const TrpcProvider = memo<

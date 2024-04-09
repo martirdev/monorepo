@@ -22,7 +22,7 @@ import {
 } from "@/components/shared/table";
 import { TextLink } from "@/components/shared/text-link";
 import { useProject } from "@/lib/hooks/params";
-import { currency, dateFormater, unit } from "@/lib/locale";
+import { currency, dateFormater, transformId, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
 import { last } from "lodash";
 import Link from "next/link";
@@ -35,8 +35,6 @@ const CREATE_BUTTON = (
     <Button size="sm">Сформировать заказ</Button>
   </Link>
 );
-
-const transformId = (id: string) => `${id.slice(0, 5)}...${id.slice(-5)}`;
 
 type OrdersTablePropsType = {};
 

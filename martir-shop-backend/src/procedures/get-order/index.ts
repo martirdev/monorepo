@@ -13,14 +13,29 @@ export const getOrder = procedure
         id: input.id,
       },
       include: {
+        customer: true,
         comments: {
           orderBy: {
             createdAt: "desc",
           },
+          include: {
+            user: true,
+          },
         },
         orderVersions: {
           include: {
-            products: true,
+            products: {
+              include: {
+                product: {
+                  include: {
+                    images: {
+                      take: 1,
+                    },
+                    params: true,
+                  },
+                },
+              },
+            },
           },
         },
       },

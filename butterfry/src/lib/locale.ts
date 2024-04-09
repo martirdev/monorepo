@@ -36,3 +36,6 @@ export const convertCredentialsToShort = (credentials: Credentials) => {
 dayjs.locale("ru");
 dayjs.extend(relativeTime);
 export const dateFormater = dayjs;
+
+export const transformId = (id: string) =>
+  `${id.slice(0, 5)}...${id.slice(-5)}`;
