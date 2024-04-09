@@ -44,7 +44,7 @@
     "prettier-plugin-tailwindcss": "^0.5.9",
     "tailwindcss": "^3.3.7",
     "typescript": "^5.2.2",
-    "vite": "^5.0.12",
+    "vite": "^5.0.13",
     "vite-plugin-svgr": "^4.2.0"
   }
 }
