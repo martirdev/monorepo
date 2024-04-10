@@ -17,6 +17,7 @@ import { setOrder } from "../procedures/set-order";
 import { setProduct } from "../procedures/set-product";
 import { setProductCountHistory } from "../procedures/set-product-count-history";
 import { setProject } from "../procedures/set-project";
+import { setUserRole } from "../procedures/set-user-role";
 import { router } from "../shared/trpc";
 
 export const appRouter = router({
@@ -44,6 +45,7 @@ export const appRouter = router({
   getProjects,
   getProjectUsers,
   addUserToProject,
+  setUserRole,
 });
 
 export type Router = typeof appRouter;

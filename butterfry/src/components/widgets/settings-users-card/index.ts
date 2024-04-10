@@ -1,1 +1,1 @@
-export { SettingsUsersCard } from "./SettingsUsersCard";
+export { SettingsUsersCard } from "./settings-users-card";

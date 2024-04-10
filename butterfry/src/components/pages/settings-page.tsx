@@ -1,4 +1,4 @@
-import { SettingsTable } from "../widgets/settings-users-card/SettingsUsersCard";
+import { SettingsUsersCard } from "../widgets/settings-users-card";
 
 export function SettingsPage() {
   return (
@@ -7,7 +7,7 @@ export function SettingsPage() {
         <h1 className="font-semibold text-lg md:text-2xl">Настройки</h1>
       </div>
       <div className="flex gap-4 flex-wrap">
-        <SettingsTable />
+        <SettingsUsersCard />
       </div>
     </div>
   );
