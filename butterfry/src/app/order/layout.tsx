@@ -7,7 +7,7 @@ export default async function OrderLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="bg-gray-50 h-full">
+    <div className="bg-gray-50 h-full overflow-auto">
       <header className="bg-white py-6">
         <div className="container">
           <Link href="/">

@@ -64,7 +64,7 @@ export default async function ClientOrderPage({ params }: Props) {
               {data.orderVersions.map((version, index) => (
                 <div
                   key={version.id}
-                  className="inline-flex flex-col items-center gap-4 w-[130px]"
+                  className="inline-flex flex-col items-center gap-4 w-[130px] shrink-0"
                 >
                   <div className="rounded-full w-5 h-5 bg-indigo-500 relative">
                     {index + 1 !== data.orderVersions.length && (

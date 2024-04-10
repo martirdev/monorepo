@@ -25,24 +25,26 @@ export const ProductItem = ({
           src={image}
         />
       </div>
-      <div className="flex flex-col gap-3 flex-1">
-        <h4 className="font-semibold text-lg">{name}</h4>
-        <div className="flex flex-col gap-1 text-sm">
-          {properties.map((property) => (
-            <p key={property.key}>
-              <span className="mr-1 text-sm text-gray-400">
-                {property.key}:
-              </span>
-              <span>{property.value}</span>
-            </p>
-          ))}
+      <div className="flex gap-6 flex-col md:flex-row flex-1">
+        <div className="flex flex-col gap-3 flex-1">
+          <h4 className="font-semibold text-lg truncate">{name}</h4>
+          <div className="flex flex-col gap-1 text-sm">
+            {properties.map((property) => (
+              <p key={property.key}>
+                <span className="mr-1 text-sm text-gray-400">
+                  {property.key}:
+                </span>
+                <span>{property.value}</span>
+              </p>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col gap-3">
-        <p className="font-semibold text-lg">{currency(price)}</p>
-        <p className="text-sm text-gray-400 text-right">
-          Кол-во: {unit(quantity)}
-        </p>
+        <div className="flex flex-col gap-1 md:gap-3">
+          <p className="font-semibold text-lg text-right">{currency(price)}</p>
+          <p className="text-sm text-gray-400 text-right">
+            Кол-во: {unit(quantity)}
+          </p>
+        </div>
       </div>
     </div>
   );

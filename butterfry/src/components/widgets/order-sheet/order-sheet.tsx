@@ -5,6 +5,7 @@ import { memo, useCallback } from "react";
 import { ORDER_FORM_INIT_VALUES } from "./consts";
 import { OrderForm } from "./order-form";
 import { CommentForm } from "./comment-form";
+import { ClientOrderAlert } from "./client-order-alert";
 
 type OrderSheetPropsType = {
   id: Undefinable<string>;
@@ -17,7 +18,7 @@ type OrderSheetPropsType = {
     text: string;
     createdAt: string;
   }[];
-  refetch: () => void;
+  refetch?: () => void;
 };
 
 export const OrderSheet = memo<OrderSheetPropsType>(function OrderSheet({
@@ -44,6 +45,7 @@ export const OrderSheet = memo<OrderSheetPropsType>(function OrderSheet({
         className="overflow-auto sm:w-[450px] sm:max-w-[initial] bg-gray-50"
       >
         <div className="space-y-8">
+          <ClientOrderAlert id={id} />
           <OrderForm
             id={id}
             mode={mode}
