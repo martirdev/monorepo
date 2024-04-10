@@ -57,7 +57,9 @@ const ProductsSelect = memo<ProductsSelectPropsType>(function ProductsSelect({
           aria-expanded={open}
           className="w-full px-3"
         >
-          {value && options.find((option) => option.value === value)?.label}
+          <span className="truncate">
+            {value && options.find((option) => option.value === value)?.label}
+          </span>
           <div className="flex items-center ml-auto">
             {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

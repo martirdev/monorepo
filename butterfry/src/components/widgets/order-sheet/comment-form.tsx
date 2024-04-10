@@ -21,7 +21,7 @@ const EMPTY_COMMENTS: Comment[] = [];
 type CommentFormPropsType = {
   id: string;
   comments: Undefinable<Comment[]>;
-  refetch: () => void;
+  refetch?: () => void;
 };
 
 const CommentForm = memo<CommentFormPropsType>(function CommentForm({
@@ -46,7 +46,7 @@ const CommentForm = memo<CommentFormPropsType>(function CommentForm({
       toast("Комментарии добавлен", {
         description: "Теперь он виден на странице заказа",
       });
-      refetch();
+      refetch?.();
     },
     onError: (data) => {
       toast(`Ошибка "${data.data?.code}"`, {
@@ -72,7 +72,7 @@ const CommentForm = memo<CommentFormPropsType>(function CommentForm({
             </div>
           )}
         </form.Field>
-        <Button variant="secondary" onClick={form.handleSubmit}>
+        <Button onClick={form.handleSubmit}>
           {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
           Отправить
         </Button>
