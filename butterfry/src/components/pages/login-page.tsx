@@ -9,7 +9,7 @@ export function LoginPage() {
   return (
     <html lang="ru">
       <body className={inter.className}>
-        <div className="h-full bg-gray-100">
+        <div className="h-full bg-gray-100 container">
           <div className="h-full flex items-center justify-center ">
             <div className="w-full max-w-[450px] bg-white p-8 rounded space-y-8 z-10">
               <div className="text-sm lowercase text-center text-gray-500 flex gap-2 items-center">
