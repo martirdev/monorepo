@@ -4,6 +4,7 @@ import {
   CaretSortIcon,
   CheckIcon,
   PlusCircledIcon,
+  ReloadIcon,
 } from "@radix-ui/react-icons";
 
 import { Dialog, DialogTrigger } from "@/components/shared//dialog";
@@ -39,7 +40,7 @@ export function ProjectSelect({ className }: ProjectSelectProps) {
   const { project: paramProject } = useParams<{ project?: string }>();
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const { data: projects, refetch } = trpc.getProjects.useQuery();
+  const { data: projects, refetch, isLoading } = trpc.getProjects.useQuery();
   const [showNewTeamDialog, setShowNewTeamDialog] = useState(false);
 
   const projectsMap = useMemo(
@@ -79,7 +80,9 @@ export function ProjectSelect({ className }: ProjectSelectProps) {
             aria-label="Выберите проект"
             className={cn("w-[200px] justify-between", className)}
           >
-            {projectsMap[paramProject ?? ""]?.name ?? "Выберите проект"}
+            {isLoading && <ReloadIcon className="h-4 w-4 animate-spin" />}
+            {!isLoading &&
+              (projectsMap[paramProject ?? ""]?.name ?? "Выберите проект")}
             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
