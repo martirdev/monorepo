@@ -1,4 +1,9 @@
-import { ButtonProps, buttonVariants } from "@/components/shared/button";
+import type { UrlObject } from "url";
+import {
+  Button,
+  ButtonProps,
+  buttonVariants,
+} from "@/components/shared/button";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
@@ -104,6 +109,61 @@ const PaginationEllipsis = ({
 );
 PaginationEllipsis.displayName = "PaginationEllipsis";
 
+type ShortPaginationPropsType = {
+  className?: string;
+  isLoading?: boolean;
+  pages: number;
+  page: number;
+  prevHref: UrlObject;
+  nextHref: UrlObject;
+};
+function ShortPagination({
+  prevHref,
+  nextHref,
+  className,
+  isLoading,
+  pages,
+  page,
+}: ShortPaginationPropsType) {
+  const prevDisabled = isLoading || page === 0;
+  const nextDisabled = isLoading || page + 1 === pages;
+
+  return (
+    <div className={cn("space-x-2", className)}>
+      <Link
+        href={prevHref}
+        className={cn({
+          "pointer-events-none": prevDisabled,
+        })}
+      >
+        <Button
+          className="px-2.5"
+          variant="outline"
+          size="sm"
+          disabled={prevDisabled}
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </Button>
+      </Link>
+      <Link
+        href={nextHref}
+        className={cn({
+          "pointer-events-none": nextDisabled,
+        })}
+      >
+        <Button
+          className="px-2.5"
+          variant="outline"
+          size="sm"
+          disabled={nextDisabled}
+        >
+          <ChevronRight className="h-4 w-4" />
+        </Button>
+      </Link>
+    </div>
+  );
+}
+
 export {
   Pagination,
   PaginationContent,
@@ -112,4 +172,5 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  ShortPagination,
 };

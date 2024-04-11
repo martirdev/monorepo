@@ -9,14 +9,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shared/dropdown-menu";
 import { EmptyTableState } from "@/components/shared/empty-table-state";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/shared/pagination";
 import { Skeleton } from "@/components/shared/skeleton";
 import {
   Table,
@@ -27,16 +19,18 @@ import {
   TableRow,
 } from "@/components/shared/table";
 import { TextLink } from "@/components/shared/text-link";
+import { useProject } from "@/lib/hooks/params";
 import { currency, unit } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { DotsHorizontalIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { last } from "lodash";
 import { sum } from "lodash/fp";
 import Link from "next/link";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { memo } from "react";
 import { ChangeProductCountMenuItem } from "./change-product-count-menu-item";
-import { useProject } from "@/lib/hooks/params";
+import { ShortPagination } from "@/components/shared/pagination";
+import { ListTotal } from "@/components/features/list-total";
 
 const ITEMS_PER_PAGE = 20;
 const CREATE_BUTTON = (
@@ -59,6 +53,8 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
   });
 
   const totalPages = Math.floor((data?.total ?? 0) / ITEMS_PER_PAGE) + 1;
+  const from = page * ITEMS_PER_PAGE + 1;
+  const to = Math.min(page * ITEMS_PER_PAGE + ITEMS_PER_PAGE, data?.total ?? 0);
 
   return (
     <div className="flex flex-col gap-4">
@@ -189,33 +185,23 @@ const ProductsTable = memo<ProductsTablePropsType>(function ProductsTable({}) {
           </TableBody>
         </Table>
       </div>
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href={{ query: { page: page - 1 } }} />
-          </PaginationItem>
-          {isLoading &&
-            Array.from({ length: 3 }).map((_, index) => (
-              <PaginationItem key={index}>
-                <Skeleton className="w-10 h-10" />
-              </PaginationItem>
-            ))}
-          {!isLoading &&
-            Array.from({ length: totalPages }).map((_, index) => (
-              <PaginationItem key={index}>
-                <PaginationLink
-                  href={{ query: { page: index } }}
-                  isActive={page === index}
-                >
-                  {index + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-          <PaginationItem>
-            <PaginationNext href={{ query: { page: page + 1 } }} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      <div className="flex gap-2">
+        <ListTotal
+          total={data?.total ?? 0}
+          perPage={ITEMS_PER_PAGE}
+          page={page}
+          isLoading={isLoading}
+          entity="товаров"
+        />
+        <ShortPagination
+          prevHref={{ query: { page: page - 1 } }}
+          nextHref={{ query: { page: page + 1 } }}
+          className="ml-auto"
+          isLoading={isLoading}
+          pages={totalPages}
+          page={page}
+        />
+      </div>
     </div>
   );
 });
