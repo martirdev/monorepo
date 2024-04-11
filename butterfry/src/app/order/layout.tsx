@@ -1,5 +1,4 @@
-import Link from "next/link";
-import Logo from "../logo.svg";
+import { Logo } from "@/components/shared/logo";
 
 export default async function OrderLayout({
   children,
@@ -10,9 +9,7 @@ export default async function OrderLayout({
     <div className="bg-gray-50 h-full overflow-auto">
       <header className="bg-white py-6">
         <div className="container">
-          <Link href="/">
-            <Logo className="h-6" />
-          </Link>
+          <Logo />
         </div>
       </header>
       <main className="py-14">

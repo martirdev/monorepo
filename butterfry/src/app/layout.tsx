@@ -23,10 +23,6 @@ export default async function RootLayout({
   const user = await getUser();
   const authSession = cookies().get("auth_session")?.value;
 
-  if (!user) {
-    return <LoginPage />;
-  }
-
   return (
     <html lang="ru">
       <body className={inter.className}>
