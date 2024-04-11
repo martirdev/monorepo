@@ -9,12 +9,12 @@ export function LoginPage() {
   return (
     <html lang="ru">
       <body className={inter.className}>
-        <div className="h-full bg-gray-100 container">
-          <div className="h-full flex items-center justify-center ">
+        <div className="h-full bg-gray-100">
+          <div className="h-full flex items-center justify-center container">
             <div className="w-full max-w-[450px] bg-white p-8 rounded space-y-8 z-10">
-              <div className="text-sm lowercase text-center text-gray-500 flex gap-2 items-center">
+              <div className="text-sm text-center text-gray-500 flex gap-2 items-center">
                 <hr className="flex-1" />
-                <span>Войдите быстро</span>
+                <span>Войти в сервис через</span>
                 <hr className="flex-1" />
               </div>
               <Link
@@ -34,13 +34,3 @@ export function LoginPage() {
     </html>
   );
 }
-// /* Ellipse 2 */
-
-// position: absolute;
-// width: 847px;
-// height: 847px;
-// left: 293px;
-// top: 35px;
-
-// background: linear-gradient(180deg, #F4E87E 2.42%, #FB9D0F 21.65%, #E03535 45.4%, #FB9D0F 69.74%, #F4E87E 89.85%);
-// filter: blur(125px);
