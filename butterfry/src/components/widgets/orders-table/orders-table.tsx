@@ -140,7 +140,7 @@ const OrdersTable = memo<OrdersTablePropsType>(function OrdersTable({}) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
         <ListTotal
           total={data?.total ?? 0}
           perPage={ITEMS_PER_PAGE}
