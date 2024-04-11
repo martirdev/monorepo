@@ -1,4 +1,5 @@
 "use client";
+import { ListTotal } from "@/components/features/list-total";
 import { Badge } from "@/components/shared/badge";
 import { Button } from "@/components/shared/button";
 import { EmptyTableState } from "@/components/shared/empty-table-state";
@@ -9,6 +10,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  ShortPagination,
 } from "@/components/shared/pagination";
 import { Skeleton } from "@/components/shared/skeleton";
 import {
@@ -108,33 +110,23 @@ const ClientsTable = memo<ClientsTablePropsType>(function ClientsTable({}) {
           </TableBody>
         </Table>
       </div>
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href={{ query: { page: page - 1 } }} />
-          </PaginationItem>
-          {isLoading &&
-            Array.from({ length: 3 }).map((_, index) => (
-              <PaginationItem key={index}>
-                <Skeleton className="w-10 h-10" />
-              </PaginationItem>
-            ))}
-          {!isLoading &&
-            Array.from({ length: totalPages }).map((_, index) => (
-              <PaginationItem key={index}>
-                <PaginationLink
-                  href={{ query: { page: index } }}
-                  isActive={page === index}
-                >
-                  {index + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-          <PaginationItem>
-            <PaginationNext href={{ query: { page: page + 1 } }} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      <div className="flex gap-2">
+        <ListTotal
+          total={data?.total ?? 0}
+          perPage={ITEMS_PER_PAGE}
+          page={page}
+          isLoading={isLoading}
+          entity="клиентов"
+        />
+        <ShortPagination
+          prevHref={{ query: { page: page - 1 } }}
+          nextHref={{ query: { page: page + 1 } }}
+          className="ml-auto"
+          isLoading={isLoading}
+          pages={totalPages}
+          page={page}
+        />
+      </div>
     </div>
   );
 });
