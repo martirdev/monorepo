@@ -3,7 +3,6 @@ import { Logo } from "@/components/shared/logo";
 import { Header } from "@/components/widgets/header";
 import { SideNavLinks } from "@/components/widgets/side-nav-links";
 import { getUser } from "@/lib/external-api";
-import Link from "next/link";
 
 export default async function AdminLayout({
   children,

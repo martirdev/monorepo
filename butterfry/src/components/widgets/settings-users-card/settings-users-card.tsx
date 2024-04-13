@@ -1,8 +1,9 @@
 "use client";
-import { useProject } from "@/lib/hooks/params";
+import { ServiceRoles } from "@/components/shared/consts";
+import { useUserByProject } from "@/lib/hooks/user";
 import { dateFormater } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { AddUserButton } from "./add-user-button";
 import { RolesSelect } from "./roles-select";
 
@@ -10,10 +11,14 @@ type SettingsTablePropsType = {};
 
 const SettingsUsersCard = memo<SettingsTablePropsType>(
   function SettingsTable({}) {
-    const project = useProject();
+    const currentUser = useUserByProject();
+    const hasAdminRole = useMemo(
+      () => currentUser.project?.role.includes(ServiceRoles.Owner),
+      [currentUser.project?.role]
+    );
 
     const { data, refetch } = trpc.getProjectUsers.useQuery({
-      project,
+      project: currentUser.project?.projectId ?? "",
     });
 
     return (
@@ -56,13 +61,15 @@ const SettingsUsersCard = memo<SettingsTablePropsType>(
                     </p>
                   </div>
                 </div>
-                <div>
-                  <RolesSelect user={user} role={role[0]} refetch={refetch} />
-                </div>
+                {hasAdminRole && user.id !== currentUser.id && (
+                  <div>
+                    <RolesSelect user={user} role={role[0]} refetch={refetch} />
+                  </div>
+                )}
               </div>
             ))}
           </div>
-          <AddUserButton refetch={refetch} />
+          {hasAdminRole && <AddUserButton refetch={refetch} />}
         </div>
       </div>
     );

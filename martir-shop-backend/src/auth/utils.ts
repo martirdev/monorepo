@@ -25,6 +25,16 @@ export const findOrCreateUser = async (yaUser: UserInfoResponse) => {
       surname: yaUser.last_name,
       yandex_id: yaUser.id,
       avatar: yaUser.default_avatar_id,
+      usersOnProjects: {
+        create: {
+          role: ["OWNER"],
+          project: {
+            create: {
+              name: `Проект: ${yaUser.login}`,
+            },
+          },
+        },
+      },
     },
   });
 };

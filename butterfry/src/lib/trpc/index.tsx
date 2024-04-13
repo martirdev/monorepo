@@ -1,10 +1,9 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createTRPCClient, createTRPCReact } from "@trpc/react-query";
+import { createTRPCReact } from "@trpc/react-query";
 import { PropsWithChildren, memo, useState } from "react";
 import type { Router } from "../../../../martir-shop-backend/src/routers";
 import { makeSettings } from "./utils";
-import { cookies } from "next/headers";
 
 const queryClient = new QueryClient();
 export const trpc = createTRPCReact<Router>();
