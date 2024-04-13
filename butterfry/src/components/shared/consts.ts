@@ -1,6 +1,18 @@
 import { keyBy } from "lodash/fp";
 import { Package, Settings, ShoppingCart, Users } from "lucide-react";
 
+export const ServiceRoles = {
+  Owner: "OWNER" as const,
+  Editor: "EDITOR" as const,
+  Viewer: "VIEWER" as const,
+};
+
+export const SERVICE_ROLES = [
+  { value: ServiceRoles.Owner, label: "Владелец" },
+  { value: ServiceRoles.Editor, label: "Редактор" },
+  { value: ServiceRoles.Viewer, label: "Наблюдатель" },
+];
+
 export const ORDER_STATUSES = [
   { value: "CREATED" as const, label: "Создан" },
   { value: "IN_PROCESS" as const, label: "В обработке" },

@@ -1,20 +1,21 @@
-import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 import { Lucia } from "lucia";
-import { prisma } from "../trpc";
+import { UsersOnProjects } from "../../../prisma/generated/client";
+import { makePrismaAdapter } from "./prisma-adapter";
 
-const adapter = new PrismaAdapter(prisma.session, prisma.user);
-
-export const lucia = new Lucia(adapter, {
+export const lucia = new Lucia(makePrismaAdapter(), {
   sessionCookie: {
     attributes: {
       secure: process.env.NODE_ENV === "production",
     },
   },
-  getUserAttributes: (user) => ({
-    name: user.name,
-    surname: user.surname,
-    avatar: user.avatar,
-  }),
+  getUserAttributes: (user) => {
+    return {
+      name: user.name,
+      surname: user.surname,
+      avatar: user.avatar,
+      projects: user.usersOnProjects,
+    };
+  },
 });
 
 declare module "lucia" {
@@ -23,7 +24,8 @@ declare module "lucia" {
     DatabaseUserAttributes: {
       name: string;
       surname: string;
-      avatar?: string;
+      avatar: string | null;
+      usersOnProjects?: UsersOnProjects[];
     };
   }
 }

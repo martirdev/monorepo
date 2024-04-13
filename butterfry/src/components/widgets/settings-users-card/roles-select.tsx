@@ -1,5 +1,6 @@
 "use client";
 import { ConfirmDialog, RefType } from "@/components/features/confirm";
+import { SERVICE_ROLES } from "@/components/shared/consts";
 import { Select } from "@/components/shared/select";
 import { useProject } from "@/lib/hooks/params";
 import { convertCredentialsToShort } from "@/lib/locale";
@@ -7,19 +8,13 @@ import { trpc } from "@/lib/trpc";
 import { memo, useRef, useState } from "react";
 import { toast } from "sonner";
 
-const ROLES = [
-  { value: "OWNER" as const, label: "Владелец" },
-  { value: "EDITOR" as const, label: "Редактор" },
-  { value: "VIEWER" as const, label: "Наблюдатель" },
-];
-
 type RolesSelectPropsType = {
   user: {
     name: string;
     surname: string;
     id: string;
   };
-  role: (typeof ROLES)[number]["value"] | undefined;
+  role: (typeof SERVICE_ROLES)[number]["value"] | undefined;
   refetch: () => void;
 };
 
@@ -42,7 +37,7 @@ const RolesSelect = memo<RolesSelectPropsType>(function RolesSelect({
     },
   });
 
-  const selectRole = (value: (typeof ROLES)[number]["value"]) => {
+  const selectRole = (value: (typeof SERVICE_ROLES)[number]["value"]) => {
     setSelectedRole(value);
     ref.current?.open();
   };
@@ -60,7 +55,7 @@ const RolesSelect = memo<RolesSelectPropsType>(function RolesSelect({
 
   return (
     <>
-      <Select options={ROLES} value={role} onValueChange={selectRole} />
+      <Select options={SERVICE_ROLES} value={role} onValueChange={selectRole} />
       <ConfirmDialog
         title="Изменить роль"
         description={`Вы уверены, что хотите изменить роль пользователю: ${convertCredentialsToShort(

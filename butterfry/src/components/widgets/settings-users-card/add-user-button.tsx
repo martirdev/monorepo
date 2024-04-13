@@ -1,5 +1,4 @@
 "use client";
-import { useUserContext } from "@/components/features/context/user-context";
 import { Button } from "@/components/shared/button";
 import {
   Dialog,
@@ -13,9 +12,7 @@ import {
 } from "@/components/shared/dialog";
 import { Input } from "@/components/shared/input";
 import { Label } from "@/components/shared/label";
-import { Select } from "@/components/shared/select";
 import { useProject } from "@/lib/hooks/params";
-import { dateFormater } from "@/lib/locale";
 import { trpc } from "@/lib/trpc";
 import { preventDefault } from "@/lib/utils";
 import { ReloadIcon } from "@radix-ui/react-icons";
@@ -23,12 +20,6 @@ import { useForm } from "@tanstack/react-form";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { memo, useState } from "react";
 import { toast } from "sonner";
-
-const ROLES = [
-  { value: "OWNER", label: "Владелец" },
-  { value: "EDITOR", label: "Редактор" },
-  { value: "VIEWER", label: "Наблюдатель" },
-];
 
 type AddUserButtonPropsType = {
   refetch: () => void;
