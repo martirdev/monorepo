@@ -22,7 +22,7 @@ const queryValidation = z.object({
 
 export const createProduct = procedure
   .input(queryValidation)
-  .query(async ({ input }) => {
+  .mutation(async ({ input }) => {
     const placeIds = Object.values(input.markets).map(({ placeId }) => placeId);
     const places = await prisma.marketplaceKey.findMany({
       where: {

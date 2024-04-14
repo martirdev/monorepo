@@ -48,7 +48,7 @@ const createMarketplaceKeyByType = async (
 
 export const createMarketplaceKey = procedure
   .input(apiKeysUnion)
-  .query(async ({ input }) => {
+  .mutation(async ({ input }) => {
     const data = await createMarketplaceKeyByType(input);
     return await prisma.marketplaceKey.create({ data });
   });
