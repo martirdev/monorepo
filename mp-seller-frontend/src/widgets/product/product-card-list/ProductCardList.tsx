@@ -1,17 +1,17 @@
-import {PlusOutlined} from '@ant-design/icons';
-import {Button, Checkbox, Table, Tag, Tooltip} from 'antd';
-import type {GetProp} from 'antd';
-import type {ColumnsType} from 'antd/es/table';
-import {memo, useCallback, useState} from 'react';
+import { PlusOutlined } from '@ant-design/icons';
+import type { GetProp } from 'antd';
+import { Button, Checkbox, Table, Tag, Tooltip } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import { memo, useCallback, useState } from 'react';
 
-import {MarketplaceIcon} from '_shared/mp-logos';
-import {currency} from '_shared/utils/intl/numbers';
-import {BottomMenu} from '_widgets/bottom-menu';
+import { MarketplaceIcon } from '_shared/mp-logos';
+import { currency } from '_shared/utils/intl/numbers';
+import { BottomMenu } from '_widgets/bottom-menu';
 
 import ProductCardFilter from '../product-card-filter/ProductCardFilter';
 import AddNewProductSidebar from '../product-card-sidebar/AddNewProduct';
-import {TEMPOPARY_MOCK_PRODUCTS} from './temporaryConsts';
-import {ProductType} from './types';
+import { TEMPOPARY_MOCK_PRODUCTS } from './temporaryConsts';
+import { ProductType } from './types';
 
 const columns: ColumnsType<ProductType> = [
     {
@@ -83,7 +83,7 @@ const ProductCardList = memo(function ProductCardTable() {
 
     return (
         <div className="flex flex-1 flex-col gap-1">
-            <div className="mr-40 mt-4 flex justify-end">
+            <div className="flex justify-end">
                 <Button
                     icon={<PlusOutlined />}
                     title="Создать карточку товара"
@@ -95,7 +95,7 @@ const ProductCardList = memo(function ProductCardTable() {
                 </Button>
             </div>
             <AddNewProductSidebar onClose={onClose} open={openAddNewProductDrawer} />
-            <div className="mx-40 mt-2 flex justify-between gap-16">
+            <div className="mt-2 flex justify-between gap-16">
                 <ProductCardFilter onChange={onChange} />
 
                 <Table

@@ -7,7 +7,9 @@ const ClientRoot = function ClientRoot() {
         <>
             <div className="h-full overflow-hidden">
                 <Header />
-                <Outlet />
+                <div className='container mx-auto my-16'>
+                    <Outlet />
+                </div>
             </div>
             <ScrollRestoration />
         </>
