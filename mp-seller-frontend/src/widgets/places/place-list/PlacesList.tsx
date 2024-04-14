@@ -16,7 +16,7 @@ const columns: ColumnsType<KeyForMarketplaceType> = [
     },
     {
         title: 'Ключ',
-        dataIndex: 'api_key',
+        dataIndex: 'encrypted_api_key',
         width: '10%'
     },
     {

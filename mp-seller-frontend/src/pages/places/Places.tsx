@@ -1,18 +1,18 @@
-import {PlusOutlined} from '@ant-design/icons';
-import {Button, Input} from 'antd';
-import {SearchProps} from 'antd/es/input';
-import {useCallback, useMemo, useState} from 'react';
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Input } from 'antd';
+import { SearchProps } from 'antd/es/input';
+import { useCallback, useMemo, useState } from 'react';
 
+import { trpc } from '_shared/api/trpc';
 import AddPlaceDrawer from '_widgets/places/place-drawer';
 import PlacesList from '_widgets/places/place-list';
-import {MOCK_SHOPS} from '_widgets/places/place-list/temporaryConsts';
-import {KeyForMarketplaceType} from '_widgets/places/place-list/types';
 
 const {Search} = Input;
 
 const Places = function Places() {
     const [search, setSearch] = useState('');
     const [openAddDrawer, setOpenAddDrawer] = useState(false);
+    const {data} = trpc.getMarketplaceKeys.useQuery()
 
     const showAddDrawer = useCallback(() => {
         setOpenAddDrawer(true);
@@ -26,15 +26,14 @@ const Places = function Places() {
 
     const tableData = useMemo(
         () =>
-            MOCK_SHOPS.filter(item =>
+            (data ?? []).filter(item =>
                 item.places.some(place => place.name.toLowerCase().includes(search.toLowerCase()))
             ),
-        [search]
+        [data, search]
     );
-    const dataSource: Array<KeyForMarketplaceType> = tableData || MOCK_SHOPS;
 
     return (
-        <div className="mx-40 mt-16">
+        <div>
             <div className="mb-14 flex justify-between">
                 <Search
                     placeholder="Введите название магазина"
@@ -46,7 +45,7 @@ const Places = function Places() {
                     Добавить магазин
                 </Button>
             </div>
-            <PlacesList placesDataSource={dataSource} />
+            <PlacesList placesDataSource={tableData} />
 
             <AddPlaceDrawer onClose={onClose} open={openAddDrawer} title={'Добавление магазина'} />
         </div>
