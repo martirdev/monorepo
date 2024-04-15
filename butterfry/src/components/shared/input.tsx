@@ -1,12 +1,22 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+export type InputProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange"
+> & {
+  onChange?: (value: string) => void;
+  onChangeNumber?: (value: number) => void;
+};
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, type, onChange, onChangeNumber, ...props }, ref) => {
+    const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange?.(e.target.value);
+      onChangeNumber?.(e.target.valueAsNumber);
+    };
+
     return (
       <input
         type={type}
@@ -15,11 +25,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className
         )}
         ref={ref}
+        onChange={changeHandler}
         {...props}
       />
-    )
+    );
   }
-)
-Input.displayName = "Input"
+);
+Input.displayName = "Input";
 
-export { Input }
+export { Input };

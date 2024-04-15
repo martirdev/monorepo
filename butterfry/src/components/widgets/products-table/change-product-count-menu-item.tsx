@@ -88,9 +88,7 @@ const ChangeProductCountMenuItem = memo<ChangeProductCountMenuItemPropsType>(
                         name={field.name}
                         value={field.state.value}
                         onBlur={field.handleBlur}
-                        onChange={(e) =>
-                          field.handleChange(e.target.valueAsNumber)
-                        }
+                        onChangeNumber={field.handleChange}
                       />
                       <span>шт.</span>
                     </div>

@@ -21,7 +21,7 @@ export const setCustomer = procedure
     return await prisma.customer.upsert({
       where: {
         id: input.id,
-        userId: ctx.user.id,
+        projectId: input.project,
       },
       create: {
         id: input.id,

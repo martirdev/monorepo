@@ -62,7 +62,7 @@ const ProjectForm = function ProjectForm({ onSuccess }: Props) {
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={field.handleChange}
                 placeholder="Butterfry"
                 autoFocus
               />
