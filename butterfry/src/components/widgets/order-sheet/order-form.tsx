@@ -18,6 +18,7 @@ import { z } from "zod";
 import { CreateClientLink } from "../create-client-link";
 import { ORDER_FORM_INIT_VALUES, TITLES_BY_MODE } from "./consts";
 import { useProject } from "@/lib/hooks/params";
+import { PermissionTooltip } from "@/components/features/permission-tooltip";
 
 type OrderFormPropsType = {
   id: Undefinable<string>;
@@ -256,10 +257,12 @@ const OrderForm = memo<OrderFormPropsType>(function OrderForm({
           </div>
         )}
       </form.Field>
-      <Button disabled={isLoading} onClick={form.handleSubmit}>
-        {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
-        Сохранить
-      </Button>
+      <PermissionTooltip permissions={["EDITOR", "OWNER"]}>
+        <Button disabled={isLoading} onClick={form.handleSubmit}>
+          {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+          Сохранить
+        </Button>
+      </PermissionTooltip>
     </div>
   );
 });

@@ -69,7 +69,7 @@ const SettingsUsersCard = memo<SettingsTablePropsType>(
               </div>
             ))}
           </div>
-          {hasAdminRole && <AddUserButton refetch={refetch} />}
+          <AddUserButton refetch={refetch} />
         </div>
       </div>
     );

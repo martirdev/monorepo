@@ -3,6 +3,7 @@ import { ClientSheet } from "@/components/widgets/client-sheet";
 import { ClientsTable } from "@/components/widgets/clients-table";
 import Link from "next/link";
 import { Suspense } from "react";
+import { PermissionTooltip } from "../features/permission-tooltip";
 
 export function ClientsPage() {
   return (
@@ -10,9 +11,11 @@ export function ClientsPage() {
       <div className="flex items-center gap-2">
         <h1 className="font-semibold text-lg md:text-2xl">Клиенты</h1>
         <div className="ml-auto">
-          <Link href={{ query: { mode: "create" } }}>
-            <Button size="sm">Создать клиента</Button>
-          </Link>
+          <PermissionTooltip permissions={["EDITOR", "OWNER"]}>
+            <Button size="sm" asChild>
+              <Link href={{ query: { mode: "create" } }}>Создать клиента</Link>
+            </Button>
+          </PermissionTooltip>
         </div>
       </div>
       <div>

@@ -55,7 +55,12 @@ const RolesSelect = memo<RolesSelectPropsType>(function RolesSelect({
 
   return (
     <>
-      <Select options={SERVICE_ROLES} value={role} onValueChange={selectRole} />
+      <Select
+        options={SERVICE_ROLES}
+        value={role}
+        onValueChange={selectRole}
+        disabled
+      />
       <ConfirmDialog
         title="Изменить роль"
         description={`Вы уверены, что хотите изменить роль пользователю: ${convertCredentialsToShort(

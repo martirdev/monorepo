@@ -94,13 +94,15 @@ const ClientsTable = memo<ClientsTablePropsType>(function ClientsTable({}) {
               !!data?.customers.length &&
               data?.customers.map((client) => (
                 <TableRow key={client.id}>
-                  <TableCell className="font-medium">
+                  <TableCell className="font-medium whitespace-nowrap">
                     <TextLink href={{ query: { mode: "edit", id: client.id } }}>
                       {convertCredentialsToShort(client)}
                     </TextLink>
                   </TableCell>
-                  <TableCell>{client.contact}</TableCell>
-                  <TableCell>
+                  <TableCell className="whitespace-nowrap">
+                    {client.contact}
+                  </TableCell>
+                  <TableCell className="whitespace-nowrap">
                     <Badge variant="secondary">
                       {unit(client._count.orders)}
                     </Badge>

@@ -5,5 +5,5 @@ import { redirect } from "next/navigation";
 export default async function AdminHome() {
   const user = await getUser();
   const firstProjectId = first(user.projects)?.projectId;
-  return redirect(`/${firstProjectId}`);
+  return redirect(`/${firstProjectId}/products`);
 }

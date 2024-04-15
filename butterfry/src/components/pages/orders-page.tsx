@@ -3,6 +3,7 @@ import { OrderSheet } from "@/components/widgets/order-sheet";
 import { OrdersTable } from "@/components/widgets/orders-table";
 import Link from "next/link";
 import { Suspense } from "react";
+import { PermissionTooltip } from "../features/permission-tooltip";
 
 export function OrdersPage() {
   return (
@@ -10,9 +11,11 @@ export function OrdersPage() {
       <div className="flex items-center gap-2">
         <h1 className="font-semibold text-lg md:text-2xl">Заказы</h1>
         <div className="ml-auto">
-          <Link href={{ query: { mode: "create" } }}>
-            <Button size="sm">Создать заказ</Button>
-          </Link>
+          <PermissionTooltip permissions={["EDITOR", "OWNER"]}>
+            <Button size="sm" asChild>
+              <Link href={{ query: { mode: "create" } }}>Создать заказ</Link>
+            </Button>
+          </PermissionTooltip>
         </div>
       </div>
       <div>
