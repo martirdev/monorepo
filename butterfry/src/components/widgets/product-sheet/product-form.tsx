@@ -147,7 +147,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                             name={field.name}
                             value={field.state.value}
                             onBlur={field.handleBlur}
-                            onChange={(e) => field.handleChange(e.target.value)}
+                            onChange={field.handleChange}
                             autoFocus
                           />
                           <Button
@@ -190,7 +190,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={field.handleChange}
                 autoFocus
               />
             </div>
@@ -230,7 +230,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.valueAsNumber)}
+                onChangeNumber={field.handleChange}
               />
               {!!field.state.meta.errors.length && (
                 <div className="text-xs text-destructive">
@@ -257,9 +257,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                               name={field.name}
                               value={field.state.value}
                               onBlur={field.handleBlur}
-                              onChange={(e) =>
-                                field.handleChange(e.target.value)
-                              }
+                              onChange={field.handleChange}
                             />
                           </div>
                         )}
@@ -275,9 +273,7 @@ const ProductForm = memo<ProductFormPropsType>(function ProductForm({
                               name={field.name}
                               value={field.state.value}
                               onBlur={field.handleBlur}
-                              onChange={(e) =>
-                                field.handleChange(e.target.value)
-                              }
+                              onChange={field.handleChange}
                             />
                           </div>
                         )}

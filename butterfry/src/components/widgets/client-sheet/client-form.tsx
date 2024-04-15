@@ -82,7 +82,7 @@ const ClientForm = memo<ClientFormPropsType>(function ClientForm({
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={field.handleChange}
                 autoFocus
               />
             </div>
@@ -97,7 +97,7 @@ const ClientForm = memo<ClientFormPropsType>(function ClientForm({
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={field.handleChange}
               />
             </div>
           )}
@@ -111,7 +111,7 @@ const ClientForm = memo<ClientFormPropsType>(function ClientForm({
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={field.handleChange}
               />
             </div>
           )}
@@ -125,7 +125,7 @@ const ClientForm = memo<ClientFormPropsType>(function ClientForm({
                 name={field.name}
                 value={field.state.value}
                 onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
+                onChange={field.handleChange}
               />
             </div>
           )}

@@ -22,6 +22,7 @@ import { memo, useState } from "react";
 import { toast } from "sonner";
 import { v4 } from "uuid";
 import { CLIENT_FORM_INIT_VALUES } from "./consts";
+import { useProject } from "@/lib/hooks/params";
 
 type CreateClientLinkPropsType = {
   onSave?: (id: string) => void;
@@ -30,6 +31,7 @@ type CreateClientLinkPropsType = {
 const CreateClientLink = memo<CreateClientLinkPropsType>(
   function CreateClientLink({ onSave }) {
     const [open, setOpen] = useState(false);
+    const project = useProject();
 
     const { mutate, isLoading } = trpc.setCustomer.useMutation({
       onSuccess: (data) => {
@@ -51,6 +53,7 @@ const CreateClientLink = memo<CreateClientLinkPropsType>(
           secondName: value.secondName,
           thirdName: value.thirdName || undefined,
           contact: value.contact,
+          project,
         });
       },
       validatorAdapter: zodValidator,
@@ -76,7 +79,7 @@ const CreateClientLink = memo<CreateClientLinkPropsType>(
                       name={field.name}
                       value={field.state.value}
                       onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
+                      onChange={field.handleChange}
                       autoFocus
                     />
                   </div>
@@ -91,7 +94,7 @@ const CreateClientLink = memo<CreateClientLinkPropsType>(
                       name={field.name}
                       value={field.state.value}
                       onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
+                      onChange={field.handleChange}
                     />
                   </div>
                 )}
@@ -105,7 +108,7 @@ const CreateClientLink = memo<CreateClientLinkPropsType>(
                       name={field.name}
                       value={field.state.value}
                       onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
+                      onChange={field.handleChange}
                     />
                   </div>
                 )}
@@ -119,7 +122,7 @@ const CreateClientLink = memo<CreateClientLinkPropsType>(
                       name={field.name}
                       value={field.state.value}
                       onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
+                      onChange={field.handleChange}
                     />
                   </div>
                 )}
