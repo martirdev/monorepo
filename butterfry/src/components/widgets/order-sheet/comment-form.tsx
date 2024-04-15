@@ -9,6 +9,7 @@ import { zodValidator } from "@tanstack/zod-form-adapter";
 import { memo } from "react";
 import { toast } from "sonner";
 import { COMMENT_FORM_INIT_VALUES } from "./consts";
+import { PermissionTooltip } from "@/components/features/permission-tooltip";
 
 type Comment = {
   id: string;
@@ -72,10 +73,12 @@ const CommentForm = memo<CommentFormPropsType>(function CommentForm({
             </div>
           )}
         </form.Field>
-        <Button onClick={form.handleSubmit}>
-          {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
-          Отправить
-        </Button>
+        <PermissionTooltip permissions={["EDITOR", "OWNER"]}>
+          <Button onClick={form.handleSubmit}>
+            {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+            Отправить
+          </Button>
+        </PermissionTooltip>
       </div>
       <div className="bg-border h-[1px] w-full" />
       <div className="space-y-4">

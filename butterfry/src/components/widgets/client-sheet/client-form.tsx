@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { v4 } from "uuid";
 import { CLIENT_FORM_INIT_VALUES, TITLES_BY_MODE } from "./consts";
 import { useProject } from "@/lib/hooks/params";
+import { PermissionTooltip } from "@/components/features/permission-tooltip";
 
 type ClientFormPropsType = {
   id: Undefinable<string>;
@@ -131,10 +132,12 @@ const ClientForm = memo<ClientFormPropsType>(function ClientForm({
         </form.Field>
       </div>
       <SheetFooter>
-        <Button disabled={isLoading} onClick={form.handleSubmit}>
-          {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
-          Сохранить
-        </Button>
+        <PermissionTooltip permissions={["EDITOR", "OWNER"]}>
+          <Button disabled={isLoading} onClick={form.handleSubmit}>
+            {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+            Сохранить
+          </Button>
+        </PermissionTooltip>
       </SheetFooter>
     </>
   );

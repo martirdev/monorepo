@@ -1,4 +1,5 @@
 "use client";
+import { PermissionTooltip } from "@/components/features/permission-tooltip";
 import { Button } from "@/components/shared/button";
 import {
   Dialog,
@@ -67,8 +68,10 @@ const AddUserButton = memo<AddUserButtonPropsType>(function AddUserButton({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <div>
-        <DialogTrigger>
-          <Button>Добавить участника</Button>
+        <DialogTrigger asChild>
+          <PermissionTooltip permissions={["OWNER"]}>
+            <Button>Добавить участника</Button>
+          </PermissionTooltip>
         </DialogTrigger>
       </div>
       <DialogPortal>

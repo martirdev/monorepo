@@ -1,4 +1,5 @@
 "use client";
+import { PermissionTooltip } from "@/components/features/permission-tooltip";
 import { Button } from "@/components/shared/button";
 import {
   Dialog,
@@ -103,12 +104,14 @@ const ChangeProductCountMenuItem = memo<ChangeProductCountMenuItemPropsType>(
               </form.Field>
             </div>
             <DialogFooter>
-              <Button disabled={isLoading} onClick={form.handleSubmit}>
-                {isLoading && (
-                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-                )}
-                {name}
-              </Button>
+              <PermissionTooltip permissions={["EDITOR", "OWNER"]}>
+                <Button disabled={isLoading} onClick={form.handleSubmit}>
+                  {isLoading && (
+                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  {name}
+                </Button>
+              </PermissionTooltip>
               <DialogClose asChild>
                 <Button variant="secondary" disabled={isLoading}>
                   Отменить
