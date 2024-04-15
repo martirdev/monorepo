@@ -6,16 +6,13 @@ import { trpc } from "@/lib/trpc";
 import { memo, useMemo } from "react";
 import { AddUserButton } from "./add-user-button";
 import { RolesSelect } from "./roles-select";
+import { PermissionTooltip } from "@/components/features/permission-tooltip";
 
 type SettingsTablePropsType = {};
 
 const SettingsUsersCard = memo<SettingsTablePropsType>(
   function SettingsTable({}) {
     const currentUser = useUserByProject();
-    const hasAdminRole = useMemo(
-      () => currentUser.project?.role.includes(ServiceRoles.Owner),
-      [currentUser.project?.role]
-    );
 
     const { data, refetch } = trpc.getProjectUsers.useQuery({
       project: currentUser.project?.projectId ?? "",
@@ -61,11 +58,14 @@ const SettingsUsersCard = memo<SettingsTablePropsType>(
                     </p>
                   </div>
                 </div>
-                {hasAdminRole && user.id !== currentUser.id && (
-                  <div>
+                <div>
+                  <PermissionTooltip
+                    permissions={["OWNER", "EDITOR"]}
+                    disabled={user.id === currentUser.id}
+                  >
                     <RolesSelect user={user} role={role[0]} refetch={refetch} />
-                  </div>
-                )}
+                  </PermissionTooltip>
+                </div>
               </div>
             ))}
           </div>

@@ -7,7 +7,6 @@ import {
   TooltipTrigger,
 } from "@/components/shared/tooltip";
 import { useUserByProject } from "@/lib/hooks/user";
-import { cn } from "@/lib/utils";
 import { intersection } from "lodash";
 import React, { cloneElement, forwardRef, useMemo } from "react";
 
