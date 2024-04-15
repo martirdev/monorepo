@@ -14,6 +14,7 @@ type RolesSelectPropsType = {
     surname: string;
     id: string;
   };
+  disabled?: boolean;
   role: (typeof SERVICE_ROLES)[number]["value"] | undefined;
   refetch: () => void;
 };
@@ -21,6 +22,7 @@ type RolesSelectPropsType = {
 const RolesSelect = memo<RolesSelectPropsType>(function RolesSelect({
   user,
   role,
+  disabled,
   refetch,
 }) {
   const project = useProject();
@@ -59,7 +61,7 @@ const RolesSelect = memo<RolesSelectPropsType>(function RolesSelect({
         options={SERVICE_ROLES}
         value={role}
         onValueChange={selectRole}
-        disabled
+        disabled={disabled}
       />
       <ConfirmDialog
         title="Изменить роль"
