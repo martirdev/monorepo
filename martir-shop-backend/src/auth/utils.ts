@@ -8,7 +8,10 @@ export const makeSessionCookie = (sessionCookie: Cookie) => ({
   value: sessionCookie.value,
 });
 
-export const findOrCreateUser = async (yaUser: UserInfoResponse) => {
+export const findOrCreateUser = async (
+  yaUser: UserInfoResponse,
+  invite: string | undefined
+) => {
   let user = await prisma.user.findFirst({
     where: {
       yandex_id: yaUser.id,
@@ -18,6 +21,18 @@ export const findOrCreateUser = async (yaUser: UserInfoResponse) => {
   if (user) {
     return user;
   }
+
+  const project = invite
+    ? await prisma.project.findFirst({
+        where: {
+          invitations: {
+            some: {
+              id: invite,
+            },
+          },
+        },
+      })
+    : null;
 
   return await prisma.user.create({
     data: {
@@ -29,8 +44,13 @@ export const findOrCreateUser = async (yaUser: UserInfoResponse) => {
         create: {
           role: ["OWNER"],
           project: {
-            create: {
-              name: `Проект: ${yaUser.login}`,
+            connectOrCreate: {
+              create: {
+                name: `Проект ${yaUser.login}`,
+              },
+              where: {
+                id: project?.id ?? "",
+              },
             },
           },
         },

@@ -136,6 +136,7 @@ model Project {
   Product         Product[]
   Order           Order[]
   Customer        Customer[]
+  invitations     Invitation[]
 }
 
 model UsersOnProjects {
@@ -147,6 +148,15 @@ model UsersOnProjects {
   role       Role[]
 
   @@id([userId, projectId])
+}
+
+model Invitation {
+  id        String   @id @default(uuid())
+  projectId String
+  isExpired Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id])
 }
 
 model User {

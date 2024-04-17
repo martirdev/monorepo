@@ -206,6 +206,13 @@ exports.Prisma.UsersOnProjectsScalarFieldEnum = {
   role: 'role'
 };
 
+exports.Prisma.InvitationScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  isExpired: 'isExpired',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   yandex_id: 'yandex_id',
@@ -264,6 +271,7 @@ exports.Prisma.ModelName = {
   Customer: 'Customer',
   Project: 'Project',
   UsersOnProjects: 'UsersOnProjects',
+  Invitation: 'Invitation',
   User: 'User',
   Session: 'Session'
 };

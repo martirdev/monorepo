@@ -1,4 +1,6 @@
+import { addUserByInvite } from "../procedures/add-user-by-invite";
 import { addUserToProject } from "../procedures/add-user-to-project";
+import { createInvite } from "../procedures/create-invite";
 import { getContentById } from "../procedures/get-content-by-id";
 import { getCustomer } from "../procedures/get-customer";
 import { getCustomers } from "../procedures/get-customers";
@@ -45,6 +47,8 @@ export const appRouter = router({
   getProjects,
   getProjectUsers,
   addUserToProject,
+  createInvite,
+  addUserByInvite,
   setUserRole,
 });
 

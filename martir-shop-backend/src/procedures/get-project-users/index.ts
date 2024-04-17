@@ -13,12 +13,28 @@ export const getProjectUsers = procedure
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
-    return await prisma.usersOnProjects.findMany({
-      where: {
-        projectId: input.project,
-      },
-      include: {
-        user: true,
-      },
-    });
+    const [project, users] = await prisma.$transaction([
+      prisma.project.findFirst({
+        where: {
+          id: input.project,
+        },
+        include: {
+          invitations: {
+            where: {
+              isExpired: false,
+            },
+          },
+        },
+      }),
+      prisma.usersOnProjects.findMany({
+        where: {
+          projectId: input.project,
+        },
+        include: {
+          user: true,
+        },
+      }),
+    ]);
+
+    return { project, users };
   });
