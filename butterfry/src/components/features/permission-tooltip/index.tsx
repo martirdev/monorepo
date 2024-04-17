@@ -33,7 +33,9 @@ const PermissionTooltip = forwardRef(
     return (
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger asChild>{component}</TooltipTrigger>
+          <TooltipTrigger asChild>
+            <div>{component}</div>
+          </TooltipTrigger>
           {!hasRole && (
             <TooltipContent>
               <div>
