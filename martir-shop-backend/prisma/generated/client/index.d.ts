@@ -74,6 +74,11 @@ export type Project = $Result.DefaultSelection<Prisma.$ProjectPayload>
  */
 export type UsersOnProjects = $Result.DefaultSelection<Prisma.$UsersOnProjectsPayload>
 /**
+ * Model Invitation
+ * 
+ */
+export type Invitation = $Result.DefaultSelection<Prisma.$InvitationPayload>
+/**
  * Model User
  * 
  */
@@ -361,6 +366,16 @@ export class PrismaClient<
     * ```
     */
   get usersOnProjects(): Prisma.UsersOnProjectsDelegate<ExtArgs>;
+
+  /**
+   * `prisma.invitation`: Exposes CRUD operations for the **Invitation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Invitations
+    * const invitations = await prisma.invitation.findMany()
+    * ```
+    */
+  get invitation(): Prisma.InvitationDelegate<ExtArgs>;
 
   /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
@@ -863,6 +878,7 @@ export namespace Prisma {
     Customer: 'Customer',
     Project: 'Project',
     UsersOnProjects: 'UsersOnProjects',
+    Invitation: 'Invitation',
     User: 'User',
     Session: 'Session'
   };
@@ -881,7 +897,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'images' | 'paramValues' | 'product' | 'productCountHistory' | 'productVersion' | 'order' | 'comment' | 'orderVersion' | 'orderVersionOnProducts' | 'customer' | 'project' | 'usersOnProjects' | 'user' | 'session'
+      modelProps: 'images' | 'paramValues' | 'product' | 'productCountHistory' | 'productVersion' | 'order' | 'comment' | 'orderVersion' | 'orderVersionOnProducts' | 'customer' | 'project' | 'usersOnProjects' | 'invitation' | 'user' | 'session'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1677,6 +1693,72 @@ export namespace Prisma {
           }
         }
       }
+      Invitation: {
+        payload: Prisma.$InvitationPayload<ExtArgs>
+        fields: Prisma.InvitationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InvitationFindUniqueArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InvitationFindUniqueOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
+          }
+          findFirst: {
+            args: Prisma.InvitationFindFirstArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InvitationFindFirstOrThrowArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
+          }
+          findMany: {
+            args: Prisma.InvitationFindManyArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>[]
+          }
+          create: {
+            args: Prisma.InvitationCreateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
+          }
+          createMany: {
+            args: Prisma.InvitationCreateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          delete: {
+            args: Prisma.InvitationDeleteArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
+          }
+          update: {
+            args: Prisma.InvitationUpdateArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
+          }
+          deleteMany: {
+            args: Prisma.InvitationDeleteManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InvitationUpdateManyArgs<ExtArgs>,
+            result: Prisma.BatchPayload
+          }
+          upsert: {
+            args: Prisma.InvitationUpsertArgs<ExtArgs>,
+            result: $Utils.PayloadToResult<Prisma.$InvitationPayload>
+          }
+          aggregate: {
+            args: Prisma.InvitationAggregateArgs<ExtArgs>,
+            result: $Utils.Optional<AggregateInvitation>
+          }
+          groupBy: {
+            args: Prisma.InvitationGroupByArgs<ExtArgs>,
+            result: $Utils.Optional<InvitationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InvitationCountArgs<ExtArgs>,
+            result: $Utils.Optional<InvitationCountAggregateOutputType> | number
+          }
+        }
+      }
       User: {
         payload: Prisma.$UserPayload<ExtArgs>
         fields: Prisma.UserFieldRefs
@@ -2216,6 +2298,7 @@ export namespace Prisma {
     Product: number
     Order: number
     Customer: number
+    invitations: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2223,6 +2306,7 @@ export namespace Prisma {
     Product?: boolean | ProjectCountOutputTypeCountProductArgs
     Order?: boolean | ProjectCountOutputTypeCountOrderArgs
     Customer?: boolean | ProjectCountOutputTypeCountCustomerArgs
+    invitations?: boolean | ProjectCountOutputTypeCountInvitationsArgs
   }
 
   // Custom InputTypes
@@ -2267,6 +2351,14 @@ export namespace Prisma {
    */
   export type ProjectCountOutputTypeCountCustomerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CustomerWhereInput
+  }
+
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountInvitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvitationWhereInput
   }
 
 
@@ -12061,6 +12153,7 @@ export namespace Prisma {
     Product?: boolean | Project$ProductArgs<ExtArgs>
     Order?: boolean | Project$OrderArgs<ExtArgs>
     Customer?: boolean | Project$CustomerArgs<ExtArgs>
+    invitations?: boolean | Project$invitationsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
@@ -12074,6 +12167,7 @@ export namespace Prisma {
     Product?: boolean | Project$ProductArgs<ExtArgs>
     Order?: boolean | Project$OrderArgs<ExtArgs>
     Customer?: boolean | Project$CustomerArgs<ExtArgs>
+    invitations?: boolean | Project$invitationsArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -12085,6 +12179,7 @@ export namespace Prisma {
       Product: Prisma.$ProductPayload<ExtArgs>[]
       Order: Prisma.$OrderPayload<ExtArgs>[]
       Customer: Prisma.$CustomerPayload<ExtArgs>[]
+      invitations: Prisma.$InvitationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12461,6 +12556,8 @@ export namespace Prisma {
     Order<T extends Project$OrderArgs<ExtArgs> = {}>(args?: Subset<T, Project$OrderArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     Customer<T extends Project$CustomerArgs<ExtArgs> = {}>(args?: Subset<T, Project$CustomerArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    invitations<T extends Project$invitationsArgs<ExtArgs> = {}>(args?: Subset<T, Project$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -12884,6 +12981,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CustomerScalarFieldEnum | CustomerScalarFieldEnum[]
+  }
+
+
+  /**
+   * Project.invitations
+   */
+  export type Project$invitationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    where?: InvitationWhereInput
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
+    cursor?: InvitationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
   }
 
 
@@ -13807,6 +13925,913 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: UsersOnProjectsInclude<ExtArgs> | null
+  }
+
+
+
+  /**
+   * Model Invitation
+   */
+
+  export type AggregateInvitation = {
+    _count: InvitationCountAggregateOutputType | null
+    _min: InvitationMinAggregateOutputType | null
+    _max: InvitationMaxAggregateOutputType | null
+  }
+
+  export type InvitationMinAggregateOutputType = {
+    id: string | null
+    projectId: string | null
+    isExpired: boolean | null
+    createdAt: Date | null
+  }
+
+  export type InvitationMaxAggregateOutputType = {
+    id: string | null
+    projectId: string | null
+    isExpired: boolean | null
+    createdAt: Date | null
+  }
+
+  export type InvitationCountAggregateOutputType = {
+    id: number
+    projectId: number
+    isExpired: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type InvitationMinAggregateInputType = {
+    id?: true
+    projectId?: true
+    isExpired?: true
+    createdAt?: true
+  }
+
+  export type InvitationMaxAggregateInputType = {
+    id?: true
+    projectId?: true
+    isExpired?: true
+    createdAt?: true
+  }
+
+  export type InvitationCountAggregateInputType = {
+    id?: true
+    projectId?: true
+    isExpired?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type InvitationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Invitation to aggregate.
+     */
+    where?: InvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invitations to fetch.
+     */
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invitations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Invitations
+    **/
+    _count?: true | InvitationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InvitationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InvitationMaxAggregateInputType
+  }
+
+  export type GetInvitationAggregateType<T extends InvitationAggregateArgs> = {
+        [P in keyof T & keyof AggregateInvitation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInvitation[P]>
+      : GetScalarType<T[P], AggregateInvitation[P]>
+  }
+
+
+
+
+  export type InvitationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InvitationWhereInput
+    orderBy?: InvitationOrderByWithAggregationInput | InvitationOrderByWithAggregationInput[]
+    by: InvitationScalarFieldEnum[] | InvitationScalarFieldEnum
+    having?: InvitationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InvitationCountAggregateInputType | true
+    _min?: InvitationMinAggregateInputType
+    _max?: InvitationMaxAggregateInputType
+  }
+
+  export type InvitationGroupByOutputType = {
+    id: string
+    projectId: string
+    isExpired: boolean
+    createdAt: Date
+    _count: InvitationCountAggregateOutputType | null
+    _min: InvitationMinAggregateOutputType | null
+    _max: InvitationMaxAggregateOutputType | null
+  }
+
+  type GetInvitationGroupByPayload<T extends InvitationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InvitationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InvitationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InvitationGroupByOutputType[P]>
+            : GetScalarType<T[P], InvitationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InvitationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    projectId?: boolean
+    isExpired?: boolean
+    createdAt?: boolean
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["invitation"]>
+
+  export type InvitationSelectScalar = {
+    id?: boolean
+    projectId?: boolean
+    isExpired?: boolean
+    createdAt?: boolean
+  }
+
+  export type InvitationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    project?: boolean | ProjectDefaultArgs<ExtArgs>
+  }
+
+
+  export type $InvitationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Invitation"
+    objects: {
+      project: Prisma.$ProjectPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      projectId: string
+      isExpired: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["invitation"]>
+    composites: {}
+  }
+
+
+  type InvitationGetPayload<S extends boolean | null | undefined | InvitationDefaultArgs> = $Result.GetResult<Prisma.$InvitationPayload, S>
+
+  type InvitationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<InvitationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: InvitationCountAggregateInputType | true
+    }
+
+  export interface InvitationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Invitation'], meta: { name: 'Invitation' } }
+    /**
+     * Find zero or one Invitation that matches the filter.
+     * @param {InvitationFindUniqueArgs} args - Arguments to find a Invitation
+     * @example
+     * // Get one Invitation
+     * const invitation = await prisma.invitation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUnique<T extends InvitationFindUniqueArgs<ExtArgs>>(
+      args: SelectSubset<T, InvitationFindUniqueArgs<ExtArgs>>
+    ): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
+
+    /**
+     * Find one Invitation that matches the filter or throw an error  with `error.code='P2025'` 
+     *     if no matches were found.
+     * @param {InvitationFindUniqueOrThrowArgs} args - Arguments to find a Invitation
+     * @example
+     * // Get one Invitation
+     * const invitation = await prisma.invitation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findUniqueOrThrow<T extends InvitationFindUniqueOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, InvitationFindUniqueOrThrowArgs<ExtArgs>>
+    ): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find the first Invitation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationFindFirstArgs} args - Arguments to find a Invitation
+     * @example
+     * // Get one Invitation
+     * const invitation = await prisma.invitation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirst<T extends InvitationFindFirstArgs<ExtArgs>>(
+      args?: SelectSubset<T, InvitationFindFirstArgs<ExtArgs>>
+    ): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
+
+    /**
+     * Find the first Invitation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationFindFirstOrThrowArgs} args - Arguments to find a Invitation
+     * @example
+     * // Get one Invitation
+     * const invitation = await prisma.invitation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+    **/
+    findFirstOrThrow<T extends InvitationFindFirstOrThrowArgs<ExtArgs>>(
+      args?: SelectSubset<T, InvitationFindFirstOrThrowArgs<ExtArgs>>
+    ): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
+
+    /**
+     * Find zero or more Invitations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationFindManyArgs=} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Invitations
+     * const invitations = await prisma.invitation.findMany()
+     * 
+     * // Get first 10 Invitations
+     * const invitations = await prisma.invitation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const invitationWithIdOnly = await prisma.invitation.findMany({ select: { id: true } })
+     * 
+    **/
+    findMany<T extends InvitationFindManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, InvitationFindManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, 'findMany'>>
+
+    /**
+     * Create a Invitation.
+     * @param {InvitationCreateArgs} args - Arguments to create a Invitation.
+     * @example
+     * // Create one Invitation
+     * const Invitation = await prisma.invitation.create({
+     *   data: {
+     *     // ... data to create a Invitation
+     *   }
+     * })
+     * 
+    **/
+    create<T extends InvitationCreateArgs<ExtArgs>>(
+      args: SelectSubset<T, InvitationCreateArgs<ExtArgs>>
+    ): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, 'create'>, never, ExtArgs>
+
+    /**
+     * Create many Invitations.
+     *     @param {InvitationCreateManyArgs} args - Arguments to create many Invitations.
+     *     @example
+     *     // Create many Invitations
+     *     const invitation = await prisma.invitation.createMany({
+     *       data: {
+     *         // ... provide data here
+     *       }
+     *     })
+     *     
+    **/
+    createMany<T extends InvitationCreateManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, InvitationCreateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Invitation.
+     * @param {InvitationDeleteArgs} args - Arguments to delete one Invitation.
+     * @example
+     * // Delete one Invitation
+     * const Invitation = await prisma.invitation.delete({
+     *   where: {
+     *     // ... filter to delete one Invitation
+     *   }
+     * })
+     * 
+    **/
+    delete<T extends InvitationDeleteArgs<ExtArgs>>(
+      args: SelectSubset<T, InvitationDeleteArgs<ExtArgs>>
+    ): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
+
+    /**
+     * Update one Invitation.
+     * @param {InvitationUpdateArgs} args - Arguments to update one Invitation.
+     * @example
+     * // Update one Invitation
+     * const invitation = await prisma.invitation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    update<T extends InvitationUpdateArgs<ExtArgs>>(
+      args: SelectSubset<T, InvitationUpdateArgs<ExtArgs>>
+    ): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, 'update'>, never, ExtArgs>
+
+    /**
+     * Delete zero or more Invitations.
+     * @param {InvitationDeleteManyArgs} args - Arguments to filter Invitations to delete.
+     * @example
+     * // Delete a few Invitations
+     * const { count } = await prisma.invitation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+    **/
+    deleteMany<T extends InvitationDeleteManyArgs<ExtArgs>>(
+      args?: SelectSubset<T, InvitationDeleteManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Invitations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Invitations
+     * const invitation = await prisma.invitation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+    **/
+    updateMany<T extends InvitationUpdateManyArgs<ExtArgs>>(
+      args: SelectSubset<T, InvitationUpdateManyArgs<ExtArgs>>
+    ): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Invitation.
+     * @param {InvitationUpsertArgs} args - Arguments to update or create a Invitation.
+     * @example
+     * // Update or create a Invitation
+     * const invitation = await prisma.invitation.upsert({
+     *   create: {
+     *     // ... data to create a Invitation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Invitation we want to update
+     *   }
+     * })
+    **/
+    upsert<T extends InvitationUpsertArgs<ExtArgs>>(
+      args: SelectSubset<T, InvitationUpsertArgs<ExtArgs>>
+    ): Prisma__InvitationClient<$Result.GetResult<Prisma.$InvitationPayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
+
+    /**
+     * Count the number of Invitations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationCountArgs} args - Arguments to filter Invitations to count.
+     * @example
+     * // Count the number of Invitations
+     * const count = await prisma.invitation.count({
+     *   where: {
+     *     // ... the filter for the Invitations we want to count
+     *   }
+     * })
+    **/
+    count<T extends InvitationCountArgs>(
+      args?: Subset<T, InvitationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InvitationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Invitation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InvitationAggregateArgs>(args: Subset<T, InvitationAggregateArgs>): Prisma.PrismaPromise<GetInvitationAggregateType<T>>
+
+    /**
+     * Group by Invitation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InvitationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InvitationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InvitationGroupByArgs['orderBy'] }
+        : { orderBy?: InvitationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InvitationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInvitationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Invitation model
+   */
+  readonly fields: InvitationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Invitation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InvitationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+
+    project<T extends ProjectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProjectDefaultArgs<ExtArgs>>): Prisma__ProjectClient<$Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
+
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+
+
+  /**
+   * Fields of the Invitation model
+   */ 
+  interface InvitationFieldRefs {
+    readonly id: FieldRef<"Invitation", 'String'>
+    readonly projectId: FieldRef<"Invitation", 'String'>
+    readonly isExpired: FieldRef<"Invitation", 'Boolean'>
+    readonly createdAt: FieldRef<"Invitation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+
+  /**
+   * Invitation findUnique
+   */
+  export type InvitationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which Invitation to fetch.
+     */
+    where: InvitationWhereUniqueInput
+  }
+
+
+  /**
+   * Invitation findUniqueOrThrow
+   */
+  export type InvitationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which Invitation to fetch.
+     */
+    where: InvitationWhereUniqueInput
+  }
+
+
+  /**
+   * Invitation findFirst
+   */
+  export type InvitationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which Invitation to fetch.
+     */
+    where?: InvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invitations to fetch.
+     */
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Invitations.
+     */
+    cursor?: InvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invitations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Invitations.
+     */
+    distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Invitation findFirstOrThrow
+   */
+  export type InvitationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which Invitation to fetch.
+     */
+    where?: InvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invitations to fetch.
+     */
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Invitations.
+     */
+    cursor?: InvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invitations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Invitations.
+     */
+    distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Invitation findMany
+   */
+  export type InvitationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    /**
+     * Filter, which Invitations to fetch.
+     */
+    where?: InvitationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Invitations to fetch.
+     */
+    orderBy?: InvitationOrderByWithRelationInput | InvitationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Invitations.
+     */
+    cursor?: InvitationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Invitations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Invitations.
+     */
+    skip?: number
+    distinct?: InvitationScalarFieldEnum | InvitationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Invitation create
+   */
+  export type InvitationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Invitation.
+     */
+    data: XOR<InvitationCreateInput, InvitationUncheckedCreateInput>
+  }
+
+
+  /**
+   * Invitation createMany
+   */
+  export type InvitationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Invitations.
+     */
+    data: InvitationCreateManyInput | InvitationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+
+  /**
+   * Invitation update
+   */
+  export type InvitationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Invitation.
+     */
+    data: XOR<InvitationUpdateInput, InvitationUncheckedUpdateInput>
+    /**
+     * Choose, which Invitation to update.
+     */
+    where: InvitationWhereUniqueInput
+  }
+
+
+  /**
+   * Invitation updateMany
+   */
+  export type InvitationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Invitations.
+     */
+    data: XOR<InvitationUpdateManyMutationInput, InvitationUncheckedUpdateManyInput>
+    /**
+     * Filter which Invitations to update
+     */
+    where?: InvitationWhereInput
+  }
+
+
+  /**
+   * Invitation upsert
+   */
+  export type InvitationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Invitation to update in case it exists.
+     */
+    where: InvitationWhereUniqueInput
+    /**
+     * In case the Invitation found by the `where` argument doesn't exist, create a new Invitation with this data.
+     */
+    create: XOR<InvitationCreateInput, InvitationUncheckedCreateInput>
+    /**
+     * In case the Invitation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InvitationUpdateInput, InvitationUncheckedUpdateInput>
+  }
+
+
+  /**
+   * Invitation delete
+   */
+  export type InvitationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
+    /**
+     * Filter which Invitation to delete.
+     */
+    where: InvitationWhereUniqueInput
+  }
+
+
+  /**
+   * Invitation deleteMany
+   */
+  export type InvitationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Invitations to delete
+     */
+    where?: InvitationWhereInput
+  }
+
+
+  /**
+   * Invitation without action
+   */
+  export type InvitationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Invitation
+     */
+    select?: InvitationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: InvitationInclude<ExtArgs> | null
   }
 
 
@@ -15915,6 +16940,16 @@ export namespace Prisma {
   export type UsersOnProjectsScalarFieldEnum = (typeof UsersOnProjectsScalarFieldEnum)[keyof typeof UsersOnProjectsScalarFieldEnum]
 
 
+  export const InvitationScalarFieldEnum: {
+    id: 'id',
+    projectId: 'projectId',
+    isExpired: 'isExpired',
+    createdAt: 'createdAt'
+  };
+
+  export type InvitationScalarFieldEnum = (typeof InvitationScalarFieldEnum)[keyof typeof InvitationScalarFieldEnum]
+
+
   export const UserScalarFieldEnum: {
     id: 'id',
     yandex_id: 'yandex_id',
@@ -16045,6 +17080,13 @@ export namespace Prisma {
    * Reference to a field of type 'Role'
    */
   export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -16640,6 +17682,7 @@ export namespace Prisma {
     Product?: ProductListRelationFilter
     Order?: OrderListRelationFilter
     Customer?: CustomerListRelationFilter
+    invitations?: InvitationListRelationFilter
   }
 
   export type ProjectOrderByWithRelationInput = {
@@ -16649,6 +17692,7 @@ export namespace Prisma {
     Product?: ProductOrderByRelationAggregateInput
     Order?: OrderOrderByRelationAggregateInput
     Customer?: CustomerOrderByRelationAggregateInput
+    invitations?: InvitationOrderByRelationAggregateInput
   }
 
   export type ProjectWhereUniqueInput = Prisma.AtLeast<{
@@ -16661,6 +17705,7 @@ export namespace Prisma {
     Product?: ProductListRelationFilter
     Order?: OrderListRelationFilter
     Customer?: CustomerListRelationFilter
+    invitations?: InvitationListRelationFilter
   }, "id">
 
   export type ProjectOrderByWithAggregationInput = {
@@ -16731,6 +17776,56 @@ export namespace Prisma {
     projectId?: StringWithAggregatesFilter<"UsersOnProjects"> | string
     assignedAt?: DateTimeWithAggregatesFilter<"UsersOnProjects"> | Date | string
     role?: EnumRoleNullableListFilter<"UsersOnProjects">
+  }
+
+  export type InvitationWhereInput = {
+    AND?: InvitationWhereInput | InvitationWhereInput[]
+    OR?: InvitationWhereInput[]
+    NOT?: InvitationWhereInput | InvitationWhereInput[]
+    id?: StringFilter<"Invitation"> | string
+    projectId?: StringFilter<"Invitation"> | string
+    isExpired?: BoolFilter<"Invitation"> | boolean
+    createdAt?: DateTimeFilter<"Invitation"> | Date | string
+    project?: XOR<ProjectRelationFilter, ProjectWhereInput>
+  }
+
+  export type InvitationOrderByWithRelationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    isExpired?: SortOrder
+    createdAt?: SortOrder
+    project?: ProjectOrderByWithRelationInput
+  }
+
+  export type InvitationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: InvitationWhereInput | InvitationWhereInput[]
+    OR?: InvitationWhereInput[]
+    NOT?: InvitationWhereInput | InvitationWhereInput[]
+    projectId?: StringFilter<"Invitation"> | string
+    isExpired?: BoolFilter<"Invitation"> | boolean
+    createdAt?: DateTimeFilter<"Invitation"> | Date | string
+    project?: XOR<ProjectRelationFilter, ProjectWhereInput>
+  }, "id">
+
+  export type InvitationOrderByWithAggregationInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    isExpired?: SortOrder
+    createdAt?: SortOrder
+    _count?: InvitationCountOrderByAggregateInput
+    _max?: InvitationMaxOrderByAggregateInput
+    _min?: InvitationMinOrderByAggregateInput
+  }
+
+  export type InvitationScalarWhereWithAggregatesInput = {
+    AND?: InvitationScalarWhereWithAggregatesInput | InvitationScalarWhereWithAggregatesInput[]
+    OR?: InvitationScalarWhereWithAggregatesInput[]
+    NOT?: InvitationScalarWhereWithAggregatesInput | InvitationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Invitation"> | string
+    projectId?: StringWithAggregatesFilter<"Invitation"> | string
+    isExpired?: BoolWithAggregatesFilter<"Invitation"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Invitation"> | Date | string
   }
 
   export type UserWhereInput = {
@@ -17405,6 +18500,7 @@ export namespace Prisma {
     Product?: ProductCreateNestedManyWithoutProjectInput
     Order?: OrderCreateNestedManyWithoutProjectInput
     Customer?: CustomerCreateNestedManyWithoutProjectInput
+    invitations?: InvitationCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateInput = {
@@ -17414,6 +18510,7 @@ export namespace Prisma {
     Product?: ProductUncheckedCreateNestedManyWithoutProjectInput
     Order?: OrderUncheckedCreateNestedManyWithoutProjectInput
     Customer?: CustomerUncheckedCreateNestedManyWithoutProjectInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUpdateInput = {
@@ -17423,6 +18520,7 @@ export namespace Prisma {
     Product?: ProductUpdateManyWithoutProjectNestedInput
     Order?: OrderUpdateManyWithoutProjectNestedInput
     Customer?: CustomerUpdateManyWithoutProjectNestedInput
+    invitations?: InvitationUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateInput = {
@@ -17432,6 +18530,7 @@ export namespace Prisma {
     Product?: ProductUncheckedUpdateManyWithoutProjectNestedInput
     Order?: OrderUncheckedUpdateManyWithoutProjectNestedInput
     Customer?: CustomerUncheckedUpdateManyWithoutProjectNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectCreateManyInput = {
@@ -17494,6 +18593,54 @@ export namespace Prisma {
     projectId?: StringFieldUpdateOperationsInput | string
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: UsersOnProjectsUpdateroleInput | $Enums.Role[]
+  }
+
+  export type InvitationCreateInput = {
+    id?: string
+    isExpired?: boolean
+    createdAt?: Date | string
+    project: ProjectCreateNestedOneWithoutInvitationsInput
+  }
+
+  export type InvitationUncheckedCreateInput = {
+    id?: string
+    projectId: string
+    isExpired?: boolean
+    createdAt?: Date | string
+  }
+
+  export type InvitationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isExpired?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: ProjectUpdateOneRequiredWithoutInvitationsNestedInput
+  }
+
+  export type InvitationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    isExpired?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvitationCreateManyInput = {
+    id?: string
+    projectId: string
+    isExpired?: boolean
+    createdAt?: Date | string
+  }
+
+  export type InvitationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isExpired?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvitationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    projectId?: StringFieldUpdateOperationsInput | string
+    isExpired?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateInput = {
@@ -18179,6 +19326,12 @@ export namespace Prisma {
     none?: CustomerWhereInput
   }
 
+  export type InvitationListRelationFilter = {
+    every?: InvitationWhereInput
+    some?: InvitationWhereInput
+    none?: InvitationWhereInput
+  }
+
   export type UsersOnProjectsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -18188,6 +19341,10 @@ export namespace Prisma {
   }
 
   export type CustomerOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InvitationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -18236,6 +19393,40 @@ export namespace Prisma {
     userId?: SortOrder
     projectId?: SortOrder
     assignedAt?: SortOrder
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type InvitationCountOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    isExpired?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InvitationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    isExpired?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InvitationMinOrderByAggregateInput = {
+    id?: SortOrder
+    projectId?: SortOrder
+    isExpired?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type SessionListRelationFilter = {
@@ -18972,6 +20163,13 @@ export namespace Prisma {
     connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
   }
 
+  export type InvitationCreateNestedManyWithoutProjectInput = {
+    create?: XOR<InvitationCreateWithoutProjectInput, InvitationUncheckedCreateWithoutProjectInput> | InvitationCreateWithoutProjectInput[] | InvitationUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutProjectInput | InvitationCreateOrConnectWithoutProjectInput[]
+    createMany?: InvitationCreateManyProjectInputEnvelope
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+  }
+
   export type UsersOnProjectsUncheckedCreateNestedManyWithoutProjectInput = {
     create?: XOR<UsersOnProjectsCreateWithoutProjectInput, UsersOnProjectsUncheckedCreateWithoutProjectInput> | UsersOnProjectsCreateWithoutProjectInput[] | UsersOnProjectsUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: UsersOnProjectsCreateOrConnectWithoutProjectInput | UsersOnProjectsCreateOrConnectWithoutProjectInput[]
@@ -18998,6 +20196,13 @@ export namespace Prisma {
     connectOrCreate?: CustomerCreateOrConnectWithoutProjectInput | CustomerCreateOrConnectWithoutProjectInput[]
     createMany?: CustomerCreateManyProjectInputEnvelope
     connect?: CustomerWhereUniqueInput | CustomerWhereUniqueInput[]
+  }
+
+  export type InvitationUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<InvitationCreateWithoutProjectInput, InvitationUncheckedCreateWithoutProjectInput> | InvitationCreateWithoutProjectInput[] | InvitationUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutProjectInput | InvitationCreateOrConnectWithoutProjectInput[]
+    createMany?: InvitationCreateManyProjectInputEnvelope
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
   }
 
   export type UsersOnProjectsUpdateManyWithoutProjectNestedInput = {
@@ -19056,6 +20261,20 @@ export namespace Prisma {
     deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
   }
 
+  export type InvitationUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<InvitationCreateWithoutProjectInput, InvitationUncheckedCreateWithoutProjectInput> | InvitationCreateWithoutProjectInput[] | InvitationUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutProjectInput | InvitationCreateOrConnectWithoutProjectInput[]
+    upsert?: InvitationUpsertWithWhereUniqueWithoutProjectInput | InvitationUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: InvitationCreateManyProjectInputEnvelope
+    set?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    disconnect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    delete?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    update?: InvitationUpdateWithWhereUniqueWithoutProjectInput | InvitationUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: InvitationUpdateManyWithWhereWithoutProjectInput | InvitationUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+  }
+
   export type UsersOnProjectsUncheckedUpdateManyWithoutProjectNestedInput = {
     create?: XOR<UsersOnProjectsCreateWithoutProjectInput, UsersOnProjectsUncheckedCreateWithoutProjectInput> | UsersOnProjectsCreateWithoutProjectInput[] | UsersOnProjectsUncheckedCreateWithoutProjectInput[]
     connectOrCreate?: UsersOnProjectsCreateOrConnectWithoutProjectInput | UsersOnProjectsCreateOrConnectWithoutProjectInput[]
@@ -19112,6 +20331,20 @@ export namespace Prisma {
     deleteMany?: CustomerScalarWhereInput | CustomerScalarWhereInput[]
   }
 
+  export type InvitationUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<InvitationCreateWithoutProjectInput, InvitationUncheckedCreateWithoutProjectInput> | InvitationCreateWithoutProjectInput[] | InvitationUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: InvitationCreateOrConnectWithoutProjectInput | InvitationCreateOrConnectWithoutProjectInput[]
+    upsert?: InvitationUpsertWithWhereUniqueWithoutProjectInput | InvitationUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: InvitationCreateManyProjectInputEnvelope
+    set?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    disconnect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    delete?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    connect?: InvitationWhereUniqueInput | InvitationWhereUniqueInput[]
+    update?: InvitationUpdateWithWhereUniqueWithoutProjectInput | InvitationUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: InvitationUpdateManyWithWhereWithoutProjectInput | InvitationUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+  }
+
   export type UsersOnProjectsCreateroleInput = {
     set: $Enums.Role[]
   }
@@ -19147,6 +20380,24 @@ export namespace Prisma {
     upsert?: ProjectUpsertWithoutUsersOnProjectsInput
     connect?: ProjectWhereUniqueInput
     update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutUsersOnProjectsInput, ProjectUpdateWithoutUsersOnProjectsInput>, ProjectUncheckedUpdateWithoutUsersOnProjectsInput>
+  }
+
+  export type ProjectCreateNestedOneWithoutInvitationsInput = {
+    create?: XOR<ProjectCreateWithoutInvitationsInput, ProjectUncheckedCreateWithoutInvitationsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutInvitationsInput
+    connect?: ProjectWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type ProjectUpdateOneRequiredWithoutInvitationsNestedInput = {
+    create?: XOR<ProjectCreateWithoutInvitationsInput, ProjectUncheckedCreateWithoutInvitationsInput>
+    connectOrCreate?: ProjectCreateOrConnectWithoutInvitationsInput
+    upsert?: ProjectUpsertWithoutInvitationsInput
+    connect?: ProjectWhereUniqueInput
+    update?: XOR<XOR<ProjectUpdateToOneWithWhereWithoutInvitationsInput, ProjectUpdateWithoutInvitationsInput>, ProjectUncheckedUpdateWithoutInvitationsInput>
   }
 
   export type SessionCreateNestedManyWithoutUserInput = {
@@ -19584,6 +20835,19 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type ProductVersionCreateWithoutImagesInput = {
     id?: string
     createdAt?: Date | string
@@ -19712,6 +20976,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsCreateNestedManyWithoutProjectInput
     Order?: OrderCreateNestedManyWithoutProjectInput
     Customer?: CustomerCreateNestedManyWithoutProjectInput
+    invitations?: InvitationCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutProductInput = {
@@ -19720,6 +20985,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsUncheckedCreateNestedManyWithoutProjectInput
     Order?: OrderUncheckedCreateNestedManyWithoutProjectInput
     Customer?: CustomerUncheckedCreateNestedManyWithoutProjectInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutProductInput = {
@@ -19798,6 +21064,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsUpdateManyWithoutProjectNestedInput
     Order?: OrderUpdateManyWithoutProjectNestedInput
     Customer?: CustomerUpdateManyWithoutProjectNestedInput
+    invitations?: InvitationUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutProductInput = {
@@ -19806,6 +21073,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsUncheckedUpdateManyWithoutProjectNestedInput
     Order?: OrderUncheckedUpdateManyWithoutProjectNestedInput
     Customer?: CustomerUncheckedUpdateManyWithoutProjectNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type ProductVersionUpsertWithWhereUniqueWithoutProductInput = {
@@ -20222,6 +21490,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsCreateNestedManyWithoutProjectInput
     Product?: ProductCreateNestedManyWithoutProjectInput
     Customer?: CustomerCreateNestedManyWithoutProjectInput
+    invitations?: InvitationCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutOrderInput = {
@@ -20230,6 +21499,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsUncheckedCreateNestedManyWithoutProjectInput
     Product?: ProductUncheckedCreateNestedManyWithoutProjectInput
     Customer?: CustomerUncheckedCreateNestedManyWithoutProjectInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutOrderInput = {
@@ -20341,6 +21611,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsUpdateManyWithoutProjectNestedInput
     Product?: ProductUpdateManyWithoutProjectNestedInput
     Customer?: CustomerUpdateManyWithoutProjectNestedInput
+    invitations?: InvitationUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutOrderInput = {
@@ -20349,6 +21620,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsUncheckedUpdateManyWithoutProjectNestedInput
     Product?: ProductUncheckedUpdateManyWithoutProjectNestedInput
     Customer?: CustomerUncheckedUpdateManyWithoutProjectNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UserCreateWithoutCommentsInput = {
@@ -20802,6 +22074,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsCreateNestedManyWithoutProjectInput
     Product?: ProductCreateNestedManyWithoutProjectInput
     Order?: OrderCreateNestedManyWithoutProjectInput
+    invitations?: InvitationCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutCustomerInput = {
@@ -20810,6 +22083,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsUncheckedCreateNestedManyWithoutProjectInput
     Product?: ProductUncheckedCreateNestedManyWithoutProjectInput
     Order?: OrderUncheckedCreateNestedManyWithoutProjectInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutCustomerInput = {
@@ -20897,6 +22171,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsUpdateManyWithoutProjectNestedInput
     Product?: ProductUpdateManyWithoutProjectNestedInput
     Order?: OrderUpdateManyWithoutProjectNestedInput
+    invitations?: InvitationUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutCustomerInput = {
@@ -20905,6 +22180,7 @@ export namespace Prisma {
     usersOnProjects?: UsersOnProjectsUncheckedUpdateManyWithoutProjectNestedInput
     Product?: ProductUncheckedUpdateManyWithoutProjectNestedInput
     Order?: OrderUncheckedUpdateManyWithoutProjectNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type UsersOnProjectsCreateWithoutProjectInput = {
@@ -21009,6 +22285,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type InvitationCreateWithoutProjectInput = {
+    id?: string
+    isExpired?: boolean
+    createdAt?: Date | string
+  }
+
+  export type InvitationUncheckedCreateWithoutProjectInput = {
+    id?: string
+    isExpired?: boolean
+    createdAt?: Date | string
+  }
+
+  export type InvitationCreateOrConnectWithoutProjectInput = {
+    where: InvitationWhereUniqueInput
+    create: XOR<InvitationCreateWithoutProjectInput, InvitationUncheckedCreateWithoutProjectInput>
+  }
+
+  export type InvitationCreateManyProjectInputEnvelope = {
+    data: InvitationCreateManyProjectInput | InvitationCreateManyProjectInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UsersOnProjectsUpsertWithWhereUniqueWithoutProjectInput = {
     where: UsersOnProjectsWhereUniqueInput
     update: XOR<UsersOnProjectsUpdateWithoutProjectInput, UsersOnProjectsUncheckedUpdateWithoutProjectInput>
@@ -21105,6 +22403,32 @@ export namespace Prisma {
     contact?: StringFilter<"Customer"> | string
   }
 
+  export type InvitationUpsertWithWhereUniqueWithoutProjectInput = {
+    where: InvitationWhereUniqueInput
+    update: XOR<InvitationUpdateWithoutProjectInput, InvitationUncheckedUpdateWithoutProjectInput>
+    create: XOR<InvitationCreateWithoutProjectInput, InvitationUncheckedCreateWithoutProjectInput>
+  }
+
+  export type InvitationUpdateWithWhereUniqueWithoutProjectInput = {
+    where: InvitationWhereUniqueInput
+    data: XOR<InvitationUpdateWithoutProjectInput, InvitationUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type InvitationUpdateManyWithWhereWithoutProjectInput = {
+    where: InvitationScalarWhereInput
+    data: XOR<InvitationUpdateManyMutationInput, InvitationUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type InvitationScalarWhereInput = {
+    AND?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+    OR?: InvitationScalarWhereInput[]
+    NOT?: InvitationScalarWhereInput | InvitationScalarWhereInput[]
+    id?: StringFilter<"Invitation"> | string
+    projectId?: StringFilter<"Invitation"> | string
+    isExpired?: BoolFilter<"Invitation"> | boolean
+    createdAt?: DateTimeFilter<"Invitation"> | Date | string
+  }
+
   export type UserCreateWithoutUsersOnProjectsInput = {
     id?: string
     yandex_id: string
@@ -21142,6 +22466,7 @@ export namespace Prisma {
     Product?: ProductCreateNestedManyWithoutProjectInput
     Order?: OrderCreateNestedManyWithoutProjectInput
     Customer?: CustomerCreateNestedManyWithoutProjectInput
+    invitations?: InvitationCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectUncheckedCreateWithoutUsersOnProjectsInput = {
@@ -21150,6 +22475,7 @@ export namespace Prisma {
     Product?: ProductUncheckedCreateNestedManyWithoutProjectInput
     Order?: OrderUncheckedCreateNestedManyWithoutProjectInput
     Customer?: CustomerUncheckedCreateNestedManyWithoutProjectInput
+    invitations?: InvitationUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type ProjectCreateOrConnectWithoutUsersOnProjectsInput = {
@@ -21211,11 +22537,65 @@ export namespace Prisma {
     Product?: ProductUpdateManyWithoutProjectNestedInput
     Order?: OrderUpdateManyWithoutProjectNestedInput
     Customer?: CustomerUpdateManyWithoutProjectNestedInput
+    invitations?: InvitationUpdateManyWithoutProjectNestedInput
   }
 
   export type ProjectUncheckedUpdateWithoutUsersOnProjectsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    Product?: ProductUncheckedUpdateManyWithoutProjectNestedInput
+    Order?: OrderUncheckedUpdateManyWithoutProjectNestedInput
+    Customer?: CustomerUncheckedUpdateManyWithoutProjectNestedInput
+    invitations?: InvitationUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectCreateWithoutInvitationsInput = {
+    id?: string
+    name: string
+    usersOnProjects?: UsersOnProjectsCreateNestedManyWithoutProjectInput
+    Product?: ProductCreateNestedManyWithoutProjectInput
+    Order?: OrderCreateNestedManyWithoutProjectInput
+    Customer?: CustomerCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectUncheckedCreateWithoutInvitationsInput = {
+    id?: string
+    name: string
+    usersOnProjects?: UsersOnProjectsUncheckedCreateNestedManyWithoutProjectInput
+    Product?: ProductUncheckedCreateNestedManyWithoutProjectInput
+    Order?: OrderUncheckedCreateNestedManyWithoutProjectInput
+    Customer?: CustomerUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type ProjectCreateOrConnectWithoutInvitationsInput = {
+    where: ProjectWhereUniqueInput
+    create: XOR<ProjectCreateWithoutInvitationsInput, ProjectUncheckedCreateWithoutInvitationsInput>
+  }
+
+  export type ProjectUpsertWithoutInvitationsInput = {
+    update: XOR<ProjectUpdateWithoutInvitationsInput, ProjectUncheckedUpdateWithoutInvitationsInput>
+    create: XOR<ProjectCreateWithoutInvitationsInput, ProjectUncheckedCreateWithoutInvitationsInput>
+    where?: ProjectWhereInput
+  }
+
+  export type ProjectUpdateToOneWithWhereWithoutInvitationsInput = {
+    where?: ProjectWhereInput
+    data: XOR<ProjectUpdateWithoutInvitationsInput, ProjectUncheckedUpdateWithoutInvitationsInput>
+  }
+
+  export type ProjectUpdateWithoutInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    usersOnProjects?: UsersOnProjectsUpdateManyWithoutProjectNestedInput
+    Product?: ProductUpdateManyWithoutProjectNestedInput
+    Order?: OrderUpdateManyWithoutProjectNestedInput
+    Customer?: CustomerUpdateManyWithoutProjectNestedInput
+  }
+
+  export type ProjectUncheckedUpdateWithoutInvitationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    usersOnProjects?: UsersOnProjectsUncheckedUpdateManyWithoutProjectNestedInput
     Product?: ProductUncheckedUpdateManyWithoutProjectNestedInput
     Order?: OrderUncheckedUpdateManyWithoutProjectNestedInput
     Customer?: CustomerUncheckedUpdateManyWithoutProjectNestedInput
@@ -21848,6 +23228,12 @@ export namespace Prisma {
     contact: string
   }
 
+  export type InvitationCreateManyProjectInput = {
+    id?: string
+    isExpired?: boolean
+    createdAt?: Date | string
+  }
+
   export type UsersOnProjectsUpdateWithoutProjectInput = {
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     role?: UsersOnProjectsUpdateroleInput | $Enums.Role[]
@@ -21934,6 +23320,24 @@ export namespace Prisma {
     secondName?: StringFieldUpdateOperationsInput | string
     thirdName?: NullableStringFieldUpdateOperationsInput | string | null
     contact?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type InvitationUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isExpired?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvitationUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isExpired?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InvitationUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    isExpired?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SessionCreateManyUserInput = {
@@ -22211,6 +23615,10 @@ export namespace Prisma {
      * @deprecated Use UsersOnProjectsDefaultArgs instead
      */
     export type UsersOnProjectsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UsersOnProjectsDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use InvitationDefaultArgs instead
+     */
+    export type InvitationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = InvitationDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserDefaultArgs instead
      */

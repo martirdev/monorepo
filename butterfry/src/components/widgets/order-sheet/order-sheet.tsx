@@ -45,7 +45,7 @@ export const OrderSheet = memo<OrderSheetPropsType>(function OrderSheet({
         className="overflow-auto sm:w-[450px] sm:max-w-[initial] bg-gray-50"
       >
         <div className="space-y-8">
-          <ClientOrderAlert id={id} />
+          {id && <ClientOrderAlert id={id} />}
           <OrderForm
             id={id}
             mode={mode}

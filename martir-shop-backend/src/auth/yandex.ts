@@ -30,7 +30,7 @@ const makeYandexProvider = () => {
 const yandex = makeYandexProvider();
 
 export const yandexAuth = new Elysia({ prefix: "/yandex" })
-  .get("/login", async ({ set, cookie, headers }) => {
+  .get("/login", async ({ set, cookie, headers, query }) => {
     const state = generateState();
     const codeVerifier = generateCodeVerifier();
 
@@ -50,6 +50,7 @@ export const yandexAuth = new Elysia({ prefix: "/yandex" })
       httpOnly: true,
       maxAge: 60 * 10,
     });
+    cookie.query.value = JSON.stringify(query);
     cookie.from.value = headers.referer;
 
     return (set.redirect = url.toString());
@@ -69,15 +70,21 @@ export const yandexAuth = new Elysia({ prefix: "/yandex" })
         code,
         storedCodeVerifier
       );
+
       const yaUser = await yandexUserInfo(tokens.accessToken);
-      const user = await findOrCreateUser(yaUser);
+      const user = await findOrCreateUser(yaUser, cookie.query.value.invite);
 
       const session = await lucia.createSession(user.id, {});
       const sessionCookie = lucia.createSessionCookie(session.id);
 
       set.status = 302;
       cookie[SESSION_COOKIE].set(makeSessionCookie(sessionCookie));
-      return (set.redirect = cookie.from.value);
+
+      const nextUrl = new URL(cookie.from.value);
+      const params = new URLSearchParams(cookie.query.value);
+      nextUrl.search = params.toString();
+
+      return (set.redirect = nextUrl.toString());
     } catch (e) {
       console.error(e);
       if (e instanceof OAuth2RequestError) {
