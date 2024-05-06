@@ -131,7 +131,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/test/monorepo/mp-seller-backend/prisma/generated/client",
+      "value": "C:\\Users\\annae\\OneDrive\\Рабочий стол\\MartirProjects\\monorepo\\mp-seller-backend\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -140,12 +140,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
       },
       {
         "fromEnvVar": null,
         "value": "debian-openssl-1.1.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
       }
     ],
     "previewFeatures": [],
@@ -171,8 +175,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "Z2VuZXJhdG9yIGNsaWVudCB7CiAgcHJvdmlkZXIgICAgICA9ICJwcmlzbWEtY2xpZW50LWpzIgogIG91dHB1dCAgICAgICAgPSAiLi9nZW5lcmF0ZWQvY2xpZW50IgogIGJpbmFyeVRhcmdldHMgPSBbIm5hdGl2ZSIsICJkZWJpYW4tb3BlbnNzbC0xLjEueCJdCn0KCmRhdGFzb3VyY2UgZGIgewogIHByb3ZpZGVyID0gIm1vbmdvZGIiCiAgdXJsICAgICAgPSBlbnYoIkRBVEFCQVNFX1VSTCIpCn0KCmVudW0gTWFya2V0UGxhY2VzIHsKICB5bQogIG96b24KfQoKbW9kZWwgUGxhY2UgewogIGlkICAgIFN0cmluZyAgQGlkIEBkZWZhdWx0KGF1dG8oKSkgQG1hcCgiX2lkIikgQGRiLk9iamVjdElkCiAgbXBfaWQgU3RyaW5nPwogIG5hbWUgIFN0cmluZwoKICBNYXJrZXRwbGFjZUtleSAgIE1hcmtldHBsYWNlS2V5PyBAcmVsYXRpb24oZmllbGRzOiBbbWFya2V0cGxhY2VLZXlJZF0sIHJlZmVyZW5jZXM6IFtpZF0pCiAgbWFya2V0cGxhY2VLZXlJZCBTdHJpbmc/ICAgICAgICAgQGRiLk9iamVjdElkCiAgUHJvZHVjdCAgICAgICAgICBQcm9kdWN0W10KfQoKbW9kZWwgTWFya2V0cGxhY2VLZXkgewogIGlkICAgICAgICAgICAgICAgIFN0cmluZyAgICAgICBAaWQgQGRlZmF1bHQoYXV0bygpKSBAbWFwKCJfaWQiKSBAZGIuT2JqZWN0SWQKICBhcGlfa2V5ICAgICAgICAgICBTdHJpbmcgICAgICAgQHVuaXF1ZQogIGVuY3J5cHRlZF9hcGlfa2V5IFN0cmluZwogIHR5cGUgICAgICAgICAgICAgIE1hcmtldFBsYWNlcwogIHBsYWNlcyAgICAgICAgICAgIFBsYWNlW10KICBjbGllbnRfaWQgICAgICAgICBTdHJpbmc/IC8vIEZpZWxkIGZvciBvcGVyYXRpbmcgd2l0aCBPem9uCn0KCm1vZGVsIFByb2R1Y3QgewogIGlkICAgICAgIFN0cmluZyBAaWQgQGRlZmF1bHQoYXV0bygpKSBAbWFwKCJfaWQiKSBAZGIuT2JqZWN0SWQKICBwbGFjZV9pZCBTdHJpbmcgQGRiLk9iamVjdElkCgogIGRhdGEgIEpzb24KICBwbGFjZSBQbGFjZSBAcmVsYXRpb24oZmllbGRzOiBbcGxhY2VfaWRdLCByZWZlcmVuY2VzOiBbaWRdKQp9Cg==",
-  "inlineSchemaHash": "b3394acb5637a1a3b32e534cc2aa9101667fe8c8bc282374da9fe179f4162a7b",
+  "inlineSchema": "Z2VuZXJhdG9yIGNsaWVudCB7DQogIHByb3ZpZGVyICAgICAgPSAicHJpc21hLWNsaWVudC1qcyINCiAgb3V0cHV0ICAgICAgICA9ICIuL2dlbmVyYXRlZC9jbGllbnQiDQogIGJpbmFyeVRhcmdldHMgPSBbIm5hdGl2ZSIsICJkZWJpYW4tb3BlbnNzbC0xLjEueCIsICJ3aW5kb3dzIl0NCn0NCg0KZGF0YXNvdXJjZSBkYiB7DQogIHByb3ZpZGVyID0gIm1vbmdvZGIiDQogIHVybCAgICAgID0gZW52KCJEQVRBQkFTRV9VUkwiKQ0KfQ0KDQplbnVtIE1hcmtldFBsYWNlcyB7DQogIHltDQogIG96b24NCn0NCg0KbW9kZWwgUGxhY2Ugew0KICBpZCAgICBTdHJpbmcgIEBpZCBAZGVmYXVsdChhdXRvKCkpIEBtYXAoIl9pZCIpIEBkYi5PYmplY3RJZA0KICBtcF9pZCBTdHJpbmc/DQogIG5hbWUgIFN0cmluZw0KDQogIE1hcmtldHBsYWNlS2V5ICAgTWFya2V0cGxhY2VLZXk/IEByZWxhdGlvbihmaWVsZHM6IFttYXJrZXRwbGFjZUtleUlkXSwgcmVmZXJlbmNlczogW2lkXSkNCiAgbWFya2V0cGxhY2VLZXlJZCBTdHJpbmc/ICAgICAgICAgQGRiLk9iamVjdElkDQogIFByb2R1Y3QgICAgICAgICAgUHJvZHVjdFtdDQp9DQoNCm1vZGVsIE1hcmtldHBsYWNlS2V5IHsNCiAgaWQgICAgICAgICAgICAgICAgU3RyaW5nICAgICAgIEBpZCBAZGVmYXVsdChhdXRvKCkpIEBtYXAoIl9pZCIpIEBkYi5PYmplY3RJZA0KICBhcGlfa2V5ICAgICAgICAgICBTdHJpbmcgICAgICAgQHVuaXF1ZQ0KICBlbmNyeXB0ZWRfYXBpX2tleSBTdHJpbmcNCiAgdHlwZSAgICAgICAgICAgICAgTWFya2V0UGxhY2VzDQogIHBsYWNlcyAgICAgICAgICAgIFBsYWNlW10NCiAgY2xpZW50X2lkICAgICAgICAgU3RyaW5nPyAvLyBGaWVsZCBmb3Igb3BlcmF0aW5nIHdpdGggT3pvbg0KfQ0KDQptb2RlbCBQcm9kdWN0IHsNCiAgaWQgICAgICAgU3RyaW5nIEBpZCBAZGVmYXVsdChhdXRvKCkpIEBtYXAoIl9pZCIpIEBkYi5PYmplY3RJZA0KICBwbGFjZV9pZCBTdHJpbmcgQGRiLk9iamVjdElkDQoNCiAgZGF0YSAgSnNvbg0KICBwbGFjZSBQbGFjZSBAcmVsYXRpb24oZmllbGRzOiBbcGxhY2VfaWRdLCByZWZlcmVuY2VzOiBbaWRdKQ0KfQ0K",
+  "inlineSchemaHash": "5ca5a6a66c6af2bf0d32fd4af55047b9ced4d2c233ae15b76c7bdf2651674cee",
   "noEngine": false
 }
 config.dirname = '/'

@@ -1,17 +1,20 @@
-type PlaceType =  {
+type PlaceType = {
     id: string;
-    mp_id: string;
-    name: string;
-    marketplaceKeyId: string;
-}
+    name: string; // название магазина в маркетплейсе
+};
 
 export type KeyForMarketplaceType = {
     id: string;
     encrypted_api_key: string;
-    type: 'ozon' | 'ym'; // тип ключа
-    places: PlaceType[];
+    type: string;
+    places: {
+        id: string;
+        mp_id: string;
+        name: string;
+        marketplaceKeyId: string;
+    }[];
 };
 
 export type PlacesListType = {
     placesDataSource: Array<KeyForMarketplaceType>;
-}
+};
