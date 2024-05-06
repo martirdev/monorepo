@@ -1,5 +1,7 @@
-import {Divider, Drawer, Form, Select} from 'antd';
+import {Divider, Drawer, Form, Select, notification} from 'antd';
 import {memo} from 'react';
+
+import {trpc} from '_shared/api/trpc';
 
 import FooterAddDrawer from './Footer';
 import MarketplaceForm from './MarketplaceForm';
@@ -12,41 +14,55 @@ const options = [
 
 const AddPlaceDrawer = memo<AddPlaceDrawerType>(function AddPlaceDrawer({onClose, open, title}) {
     const [form] = Form.useForm<FieldType>();
-    const marketpaceValue = Form.useWatch('marketpace', form);
+    const [api, contextHolder] = notification.useNotification();
+    const marketpaceValue = Form.useWatch('type', form);
+    const {mutate, isLoading} = trpc.createMarketplaceKey.useMutation({
+        onError: () => {
+            api.error({
+                message: 'Ошибка сервера',
+                description: 'Проверьте правильность заполненых полей или обратитесь к администратору'
+            });
+        },
+        onSuccess: () => {
+            api.open({
+                message: 'Успешно',
+                description: 'Данные успешно добавлены'
+            });
+            form.resetFields();
+            onClose();
+        }
+    });
 
-    //В момент перезда на бекендовскую ручку решить, нужно ли выносить из компонента onFinish и onFinishFailed!
     const onFinish = values => {
-        console.log('Success:', values);
-    };
-
-    const onFinishFailed = errorInfo => {
-        console.log('Failed:', errorInfo);
+        mutate(values);
     };
 
     return (
-        <Drawer title={title} onClose={onClose} open={open} width={480}>
-            <Form
-                form={form}
-                name="addPlace"
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off"
-                layout="vertical"
-                className="flex h-full flex-col justify-between"
-            >
-                <div>
-                    <Form.Item<FieldType> label="Выберите маркетплейс" name="marketpace">
-                        <Select placeholder="Выберите маркетплейс из предложенных" options={options} />
-                    </Form.Item>
-                    <MarketplaceForm selectedMarketplace={marketpaceValue} />
-                </div>
+        <>
+            {contextHolder}
+            <Drawer title={title} onClose={onClose} open={open} width={480}>
+                <Form
+                    form={form}
+                    name="addPlace"
+                    onFinish={onFinish}
+                    autoComplete="off"
+                    layout="vertical"
+                    className="flex h-full flex-col justify-between"
+                >
+                    <div>
+                        <Form.Item<FieldType> label="Выберите маркетплейс" name="type">
+                            <Select placeholder="Выберите маркетплейс из предложенных" options={options} />
+                        </Form.Item>
+                        <MarketplaceForm selectedMarketplace={marketpaceValue} />
+                    </div>
 
-                <div>
-                    <Divider />
-                    <FooterAddDrawer onClose={onClose} />
-                </div>
-            </Form>
-        </Drawer>
+                    <div>
+                        <Divider />
+                        <FooterAddDrawer onClose={onClose} isLoading={isLoading} />
+                    </div>
+                </Form>
+            </Drawer>
+        </>
     );
 });
 
