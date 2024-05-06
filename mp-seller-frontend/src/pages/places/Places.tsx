@@ -1,7 +1,7 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Input } from 'antd';
-import { SearchProps } from 'antd/es/input';
-import { useCallback, useMemo, useState } from 'react';
+import {PlusOutlined} from '@ant-design/icons';
+import {Button, Input} from 'antd';
+import {SearchProps} from 'antd/es/input';
+import {useCallback, useMemo, useState} from 'react';
 
 import {trpc} from '_shared/api/trpc';
 import AddPlaceDrawer from '_widgets/places/place-drawer';
@@ -11,10 +11,8 @@ const {Search} = Input;
 
 const Places = function Places() {
     const {data = []} = trpc.getMarketplaceKeys.useQuery();
-    const {data = []} = trpc.getMarketplaceKeys.useQuery();
     const [search, setSearch] = useState('');
     const [openAddDrawer, setOpenAddDrawer] = useState(false);
-    const {data} = trpc.getMarketplaceKeys.useQuery()
 
     const showAddDrawer = useCallback(() => {
         setOpenAddDrawer(true);
@@ -27,8 +25,6 @@ const Places = function Places() {
     const onSearch: SearchProps['onSearch'] = value => setSearch(value);
 
     const tableData = useMemo(
-        () => data.filter(item => item.places.some(place => place.name.toLowerCase().includes(search.toLowerCase()))),
-        [search, data]
         () => data.filter(item => item.places.some(place => place.name.toLowerCase().includes(search.toLowerCase()))),
         [search, data]
     );
