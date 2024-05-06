@@ -4,7 +4,6 @@ import { SearchProps } from 'antd/es/input';
 import { useCallback, useMemo, useState } from 'react';
 
 import {trpc} from '_shared/api/trpc';
-import {trpc} from '_shared/api/trpc';
 import AddPlaceDrawer from '_widgets/places/place-drawer';
 import PlacesList from '_widgets/places/place-list';
 
