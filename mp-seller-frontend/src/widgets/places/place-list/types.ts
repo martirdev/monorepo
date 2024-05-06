@@ -5,12 +5,16 @@ type PlaceType = {
 
 export type KeyForMarketplaceType = {
     id: string;
-    key: string;
-    api_key: string;
-    type: 'ozon' | 'ym'; // тип ключа
-    places: PlaceType[];
+    encrypted_api_key: string;
+    type: string;
+    places: {
+        id: string;
+        mp_id: string;
+        name: string;
+        marketplaceKeyId: string;
+    }[];
 };
 
 export type PlacesListType = {
     placesDataSource: Array<KeyForMarketplaceType>;
-}
+};
