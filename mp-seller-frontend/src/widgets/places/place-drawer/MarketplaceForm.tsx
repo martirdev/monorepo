@@ -14,17 +14,14 @@ const MarketplaceForm = memo<MarketplaceFormType>(function MarketplaceForm({sele
         case 'ym':
             return (
                 <div>
-                    <Form.Item<FieldType> label="Введите название магазина" name="name">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item<FieldType> label="Введите токен" name="token">
+                    <Form.Item<FieldType> label="Введите токен" name="apiKey">
                         <Input />
                     </Form.Item>
                     <Collapse
                         className="mb-6"
                         items={[
                             {
-                                key: 'token',
+                                key: 'apiKey',
                                 label: 'Как получить токен?',
                                 children: <p>{TEXT_FOR_DROPDOWN.token}</p>
                             }
@@ -35,11 +32,11 @@ const MarketplaceForm = memo<MarketplaceFormType>(function MarketplaceForm({sele
         case 'ozon':
             return (
                 <div>
-                    <Form.Item<FieldType> label="Введите название магазина" name="name">
+                    <Form.Item<FieldType> label="Введите название магазина" name="place">
                         <Input />
                     </Form.Item>
 
-                    <Form.Item<FieldType> label="Введите API key" name="APIkey">
+                    <Form.Item<FieldType> label="Введите API key" name="apiKey">
                         <Input />
                     </Form.Item>
                     <Collapse
@@ -52,14 +49,14 @@ const MarketplaceForm = memo<MarketplaceFormType>(function MarketplaceForm({sele
                             }
                         ]}
                     />
-                    <Form.Item<FieldType> label="Введите Client_ID" name="ClientId">
+                    <Form.Item<FieldType> label="Введите Client_ID" name="clientId">
                         <Input />
                     </Form.Item>
                     <Collapse
                         className="mb-6"
                         items={[
                             {
-                                key: 'ClientId',
+                                key: 'clientId',
                                 label: 'Как получить Client ID?',
                                 children: <p>{TEXT_FOR_DROPDOWN.ClientId}</p>
                             }
