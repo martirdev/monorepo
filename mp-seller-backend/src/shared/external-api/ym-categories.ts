@@ -1,4 +1,6 @@
-export const YM_CATEGORIES = [
+import { Options } from "./types";
+
+export const YM_CATEGORIES: Options = [
   {
     label: "Авто",
     value: "Все товары/Авто",

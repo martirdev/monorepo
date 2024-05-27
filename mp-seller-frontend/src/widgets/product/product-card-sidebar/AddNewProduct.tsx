@@ -1,53 +1,63 @@
 import {CloseOutlined} from '@ant-design/icons';
-import {Drawer, Segmented, Select} from 'antd';
-import {memo, useMemo, useState} from 'react';
+import {Drawer, Segmented, Space} from 'antd';
+import {Button, Dropdown} from 'antd';
+import {memo, useCallback, useMemo, useState} from 'react';
 
 import GeneralInfoAboutProduct from './GeneralInfo';
 import OzonInfo from './OzonInfo';
 import YMinfo from './YMinfo';
-import {AddNewProductSidebarType, SelectedOptiontype} from './types';
+import {AddNewProductSidebarType} from './types';
+
+const MP_SERVICES = {
+    ym: 'Яндекс.Маркет',
+    ozon: 'Озон'
+};
+const MP_SERVICES_OPTIONS = Object.entries(MP_SERVICES).map(([key, label]) => ({key, label}));
 
 const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProductSidebar({onClose, open}) {
-    const [mpOptions, setMPOptions] = useState([
-        {label: 'Яндекс.Маркет', value: 'ym'},
-        {label: 'Озон', value: 'ozon'}
-    ]);
+    const [selected, setSelected] = useState<Record<string, boolean>>({});
+    const [selectedForm, setSelectedFormOption] = useState('common');
 
-    const [formOption, setFormOption] = useState('common');
+    const itemsWithSelect = MP_SERVICES_OPTIONS.map(item => ({
+        ...item,
+        disabled: selected[item.key],
+        onClick: ({key}) => {
+            setSelected(prev => {
+                return {...prev, [key]: true};
+            });
+        }
+    }));
 
-    const [segmentedOptions, setSegmentedOptions] = useState<SelectedOptiontype>([{label: 'Общие ', value: 'common'}]);
+    const deleteMPOption = useCallback(
+        (value: string) => {
+            setSelected(prev => {
+                const nextValue = {...prev};
+                delete nextValue[value];
 
-    const deleteMPOption = (value: string) => {
-        // Находим выбранный элемент в segmentedOptions
-        const selectedOption = segmentedOptions.find(option => option.value === value);
+                return nextValue;
+            });
+            if (selectedForm === value) {
+                setSelectedFormOption('common');
+            }
+        },
+        [selectedForm]
+    );
 
-        // Удаляем выбранный элемент из segmentedOptions
-        setSegmentedOptions(prevOptions => prevOptions.filter(option => option.value !== value));
+    const segmentedOptions = useMemo(() => {
+        const convertedOptions = Object.keys(selected).map(value => ({
+            label: (
+                <Space>
+                    <CloseOutlined onClick={() => deleteMPOption(value)} />
+                    {MP_SERVICES[value]}
+                </Space>
+            ),
+            value
+        }));
+        return [{label: 'Общие ', value: 'common'}, ...convertedOptions];
+    }, [selected, deleteMPOption]);
 
-        // Удаляем поле icon перед добавлением элемента обратно в MP_OPTIONS
-        const {icon, ...selectedOptionWithoutIcon} = selectedOption;
-
-        // Добавляем выбранный элемент обратно в MP_OPTIONS
-        setMPOptions(prevOptions => [...prevOptions, selectedOptionWithoutIcon]);
-    };
-
-    const onChange = (value: string) => {
-        console.log(`selected ${value}`);
-        // Находим выбранный элемент в MP_OPTIONS
-        const selectedOption = mpOptions.find(option => option.value === value);
-
-        // Добавляем поле icon к выбранному элементу
-        const selectedOptionWithIcon = {...selectedOption, icon: <CloseOutlined />};
-
-        // Добавляем выбранный элемент в segmentedOptions с полем icon
-        setSegmentedOptions(prevOptions => [...prevOptions, selectedOptionWithIcon]);
-
-        // Удаляем выбранный элемент из MP_OPTIONS
-        setMPOptions(prevOptions => prevOptions.filter(option => option.value !== value));
-    };
-
-    const chooseFormToShow = useMemo(() => {
-        switch (formOption) {
+    const formBySelectedService = useMemo(() => {
+        switch (selectedForm) {
             case 'common':
                 return <GeneralInfoAboutProduct />;
             case 'ym':
@@ -55,7 +65,7 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
             case 'ozon':
                 return <OzonInfo />;
         }
-    }, [formOption]);
+    }, [selectedForm]);
 
     return (
         <Drawer
@@ -64,24 +74,23 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
             open={open}
             width={520}
             extra={
-                <Select
-                    placeholder="Добавить МП"
-                    onChange={onChange}
-                    options={mpOptions}
-                    className="min-w-[144px]"
-                    disabled={mpOptions.length === 0}
-                />
+                <Dropdown
+                    menu={{items: itemsWithSelect}}
+                    placement="bottomRight"
+                    disabled={MP_SERVICES_OPTIONS.length === Object.keys(selected).length}
+                >
+                    <Button>Добавить МП</Button>
+                </Dropdown>
             }
         >
             <div className="flex flex-col gap-4">
                 <Segmented
                     options={segmentedOptions}
+                    onChange={value => setSelectedFormOption(value.toString())}
+                    value={selectedForm}
                     block
-                    onChange={value => {
-                        setFormOption(value.toString());
-                    }}
                 />
-                {chooseFormToShow}
+                {formBySelectedService}
             </div>
         </Drawer>
     );

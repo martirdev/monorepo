@@ -1,4 +1,6 @@
-export const OZON_CATEGORIES = [
+import {Options} from './types';
+
+export const OZON_CATEGORIES: Options = [
   {
     label: "Музыкальные инструменты",
     value: 92130764,
