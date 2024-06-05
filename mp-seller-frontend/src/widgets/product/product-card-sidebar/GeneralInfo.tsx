@@ -1,4 +1,4 @@
-import {Button, Form, type FormProps, Input} from 'antd';
+import {Form, FormInstance, Input} from 'antd';
 import {memo} from 'react';
 
 type FieldType = {
@@ -7,23 +7,13 @@ type FieldType = {
     barcode?: string;
 };
 
-const onFinish: FormProps<FieldType>['onFinish'] = values => {
-    console.log('Success:', values);
+type GeneralInfoAboutProductPropsType = {
+    form: FormInstance;
 };
 
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
-    console.log('Failed:', errorInfo);
-};
-
-const GeneralInfoAboutProduct = memo(function AddNewProductSidebar() {
+const GeneralInfoAboutProduct = memo<GeneralInfoAboutProductPropsType>(function AddNewProductSidebar({form: _form}) {
     return (
-        <Form
-            name="basic"
-            initialValues={{remember: true}}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-        >
+        <>
             <Form.Item<FieldType>
                 label="Название товара"
                 name="product_name"
@@ -47,11 +37,7 @@ const GeneralInfoAboutProduct = memo(function AddNewProductSidebar() {
             >
                 <Input />
             </Form.Item>
-
-            <Form.Item>
-                <Button type="primary">Сохранить</Button>
-            </Form.Item>
-        </Form>
+        </>
     );
 });
 

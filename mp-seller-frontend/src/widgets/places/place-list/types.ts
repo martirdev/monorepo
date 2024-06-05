@@ -1,9 +1,9 @@
-type PlaceType =  {
+type PlaceType = {
     id: string;
     mp_id: string;
     name: string;
     marketplaceKeyId: string;
-}
+};
 
 export type KeyForMarketplaceType = {
     id: string;
@@ -14,4 +14,4 @@ export type KeyForMarketplaceType = {
 
 export type PlacesListType = {
     placesDataSource: Array<KeyForMarketplaceType>;
-}
+};

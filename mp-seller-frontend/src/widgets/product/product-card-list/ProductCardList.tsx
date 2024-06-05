@@ -1,17 +1,17 @@
-import { PlusOutlined } from '@ant-design/icons';
-import type { GetProp } from 'antd';
-import { Button, Checkbox, Table, Tag, Tooltip } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import { memo, useCallback, useState } from 'react';
+import {PlusOutlined} from '@ant-design/icons';
+import type {GetProp} from 'antd';
+import {Button, Checkbox, Table, Tag, Tooltip} from 'antd';
+import type {ColumnsType} from 'antd/es/table';
+import {memo, useCallback, useState} from 'react';
 
-import { MarketplaceIcon } from '_shared/mp-logos';
-import { currency } from '_shared/utils/intl/numbers';
-import { BottomMenu } from '_widgets/bottom-menu';
+import {MarketplaceIcon} from '_shared/mp-logos';
+import {currency} from '_shared/utils/intl/numbers';
+import {BottomMenu} from '_widgets/bottom-menu';
 
 import ProductCardFilter from '../product-card-filter/ProductCardFilter';
 import AddNewProductSidebar from '../product-card-sidebar/AddNewProduct';
-import { TEMPOPARY_MOCK_PRODUCTS } from './temporaryConsts';
-import { ProductType } from './types';
+import {TEMPOPARY_MOCK_PRODUCTS} from './temporaryConsts';
+import {ProductType} from './types';
 
 const columns: ColumnsType<ProductType> = [
     {

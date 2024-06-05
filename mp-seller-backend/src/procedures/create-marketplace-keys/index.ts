@@ -1,4 +1,3 @@
-import axios from "axios";
 import { z } from "zod";
 import { prisma, procedure } from "../../shared/trpc";
 import { cryptString } from "../../shared/utils/converters";

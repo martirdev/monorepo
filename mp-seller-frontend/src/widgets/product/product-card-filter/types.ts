@@ -19,6 +19,6 @@ export type ProductCardFilterType = {
 };
 
 export type PlacesOptions = {
-    label: string, 
-    value: string
-}
+    label: string;
+    value: string;
+};

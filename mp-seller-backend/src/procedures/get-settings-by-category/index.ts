@@ -8,8 +8,8 @@ import { prisma, procedure } from "../../shared/trpc";
 
 const inputValidator = z.object({
   mpKeyId: z.string(),
-  categoryId: z.string(),
-  descriptionCategoryId: z.string().optional(),
+  categoryId: z.union([z.number(), z.string()]),
+  descriptionCategoryId: z.number().optional(),
 });
 
 export const getSettingsByCategory = procedure
@@ -31,7 +31,7 @@ export const getSettingsByCategory = procedure
       case "ym":
         const settings = await loadSettingsByCategory(
           mpKey.api_key,
-          input.categoryId
+          input.categoryId.toString()
         );
         return settings.data.result[0].parameters.map((setting) => ({
           id: setting.id,
@@ -48,13 +48,14 @@ export const getSettingsByCategory = procedure
               "description_category_id param is required for this marketplace type",
           });
         }
+
         const settings = await loadOzonSettingsByCategory(
           mpKey.api_key,
-          mpKey.client_id ?? "",
-          input.categoryId,
+          mpKey.client_id!,
+          Number(input.categoryId),
           input.descriptionCategoryId
         );
-        return settings.data.result.map((setting) => ({
+        return settings.result.map((setting) => ({
           id: setting.id,
           name: setting.name,
           description: setting.description,

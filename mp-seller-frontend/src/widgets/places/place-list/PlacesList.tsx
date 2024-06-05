@@ -1,10 +1,10 @@
-import { Table, Tag } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import { Key, memo, useCallback, useMemo, useState } from 'react';
+import {Table, Tag} from 'antd';
+import type {ColumnsType} from 'antd/es/table';
+import {Key, memo, useCallback, useMemo, useState} from 'react';
 
-import { MarketplaceIcon } from '_shared/mp-logos';
+import {MarketplaceIcon} from '_shared/mp-logos';
 
-import { KeyForMarketplaceType, PlacesListType } from './types';
+import {KeyForMarketplaceType, PlacesListType} from './types';
 
 const columns: ColumnsType<KeyForMarketplaceType> = [
     {

@@ -49,10 +49,6 @@ const YMinfo = memo(function YMinfo() {
                     <Option value="other">Другое</Option>
                 </Select>
             </Form.Item>
-
-            <Form.Item>
-                <Button type="primary">Сохранить</Button>
-            </Form.Item>
         </Form>
     );
 });
