@@ -1,10 +1,11 @@
-import {Button, Form, type FormProps, Select} from 'antd';
+import {Button, Form, type FormProps} from 'antd';
 import {memo} from 'react';
 
-const {Option} = Select;
+import {CategorySelect} from '_features/selects/categories';
+import {PlaceSelect} from '_features/selects/places';
 
 type FieldType = {
-    places?: string;
+    place?: string;
     category?: string;
 };
 
@@ -18,40 +19,23 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
 
 const OzonInfo = memo(function OzonInfo() {
     return (
-        <Form
-            name="basic"
-            initialValues={{remember: true}}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-        >
-            <Form.Item<FieldType>
-                label="Магазины ОЗОН"
-                name="places"
-                rules={[{required: true, message: 'Пожалуйста, заполните магазины!'}]}
-            >
-                <Select placeholder="Выберите магазины ОЗОН" allowClear>
-                    <Option value="1">ЛампаДА</Option>
-                    <Option value="2">Пифагор</Option>
-                    <Option value="other">Другое</Option>
-                </Select>
+        <Form onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
+            <Form.Item<FieldType> label="Магазин" name="place" rules={[{required: true, message: 'Выберите магазин'}]}>
+                <PlaceSelect type="ozon" />
             </Form.Item>
 
             <Form.Item<FieldType>
-                label="Категория на ОЗОН"
+                label="Категория"
                 name="category"
-                rules={[{required: true, message: 'Пожалуйста, введите категории!'}]}
+                rules={[{required: true, message: 'Выберите категорию'}]}
             >
-                <Select placeholder="Выберите категории на ОЗОН" allowClear>
-                    <Option value="1">Электроника</Option>
-                    <Option value="2">Канцелярия</Option>
-                    <Option value="3">Бытовая техника</Option>
-                    <Option value="other">Другое</Option>
-                </Select>
+                <CategorySelect type="ozon" />
             </Form.Item>
 
             <Form.Item>
-                <Button type="primary">Сохранить</Button>
+                <Button type="primary" htmlType="submit">
+                    Сохранить
+                </Button>
             </Form.Item>
         </Form>
     );
