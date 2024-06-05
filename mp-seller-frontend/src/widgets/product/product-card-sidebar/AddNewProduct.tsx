@@ -98,7 +98,7 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
                     value={selectedForm}
                     block
                 />
-                <Form autoComplete="off" form={form} onFinish={createProduct}>
+                <Form autoComplete="off" form={form} onFinish={createProduct} layout="vertical">
                     {formBySelectedService}
                     <Button type="primary" htmlType="submit" loading={isLoading}>
                         Сохранить

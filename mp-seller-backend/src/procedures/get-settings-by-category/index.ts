@@ -51,11 +51,11 @@ export const getSettingsByCategory = procedure
 
         const settings = await loadOzonSettingsByCategory(
           mpKey.api_key,
-          mpKey.client_id ?? "",
+          mpKey.client_id!,
           Number(input.categoryId),
           input.descriptionCategoryId
         );
-        return settings.data.result.map((setting) => ({
+        return settings.result.map((setting) => ({
           id: setting.id,
           name: setting.name,
           description: setting.description,

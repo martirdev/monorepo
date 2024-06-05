@@ -1,4 +1,4 @@
-import {Form, FormInstance} from 'antd';
+import {Form, FormInstance, Input} from 'antd';
 import {memo} from 'react';
 
 import {CategorySelect} from '_features/selects/categories';
@@ -20,7 +20,7 @@ type OzonInfoPropsType = {
 const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
     const ozonValues = Form.useWatch('ozon', form);
 
-    const {data} = trpc.getSettingsByCategory.useQuery({
+    const {data = []} = trpc.getSettingsByCategory.useQuery({
         categoryId: ozonValues?.category?.toString(),
         descriptionCategoryId: ozonValues?.descriptionCategoryId,
         mpKeyId: ozonValues?.place
@@ -49,14 +49,20 @@ const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
                         if (Array.isArray(option)) {
                             return;
                         }
-
-                        console.log({option});
                         form.setFieldValue(['ozon', 'descriptionCategoryId'], option.category_id);
                     }}
                 />
             </Form.Item>
 
             <Form.Item<FieldType> name={['ozon', 'descriptionCategoryId']} hidden />
+
+            {!!data.length && 
+                data.map(item => (
+                    <Form.Item label={item.name} name={["ozon", "attribute", item.id]} required={item.is_required}>
+                        {(item.type === "String" || item.type === "URL") && <Input />}
+                    </Form.Item>
+                ))
+            }
         </>
     );
 });
