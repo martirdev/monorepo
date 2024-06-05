@@ -7,8 +7,8 @@ export const loadOzonCategories = () => OZON_CATEGORIES;
 export const loadOzonSettingsByCategory = async (
   token: string,
   place: string,
-  description_category_id: string,
-  type_id: string
+  description_category_id: number,
+  type_id: number
 ) =>
   axios.post<LoadCategorySettings>(
     `https://api-seller.ozon.ru/v1/description-category/attribute`,

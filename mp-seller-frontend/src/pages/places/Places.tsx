@@ -1,9 +1,9 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, Input } from 'antd';
-import { SearchProps } from 'antd/es/input';
-import { useCallback, useMemo, useState } from 'react';
+import {PlusOutlined} from '@ant-design/icons';
+import {Button, Input} from 'antd';
+import {SearchProps} from 'antd/es/input';
+import {useCallback, useMemo, useState} from 'react';
 
-import { trpc } from '_shared/api/trpc';
+import {trpc} from '_shared/api/trpc';
 import AddPlaceDrawer from '_widgets/places/place-drawer';
 import PlacesList from '_widgets/places/place-list';
 
@@ -12,7 +12,7 @@ const {Search} = Input;
 const Places = function Places() {
     const [search, setSearch] = useState('');
     const [openAddDrawer, setOpenAddDrawer] = useState(false);
-    const {data} = trpc.getMarketplaceKeys.useQuery()
+    const {data} = trpc.getMarketplaceKeys.useQuery();
 
     const showAddDrawer = useCallback(() => {
         setOpenAddDrawer(true);
