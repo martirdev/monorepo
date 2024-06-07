@@ -61,6 +61,7 @@ export const getSettingsByCategory = procedure
           description: setting.description,
           type: setting.type,
           is_required: !!setting.is_required,
+          dict: setting.dictionary_id,
         }));
       }
     }

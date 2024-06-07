@@ -77,7 +77,7 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
 
     return (
         <Drawer
-            title="Создание КТ"
+            title="Создание товара"
             onClose={onClose}
             open={open}
             width={520}
