@@ -1,11 +1,13 @@
-import {Form, FormInstance, Input} from 'antd';
+import {Form, FormInstance} from 'antd';
 import {memo} from 'react';
 
 import {CategorySelect} from '_features/selects/categories';
 import {PlaceSelect} from '_features/selects/places';
 import {trpc} from '_shared/api/trpc';
 
-type FieldType = {
+import OzonField from './OzonField';
+
+export type FieldType = {
     ozon: {
         place: string;
         category: number;
@@ -18,15 +20,15 @@ type OzonInfoPropsType = {
 };
 
 const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
-    const ozonValues = Form.useWatch('ozon', form);
+    const category = Form.useWatch(['ozon', 'category'], form);
+    const descriptionCategoryId = Form.useWatch(['ozon', 'descriptionCategoryId'], form);
+    const place = Form.useWatch(['ozon', 'place'], form);
 
     const {data = []} = trpc.getSettingsByCategory.useQuery({
-        categoryId: ozonValues?.category?.toString(),
-        descriptionCategoryId: ozonValues?.descriptionCategoryId,
-        mpKeyId: ozonValues?.place
+        categoryId: category?.toString(),
+        descriptionCategoryId: descriptionCategoryId,
+        mpKeyId: place
     });
-
-    console.log(ozonValues);
 
     return (
         <>
@@ -56,13 +58,7 @@ const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
 
             <Form.Item<FieldType> name={['ozon', 'descriptionCategoryId']} hidden />
 
-            {!!data.length && 
-                data.map(item => (
-                    <Form.Item label={item.name} name={["ozon", "attribute", item.id]} required={item.is_required}>
-                        {(item.type === "String" || item.type === "URL") && <Input />}
-                    </Form.Item>
-                ))
-            }
+            {!!data.length && data.map(item => <OzonField item={item} form={form} key={item.id} />)}
         </>
     );
 });

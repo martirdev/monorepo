@@ -1,5 +1,15 @@
 import { z } from "zod";
 
+export type LoadSettingValues = {
+  result: {
+    id: number;
+    value: string;
+    info: string;
+    picture: string;
+  }[];
+  has_next: boolean;
+};
+
 export type LoadCategorySettings = {
   result: {
     id: number;

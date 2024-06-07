@@ -86,12 +86,12 @@ const ProductCardList = memo(function ProductCardTable() {
             <div className="flex justify-end">
                 <Button
                     icon={<PlusOutlined />}
-                    title="Создать карточку товара"
+                    title="Добавить карточку товара"
                     onClick={showDrawer}
                     type="primary"
                     className="w-40 "
                 >
-                    Создать КТ
+                    Добавить товар
                 </Button>
             </div>
             <AddNewProductSidebar onClose={onClose} open={openAddNewProductDrawer} />
