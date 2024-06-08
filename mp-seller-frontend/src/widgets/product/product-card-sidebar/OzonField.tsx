@@ -12,15 +12,15 @@ type OzonFieldPropsType = {
 };
 
 const OzonField = memo<OzonFieldPropsType>(function OzonField({item, form}) {
-    const descriptionCategoryId = Form.useWatch(['ozon', 'descriptionCategoryId'], form);
-    const place = Form.useWatch(['ozon', 'place'], form);
+    const descriptionCategoryId = Form.useWatch(['ozon', 'description_category_id'], form);
+    const mpKeyId = Form.useWatch(['ozon', 'mpKeyId'], form);
     const category = Form.useWatch(['ozon', 'category'], form);
 
     const {data = [], isLoading} = trpc.getSettingValues.useQuery(
         {
             attributeId: item.id,
             descriptionCategoryId: descriptionCategoryId,
-            mpKeyId: place,
+            mpKeyId: mpKeyId,
             typeId: category,
             limit: 100
         },
@@ -28,29 +28,51 @@ const OzonField = memo<OzonFieldPropsType>(function OzonField({item, form}) {
             enabled: !!item.dict
         }
     );
-    const options = data.map(item => ({value: item.id, label: item.value}));
+    const options =
+        item.name === 'Бренд'
+            ? [{label: 'Нет бренда', value: 'Нет бренда', dictId: undefined}]
+            : data.map(item => ({value: item.value, label: item.value, dictId: item.id}));
 
     return (
-        <Form.Item
-            label={item.type === 'Boolean' ? undefined : item.name}
-            name={['ozon', 'attribute', item.id]}
-            required={item.is_required}
-            tooltip={item.description}
-        >
-            {isLoading && !!item.dict && <LoadingOutlined className="rotate" />}
-            {(!isLoading || !item.dict) && (
-                <>
-                    {item.type === 'String' && !!options.length && (
-                        <Select options={options} showSearch optionFilterProp="label" />
-                    )}
-                    {item.type === 'multiline' && <Select mode="tags" />}
-                    {item.type === 'Decimal' && <Input inputMode="decimal" />}
-                    {item.type === 'Integer' && <Input inputMode="numeric" />}
-                    {item.type === 'Boolean' && <Checkbox>{item.name}</Checkbox>}
-                    {((item.type === 'String' && !options.length) || item.type === 'URL') && <Input />}
-                </>
+        <>
+            <Form.Item
+                label={item.type === 'Boolean' ? undefined : item.name}
+                name={['ozon', 'attributes', item.id.toString(), 'value']}
+                required={item.is_required}
+                tooltip={item.description}
+            >
+                {isLoading && !!item.dict && <LoadingOutlined className="rotate" />}
+                {(!isLoading || !item.dict) && (
+                    <>
+                        {item.type === 'String' && !!options.length && (
+                            <Select
+                                options={options}
+                                optionFilterProp="label"
+                                onChange={(_value, option) => {
+                                    if (Array.isArray(option)) {
+                                        return;
+                                    }
+                                    form.setFieldValue(
+                                        ['ozon', 'attributes', item.id.toString(), 'dictionary_value_id'],
+                                        option.dictId
+                                    );
+                                }}
+                                showSearch
+                            />
+                        )}
+                        {item.type === 'multiline' && <Select mode="tags" />}
+                        {item.type === 'Decimal' && <Input inputMode="decimal" />}
+                        {item.type === 'Integer' && <Input inputMode="numeric" />}
+                        {item.type === 'Boolean' && <Checkbox>{item.name}</Checkbox>}
+                        {item.type === 'String' && !options.length && <Input />}
+                        {item.type === 'URL' && <Input name="url" />}
+                    </>
+                )}
+            </Form.Item>
+            {!!options.length && item.name !== 'Бренд' && (
+                <Form.Item name={['ozon', 'attributes', item.id.toString(), 'dictionary_value_id']} hidden />
             )}
-        </Form.Item>
+        </>
     );
 });
 
