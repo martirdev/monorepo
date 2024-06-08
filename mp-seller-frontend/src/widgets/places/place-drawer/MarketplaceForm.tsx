@@ -4,9 +4,9 @@ import {memo} from 'react';
 import {FieldType, MarketplaceFormType} from './types';
 
 const TEXT_FOR_DROPDOWN = {
-    APIkey: `Перейдите в личный кабинет Ozon Seller. Нажмите "Сгенерировать ключ", впишите название, выберите "Администратор" и нажмите "Сгенерировать". Скопируйте ключ и вставьте в форму.`,
-    ClientId: 'Перейдите в личный кабинет Ozon Seller. Скопируйте Client ID и вставьте в форму.',
-    token: 'Перейдите по ссылке. Подтвердите вход и скопируйте токен в форму'
+    APIkey: `Перейдите в <a href="https://www.ozon.ru/ozonid" target="_blank" rel="noopener noreferrer">личный кабинет Ozon Seller</a>. Нажмите "Сгенерировать ключ", впишите название, выберите "Администратор" и нажмите "Сгенерировать". Скопируйте ключ и вставьте в форму.`,
+    ClientId: `Перейдите в <a href="https://www.ozon.ru/ozonid" target="_blank" rel="noopener noreferrer">личный кабинет Ozon Seller</a>. Скопируйте Client ID и вставьте в форму.`,
+    token: `Перейдите <a href="https://oauth.yandex.ru/" target="_blank" rel="noopener noreferrer">по ссылке</a>. Подтвердите вход и скопируйте токен в форму`
 };
 
 const MarketplaceForm = memo<MarketplaceFormType>(function MarketplaceForm({selectedMarketplace}) {
@@ -23,7 +23,7 @@ const MarketplaceForm = memo<MarketplaceFormType>(function MarketplaceForm({sele
                             {
                                 key: 'apiKey',
                                 label: 'Как получить токен?',
-                                children: <p>{TEXT_FOR_DROPDOWN.token}</p>
+                                children: <p dangerouslySetInnerHTML={{__html: TEXT_FOR_DROPDOWN.token}} />
                             }
                         ]}
                     />
@@ -45,7 +45,7 @@ const MarketplaceForm = memo<MarketplaceFormType>(function MarketplaceForm({sele
                             {
                                 key: 'APIkey',
                                 label: 'Как получить API key?',
-                                children: <p>{TEXT_FOR_DROPDOWN.APIkey}</p>
+                                children: <p dangerouslySetInnerHTML={{__html: TEXT_FOR_DROPDOWN.APIkey}} />
                             }
                         ]}
                     />
@@ -58,7 +58,7 @@ const MarketplaceForm = memo<MarketplaceFormType>(function MarketplaceForm({sele
                             {
                                 key: 'clientId',
                                 label: 'Как получить Client ID?',
-                                children: <p>{TEXT_FOR_DROPDOWN.ClientId}</p>
+                                children: <p dangerouslySetInnerHTML={{__html: TEXT_FOR_DROPDOWN.ClientId}} />
                             }
                         ]}
                     />
