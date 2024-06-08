@@ -16,7 +16,7 @@ export const PlaceSelect = ({type, onChange, ...rest}: PlaceSelectPropsType) => 
             acc.push(
                 ...key.places.map(place => ({
                     ...place,
-                    value: place.marketplaceKeyId,
+                    value: place.id,
                     label: place.name,
                     keyValue: key
                 }))

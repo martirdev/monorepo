@@ -59,20 +59,29 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
         return [{label: 'Общие ', value: 'common'}, ...convertedOptions];
     }, [selected, deleteMPOption]);
 
-    const formBySelectedService = useMemo(() => {
-        switch (selectedForm) {
-            case 'common':
-                return <GeneralInfoAboutProduct form={form} />;
-            case 'ym':
-                return <YMinfo />;
-            case 'ozon':
-                return <OzonInfo form={form} />;
-        }
-    }, [selectedForm, form]);
-
     const createProduct = data => {
-        console.log({data});
-        mutate();
+        const newData = {...data};
+        newData.ozon.attributes = Object.entries<any>(newData.ozon.attributes).reduce(
+            (acc, [id, {value, dictionary_value_id}]) => {
+                if (value) {
+                    acc.push({
+                        complex_id: 0,
+                        id: Number(id),
+                        values: [
+                            {
+                                dictionary_value_id,
+                                value
+                            }
+                        ]
+                    });
+                }
+
+                return acc;
+            },
+            []
+        );
+
+        mutate(data);
     };
 
     return (
@@ -99,7 +108,15 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
                     block
                 />
                 <Form autoComplete="off" form={form} onFinish={createProduct} layout="vertical">
-                    {formBySelectedService}
+                    <div hidden={selectedForm !== 'common'}>
+                        <GeneralInfoAboutProduct form={form} />
+                    </div>
+                    <div hidden={selectedForm !== 'ym'}>
+                        <YMinfo form={form} />
+                    </div>
+                    <div hidden={selectedForm !== 'ozon'}>
+                        <OzonInfo form={form} />
+                    </div>
                     <Button type="primary" htmlType="submit" loading={isLoading}>
                         Сохранить
                     </Button>

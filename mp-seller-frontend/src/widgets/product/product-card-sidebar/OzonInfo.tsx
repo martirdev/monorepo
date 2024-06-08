@@ -11,7 +11,8 @@ export type FieldType = {
     ozon: {
         place: string;
         category: number;
-        descriptionCategoryId: number;
+        description_category_id: number;
+        mpKeyId: string;
     };
 };
 
@@ -21,49 +22,51 @@ type OzonInfoPropsType = {
 
 const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
     const category = Form.useWatch(['ozon', 'category'], form);
-    const descriptionCategoryId = Form.useWatch(['ozon', 'descriptionCategoryId'], form);
-    const place = Form.useWatch(['ozon', 'place'], form);
+    const descriptionCategoryId = Form.useWatch(['ozon', 'description_category_id'], form);
+    const mpKeyId = Form.useWatch(['ozon', 'mpKeyId'], form);
 
     const {data = []} = trpc.getSettingsByCategory.useQuery(
         {
             categoryId: category?.toString(),
             descriptionCategoryId: descriptionCategoryId,
-            mpKeyId: place
+            mpKeyId: mpKeyId
         },
         {
-            enabled: !!category && !!descriptionCategoryId && !!place
+            enabled: !!category && !!descriptionCategoryId && !!mpKeyId
         }
     );
 
     return (
         <>
-            <Form.Item<FieldType>
-                label="Магазин"
-                name={['ozon', 'place']}
-                rules={[{required: true, message: 'Выберите магазин'}]}
-            >
-                <PlaceSelect type="ozon" onChange={value => form.setFieldValue(['ozon', 'place'], value)} />
+            <Form.Item<FieldType> label="Магазин" name={['ozon', 'place']} required>
+                <PlaceSelect
+                    type="ozon"
+                    onChange={(_value, option) => {
+                        if (Array.isArray(option)) {
+                            return;
+                        }
+                        form.setFieldValue(['ozon', 'mpKeyId'], option.marketplaceKeyId);
+                    }}
+                />
             </Form.Item>
 
-            <Form.Item<FieldType>
-                label="Категория"
-                name={['ozon', 'category']}
-                rules={[{required: true, message: 'Выберите категорию'}]}
-            >
+            <Form.Item<FieldType> name={['ozon', 'mpKeyId']} hidden />
+
+            <Form.Item<FieldType> label="Категория" name={['ozon', 'category']} required>
                 <CategorySelect
                     type="ozon"
                     onChange={(_value, option) => {
                         if (Array.isArray(option)) {
                             return;
                         }
-                        form.setFieldValue(['ozon', 'descriptionCategoryId'], option.category_id);
+                        form.setFieldValue(['ozon', 'description_category_id'], option.category_id);
                     }}
                     optionFilterProp="label"
                     showSearch
                 />
             </Form.Item>
 
-            <Form.Item<FieldType> name={['ozon', 'descriptionCategoryId']} hidden />
+            <Form.Item<FieldType> name={['ozon', 'description_category_id']} hidden />
 
             {!!data.length && data.map(item => <OzonField item={item} form={form} key={item.id} />)}
         </>

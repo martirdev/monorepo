@@ -11,6 +11,7 @@ export type FieldType = {
     ym: {
         place?: string;
         category?: string;
+        mpKeyId: string;
     };
 };
 
@@ -20,33 +21,33 @@ type YMInfoPropsType = {
 
 const YMinfo = memo(function YMinfo({form}: YMInfoPropsType) {
     const category = Form.useWatch(['ym', 'category'], form);
-    const place = Form.useWatch(['ym', 'place'], form);
+    const mpKeyId = Form.useWatch(['ym', 'mpKeyId'], form);
 
     const {data = []} = trpc.getSettingsByCategory.useQuery(
         {
             categoryId: category?.toString(),
-            mpKeyId: place
+            mpKeyId: mpKeyId
         },
         {
-            enabled: !!category && !!place
+            enabled: !!category && !!mpKeyId
         }
     );
 
     return (
         <>
-            <Form.Item<FieldType>
-                label="Магазин"
-                name={['ym', 'place']}
-                rules={[{required: true, message: 'Выберите магазин'}]}
-            >
-                <PlaceSelect type="ym" onChange={value => form.setFieldValue(['ym', 'place'], value)} />
+            <Form.Item<FieldType> label="Магазин" name={['ym', 'place']} required>
+                <PlaceSelect
+                    type="ym"
+                    onChange={(_value, option) => {
+                        if (Array.isArray(option)) {
+                            return;
+                        }
+                        form.setFieldValue(['ym', 'mpKeyId'], option.marketplaceKeyId);
+                    }}
+                />
             </Form.Item>
 
-            <Form.Item<FieldType>
-                label="Категория"
-                name={['ym', 'category']}
-                rules={[{required: true, message: 'Выберите категорию'}]}
-            >
+            <Form.Item<FieldType> label="Категория" name={['ym', 'category']} required>
                 <CategorySelect type="ym" showSearch optionFilterProp="label" />
             </Form.Item>
 

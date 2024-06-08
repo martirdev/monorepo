@@ -23,7 +23,7 @@ export const loadOzonSettingValues = async (
       attribute_id,
       description_category_id,
       last_value_id,
-      limit: 100,
+      limit: 5000,
       type_id,
     }),
     headers: {

@@ -7,32 +7,24 @@ import { prisma, procedure } from "../../shared/trpc";
 import { entries } from "../../shared/utils";
 
 const queryValidation = z.object({
-  markets: z.object({
-    ya: z
-      .intersection(z.object({ placeId: z.string() }), z.object({}))
-      .optional(),
-    ozon: z
-      .intersection(
-        z.object({ placeId: z.string() }),
-        createUpdateProductValidator
-      )
-      .optional(),
-  }),
+  ya: z.intersection(z.object({ place: z.string() }), z.object({})).optional(),
+  ozon: z
+    .intersection(z.object({ place: z.string() }), createUpdateProductValidator)
+    .optional(),
 });
 
 export const createProduct = procedure
   .input(queryValidation)
   .mutation(async ({ input }) => {
-    const placeIds = Object.values(input.markets).map(({ placeId }) => placeId);
-    const places = await prisma.marketplaceKey.findMany({
+    const placeIds = Object.values(input).map(({ place }) => place);
+    const places = await prisma.place.findMany({
       where: {
-        places: {
-          some: {
-            id: {
-              in: placeIds,
-            },
-          },
+        id: {
+          in: placeIds,
         },
+      },
+      include: {
+        MarketplaceKey: true,
       },
     });
     if (placeIds.length !== places.length) {
@@ -43,18 +35,25 @@ export const createProduct = procedure
     }
     const placesById = keyBy(places, "id");
 
-    entries(input.markets).map((item) => {
+    const promises = entries(input).map((item) => {
       const [marketKey, marketValues] = item;
-      const place = placesById[marketValues.placeId];
+      const placeKey = placesById[marketValues.place].MarketplaceKey;
+
+      if (!placeKey) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: `Place haven't keys, contact with admins`,
+        });
+      }
 
       switch (marketKey) {
         case "ya":
           return new Promise(() => {});
         case "ozon":
           return createUpdateProduct(
-            place.api_key,
-            place.client_id ?? "",
-            marketValues
+            placeKey.api_key,
+            placeKey.client_id ?? "",
+            { items: [marketValues] }
           );
         default:
           throw new TRPCError({
@@ -64,8 +63,12 @@ export const createProduct = procedure
       }
     });
 
+    const results = await Promise.all(promises);
+    console.log(results);
+
     return {
       status: "ok",
+      data: results,
       message: "Creation is started",
     };
   });
