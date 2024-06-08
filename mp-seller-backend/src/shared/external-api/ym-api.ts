@@ -19,11 +19,12 @@ export const loadSettingsByCategory = async (
   token: string,
   categoryId: string
 ) =>
-  axios.get<LoadCategorySettings>(
+  fetch(
     `https://api.partner.market.yandex.ru/category/${categoryId}/parameters`,
     {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }
-  );
+  ).then((res) => res.json<LoadCategorySettings>());
