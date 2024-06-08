@@ -1,5 +1,5 @@
 import {Select} from 'antd';
-import {DefaultOptionType} from 'antd/es/select';
+import {DefaultOptionType, SelectProps} from 'antd/es/select';
 
 import {trpc} from '_shared/api/trpc';
 
@@ -8,7 +8,7 @@ type PlaceSelectPropsType = {
     onChange?: (value: any, option: DefaultOptionType | DefaultOptionType[]) => void;
 };
 
-export const CategorySelect = ({type, onChange, ...rest}: PlaceSelectPropsType) => {
+export const CategorySelect = ({type, onChange, ...rest}: PlaceSelectPropsType & SelectProps) => {
     const {data = [], isLoading} = trpc.getMarketplaceCategories.useQuery(type);
 
     return (

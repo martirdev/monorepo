@@ -24,11 +24,16 @@ const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
     const descriptionCategoryId = Form.useWatch(['ozon', 'descriptionCategoryId'], form);
     const place = Form.useWatch(['ozon', 'place'], form);
 
-    const {data = []} = trpc.getSettingsByCategory.useQuery({
-        categoryId: category?.toString(),
-        descriptionCategoryId: descriptionCategoryId,
-        mpKeyId: place
-    });
+    const {data = []} = trpc.getSettingsByCategory.useQuery(
+        {
+            categoryId: category?.toString(),
+            descriptionCategoryId: descriptionCategoryId,
+            mpKeyId: place
+        },
+        {
+            enabled: !!category && !!descriptionCategoryId && !!place
+        }
+    );
 
     return (
         <>
@@ -53,6 +58,8 @@ const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
                         }
                         form.setFieldValue(['ozon', 'descriptionCategoryId'], option.category_id);
                     }}
+                    optionFilterProp="label"
+                    showSearch
                 />
             </Form.Item>
 

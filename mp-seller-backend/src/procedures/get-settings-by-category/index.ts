@@ -33,12 +33,16 @@ export const getSettingsByCategory = procedure
           mpKey.api_key,
           input.categoryId.toString()
         );
-        return settings.data.result[0].parameters.map((setting) => ({
+        return settings.result.parameters.map((setting) => ({
           id: setting.id,
           name: setting.name,
           description: setting.description,
           type: setting.type,
           is_required: !!setting.required,
+          options: setting.values?.map((value) => ({
+            label: value.value,
+            value: value.id,
+          })),
         }));
       case "ozon": {
         if (!input.descriptionCategoryId) {

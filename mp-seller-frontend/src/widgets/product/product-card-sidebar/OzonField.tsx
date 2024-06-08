@@ -1,5 +1,5 @@
 import {LoadingOutlined} from '@ant-design/icons';
-import {AutoComplete, Checkbox, Form, FormInstance, Input, Select} from 'antd';
+import {Checkbox, Form, FormInstance, Input, Select} from 'antd';
 import {memo} from 'react';
 
 import {trpc} from '_shared/api/trpc';

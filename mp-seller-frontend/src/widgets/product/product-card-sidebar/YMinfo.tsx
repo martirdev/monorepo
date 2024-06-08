@@ -1,55 +1,57 @@
-import {Button, Form, type FormProps, Select} from 'antd';
+import {Form, FormInstance} from 'antd';
 import {memo} from 'react';
 
-const {Option} = Select;
+import {CategorySelect} from '_features/selects/categories';
+import {PlaceSelect} from '_features/selects/places';
+import {trpc} from '_shared/api/trpc';
 
-type FieldType = {
-    places?: string;
-    category?: string;
+import YMField from './YMField';
+
+export type FieldType = {
+    ym: {
+        place?: string;
+        category?: string;
+    };
 };
 
-const onFinish: FormProps<FieldType>['onFinish'] = values => {
-    console.log('Success:', values);
+type YMInfoPropsType = {
+    form: FormInstance<FieldType>;
 };
 
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
-    console.log('Failed:', errorInfo);
-};
+const YMinfo = memo(function YMinfo({form}: YMInfoPropsType) {
+    const category = Form.useWatch(['ym', 'category'], form);
+    const place = Form.useWatch(['ym', 'place'], form);
 
-const YMinfo = memo(function YMinfo() {
+    const {data = []} = trpc.getSettingsByCategory.useQuery(
+        {
+            categoryId: category?.toString(),
+            mpKeyId: place
+        },
+        {
+            enabled: !!category && !!place
+        }
+    );
+
     return (
-        <Form
-            name="basic"
-            initialValues={{remember: true}}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-            autoComplete="off"
-        >
+        <>
             <Form.Item<FieldType>
-                label="Магазины ЯМ"
-                name="places"
-                rules={[{required: true, message: 'Пожалуйста, заполните магазины!'}]}
+                label="Магазин"
+                name={['ym', 'place']}
+                rules={[{required: true, message: 'Выберите магазин'}]}
             >
-                <Select placeholder="Выберите магазины ЯМ" allowClear>
-                    <Option value="1">ЛампаДА</Option>
-                    <Option value="2">Пифагор</Option>
-                    <Option value="other">Другое</Option>
-                </Select>
+                <PlaceSelect type="ym" onChange={value => form.setFieldValue(['ym', 'place'], value)} />
             </Form.Item>
 
             <Form.Item<FieldType>
-                label="Категория на ЯМ"
-                name="category"
-                rules={[{required: true, message: 'Пожалуйста, введите категории!'}]}
+                label="Категория"
+                name={['ym', 'category']}
+                rules={[{required: true, message: 'Выберите категорию'}]}
             >
-                <Select placeholder="Выберите категории на ЯМ" allowClear>
-                    <Option value="1">Электроника</Option>
-                    <Option value="2">Канцелярия</Option>
-                    <Option value="3">Бытовая техника</Option>
-                    <Option value="other">Другое</Option>
-                </Select>
+                <CategorySelect type="ym" showSearch optionFilterProp="label" />
             </Form.Item>
-        </Form>
+
+            {!!data.length && data.map(item => <YMField item={item} form={form} key={item.id} />)}
+        </>
     );
 });
 
