@@ -58,8 +58,8 @@ export const createProduct = procedure
       )?.business.id;
     }
 
-    const promises = entries(input).map((item) => {
-      const [marketKey, marketValues] = item;
+    const products = entries(input);
+    const promises = products.map(([marketKey, marketValues]) => {
       const placeKey = placesById[marketValues.place].MarketplaceKey;
 
       if (!placeKey) {
@@ -95,6 +95,13 @@ export const createProduct = procedure
     });
 
     const results = await Promise.all(promises);
+
+    await prisma.product.createMany({
+      data: products.map(([_marketPlace, marketValues]) => ({
+        data: marketValues,
+        place_id: marketValues.place,
+      })),
+    });
 
     return {
       status: "ok",
