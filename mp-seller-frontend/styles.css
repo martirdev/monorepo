@@ -20,7 +20,15 @@ body,
     height: 100%;
 }
 
+#root {
+    overflow: auto;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     overflow: hidden;
+}
+
+.demo.ant-menu-light.ant-menu-horizontal > .ant-menu-item:hover::after {
+    border-bottom: 2px solid #eb2f96;
 }
