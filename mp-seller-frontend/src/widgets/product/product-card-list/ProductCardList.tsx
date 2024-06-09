@@ -1,11 +1,12 @@
 import {PlusOutlined} from '@ant-design/icons';
-import {Button, Table, Tag} from 'antd';
+import {Button, Table, Tag, Tooltip} from 'antd';
 import {useForm, useWatch} from 'antd/es/form/Form';
 import {groupBy} from 'lodash';
 import {memo, useCallback, useState} from 'react';
 
 import {trpc} from '_shared/api/trpc';
 import {MarketplaceIcon} from '_shared/mp-logos';
+import {currency} from '_shared/utils/intl/numbers';
 import {BottomMenu} from '_widgets/bottom-menu';
 
 import ProductCardFilter from '../product-card-filter/ProductCardFilter';
@@ -26,15 +27,18 @@ const columns = [
         title: 'Маркетплейсы',
         dataIndex: 'marketPlaces',
         render: marketplaces => {
+            console.log(marketplaces);
             return (
                 <>
-                    {marketplaces.map(({place}) => (
-                        <Tag color="green">
-                            <div className="flex gap-1 p-1">
-                                <MarketplaceIcon type={place.mp_id ? 'ozon' : 'ym'} className="w-5" />
-                                <div>{place.name}</div>
-                            </div>
-                        </Tag>
+                    {marketplaces.map(({place, data}) => (
+                        <Tooltip title={currency.format(data?.price || data?.basicPrice?.value || 0)} key={place.id}>
+                            <Tag color="green">
+                                <div className="flex gap-1 p-1">
+                                    <MarketplaceIcon type={!place.mp_id ? 'ozon' : 'ym'} className="w-5" />
+                                    <div>{place.name}</div>
+                                </div>
+                            </Tag>
+                        </Tooltip>
                     ))}
                 </>
             );
@@ -47,8 +51,6 @@ const ProductCardList = memo(function ProductCardTable() {
 
     const marketplaceTypes = useWatch('marketplaceTypes', form);
     const places = useWatch('places', form);
-
-    console.log(places);
 
     const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
     const [openAddNewProductDrawer, setOpenAddNewProductDrawer] = useState(false);

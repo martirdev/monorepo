@@ -48,7 +48,7 @@ export type YMFieldsType = {
         category: number;
         categoryName: string;
         mpKeyId: string;
-        attribute: Record<string, {value: string; valueId?: number}>;
+        attributes: Record<string, {value: string; valueId?: number}>;
     };
 };
 
@@ -61,4 +61,10 @@ export type OzonParamsRequest = {
             value: string;
         }
     ];
+}[];
+
+export type YMParamsRequest = {
+    parameterId: number;
+    valueId: number;
+    value: string;
 }[];

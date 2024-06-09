@@ -17,12 +17,12 @@ export const getProducts = procedure
                 OR: [
                   {
                     mp_id: {
-                      isSet: input.type.includes("ozon"),
+                      isSet: !input.type.includes("ozon"),
                     },
                   },
                   {
                     mp_id: {
-                      isSet: !input.type.includes("ym"),
+                      isSet: input.type.includes("ym"),
                     },
                   },
                 ],

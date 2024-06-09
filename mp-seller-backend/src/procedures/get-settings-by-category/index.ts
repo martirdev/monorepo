@@ -33,6 +33,7 @@ export const getSettingsByCategory = procedure
           mpKey.api_key,
           input.categoryId.toString()
         );
+        console.log(settings);
         return settings.result.parameters.map((setting) => ({
           id: setting.id,
           name: setting.name,
@@ -41,7 +42,8 @@ export const getSettingsByCategory = procedure
           is_required: !!setting.required,
           options: setting.values?.map((value) => ({
             label: value.value,
-            value: value.id,
+            value: value.value,
+            valueId: value.id,
           })),
         }));
       case "ozon": {

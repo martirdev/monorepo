@@ -8,7 +8,7 @@ type YMFieldPropsType = {
     form: FormInstance<YMFieldsType>;
 };
 
-const YMField = memo<YMFieldPropsType>(function YMField({item}) {
+const YMField = memo<YMFieldPropsType>(function YMField({item, form}) {
     const selectMode = useMemo(() => {
         if (item.multivalue && item.allowCustomValues) {
             return 'tags';
@@ -19,16 +19,28 @@ const YMField = memo<YMFieldPropsType>(function YMField({item}) {
         return undefined;
     }, [item.multivalue, item.allowCustomValues]);
 
+    console.log(item.options);
     return (
         <>
             <Form.Item
                 label={item.type === 'BOOLEAN' ? undefined : item.name}
-                name={['ym', 'attribute', item.id.toString(), 'value']}
+                name={['ym', 'attributes', item.id.toString(), 'value']}
                 required={item.is_required}
                 tooltip={item.description}
             >
                 {item.type === 'ENUM' && (
-                    <Select options={item.options} optionFilterProp="label" mode={selectMode} showSearch />
+                    <Select
+                        options={item.options}
+                        optionFilterProp="label"
+                        mode={selectMode}
+                        onChange={(_, option) => {
+                            if (Array.isArray(option)) {
+                                return;
+                            }
+                            form.setFieldValue(['ym', 'attributes', item.id.toString(), 'valueId'], option.valueId);
+                        }}
+                        showSearch
+                    />
                 )}
                 {item.type === 'NUMERIC' && <Input inputMode="numeric" />}
                 {item.type === 'BOOLEAN' && <Checkbox>{item.name}</Checkbox>}
