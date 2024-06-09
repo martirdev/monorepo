@@ -39,7 +39,7 @@ export const createUpdateYMProduct = async (
   data: CreateUpdateYMProduct
 ) =>
   fetch(
-    `https://api.partner.market.yandex.ru/businesses/99865396/offer-mappings/update`,
+    `https://api.partner.market.yandex.ru/businesses/${businessId}/offer-mappings/update`,
     {
       method: "POST",
       headers: {

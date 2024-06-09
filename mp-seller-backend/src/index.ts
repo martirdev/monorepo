@@ -12,5 +12,5 @@ const app = new Elysia()
   .listen(8080);
 
 console.log(
-  `mp-seller-backedn is running at http://${app.server?.hostname}:${app.server?.port}`
+  `mp-seller-backend is running at http://${app.server?.hostname}:${app.server?.port}`
 );

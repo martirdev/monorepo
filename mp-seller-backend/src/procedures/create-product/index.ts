@@ -48,6 +48,16 @@ export const createProduct = procedure
     }
     const placesById = keyBy(places, "id");
 
+    const ymPlace = placesById[input.ym?.place ?? ""];
+    const apiKey = ymPlace?.MarketplaceKey?.api_key;
+    let businessId: string | undefined;
+    if (apiKey && ymPlace) {
+      const { data } = await loadPlacesFromYM(apiKey);
+      businessId = data.campaigns.find(
+        (campaign) => ymPlace.mp_id === campaign.id.toString()
+      )?.business.id;
+    }
+
     const promises = entries(input).map((item) => {
       const [marketKey, marketValues] = item;
       const placeKey = placesById[marketValues.place].MarketplaceKey;
@@ -61,10 +71,13 @@ export const createProduct = procedure
 
       switch (marketKey) {
         case "ym":
-          console.log({
-            marketValues,
-          });
-          return createUpdateYMProduct(placeKey.api_key, placeKey.id, {
+          if (!businessId) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: `Can't find businessId for place: ${marketValues.place}`,
+            });
+          }
+          return createUpdateYMProduct(placeKey.api_key, businessId, {
             offerMappings: [{ offer: marketValues }],
           });
         case "ozon":
