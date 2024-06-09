@@ -1,5 +1,5 @@
 import {CloseOutlined} from '@ant-design/icons';
-import {Button, Drawer, Dropdown, Form, Segmented, Space} from 'antd';
+import {Button, Drawer, Dropdown, Form, Segmented, Space, notification} from 'antd';
 import {memo, useCallback, useMemo, useState} from 'react';
 
 import {trpc} from '_shared/api/trpc';
@@ -7,7 +7,7 @@ import {trpc} from '_shared/api/trpc';
 import GeneralInfoAboutProduct from './GeneralInfo';
 import OzonInfo from './OzonInfo';
 import YMinfo from './YMinfo';
-import {AddNewProductSidebarType, GeneralFieldsType, OzonParamsRequest} from './types';
+import {AddNewProductSidebarType, GeneralFieldsType, OzonParamsRequest, YMParamsRequest} from './types';
 
 const MP_SERVICES = {
     ym: 'Яндекс.Маркет',
@@ -16,6 +16,7 @@ const MP_SERVICES = {
 const MP_SERVICES_OPTIONS = Object.entries(MP_SERVICES).map(([key, label]) => ({key, label}));
 
 const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProductSidebar({onClose, open}) {
+    const [api, contextHolder] = notification.useNotification();
     const [form] = Form.useForm();
     const {mutate, isLoading} = trpc.createProduct.useMutation();
     const [selected, setSelected] = useState<Record<string, boolean>>({});
@@ -79,7 +80,21 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
                     weight: data.weight
                 },
                 tags: data.tags,
-                parameterValues: [],
+                parameterValues: Object.entries(data.ym.attributes).reduce<YMParamsRequest>(
+                    (acc, [id, {value, valueId, ...q}]) => {
+                        console.log(q, valueId, value);
+                        if (value) {
+                            acc.push({
+                                parameterId: Number(id),
+                                valueId: valueId,
+                                value: value
+                            });
+                        }
+
+                        return acc;
+                    },
+                    []
+                ),
                 basicPrice: {
                     value: Number(data.price),
                     currencyId: data.currency_code === 'RUB' ? ('RUR' as const) : data.currency_code,
@@ -132,48 +147,55 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
                 : undefined
         };
 
+        api.success({
+            message: 'Товары скоро будут добавлены на площадки'
+        });
         mutate(newData);
+        onClose();
     };
 
     return (
-        <Drawer
-            title="Создание товара"
-            onClose={onClose}
-            open={open}
-            width={520}
-            extra={
-                <Dropdown
-                    menu={{items: itemsWithSelect}}
-                    placement="bottomRight"
-                    disabled={MP_SERVICES_OPTIONS.length === Object.keys(selected).length}
-                >
-                    <Button>Добавить МП</Button>
-                </Dropdown>
-            }
-        >
-            <div className="flex flex-col gap-4">
-                <Segmented
-                    options={segmentedOptions}
-                    onChange={value => setSelectedFormOption(value.toString())}
-                    value={selectedForm}
-                    block
-                />
-                <Form autoComplete="off" form={form} onFinish={createProduct} layout="vertical">
-                    <div hidden={selectedForm !== 'common'}>
-                        <GeneralInfoAboutProduct form={form} />
-                    </div>
-                    <div hidden={selectedForm !== 'ym'}>
-                        <YMinfo form={form} />
-                    </div>
-                    <div hidden={selectedForm !== 'ozon'}>
-                        <OzonInfo form={form} />
-                    </div>
-                    <Button type="primary" htmlType="submit" loading={isLoading}>
-                        Сохранить
-                    </Button>
-                </Form>
-            </div>
-        </Drawer>
+        <>
+            {contextHolder}
+            <Drawer
+                title="Создание товара"
+                onClose={onClose}
+                open={open}
+                width={520}
+                extra={
+                    <Dropdown
+                        menu={{items: itemsWithSelect}}
+                        placement="bottomRight"
+                        disabled={MP_SERVICES_OPTIONS.length === Object.keys(selected).length}
+                    >
+                        <Button>Добавить МП</Button>
+                    </Dropdown>
+                }
+            >
+                <div className="flex flex-col gap-4">
+                    <Segmented
+                        options={segmentedOptions}
+                        onChange={value => setSelectedFormOption(value.toString())}
+                        value={selectedForm}
+                        block
+                    />
+                    <Form autoComplete="off" form={form} onFinish={createProduct} layout="vertical">
+                        <div hidden={selectedForm !== 'common'}>
+                            <GeneralInfoAboutProduct form={form} />
+                        </div>
+                        <div hidden={selectedForm !== 'ym'}>
+                            <YMinfo form={form} />
+                        </div>
+                        <div hidden={selectedForm !== 'ozon'}>
+                            <OzonInfo form={form} />
+                        </div>
+                        <Button type="primary" htmlType="submit" loading={isLoading}>
+                            Сохранить
+                        </Button>
+                    </Form>
+                </div>
+            </Drawer>
+        </>
     );
 });
 
