@@ -29,7 +29,7 @@ export const getProducts = procedure
               },
             }
           : {}),
-        ...(input.place_id
+        ...(input.place_id?.length
           ? {
               place_id: {
                 in: input.place_id,
