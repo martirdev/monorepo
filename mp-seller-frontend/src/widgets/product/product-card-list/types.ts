@@ -12,5 +12,5 @@ export type ProductType = {
 
     articule: string;
     name: string;
-    marketplaces: Array<MarketplaceInfoType>;
+    marketPlaces: Array<MarketplaceInfoType>;
 };

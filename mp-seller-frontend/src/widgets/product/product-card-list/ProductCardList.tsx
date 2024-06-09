@@ -1,23 +1,20 @@
 import {PlusOutlined} from '@ant-design/icons';
-import type {GetProp} from 'antd';
-import {Button, Checkbox, Table, Tag, Tooltip} from 'antd';
-import type {ColumnsType} from 'antd/es/table';
+import {Button, Table, Tag} from 'antd';
+import {useForm, useWatch} from 'antd/es/form/Form';
+import {groupBy} from 'lodash';
 import {memo, useCallback, useState} from 'react';
 
+import {trpc} from '_shared/api/trpc';
 import {MarketplaceIcon} from '_shared/mp-logos';
-import {currency} from '_shared/utils/intl/numbers';
 import {BottomMenu} from '_widgets/bottom-menu';
 
 import ProductCardFilter from '../product-card-filter/ProductCardFilter';
 import AddNewProductSidebar from '../product-card-sidebar/AddNewProduct';
-import {TEMPOPARY_MOCK_PRODUCTS} from './temporaryConsts';
-import {ProductType} from './types';
 
-const columns: ColumnsType<ProductType> = [
+const columns = [
     {
         title: 'Артикул',
-        dataIndex: 'articule',
-        key: 'articule',
+        dataIndex: 'id',
         defaultSortOrder: 'descend',
         sorter: (a, b) => Number(a.articule) - Number(b.articule)
     },
@@ -27,32 +24,32 @@ const columns: ColumnsType<ProductType> = [
     },
     {
         title: 'Маркетплейсы',
-        key: 'marketplaces',
-        dataIndex: 'marketplaces',
-        render: (_, {marketplaces}) => (
-            <>
-                {marketplaces.map(marketplace => {
-                    return (
-                        <Tooltip title={currency.format(marketplace.price)} key={marketplace.id}>
-                            <Tag color={marketplace.isSynchronized ? 'green' : 'red'}>
-                                <div className="flex gap-1 p-1">
-                                    <MarketplaceIcon type={marketplace.type} className="w-5" />
-                                    <div>{marketplace.name}</div>
-                                </div>
-                            </Tag>
-                        </Tooltip>
-                    );
-                })}
-            </>
-        )
+        dataIndex: 'marketPlaces',
+        render: marketplaces => {
+            return (
+                <>
+                    {marketplaces.map(({place}) => (
+                        <Tag color="green">
+                            <div className="flex gap-1 p-1">
+                                <MarketplaceIcon type={place.mp_id ? 'ozon' : 'ym'} className="w-5" />
+                                <div>{place.name}</div>
+                            </div>
+                        </Tag>
+                    ))}
+                </>
+            );
+        }
     }
 ];
 
-const onChange: GetProp<typeof Checkbox.Group, 'onChange'> = checkedValues => {
-    console.log('checked = ', checkedValues);
-};
-
 const ProductCardList = memo(function ProductCardTable() {
+    const [form] = useForm();
+
+    const marketplaceTypes = useWatch('marketplaceTypes', form);
+    const places = useWatch('places', form);
+
+    console.log(places);
+
     const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
     const [openAddNewProductDrawer, setOpenAddNewProductDrawer] = useState(false);
 
@@ -66,7 +63,6 @@ const ProductCardList = memo(function ProductCardTable() {
 
     const onSelectChange = useCallback(
         (newSelectedRowKeys: string[]) => {
-            console.log('selectedRowKeys changed: ', newSelectedRowKeys);
             setSelectedRowKeys(newSelectedRowKeys);
         },
         [setSelectedRowKeys]
@@ -80,6 +76,27 @@ const ProductCardList = memo(function ProductCardTable() {
     const resetSelection = useCallback(() => {
         setSelectedRowKeys([]);
     }, [setSelectedRowKeys]);
+
+    console.log({marketplaceTypes});
+    const {data = []} = trpc.getProducts.useQuery({
+        type: marketplaceTypes,
+        place_id: places
+    });
+    const groupedProducts = groupBy(data, x => {
+        const productData = x.data as any;
+        if ('offer_id' in productData) {
+            return productData.offer_id;
+        }
+        if ('offerId' in productData) {
+            return productData.offerId;
+        }
+        return;
+    });
+    const convertedValues = Object.entries(groupedProducts).map(([id, values]) => ({
+        marketPlaces: values,
+        id,
+        name: (values[0].data as any)?.name
+    }));
 
     return (
         <div className="flex flex-1 flex-col gap-1">
@@ -96,11 +113,13 @@ const ProductCardList = memo(function ProductCardTable() {
             </div>
             <AddNewProductSidebar onClose={onClose} open={openAddNewProductDrawer} />
             <div className="mt-2 flex justify-between gap-16">
-                <ProductCardFilter onChange={onChange} />
+                <div className="min-w-[300px] flex-[0]">
+                    <ProductCardFilter form={form} />
+                </div>
 
                 <Table
-                    columns={columns}
-                    dataSource={TEMPOPARY_MOCK_PRODUCTS}
+                    columns={columns as any}
+                    dataSource={convertedValues}
                     rowSelection={rowSelection}
                     className="flex-1"
                 />

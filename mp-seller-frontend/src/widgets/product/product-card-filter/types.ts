@@ -1,3 +1,5 @@
+import {SelectProps} from 'antd';
+
 import {ProductType} from '../product-card-list/types';
 
 export type Range = {

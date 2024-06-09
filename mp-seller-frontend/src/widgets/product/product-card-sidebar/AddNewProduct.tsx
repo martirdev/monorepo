@@ -88,6 +88,7 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
             },
             ozon: data.ozon.attributes
                 ? {
+                      ...data.ozon,
                       barcode: data.barcode,
                       color_image: data.color_image,
                       currency_code: data.currency_code,
