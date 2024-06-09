@@ -11,8 +11,8 @@ const columns: ColumnsType<KeyForMarketplaceType> = [
         title: '',
         dataIndex: 'type',
         key: 'type',
-        render: (_, {type}) => <MarketplaceIcon type={type} />,
-        width: '1%'
+        render: type => <MarketplaceIcon type={type} />,
+        width: '60px'
     },
     {
         title: 'Ключ',
