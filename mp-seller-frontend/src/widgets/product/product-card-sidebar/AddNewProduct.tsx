@@ -15,10 +15,23 @@ const MP_SERVICES = {
 };
 const MP_SERVICES_OPTIONS = Object.entries(MP_SERVICES).map(([key, label]) => ({key, label}));
 
-const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProductSidebar({onClose, open}) {
+const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProductSidebar({onClose, onCreate, open}) {
     const [api, contextHolder] = notification.useNotification();
     const [form] = Form.useForm();
-    const {mutate, isLoading} = trpc.createProduct.useMutation();
+    const {mutate, isLoading} = trpc.createProduct.useMutation({
+        onSuccess: () => {
+            api.success({
+                message: 'Товары скоро будут добавлены на площадки'
+            });
+            onClose();
+            onCreate();
+        },
+        onError: () => {
+            api.error({
+                message: 'Ошибка создания товара'
+            });
+        }
+    });
     const [selected, setSelected] = useState<Record<string, boolean>>({});
     const [selectedForm, setSelectedFormOption] = useState('common');
 
@@ -62,45 +75,47 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
     const createProduct = (data: GeneralFieldsType) => {
         const newData = {
             ...data,
-            ym: {
-                place: data.ym.place,
-                offerId: data.offer_id,
-                name: data.name,
-                category: data.ym.categoryName,
-                marketCategoryId: data.ym.category,
-                pictures: data.images,
-                barcodes: data.barcode ? [data.barcode] : undefined,
-                vendor: data.vendor,
-                description: data.description,
-                manufacturerCountries: data.geo_names,
-                weightDimensions: {
-                    length: data.depth,
-                    width: data.width,
-                    height: data.height,
-                    weight: data.weight
-                },
-                tags: data.tags,
-                parameterValues: Object.entries(data.ym.attributes).reduce<YMParamsRequest>(
-                    (acc, [id, {value, valueId, ...q}]) => {
-                        console.log(q, valueId, value);
-                        if (value) {
-                            acc.push({
-                                parameterId: Number(id),
-                                valueId: valueId,
-                                value: value
-                            });
-                        }
+            ym: data.ym.attributes
+                ? {
+                      place: data.ym.place,
+                      offerId: data.offer_id,
+                      name: data.name,
+                      category: data.ym.categoryName,
+                      marketCategoryId: data.ym.category,
+                      pictures: data.images,
+                      barcodes: data.barcode ? [data.barcode] : undefined,
+                      vendor: data.vendor,
+                      description: data.description,
+                      manufacturerCountries: data.geo_names,
+                      weightDimensions: {
+                          length: data.depth,
+                          width: data.width,
+                          height: data.height,
+                          weight: data.weight
+                      },
+                      tags: data.tags,
+                      parameterValues: Object.entries(data.ym.attributes).reduce<YMParamsRequest>(
+                          (acc, [id, {value, valueId, ...q}]) => {
+                              console.log(q, valueId, value);
+                              if (value) {
+                                  acc.push({
+                                      parameterId: Number(id),
+                                      valueId: valueId,
+                                      value: value
+                                  });
+                              }
 
-                        return acc;
-                    },
-                    []
-                ),
-                basicPrice: {
-                    value: Number(data.price),
-                    currencyId: data.currency_code === 'RUB' ? ('RUR' as const) : data.currency_code,
-                    discountBase: data.old_price ? Number(data.old_price) : undefined
-                }
-            },
+                              return acc;
+                          },
+                          []
+                      ),
+                      basicPrice: {
+                          value: Number(data.price),
+                          currencyId: data.currency_code === 'RUB' ? ('RUR' as const) : data.currency_code,
+                          discountBase: data.old_price ? Number(data.old_price) : undefined
+                      }
+                  }
+                : undefined,
             ozon: data.ozon.attributes
                 ? {
                       ...data.ozon,
@@ -147,11 +162,7 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
                 : undefined
         };
 
-        api.success({
-            message: 'Товары скоро будут добавлены на площадки'
-        });
         mutate(newData);
-        onClose();
     };
 
     return (

@@ -27,7 +27,6 @@ const columns = [
         title: 'Маркетплейсы',
         dataIndex: 'marketPlaces',
         render: marketplaces => {
-            console.log(marketplaces);
             return (
                 <>
                     {marketplaces.map(({place, data}) => (
@@ -79,8 +78,7 @@ const ProductCardList = memo(function ProductCardTable() {
         setSelectedRowKeys([]);
     }, [setSelectedRowKeys]);
 
-    console.log({marketplaceTypes});
-    const {data = []} = trpc.getProducts.useQuery({
+    const {data = [], refetch} = trpc.getProducts.useQuery({
         type: marketplaceTypes,
         place_id: places
     });
@@ -113,7 +111,7 @@ const ProductCardList = memo(function ProductCardTable() {
                     Добавить товар
                 </Button>
             </div>
-            <AddNewProductSidebar onClose={onClose} open={openAddNewProductDrawer} />
+            <AddNewProductSidebar onClose={onClose} open={openAddNewProductDrawer} onCreate={refetch} />
             <div className="mt-2 flex justify-between gap-16">
                 <div className="min-w-[300px] flex-[0]">
                     <ProductCardFilter form={form} />
