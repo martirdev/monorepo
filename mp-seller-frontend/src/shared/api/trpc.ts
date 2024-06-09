@@ -13,7 +13,7 @@ export const useTRPc = () => {
         trpc.createClient({
             links: [
                 httpBatchLink({
-                    url: 'https://bbatf99v5j97cquip08b.containers.yandexcloud.net/trpc'
+                    url: 'https://bba72hidpoe25c59h6h3.containers.yandexcloud.net/trpc'
                 })
             ],
             transformer: undefined
