@@ -38,7 +38,6 @@ const PlacesList = memo<PlacesListType>(function PlacesList({placesDataSource}) 
 
     const onSelectChange = useCallback(
         (newSelectedRowKeys: string[]) => {
-            console.log('selectedRowKeys changed: ', newSelectedRowKeys);
             setSelectedRowKeys(newSelectedRowKeys);
         },
         [setSelectedRowKeys]

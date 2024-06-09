@@ -59,7 +59,6 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
     }, [selected, deleteMPOption]);
 
     const createProduct = (data: GeneralFieldsType) => {
-        console.log(data);
         const newData = {
             ...data,
             ym: {
@@ -132,7 +131,6 @@ const AddNewProductSidebar = memo<AddNewProductSidebarType>(function AddNewProdu
                 : undefined
         };
 
-        console.log(newData);
         mutate(newData);
     };
 
