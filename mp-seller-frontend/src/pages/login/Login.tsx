@@ -6,7 +6,7 @@ import {useNavigate} from 'react-router-dom';
 import LoginImage from './login_page.png';
 
 const LOGIN_CREDENTIALS = {
-    username: 'admin',
+    username: 'ad.ersh',
     password: 'password123'
 };
 
@@ -36,8 +36,8 @@ const Login = () => {
 
     const login = isLogged => {
         if (isLogged) {
-            navigate('/');
-        } else navigate('/places');
+            navigate('/places');
+        } else navigate('/demo');
     };
 
     return (

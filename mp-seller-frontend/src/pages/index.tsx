@@ -1,6 +1,7 @@
 import {RouterProvider, createBrowserRouter} from 'react-router-dom';
 
 import ClientRoot from './client-root';
+import DemoPage from './demo/DemoPage';
 import Login from './login';
 import Places from './places';
 import ProductCardTable from './product-card-table';
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
     {
         path: '/auth',
         element: <Login />
+    },
+    {
+        path: '/demo',
+        element: <DemoPage />
     }
 ]);
 
