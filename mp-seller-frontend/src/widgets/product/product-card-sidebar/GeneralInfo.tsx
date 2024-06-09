@@ -1,30 +1,8 @@
 import {ColorPicker, Form, FormInstance, Input, InputNumber, Select} from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 import {memo} from 'react';
 
-type FieldType = {
-    ozon: {
-        barcode?: string;
-        color_image?: string;
-        currency_code: string;
-        depth?: number;
-        dimension_unit?: string;
-        geo_names?: string[];
-        height?: number;
-        image_group_id?: string;
-        images?: string[];
-        images360?: string[];
-        name?: string;
-        offer_id?: string;
-        old_price?: string;
-        price?: string;
-        primary_image?: string;
-        service_type?: string;
-        vat?: string;
-        weight?: number;
-        weight_unit?: string;
-        width?: number;
-    };
-};
+import {GeneralFieldsType} from './types';
 
 type GeneralInfoAboutProductPropsType = {
     form: FormInstance;
@@ -39,64 +17,73 @@ const WEIGHT_UNITS = ['g', 'kg', 'lb'].map(item => ({label: item, value: item}))
 const GeneralInfoAboutProduct = memo<GeneralInfoAboutProductPropsType>(function AddNewProductSidebar({form: _form}) {
     return (
         <>
-            <Form.Item<FieldType> name={['ozon', 'barcode']} label="Баркод">
+            <Form.Item<GeneralFieldsType> name="barcode" label="Баркод">
                 <Input />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'currency_code']} label="Валюта" required>
+            <Form.Item<GeneralFieldsType> name="currency_code" label="Валюта" required>
                 <Select options={CURRENCY_CODES} />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'name']} label="Название" required>
+            <Form.Item<GeneralFieldsType> name="name" label="Название" required>
                 <Input />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'price']} label="Цена" required>
+            <Form.Item<GeneralFieldsType> name="description" label="Описание" required>
+                <TextArea autoSize={{minRows: 3, maxRows: 5}} />
+            </Form.Item>
+            <Form.Item<GeneralFieldsType> name="vendor" label="Бренд" required>
                 <Input />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'old_price']} label="Старая цена">
+            <Form.Item<GeneralFieldsType> name="tags" label="Теги">
+                <Select mode="tags" />
+            </Form.Item>
+            <Form.Item<GeneralFieldsType> name="price" label="Цена" required>
                 <Input />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'vat']} label="Коммисия" required>
+            <Form.Item<GeneralFieldsType> name="old_price" label="Старая цена">
+                <Input />
+            </Form.Item>
+            <Form.Item<GeneralFieldsType> name="vat" label="Коммисия" required>
                 <Select options={VAT} />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'offer_id']} label="Артикул" required>
+            <Form.Item<GeneralFieldsType> name="offer_id" label="Артикул" required>
                 <Input />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'image_group_id']} label="ID Группы изображении">
+            <Form.Item<GeneralFieldsType> name="image_group_id" label="ID Группы изображении">
                 <Input />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'color_image']} label="Цвет изображений">
+            <Form.Item<GeneralFieldsType> name="color_image" label="Цвет изображений">
                 <ColorPicker format="hex" showText />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'primary_image']} label="Основное изображение">
+            <Form.Item<GeneralFieldsType> name="primary_image" label="Основное изображение">
                 <Input />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'images']} label="Изображения" required>
+            <Form.Item<GeneralFieldsType> name="images" label="Изображения" required>
                 <Select mode="tags" />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'images360']} label="Изображения 360">
+            <Form.Item<GeneralFieldsType> name="images360" label="Изображения 360">
                 <Select mode="tags" />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'dimension_unit']} label="Единицы размеров">
+            <Form.Item<GeneralFieldsType> name="dimension_unit" label="Единицы размеров" required>
                 <Select options={DIMMENCIONS} />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'width']} label="Ширина">
+            <Form.Item<GeneralFieldsType> name="width" label="Ширина" required>
                 <InputNumber />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'height']} label="Высота">
+            <Form.Item<GeneralFieldsType> name="height" label="Высота" required>
                 <InputNumber />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'depth']} label="Глубина">
+            <Form.Item<GeneralFieldsType> name="depth" label="Глубина" required>
                 <InputNumber />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'weight_unit']} label="Единицы веса">
+            <Form.Item<GeneralFieldsType> name="weight_unit" label="Единицы веса" required>
                 <Select options={WEIGHT_UNITS} />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'weight']} label="Вес">
+            <Form.Item<GeneralFieldsType> name="weight" label="Вес" required>
                 <InputNumber />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'geo_names']} label="Гео">
+            <Form.Item<GeneralFieldsType> name="geo_names" label="Гео">
                 <Select mode="tags" />
             </Form.Item>
-            <Form.Item<FieldType> name={['ozon', 'service_type']} label="Тип сервиса">
+            <Form.Item<GeneralFieldsType> name="service_type" label="Тип сервиса">
                 <Select options={SERVICE_CODE} />
             </Form.Item>
         </>

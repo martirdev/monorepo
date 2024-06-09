@@ -6,18 +6,10 @@ import {PlaceSelect} from '_features/selects/places';
 import {trpc} from '_shared/api/trpc';
 
 import OzonField from './OzonField';
-
-export type FieldType = {
-    ozon: {
-        place: string;
-        category: number;
-        description_category_id: number;
-        mpKeyId: string;
-    };
-};
+import {OzonFieldsType} from './types';
 
 type OzonInfoPropsType = {
-    form: FormInstance<FieldType>;
+    form: FormInstance<OzonFieldsType>;
 };
 
 const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
@@ -38,7 +30,7 @@ const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
 
     return (
         <>
-            <Form.Item<FieldType> label="Магазин" name={['ozon', 'place']} required>
+            <Form.Item<OzonFieldsType> label="Магазин" name={['ozon', 'place']} required>
                 <PlaceSelect
                     type="ozon"
                     onChange={(_value, option) => {
@@ -50,9 +42,9 @@ const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
                 />
             </Form.Item>
 
-            <Form.Item<FieldType> name={['ozon', 'mpKeyId']} hidden />
+            <Form.Item<OzonFieldsType> name={['ozon', 'mpKeyId']} hidden />
 
-            <Form.Item<FieldType> label="Категория" name={['ozon', 'category']} required>
+            <Form.Item<OzonFieldsType> label="Категория" name={['ozon', 'category']} required>
                 <CategorySelect
                     type="ozon"
                     onChange={(_value, option) => {
@@ -66,7 +58,7 @@ const OzonInfo = memo<OzonInfoPropsType>(function OzonInfo({form}) {
                 />
             </Form.Item>
 
-            <Form.Item<FieldType> name={['ozon', 'description_category_id']} hidden />
+            <Form.Item<OzonFieldsType> name={['ozon', 'description_category_id']} hidden />
 
             {!!data.length && data.map(item => <OzonField item={item} form={form} key={item.id} />)}
         </>

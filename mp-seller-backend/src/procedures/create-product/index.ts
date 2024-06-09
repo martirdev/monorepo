@@ -1,15 +1,28 @@
 import { TRPCError } from "@trpc/server";
 import { keyBy } from "lodash";
 import { z } from "zod";
-import { createUpdateProduct } from "../../shared/external-api";
-import { createUpdateProductValidator } from "../../shared/external-api/ozon-types";
+import {
+  createUpdateOzonProduct,
+  createUpdateYMProduct,
+  loadPlacesFromYM,
+} from "../../shared/external-api";
+import { createOzonUpdateProductValidator } from "../../shared/external-api/ozon-types";
 import { prisma, procedure } from "../../shared/trpc";
 import { entries } from "../../shared/utils";
+import { createYMUpdateProductValidator } from "../../shared/external-api/ym-types";
 
 const queryValidation = z.object({
-  ya: z.intersection(z.object({ place: z.string() }), z.object({})).optional(),
+  ym: z
+    .intersection(
+      z.object({ place: z.string() }),
+      createYMUpdateProductValidator
+    )
+    .optional(),
   ozon: z
-    .intersection(z.object({ place: z.string() }), createUpdateProductValidator)
+    .intersection(
+      z.object({ place: z.string() }),
+      createOzonUpdateProductValidator
+    )
     .optional(),
 });
 
@@ -47,10 +60,15 @@ export const createProduct = procedure
       }
 
       switch (marketKey) {
-        case "ya":
-          return new Promise(() => {});
+        case "ym":
+          console.log({
+            marketValues,
+          });
+          return createUpdateYMProduct(placeKey.api_key, placeKey.id, {
+            offerMappings: [{ offer: marketValues }],
+          });
         case "ozon":
-          return createUpdateProduct(
+          return createUpdateOzonProduct(
             placeKey.api_key,
             placeKey.client_id ?? "",
             { items: [marketValues] }
@@ -64,7 +82,6 @@ export const createProduct = procedure
     });
 
     const results = await Promise.all(promises);
-    console.log(results);
 
     return {
       status: "ok",

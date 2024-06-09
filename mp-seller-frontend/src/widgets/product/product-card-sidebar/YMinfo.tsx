@@ -6,17 +6,10 @@ import {PlaceSelect} from '_features/selects/places';
 import {trpc} from '_shared/api/trpc';
 
 import YMField from './YMField';
-
-export type FieldType = {
-    ym: {
-        place?: string;
-        category?: string;
-        mpKeyId: string;
-    };
-};
+import {YMFieldsType} from './types';
 
 type YMInfoPropsType = {
-    form: FormInstance<FieldType>;
+    form: FormInstance<YMFieldsType>;
 };
 
 const YMinfo = memo(function YMinfo({form}: YMInfoPropsType) {
@@ -35,7 +28,7 @@ const YMinfo = memo(function YMinfo({form}: YMInfoPropsType) {
 
     return (
         <>
-            <Form.Item<FieldType> label="Магазин" name={['ym', 'place']} required>
+            <Form.Item<YMFieldsType> label="Магазин" name={['ym', 'place']} required>
                 <PlaceSelect
                     type="ym"
                     onChange={(_value, option) => {
@@ -47,9 +40,23 @@ const YMinfo = memo(function YMinfo({form}: YMInfoPropsType) {
                 />
             </Form.Item>
 
-            <Form.Item<FieldType> label="Категория" name={['ym', 'category']} required>
-                <CategorySelect type="ym" showSearch optionFilterProp="label" />
+            <Form.Item<YMFieldsType> name={['ym', 'mpKeyId']} hidden />
+
+            <Form.Item<YMFieldsType> label="Категория" name={['ym', 'category']} required>
+                <CategorySelect
+                    type="ym"
+                    showSearch
+                    optionFilterProp="label"
+                    onChange={(_value, option) => {
+                        if (Array.isArray(option)) {
+                            return;
+                        }
+                        form.setFieldValue(['ym', 'categoryName'], option.label);
+                    }}
+                />
             </Form.Item>
+
+            <Form.Item<YMFieldsType> name={['ym', 'categoryName']} hidden />
 
             {!!data.length && data.map(item => <YMField item={item} form={form} key={item.id} />)}
         </>
