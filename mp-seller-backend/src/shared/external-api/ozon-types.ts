@@ -27,8 +27,7 @@ export type LoadCategorySettings = {
   }[];
 };
 
-// характеристики: images, name, offer_id, price, vat и другие
-export const createUpdateProductValidator = z.object({
+export const createOzonUpdateProductValidator = z.object({
   attributes: z.array(
     z.object({
       id: z.number(),
@@ -44,8 +43,7 @@ export const createUpdateProductValidator = z.object({
   description_category_id: z.number(),
   barcode: z.string().optional(),
   color_image: z.string().optional(),
-  complex_attributes: z.array(z.object({})).optional(),
-  currency_code: z.enum(["RUB", "BYN", "KZT", "EUR", "USD", "CNY"]).optional(),
+  currency_code: z.enum(["RUB", "BYN", "KZT", "EUR", "USD", "CNY"]),
   depth: z.number().optional(),
   dimension_unit: z.enum(["mm", "cm", "in"]).optional(),
   geo_names: z.array(z.string()).optional(),
@@ -65,8 +63,7 @@ export const createUpdateProductValidator = z.object({
       })
     )
     .optional(),
-  premium_price: z.string().optional(),
-  price: z.string().optional(),
+  price: z.string(),
   primary_image: z.string().optional(),
   service_type: z.enum(["IS_CODE_SERVICE", "IS_NO_CODE_SERVICE"]).optional(),
   vat: z.enum(["0", "0.1", "0.2"]),
@@ -76,5 +73,5 @@ export const createUpdateProductValidator = z.object({
 });
 
 export type CreateUpdateProduct = {
-  items: [z.infer<typeof createUpdateProductValidator>];
+  items: [z.infer<typeof createOzonUpdateProductValidator>];
 };

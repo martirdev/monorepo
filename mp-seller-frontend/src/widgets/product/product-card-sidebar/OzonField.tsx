@@ -4,11 +4,11 @@ import {memo} from 'react';
 
 import {trpc} from '_shared/api/trpc';
 
-import {FieldType} from './OzonInfo';
+import {OzonFieldsType} from './types';
 
 type OzonFieldPropsType = {
     item: any;
-    form: FormInstance<FieldType>;
+    form: FormInstance<OzonFieldsType>;
 };
 
 const OzonField = memo<OzonFieldPropsType>(function OzonField({item, form}) {

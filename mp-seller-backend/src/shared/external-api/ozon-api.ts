@@ -51,7 +51,7 @@ export const loadOzonSettingsByCategory = async (
     },
   }).then((res) => res.json() as Promise<LoadCategorySettings>);
 
-export const createUpdateProduct = async (
+export const createUpdateOzonProduct = async (
   token: string,
   place: string,
   data: CreateUpdateProduct
