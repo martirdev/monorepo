@@ -1,0 +1,25 @@
+{
+  "name": "butterfry",
+  "module": "packages/server/src/index.ts",
+  "workspaces": [
+    "./packages/*"
+  ],
+  "scripts": {
+    "dev:client": "cd ./packages/client && bun run dev",
+    "dev:server": "cd ./packages/server && bun run dev",
+    "dev": "concurrently \"bun run dev:*\"",
+    "clean:common": "rm -rf bun.lockb node_modules",
+    "clean:client": "cd ./packages/client && rm -rf bun.lockb node_modules",
+    "clean:server": "cd ./packages/client && rm -rf bun.lockb node_modules",
+    "clean": "concurrently \"bun run clean:*\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "hono": "^4.5.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

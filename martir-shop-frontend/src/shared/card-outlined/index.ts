@@ -1,1 +1,0 @@
-export {OutlinedCard} from './OutlinedCard';

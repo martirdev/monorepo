@@ -1,1 +1,0 @@
-export { EmptyTableState } from "./EmptyTableState";

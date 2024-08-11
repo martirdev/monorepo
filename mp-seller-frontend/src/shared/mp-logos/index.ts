@@ -1,1 +1,0 @@
-export {MarketplaceIcon} from './MPLogo';
