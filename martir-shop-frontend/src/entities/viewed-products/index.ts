@@ -1,1 +1,0 @@
-export {ViewedProducts} from './ViewedProducts';

@@ -1,1 +1,0 @@
-export {HoverIcon} from './HoverIcon';

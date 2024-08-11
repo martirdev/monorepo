@@ -1,1 +1,0 @@
-export {SizeGuide} from './SizeGuide';

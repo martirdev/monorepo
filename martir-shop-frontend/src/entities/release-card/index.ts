@@ -1,1 +1,0 @@
-export {ReleaseCard} from './ReleaseCard';

@@ -1,0 +1,1 @@
+export { organizationRoute } from "./organization";
