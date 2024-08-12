@@ -1,9 +1,11 @@
 {
   "name": "@butterfry/server",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot src/index.ts",
+    "migrate": "bun src/migrate.ts"
   },
   "dependencies": {
+    "hono": "^4.5.3",
     "@effect/platform": "^0.59.2",
     "@eslint/js": "^9.8.0",
     "@lucia-auth/adapter-drizzle": "^1.0.7",
@@ -24,6 +26,9 @@
     "@types/bun": "latest",
     "@types/lodash": "^4.17.7",
     "drizzle-kit": "^0.23.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   },
   "module": "index.ts",
   "type": "module"
