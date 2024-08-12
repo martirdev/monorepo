@@ -5,12 +5,22 @@ import { defineConfig, loadEnv } from "vite";
 import mkcert from "vite-plugin-mkcert";
 import svgr from "vite-plugin-svgr";
 
-const _plugins = [mkcert(), svgr(), react()];
-_plugins.unshift(MillionLint.vite());
+function callByParam<T>(needToCall: boolean, callback: T) { return needToCall ? callback : undefined }
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
+  const plugins = [
+    callByParam(!process.env.NODE_ENV, MillionLint.vite()),
+    callByParam(!process.env.NODE_ENV, mkcert()),
+    svgr(),
+    react()
+  ].filter(Boolean)
+
   return {
-    plugins: _plugins,
+    plugins,
+    preview: {
+      port: 8080,
+    },
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),
@@ -18,6 +28,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     server: {
+      host: true,
       proxy: {
         "/api": {
           changeOrigin: true,
