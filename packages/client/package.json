@@ -4,11 +4,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint ."
   },
   "dependencies": {
+    "hono": "^4.5.3",
     "@million/lint": "^1.0.0-rc.84",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -60,6 +61,9 @@
     "vite": "^5.3.1",
     "vite-plugin-mkcert": "^1.17.5",
     "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
   },
   "module": "index.ts"
 }

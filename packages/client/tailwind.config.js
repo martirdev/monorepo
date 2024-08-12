@@ -3,15 +3,9 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{tsx,ts}"],
   important: true,
   plugins: [tailwindcssAnimate],
-  prefix: "",
   theme: {
     container: {
       center: true,
