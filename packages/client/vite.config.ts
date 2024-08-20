@@ -5,16 +5,20 @@ import { defineConfig, loadEnv } from "vite";
 import mkcert from "vite-plugin-mkcert";
 import svgr from "vite-plugin-svgr";
 
-function callByParam<T>(needToCall: boolean, callback: () => T) { return needToCall ? callback() : undefined }
+function callByParam<T>(needToCall: boolean, callback: () => T) {
+  return needToCall ? callback() : undefined;
+}
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const plugins = [
-    callByParam(!process.env.NODE_ENV, () => MillionLint.vite()),
-    callByParam(!process.env.NODE_ENV, () => mkcert()),
+    callByParam(process.env.NODE_ENV !== "production", () =>
+      MillionLint.vite(),
+    ),
+    callByParam(process.env.NODE_ENV !== "production", () => mkcert()),
     svgr(),
-    react()
-  ].filter(Boolean)
+    react(),
+  ].filter(Boolean);
 
   return {
     plugins,

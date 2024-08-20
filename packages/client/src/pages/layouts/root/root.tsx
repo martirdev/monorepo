@@ -112,7 +112,7 @@ const RootLayout: FC = () => {
         <Outlet />
       </main>
       <Toaster />
-      <TanStackRouterDevtools />
+      {process.env.NODE_ENV !== "production" && <TanStackRouterDevtools />}
     </div>
   );
 };
