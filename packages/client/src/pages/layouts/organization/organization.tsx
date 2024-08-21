@@ -91,7 +91,7 @@ const OrganizationLayout: FC = () => {
 
   return (
     <div className="flex gap-4 px-4 py-6">
-      <div className="flex min-w-[200px] flex-col gap-1">
+      <div className="hidden min-w-[200px] flex-col gap-1 md:flex">
         <Button className="flex justify-start" variant="ghost" asChild>
           <Link
             activeOptions={{
