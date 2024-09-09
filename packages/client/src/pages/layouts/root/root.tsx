@@ -42,12 +42,7 @@ const RootLayout: FC = () => {
   return (
     <div className="flex min-h-screen w-full flex-col">
       <header className="sticky top-0 z-10 flex h-16 items-center gap-4 px-4 backdrop-blur-md md:px-6">
-        <div>
-          <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-            <Link to="/">
-              <Logo className="h-10 w-6" />
-            </Link>
-          </nav>
+        <div className="flex gap-4">
           <Sheet>
             <SheetTrigger asChild>
               <div className="shrink-0 md:hidden">
@@ -62,6 +57,11 @@ const RootLayout: FC = () => {
               <nav className="grid gap-6 text-lg font-medium"></nav>
             </SheetContent>
           </Sheet>
+          <nav className="flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+            <Link to="/">
+              <Logo className="h-10 w-6" />
+            </Link>
+          </nav>
         </div>
         <div className="ml-auto">
           <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
