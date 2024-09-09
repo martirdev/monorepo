@@ -90,8 +90,8 @@ const OrganizationLayout: FC = () => {
   });
 
   return (
-    <div className="flex gap-4 px-4 py-6">
-      <div className="flex min-w-[200px] flex-col gap-1">
+    <div className="flex flex-col gap-4 px-4 py-6 md:flex-row">
+      <div className="flex min-w-[200px] gap-1 md:flex-col">
         <Button className="flex justify-start" variant="ghost" asChild>
           <Link
             activeOptions={{
@@ -140,7 +140,7 @@ const OrganizationLayout: FC = () => {
           </Link>
         </Button>
       </div>
-      <div>
+      <div className="flex-1">
         <div className="flex h-10 items-center">
           <CustomBreadcrumb items={breadcrumbs} />
         </div>

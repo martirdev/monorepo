@@ -1,11 +1,8 @@
 import { createRoute } from "@tanstack/react-router";
 
 import { organizationRoute } from "@/pages/layouts/organization";
-import { ConsoleTitle } from "@/shared/ui/console-title";
 
-const ProductsPage = () => {
-  return <ConsoleTitle>Товары</ConsoleTitle>;
-};
+import { ProductsPage } from "./ProductsPage";
 
 export const productsRoute = createRoute({
   component: ProductsPage,

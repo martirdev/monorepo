@@ -9,13 +9,13 @@ function callByParam<T>(needToCall: boolean, callback: () => T) {
   return needToCall ? callback() : undefined;
 }
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const plugins = [
-    callByParam(process.env.NODE_ENV !== "production", () =>
-      MillionLint.vite(),
-    ),
-    callByParam(process.env.NODE_ENV !== "production", () => mkcert()),
+    callByParam(!isProduction, () => MillionLint.vite()),
+    callByParam(!isProduction, () => mkcert()),
     svgr(),
     react(),
   ].filter(Boolean);

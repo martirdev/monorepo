@@ -1,4 +1,5 @@
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { CommandList } from "cmdk";
 import { ChevronsUpDown } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 
@@ -17,6 +18,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/shared/ui/popover";
 export type ComboboxPropsType = {
   options: Option[];
   onChange?: (value: null | Option) => void;
+  className?: string;
   emptyText?: string;
   isLoading?: boolean;
   placeholder?: string;
@@ -25,6 +27,7 @@ export type ComboboxPropsType = {
 };
 
 export function Combobox({
+  className,
   emptyText,
   isLoading,
   onChange,
@@ -59,7 +62,10 @@ export function Combobox({
       <PopoverTrigger asChild>
         <div>
           <Button
-            className="w-full justify-between gap-2 font-normal"
+            className={cn(
+              "w-full justify-between gap-2 font-normal",
+              className,
+            )}
             variant="outline"
           >
             <span>
@@ -77,23 +83,27 @@ export function Combobox({
       <PopoverContent align="start" className="w-[250px] p-0">
         <Command>
           <CommandInput placeholder={searchPlaceholder} />
-          <CommandEmpty>{emptyText}</CommandEmpty>
-          <CommandGroup>
-            {options.map((option, index) => (
-              <CommandItem
-                className={cn("flex gap-1", {
-                  "bg-zinc-200 text-accent-foreground aria-selected:bg-zinc-300 aria-selected:text-accent-foreground":
-                    selectedItem === index,
-                })}
-                key={option.value}
-                value={index.toString()}
-                onSelect={handleSelect}
-              >
-                <span className="w-5 text-center">{option.icon}</span>
-                <span>{option.label}</span>
-              </CommandItem>
-            ))}
-          </CommandGroup>
+          <CommandList>
+            <CommandEmpty>{emptyText}</CommandEmpty>
+            {!!options.length && (
+              <CommandGroup>
+                {options.map((option, index) => (
+                  <CommandItem
+                    className={cn("flex gap-1", {
+                      "bg-zinc-200 text-accent-foreground aria-selected:bg-zinc-300 aria-selected:text-accent-foreground":
+                        selectedItem === index,
+                    })}
+                    key={option.value}
+                    value={index.toString()}
+                    onSelect={handleSelect}
+                  >
+                    <span className="w-5 text-center">{option.icon}</span>
+                    <span>{option.label}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+          </CommandList>
         </Command>
       </PopoverContent>
     </Popover>
