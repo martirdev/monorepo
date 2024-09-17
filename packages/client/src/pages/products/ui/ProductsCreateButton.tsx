@@ -117,7 +117,7 @@ export function ProductsCreateButton({
           <div className="space-y-4">
             <form.Field name="name">
               {(field) => (
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor={field.name}>Название</Label>
                   <Input
                     id={field.name}
@@ -130,7 +130,7 @@ export function ProductsCreateButton({
             </form.Field>
             <form.Field name="description">
               {(field) => (
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor={field.name}>Описание</Label>
                   <Textarea
                     id={field.name}
@@ -143,7 +143,7 @@ export function ProductsCreateButton({
             </form.Field>
             <form.Field name="price">
               {(field) => (
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor={field.name}>Цена</Label>
                   <Input
                     id={field.name}
@@ -179,7 +179,7 @@ export function ProductsCreateButton({
                       </div>
                       <form.Field name={`params[${i}].name`}>
                         {(nameField) => (
-                          <div>
+                          <div className="space-y-2">
                             <Label htmlFor={nameField.name}>Название</Label>
                             <Input
                               id={nameField.name}
@@ -194,7 +194,7 @@ export function ProductsCreateButton({
                       </form.Field>
                       <form.Field name={`params[${i}].values`}>
                         {(valuesField) => (
-                          <div>
+                          <div className="space-y-2">
                             <Label htmlFor={valuesField.name}>Значения</Label>
                             <MultiSelect
                               id={valuesField.name}
