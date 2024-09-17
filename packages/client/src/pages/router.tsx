@@ -6,6 +6,7 @@ import { homeRoute } from "./home";
 import { organizationRoute } from "./layouts/organization";
 import { rootRoute } from "./layouts/root";
 import { loginRoute } from "./login";
+import { ordersRoute } from "./orders";
 import { productsRoute } from "./products";
 import { profileRoute } from "./profile";
 import { settingsRoute } from "./settings";
@@ -62,6 +63,7 @@ export const routeTree = rootRoute.addChildren([
     organizationRoute.addChildren([
       dashboardRoute,
       productsRoute,
+      ordersRoute,
       clientsRoute,
       settingsRoute,
     ]),

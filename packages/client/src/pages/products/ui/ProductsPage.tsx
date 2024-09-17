@@ -11,7 +11,9 @@ export const ProductsPage = () => {
   return (
     <div className="flex flex-col gap-6">
       <ConsoleTitle
-        primaryAction={<ProductsCreateButton trigger={TRIGGER_ARGS} />}
+        primaryAction={
+          <ProductsCreateButton buttonText="Создать" trigger={TRIGGER_ARGS} />
+        }
       >
         Товары
       </ConsoleTitle>

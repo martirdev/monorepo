@@ -213,7 +213,7 @@ const MultiSelectTrigger = forwardRef<
         data-disabled={disabled}
         {...props}
         className={cn(
-          "flex h-full min-h-10 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 shadow-sm ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&>span]:line-clamp-1",
+          "flex h-full min-h-10 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 [&>span]:line-clamp-1",
           disabled ? "cursor-not-allowed opacity-50" : "cursor-text",
           className,
         )}
@@ -614,13 +614,17 @@ type MultiSelectPropsType = {
   options: MultiSelectOptionItem[];
   onBlur?: () => void;
   onCreateValue?: (value: string) => void;
+  className?: string;
   id?: string;
+  maxDisplay?: number;
   placeholder?: string;
   searchPlaceholder?: string;
 } & MultiSelectProps;
 
 export function MultiSelect({
+  className,
   id,
+  maxDisplay,
   onBlur,
   onCreateValue,
   options: rawOptions = [],
@@ -652,8 +656,8 @@ export function MultiSelect({
 
   return (
     <MultiSelectBase {...props}>
-      <MultiSelectTrigger id={id} onBlur={onBlur}>
-        <MultiSelectValue placeholder={placeholder} />
+      <MultiSelectTrigger className={className} id={id} onBlur={onBlur}>
+        <MultiSelectValue maxDisplay={maxDisplay} placeholder={placeholder} />
       </MultiSelectTrigger>
       <MultiSelectContent>
         <MultiSelectSearch

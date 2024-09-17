@@ -68,8 +68,8 @@ module.exports = {
       },
     },
     fontFamily: {
+      Nunito: ['"Nunito"', "sans-serif"],
       Playfair: ['"Playfair"', "serif"],
-      Raleway: ['"Raleway"', "sans-serif"],
     },
   },
 };

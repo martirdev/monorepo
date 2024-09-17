@@ -10,12 +10,12 @@ import {
   useReactTable,
   VisibilityState,
 } from "@tanstack/react-table";
+import { format } from "date-fns";
 import { ary } from "lodash/fp";
-import { MoreHorizontal, Snail } from "lucide-react";
+import { Fish, MoreHorizontal } from "lucide-react";
 import { useState } from "react";
 
 import { BlankSlate } from "@/features/blank-slate";
-import { currency } from "@/shared/lib/intlnumbers";
 import { Button } from "@/shared/ui/button";
 import { Checkbox } from "@/shared/ui/checkbox";
 import {
@@ -35,17 +35,9 @@ import {
   TableRow,
 } from "@/shared/ui/table";
 
-import { ProductsCreateButton } from "./ProductsCreateButton";
+import { Client } from "./types";
 
-export type Product = {
-  //   category: string; TODO: #157 add category to products
-  id: string;
-  name: string;
-  price: number;
-  stock: number;
-};
-
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<Client>[] = [
   {
     cell: ({ row }) => (
       <Checkbox
@@ -64,7 +56,7 @@ export const columns: ColumnDef<Product>[] = [
         onCheckedChange={ary(1, table.toggleAllPageRowsSelected)}
       />
     ),
-    id: "select",
+    id: "id",
     size: 50,
   },
   {
@@ -72,23 +64,21 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => (
       <div className="font-bold capitalize">{row.getValue("name")}</div>
     ),
-    header: "Название",
-    size: undefined,
+    header: "Клиент",
   },
   {
-    accessorKey: "price",
+    accessorKey: "createdAt",
     cell: ({ row }) => (
-      <div className="text-right font-medium">
-        {currency.format(row.getValue("price"))}
-      </div>
+      <div>{format(row.getValue("createdAt"), "HH:mm dd.MM.yyyy")}</div>
     ),
-    header: () => <div className="text-right">Цена</div>,
-    size: 100,
+    header: "Дата создания",
   },
   {
-    accessorKey: "stock",
-    cell: ({ row }) => <div>{row.getValue("stock")}</div>,
-    header: () => <div className="text-right">Наличие</div>,
+    accessorKey: "orders",
+    cell: ({ row }) => (
+      <div className="text-right font-medium">{row.getValue("orders")}</div>
+    ),
+    header: () => <div className="text-right">Заказы</div>,
     size: 100,
   },
   {
@@ -96,20 +86,20 @@ export const columns: ColumnDef<Product>[] = [
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="h-8 w-8 p-0" variant="ghost">
-            <span className="sr-only">Open menu</span>
+            <span className="sr-only">Открыть меню</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Действия</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => navigator.clipboard.writeText(row.original.id)}
           >
-            Copy payment ID
+            Скопировать ID клиента
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>View customer</DropdownMenuItem>
-          <DropdownMenuItem>View payment details</DropdownMenuItem>
+          <DropdownMenuItem>Просмотреть клиента</DropdownMenuItem>
+          <DropdownMenuItem>Показать заказы</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     ),
@@ -118,9 +108,16 @@ export const columns: ColumnDef<Product>[] = [
   },
 ];
 
-const DATA = [];
+const DATA = [
+  {
+    createdAt: new Date(),
+    id: "1",
+    name: "Пушкарев Максим Иванович",
+    orders: 8,
+  },
+];
 
-export function ProductsTable() {
+export function ClientsTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -194,13 +191,10 @@ export function ProductsTable() {
                   colSpan={columns.length}
                 >
                   <BlankSlate
-                    primaryAction={
-                      <ProductsCreateButton buttonText="Добавить товар" />
-                    }
                     className="mx-auto py-10"
-                    description="Измените фильтры или создайте новый товар"
-                    icon={Snail}
-                    title="Товары не найдены"
+                    description="Измените фильтры или добавьте клиента"
+                    icon={Fish}
+                    title="Клиенты не найдены"
                   />
                 </TableCell>
               </TableRow>
@@ -211,7 +205,7 @@ export function ProductsTable() {
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} из{" "}
-          {table.getFilteredRowModel().rows.length} товаров выбранно.
+          {table.getFilteredRowModel().rows.length} клиентов выбранно.
         </div>
         <div className="space-x-2">
           <Button
