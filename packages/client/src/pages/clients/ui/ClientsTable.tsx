@@ -62,7 +62,9 @@ export const columns: ColumnDef<Client>[] = [
   {
     accessorKey: "name",
     cell: ({ row }) => (
-      <div className="font-bold capitalize">{row.getValue("name")}</div>
+      <div className="capitalizez whitespace-nowrap font-bold">
+        {row.getValue("name")}
+      </div>
     ),
     header: "Клиент",
   },
@@ -76,7 +78,9 @@ export const columns: ColumnDef<Client>[] = [
   {
     accessorKey: "createdAt",
     cell: ({ row }) => (
-      <div>{format(row.getValue("createdAt"), "HH:mm dd.MM.yyyy")}</div>
+      <div className="whitespace-nowrap">
+        {format(row.getValue("createdAt"), "HH:mm dd.MM.yyyy")}
+      </div>
     ),
     header: "Дата создания",
   },
