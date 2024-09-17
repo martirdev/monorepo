@@ -91,7 +91,7 @@ const OrganizationLayout: FC = () => {
 
   return (
     <div className="flex flex-col gap-4 px-4 py-6 md:flex-row">
-      <div className="flex min-w-[200px] gap-1 md:flex-col">
+      <div className="-m-1 flex min-w-[200px] gap-1 overflow-auto p-1 md:flex-col">
         <Button className="flex justify-start" variant="ghost" asChild>
           <Link
             activeOptions={{
@@ -115,6 +115,17 @@ const OrganizationLayout: FC = () => {
             to="/console/$organization/products"
           >
             Товары
+          </Link>
+        </Button>
+        <Button className="flex justify-start" variant="ghost" asChild>
+          <Link
+            activeProps={{
+              className: "bg-accent text-accent-foreground",
+            }}
+            from="/console/$organization"
+            to="/console/$organization/orders"
+          >
+            Заказы
           </Link>
         </Button>
         <Button className="flex justify-start" variant="ghost" asChild>

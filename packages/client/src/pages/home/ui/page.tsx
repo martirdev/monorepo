@@ -18,7 +18,10 @@ const HomePage: FC = () => {
           </h1>
           <p className="mt-2 text-2xl font-normal text-gray-500 sm:text-4xl">
             Управляй товарами{" "}
-            <FlipWords className="font-normal text-gray-600" words={WORDS} />
+            <FlipWords
+              className="block font-normal text-gray-600"
+              words={WORDS}
+            />
           </p>
         </Container>
       </div>

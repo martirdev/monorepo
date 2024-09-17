@@ -50,7 +50,15 @@ const DEFAULT_PARAM = {
 };
 const DEFAULT_PARAMS_OPTIONS: MultiSelectOptionItem[] = [];
 
-export function ProductsCreateButton({ trigger }: { trigger?: ButtonProps }) {
+type ProductsCreateButtonPropsType = {
+  buttonText: string;
+  trigger?: ButtonProps;
+};
+
+export function ProductsCreateButton({
+  buttonText,
+  trigger,
+}: ProductsCreateButtonPropsType) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const form = useForm<ProductForm>({
     defaultValues: {
@@ -74,12 +82,14 @@ export function ProductsCreateButton({ trigger }: { trigger?: ButtonProps }) {
     const name = form.getFieldValue("name");
     const params = form.getFieldValue("params");
     if (params.length === 0) return [];
+
     const cartesian = (...arrays: string[][]): string[][] => {
       return arrays.reduce<string[][]>(
         (acc, array) => acc.flatMap((x) => array.map((y) => [...x, y])),
         [[]],
       );
     };
+
     const paramValues = params.map((param) => param.values);
     const combinations = cartesian(...paramValues);
     return combinations.map((combination, index) => {
@@ -95,7 +105,7 @@ export function ProductsCreateButton({ trigger }: { trigger?: ButtonProps }) {
     <Sheet>
       <SheetTrigger asChild>
         <div>
-          <Button {...trigger}>Создать товар</Button>
+          <Button {...trigger}>{buttonText}</Button>
         </div>
       </SheetTrigger>
       <SheetContent className="max-w-[800px]">
