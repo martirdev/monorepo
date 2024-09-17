@@ -55,7 +55,7 @@ export function ClientsCreateButton({
           <div className="space-y-4">
             <form.Field name="secondName">
               {(field) => (
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor={field.name}>Фамилия</Label>
                   <Input
                     id={field.name}
@@ -68,7 +68,7 @@ export function ClientsCreateButton({
             </form.Field>
             <form.Field name="firstName">
               {(field) => (
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor={field.name}>Имя</Label>
                   <Input
                     id={field.name}
@@ -81,7 +81,7 @@ export function ClientsCreateButton({
             </form.Field>
             <form.Field name="thirdName">
               {(field) => (
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor={field.name}>Отчество</Label>
                   <Input
                     id={field.name}
@@ -94,7 +94,7 @@ export function ClientsCreateButton({
             </form.Field>
             <form.Field name="contact">
               {(field) => (
-                <div>
+                <div className="space-y-2">
                   <Label htmlFor={field.name}>Контакт для связи</Label>
                   <Input
                     id={field.name}

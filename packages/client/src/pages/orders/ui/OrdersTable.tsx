@@ -12,20 +12,13 @@ import {
 } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ary } from "lodash/fp";
-import { Fish, MoreHorizontal } from "lucide-react";
+import { Squirrel } from "lucide-react";
 import { useState } from "react";
 
 import { BlankSlate } from "@/features/blank-slate";
+import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Checkbox } from "@/shared/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/shared/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -35,9 +28,10 @@ import {
   TableRow,
 } from "@/shared/ui/table";
 
-import { Client } from "./types";
+import { ORDER_STATUSES_DICT } from "./consts";
+import { Order } from "./types";
 
-export const columns: ColumnDef<Client>[] = [
+export const columns: ColumnDef<Order>[] = [
   {
     cell: ({ row }) => (
       <Checkbox
@@ -60,72 +54,68 @@ export const columns: ColumnDef<Client>[] = [
     size: 50,
   },
   {
-    accessorKey: "name",
+    accessorKey: "id",
     cell: ({ row }) => (
-      <div className="font-bold capitalize">{row.getValue("name")}</div>
+      <div className="font-bold capitalize">{row.getValue("id")}</div>
+    ),
+    header: "№",
+  },
+  {
+    accessorKey: "client",
+    cell: ({ row }) => (
+      <div className="whitespace-nowrap">{row.getValue("client")}</div>
     ),
     header: "Клиент",
   },
   {
-    accessorKey: "contact",
+    accessorKey: "total",
     cell: ({ row }) => (
-      <div className="whitespace-nowrap">{row.getValue("contact")}</div>
+      <div className="text-right font-medium">{row.getValue("total")}</div>
     ),
-    header: "Контакт",
+    header: () => <div className="text-right">Итог</div>,
+  },
+  {
+    accessorKey: "updatedAt",
+    cell: ({ row }) => (
+      <div>{format(row.getValue("updatedAt"), "HH:mm dd.MM.yyyy")}</div>
+    ),
+    header: "Обновлен",
   },
   {
     accessorKey: "createdAt",
     cell: ({ row }) => (
       <div>{format(row.getValue("createdAt"), "HH:mm dd.MM.yyyy")}</div>
     ),
-    header: "Дата создания",
+    header: "Создан",
   },
   {
-    accessorKey: "orders",
+    accessorKey: "status",
     cell: ({ row }) => (
-      <div className="text-right font-medium">{row.getValue("orders")}</div>
+      <Badge>
+        {
+          ORDER_STATUSES_DICT[
+            row.getValue<"CREATED" | undefined>("status") || ""
+          ]?.label
+        }
+      </Badge>
     ),
-    header: () => <div className="text-right">Заказы</div>,
+    header: () => <div>Статус</div>,
     size: 100,
-  },
-  {
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button className="h-8 w-8 p-0" variant="ghost">
-            <span className="sr-only">Открыть меню</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Действия</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(row.original.id)}
-          >
-            Скопировать ID клиента
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Просмотреть клиента</DropdownMenuItem>
-          <DropdownMenuItem>Показать заказы</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-    id: "actions",
-    size: 50,
   },
 ];
 
 const DATA = [
   {
-    contact: "+7(999)111-55-55",
+    client: "Пушкарев Максим Иванович",
     createdAt: new Date(),
     id: "1",
-    name: "Пушкарев Максим Иванович",
-    orders: 8,
+    status: "CREATED",
+    total: 10000,
+    updatedAt: new Date(),
   },
 ];
 
-export function ClientsTable() {
+export function OrdersTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -200,9 +190,9 @@ export function ClientsTable() {
                 >
                   <BlankSlate
                     className="mx-auto py-10"
-                    description="Добавьте их сейчас или перед созданием заказа"
-                    icon={Fish}
-                    title="Клиенты не найдены"
+                    description="Создайте и передайте его клиенту"
+                    icon={Squirrel}
+                    title="Заказов нет"
                   />
                 </TableCell>
               </TableRow>
@@ -213,7 +203,7 @@ export function ClientsTable() {
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} из{" "}
-          {table.getFilteredRowModel().rows.length} клиентов выбранно.
+          {table.getFilteredRowModel().rows.length} заказов выбранно.
         </div>
         <div className="space-x-2">
           <Button
