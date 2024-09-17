@@ -56,7 +56,9 @@ export const columns: ColumnDef<Order>[] = [
   {
     accessorKey: "id",
     cell: ({ row }) => (
-      <div className="font-bold capitalize">{row.getValue("id")}</div>
+      <div className="whitespace-nowrap font-bold capitalize">
+        {row.getValue("id")}
+      </div>
     ),
     header: "№",
   },
@@ -77,14 +79,18 @@ export const columns: ColumnDef<Order>[] = [
   {
     accessorKey: "updatedAt",
     cell: ({ row }) => (
-      <div>{format(row.getValue("updatedAt"), "HH:mm dd.MM.yyyy")}</div>
+      <div className="whitespace-nowrap">
+        {format(row.getValue("updatedAt"), "HH:mm dd.MM.yyyy")}
+      </div>
     ),
     header: "Обновлен",
   },
   {
     accessorKey: "createdAt",
     cell: ({ row }) => (
-      <div>{format(row.getValue("createdAt"), "HH:mm dd.MM.yyyy")}</div>
+      <div className="whitespace-nowrap">
+        {format(row.getValue("createdAt"), "HH:mm dd.MM.yyyy")}
+      </div>
     ),
     header: "Создан",
   },
