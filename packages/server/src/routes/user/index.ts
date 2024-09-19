@@ -1,5 +1,5 @@
 import { Effect } from "effect";
-import { Hono } from "hono";
+import { Hono, MiddlewareHandler } from "hono";
 import { omit } from "lodash";
 import { format } from "url";
 import { eq } from "drizzle-orm";
@@ -20,7 +20,7 @@ import {
   usersToOrganizations,
   usersToPermissions,
 } from "../../scheme";
-import { setCookie } from "hono/cookie";
+import { getCookie, setCookie } from "hono/cookie";
 
 export const user = new Hono()
   .use(
@@ -114,3 +114,26 @@ export const user = new Hono()
       organizations: userOrganizations,
     });
   });
+
+export const userContext: MiddlewareHandler = async (c, next) => {
+  const sessionId = getCookie(c, lucia.sessionCookieName) ?? null;
+  if (!sessionId) {
+    c.set("user", null);
+    c.set("session", null);
+    return next();
+  }
+  const { session, user } = await lucia.validateSession(sessionId);
+  if (session && session.fresh) {
+    c.header("Set-Cookie", lucia.createSessionCookie(session.id).serialize(), {
+      append: true,
+    });
+  }
+  if (!session) {
+    c.header("Set-Cookie", lucia.createBlankSessionCookie().serialize(), {
+      append: true,
+    });
+  }
+  c.set("user", user);
+  c.set("session", session);
+  return next();
+};

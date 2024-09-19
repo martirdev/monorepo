@@ -14,6 +14,7 @@ import {
 type ClientForm = {
   contact: string;
   firstName: string;
+  name: string;
   secondName: string;
   thirdName: string;
 };
@@ -31,6 +32,7 @@ export function ClientsCreateButton({
     defaultValues: {
       contact: "",
       firstName: "",
+      name: "",
       secondName: "",
       thirdName: "",
     },
@@ -53,6 +55,19 @@ export function ClientsCreateButton({
         </SheetHeader>
         <div className="mt-4 space-y-6">
           <div className="space-y-4">
+            <form.Field name="name">
+              {(field) => (
+                <div className="space-y-2">
+                  <Label htmlFor={field.name}>Краткое имя</Label>
+                  <Input
+                    id={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                  />
+                </div>
+              )}
+            </form.Field>
             <form.Field name="secondName">
               {(field) => (
                 <div className="space-y-2">

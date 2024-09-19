@@ -2,7 +2,9 @@
   "name": "@butterfry/server",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "migrate": "bun src/migrate.ts"
+    "migrate:generate": "drizzle-kit generate",
+    "migrate:push": "bun src/migrate.ts",
+    "migrate": "bun run migrate:generate && bun run migrate:push"
   },
   "dependencies": {
     "hono": "^4.5.3",
