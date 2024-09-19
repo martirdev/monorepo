@@ -8,6 +8,27 @@
       "when": 1721940897293,
       "tag": "0000_workable_sprite",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1726694375963,
+      "tag": "0001_chunky_nitro",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1726695013423,
+      "tag": "0002_closed_taskmaster",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1726696043520,
+      "tag": "0003_greedy_randall",
+      "breakpoints": true
     }
   ]
 }

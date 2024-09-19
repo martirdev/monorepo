@@ -21,6 +21,7 @@ export const OrdersFilters = () => {
         {(field) => (
           <Input
             className="w-[250px]"
+            placeholder="ID"
             onChange={(e) => field.handleChange(e.target.value)}
           />
         )}

@@ -76,9 +76,9 @@ export function OrdersCreateButton({
             </form.Field>
             <form.Field mode="array" name="products">
               {(paramsFields) => (
-                <div className="space-y-2">
-                  <Label>Корзина</Label>
+                <div className="space-y-6">
                   <div className="space-y-2">
+                    <Label>Корзина</Label>
                     {paramsFields.state.value.map((_field, i) => (
                       <div className="flex gap-2" key={i}>
                         <div className="flex-1">
