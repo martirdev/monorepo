@@ -4,5 +4,9 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-  }
+    "moduleResolution": "Node"
+  },
+  "exclude": [
+    "typegen/*"
+  ]
 }

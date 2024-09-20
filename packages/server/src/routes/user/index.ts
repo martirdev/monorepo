@@ -1,28 +1,28 @@
+import { getCookie, setCookie } from "hono/cookie";
 import { Effect } from "effect";
 import { Hono, MiddlewareHandler } from "hono";
 import { omit } from "lodash";
 import { format } from "url";
 import { eq } from "drizzle-orm";
 
-import { createUserSession, lucia, validateAuthCookie } from "../../lib/auth";
-import { logEffectError } from "../../lib/effect";
-import { oauth } from "../../middleware/oauth";
+import { createUserSession, lucia, validateAuthCookie } from "@/lib/auth";
+import { logEffectError } from "@/lib/effect";
+import { oauth } from "@/middleware/oauth";
+import { db } from "@/lib/db";
+import {
+  organizations,
+  permissions,
+  usersToOrganizations,
+  usersToPermissions,
+} from "@/scheme";
 
 import {
   createUserIfNotExist,
   getUserFromDBByYandexId,
   getUserYandexInfo,
 } from "./yandex";
-import { db } from "../../lib/db";
-import {
-  organizations,
-  permissions,
-  usersToOrganizations,
-  usersToPermissions,
-} from "../../scheme";
-import { getCookie, setCookie } from "hono/cookie";
 
-export const user = new Hono()
+export const userRoutes = new Hono()
   .use(
     oauth((req) => [
       process.env.YANDEX_CLIENT_ID,

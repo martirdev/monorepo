@@ -1,14 +1,16 @@
 import { Hono } from "hono";
 import { eq, like } from "drizzle-orm";
-import { db } from "../../lib/db";
-import { clients as clientsTable } from "../../scheme/clients";
+
+import { db } from "@/lib/db";
+import { clients as clientsTable } from "@/scheme/clients";
+
 import {
   changeClientBodyValidator,
   getClientsQueryValidator,
   idParamValidator,
 } from "./validators";
 
-export const clients = new Hono()
+export const clientsRoutes = new Hono()
   .get("/", getClientsQueryValidator, async (c) => {
     const { page = 1, pageSize = 10, name, id } = c.req.valid("query");
 
