@@ -1,0 +1,1 @@
+export { faqRoute } from "./FaqPage";
