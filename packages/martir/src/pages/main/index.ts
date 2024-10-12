@@ -1,0 +1,1 @@
+export { mainRoute } from "./MainPage";
