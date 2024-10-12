@@ -213,9 +213,7 @@ export function ProductSection() {
               Добавить в корзину
             </Button>
             {cart[productId] && (
-              <Button variant="outline" asChild>
-                <Link>В корзине {countInCart} шт.</Link>
-              </Button>
+              <Button variant="outline">В корзине {countInCart} шт.</Button>
             )}
           </div>
         </div>

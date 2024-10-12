@@ -3,7 +3,7 @@ import {
   DrawerBody,
   DrawerContent,
   DrawerTrigger,
-} from "@/shared/ui/drawer";
+} from "@/shared/ui/components/drawer";
 import { Menu } from "lucide-react";
 import { IconButton } from "./IconButton";
 import { PropsWithChildren } from "react";

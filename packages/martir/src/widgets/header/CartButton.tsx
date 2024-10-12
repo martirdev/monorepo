@@ -8,7 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/shared/ui/sheet";
+} from "@/shared/ui/components/sheet";
 import { ShoppingBag } from "lucide-react";
 import { useMemo } from "react";
 import { IconButton } from "./IconButton";

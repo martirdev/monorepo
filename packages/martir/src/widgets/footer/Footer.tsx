@@ -1,6 +1,7 @@
 import { Button } from "@/shared/ui/components/button";
 import { Input } from "@/shared/ui/components/input";
 import { Container } from "@/shared/ui/layouts/container";
+import { TextLink } from "@/shared/ui/text-link";
 
 export function Footer() {
   return (
@@ -34,10 +35,17 @@ export function Footer() {
             <p className="font-bold">Помощь</p>
             <div className="mt-10 text-sm">
               <ul className="space-y-3">
-                <li>Возврат</li>
-                <li>Доставка</li>
-                <li>Оплата</li>
-                <li>FAQ</li>
+                <li>
+                  <TextLink to="/refund">Возврат</TextLink>
+                </li>
+                <li>
+                  <TextLink to="/delivery-and-payments">
+                    Доставка и опалата
+                  </TextLink>
+                </li>
+                <li>
+                  <TextLink to="/faq">FAQ</TextLink>
+                </li>
               </ul>
             </div>
           </div>
