@@ -5,29 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1721940897293,
-      "tag": "0000_workable_sprite",
+      "when": 1729009977842,
+      "tag": "0000_rapid_shocker",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1726694375963,
-      "tag": "0001_chunky_nitro",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1726695013423,
-      "tag": "0002_closed_taskmaster",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1726696043520,
-      "tag": "0003_greedy_randall",
+      "when": 1729026176668,
+      "tag": "0001_hot_gorilla_man",
       "breakpoints": true
     }
   ]
