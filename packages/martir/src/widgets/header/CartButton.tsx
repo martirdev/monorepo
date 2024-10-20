@@ -9,21 +9,43 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/shared/ui/components/sheet";
+import { Link } from "@tanstack/react-router";
 import { ShoppingBag } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useCallback, useState } from "react";
 import { IconButton } from "./IconButton";
+import { TextLink } from "@/shared/ui/text-link";
+import { useProducts } from "@/shared/api/products";
 
 export function CartButton() {
-  const [cart] = useLocalStorage("cart", {});
+  const [open, setOpen] = useState(false);
+  const [cart, setCart] = useLocalStorage("cart", {});
 
+  const itemsKeys = useMemo(() => Object.keys(cart), [cart]);
   const items = useMemo(() => Object.entries(cart), [cart]);
+
+  const { data } = useProducts(itemsKeys);
 
   const itemsInCart = useMemo(() => {
     return items.reduce((acc, [_id, item]) => acc + item, 0) || null;
   }, [items]);
 
+  const removeItemFromCart = useCallback(
+    (id: string) => {
+      setCart((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
+    },
+    [setCart]
+  );
+
+  const close = () => {
+    setOpen(false);
+  };
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <div>
           <IconButton>
@@ -42,43 +64,65 @@ export function CartButton() {
           <SheetTitle>Корзина</SheetTitle>
         </SheetHeader>
         <SheetBody className="space-y-4">
-          <div className="flex gap-3 md:gap-6">
-            <div className="w-[80px] h-[80px] md:w-[150px] md:h-[150px] bg-[#e7e7e7] rounded-md flex-none"></div>
-            <div className="space-y-3 md:space-y-5">
-              <div className="space-y-2 md:space-y-3">
-                <div className="flex gap-1 items-start">
-                  <div className="font-bold text-sm md:text-base leading-[20px] md:leading-[24px]">
-                    Черная хлопковая оверсайз футболка с вышитым логотипом
+          {data?.products.length &&
+            data.products.map(
+              ({ id, name, productToParams, price, masterProductId }) => (
+                <div className="flex gap-3 md:gap-6" key={id}>
+                  <Link to="/product/$productId" params={{ productId: id }}>
+                    <div className="w-[80px] h-[80px] md:w-[150px] md:h-[150px] bg-[#e7e7e7] rounded-md flex-none"></div>
+                  </Link>
+                  <div className="space-y-3 md:space-y-5 flex-1">
+                    <div className="space-y-2 md:space-y-3">
+                      <div className="flex gap-1 items-start">
+                        <TextLink
+                          to="/product/$productId"
+                          params={{ productId: masterProductId }}
+                          search={productToParams.reduce<
+                            Record<string, string>
+                          >((acc, { params: { name, value } }) => {
+                            acc[name] = value;
+                            return acc;
+                          }, {})}
+                          onClick={close}
+                          className="flex-1"
+                        >
+                          <div className="font-bold text-sm md:text-base leading-[20px] md:leading-[24px]">
+                            {name}
+                          </div>
+                        </TextLink>
+                        <button
+                          className="flex-none text-xs underline leading-[20px] md:leading-[24px]"
+                          onClick={() => removeItemFromCart(id)}
+                        >
+                          Удалить
+                        </button>
+                      </div>
+                      <div className="text-gray-500 space-y-1 text-[12px] leading-[16px] md:text-sm md:leading-[20px]">
+                        {productToParams.map(({ params: { name, value } }) => (
+                          <div>
+                            {name}: <b>{value}</b>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <div className="font-bold text-lg">{price} ₽</div>
+                      <div className="flex items-center gap-1 ml-auto">
+                        <Button variant="outline" size="icon">
+                          −
+                        </Button>
+                        <Button variant="ghost" size="icon">
+                          1
+                        </Button>
+                        <Button variant="outline" size="icon">
+                          +
+                        </Button>
+                      </div>
+                    </div>
                   </div>
-                  <button className="flex-none text-xs underline leading-[20px] md:leading-[24px]">
-                    Удалить
-                  </button>
                 </div>
-                <div className="text-gray-500 space-y-1 text-[12px] leading-[16px] md:text-sm md:leading-[20px]">
-                  <div>
-                    Цвет: <b>Черный</b>
-                  </div>
-                  <div>
-                    Размер: <b>M</b>
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-2 items-center">
-                <div className="font-bold text-lg">18 000 ₽</div>
-                <div className="flex items-center gap-1 ml-auto">
-                  <Button variant="outline" size="icon">
-                    −
-                  </Button>
-                  <Button variant="ghost" size="icon">
-                    1
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    +
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
+              )
+            )}
         </SheetBody>
         <SheetFooter className="border-t border-gray-200">
           <div className="flex-1 space-y-2 md:space-y-4">
