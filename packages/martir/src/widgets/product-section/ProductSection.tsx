@@ -1,7 +1,7 @@
 import { Counter } from "@/features/counter";
 import { PreviewImage } from "@/features/preview-image";
 import { productRoute } from "@/pages/product";
-import { useGetProducts } from "@/shared/hooks/mock-api";
+import { useProduct } from "@/shared/api/products";
 import { useLocalStorage } from "@/shared/hooks/use-local-storage";
 import { toast } from "@/shared/hooks/use-toast";
 import { Button } from "@/shared/ui/components/button";
@@ -13,16 +13,50 @@ import { SkeletonTitle } from "./SkeletonTitle";
 import { SkeletonVariants } from "./SkeletonVartiants";
 import tshirtImg from "./tshirt.png";
 import { Variants } from "./Variants";
+import { useMemo } from "react";
 
 const DEFAULT_CART_VALUE = {};
 
+type Product = {
+  name: string;
+  count: number;
+  price: number;
+  params: Record<string, string>;
+};
+
 export function ProductSection() {
   const { productId } = productRoute.useParams();
-  const { loading, data: products = {} } = useGetProducts();
+  const {
+    product: { id },
+  } = productRoute.useLoaderData();
+
+  const { data, isLoading } = useProduct(productId);
   const [cart, setCart] = useLocalStorage("cart", DEFAULT_CART_VALUE);
 
-  const { name = "", count = 0, params = {} } = products[productId] ?? {};
-  const countInCart = cart[productId] || 0;
+  const productMap = useMemo(
+    () =>
+      data?.products?.products.reduce<Record<string, Product>>((acc, item) => {
+        const params = item.productToParams.reduce<Record<string, string>>(
+          (acc, item) => {
+            acc[item.params.name] = item.params.value;
+            return acc;
+          },
+          {}
+        );
+
+        acc[item.id] = {
+          name: item.name,
+          price: Number(item.price || 0),
+          count: item.count || 0,
+          params: params,
+        };
+        return acc;
+      }, {}) ?? {},
+    [data?.products?.products]
+  );
+
+  const { name, price, count, params } = productMap[id] ?? {};
+  const countInCart = cart[id] || 0;
 
   const form = useForm({
     defaultValues: {
@@ -37,7 +71,7 @@ export function ProductSection() {
       });
       setCart((prev) => ({
         ...prev,
-        [productId]: (prev[productId] || 0) + value.count,
+        [id]: (prev[id] || 0) + value.count,
       }));
     },
   });
@@ -47,23 +81,23 @@ export function ProductSection() {
       <div className="flex-1 rounded-lg overflow-hidden flex justify-center bg-[#e7e7e7] lg:aspect-square lg:self-start">
         <PreviewImage src={tshirtImg} alt={name} />
       </div>
-      <div className="flex-1 max-w-[600px]">
+      <div className="flex-1 max-w-[600px] md:max-w-full">
         <div className="space-y-2">
-          {loading ? (
+          {isLoading ? (
             <SkeletonTitle />
           ) : (
             <>
               <h1 className="h4 md:h2">{name}</h1>
-              <p className="h2 md:h1 font-black">6 000 ₽</p>
+              <p className="h2 md:h1 font-black">{price} ₽</p>
             </>
           )}
         </div>
         <div className="mt-6 space-y-8">
-          {loading ? (
+          {isLoading ? (
             <SkeletonVariants />
           ) : (
             <>
-              <Variants products={products ?? {}} productParam={params} />
+              <Variants products={productMap} productParam={params} />
               <form.Field
                 name="count"
                 validators={{
@@ -111,7 +145,7 @@ export function ProductSection() {
             <Button onClick={form.handleSubmit} disabled={countInCart >= count}>
               Добавить в корзину
             </Button>
-            {cart[productId] && (
+            {cart[id] && (
               <Button variant="outline">В корзине {countInCart} шт.</Button>
             )}
           </div>

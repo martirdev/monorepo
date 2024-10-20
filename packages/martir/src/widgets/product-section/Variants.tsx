@@ -1,17 +1,13 @@
-import { Product, Products } from "@/shared/hooks/mock-api";
+import { i18n } from "@/shared/lib/localization";
 import { Button } from "@/shared/ui/components/button";
 import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { createProductTree, getNextNode } from "./utils";
 
-const VARIANTS_NAME: Record<string, string> = {
-  color: "Цвет",
-  size: "Размер",
-};
+type Params = Record<string, string>;
 
 type VariantsProps = {
-  products: Products;
-  productParam: Product["params"];
+  products: Record<string, { params: Params }>;
+  productParam: Params;
 };
 
 export function Variants({ products, productParam }: VariantsProps) {
@@ -29,22 +25,16 @@ export function Variants({ products, productParam }: VariantsProps) {
     );
   }, [productParam]);
 
-  const productTree = useMemo(
-    () => createProductTree(products ?? {}, []),
-    [products]
-  );
-
   return (
     <>
       {variantsList.map(([name, variants]) => (
         <div key={name} className="space-y-4">
           <div className="space-y-1">
-            <p className="font-medium">{VARIANTS_NAME[name]}</p>
+            <p className="font-medium capitalize">{i18n(name)}</p>
           </div>
           <div className="flex gap-2">
             {variants.map((variant) => {
               const newParams = { ...productParam, [name]: variant };
-              const nextNode = getNextNode(productTree, newParams);
 
               return (
                 <Button
@@ -56,9 +46,11 @@ export function Variants({ products, productParam }: VariantsProps) {
                 >
                   <Link
                     to="/product/$productId"
-                    params={{ productId: nextNode?.id || "" }}
+                    from="/product/$productId"
+                    search={newParams}
+                    className="capitalize"
                   >
-                    {variant}
+                    {i18n(variant)}
                   </Link>
                 </Button>
               );

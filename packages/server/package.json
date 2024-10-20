@@ -1,7 +1,9 @@
 {
   "name": "@butterfry/server",
   "scripts": {
-    "dev": "bun run --hot src/index.ts",
+    "dev": "concurrently --names 'types,app' 'bun run typegen:watch' 'bun run --watch src/index.ts'",
+    "typegen": "rollup --config typegen/rollup.config.cjs --bundleConfigAsCjs",
+    "typegen:watch": "nodemon --quiet --watch src --ext ts --exec 'bun run typegen'",
     "migrate:generate": "drizzle-kit generate",
     "migrate:push": "bun src/migrate.ts",
     "migrate": "bun run migrate:generate && bun run migrate:push"
@@ -28,7 +30,9 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/lodash": "^4.17.7",
-    "drizzle-kit": "0.23.0"
+    "concurrently": "^9.0.1",
+    "drizzle-kit": "0.23.0",
+    "rollup": "^4.24.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
