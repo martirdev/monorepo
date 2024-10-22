@@ -4,13 +4,14 @@ import { fileURLToPath } from "url";
 import svgr from "vite-plugin-svgr";
 import mdx from "@mdx-js/rollup";
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
     plugins: [
-      mdx(),
+      mdx({
+        providerImportSource: "@mdx-js/react",
+      }),
       react(),
       svgr({
         include: "**/*.svg",

@@ -6,7 +6,7 @@ type MDXContentProps = PropsWithChildren;
 
 export function MDXContent(props: MDXContentProps) {
   return (
-    <Container className="prose mx-auto py-10">
+    <Container className="prose mx-auto py-10 prose-a:no-underline hover:prose-a:underline">
       <MDXProvider {...props} />
     </Container>
   );
