@@ -29,6 +29,14 @@ export function CartButton() {
     return items.reduce((acc, [_id, item]) => acc + item, 0) || null;
   }, [items]);
 
+  const total = useMemo(() => {
+    return (
+      data?.products.reduce((acc, product) => {
+        return acc + Number(product.price || 0) * cart[product.id] || 0;
+      }, 0) || 0
+    );
+  }, [data?.products]);
+
   const removeItemFromCart = useCallback(
     (id: string) => {
       setCart((prev) => {
@@ -112,7 +120,7 @@ export function CartButton() {
                           −
                         </Button>
                         <Button variant="ghost" size="icon">
-                          1
+                          {cart[id]}
                         </Button>
                         <Button variant="outline" size="icon">
                           +
@@ -128,7 +136,7 @@ export function CartButton() {
           <div className="flex-1 space-y-2 md:space-y-4">
             <div className="flex items-center justify-center gap-1">
               <span className="text-sm">Итого:</span>
-              <span className="text-xl font-bold">18 000 ₽</span>
+              <span className="text-xl font-bold">{total} ₽</span>
             </div>
             <Button className="w-full display-block">
               Перейти к оформлению

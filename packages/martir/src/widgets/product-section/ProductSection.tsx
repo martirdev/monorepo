@@ -106,7 +106,7 @@ export function ProductSection() {
                     .int("Должно быть целочисленным")
                     .positive("Должно быть больше 0")
                     .max(
-                      count - countInCart || 1,
+                      count - countInCart,
                       `Должно быть меньше ${count - countInCart}`
                     ),
                 }}
