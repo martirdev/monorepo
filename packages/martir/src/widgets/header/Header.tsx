@@ -23,14 +23,15 @@ function Nav({ className }: NavProps) {
       <Button
         variant="ghost"
         className="py-1.5 px-3 rounded-md hover:bg-gray-100 ease-in-out duration-200"
+        asChild
       >
-        Связаться с нами
+        <Link to="/contact">Связаться с нами</Link>
       </Button>
       <Button
         variant="ghost"
         className="py-1.5 px-3 rounded-md hover:bg-gray-100 ease-in-out duration-200"
       >
-        Помощь
+        <Link to="/faq">FAQ</Link>
       </Button>
     </nav>
   );
@@ -38,7 +39,7 @@ function Nav({ className }: NavProps) {
 
 export function Header() {
   return (
-    <header className="flex items-center gap-2 py-3 sticky top-0 bg-white/60 backdrop-blur-md">
+    <header className="flex items-center gap-2 py-3 sticky top-0 bg-white/60 backdrop-blur-md z-50">
       <Container className="gap-10 flex items-center">
         <Link to="/">
           <Logo />

@@ -10,6 +10,7 @@ import { faqRoute } from "./faq";
 import { mainRoute } from "./main";
 import { productRoute } from "./product";
 import { refundRoute } from "./refund";
+import { contactsRoute } from "./contacts";
 
 type RootContext = {
   queryClient: QueryClient;
@@ -24,6 +25,7 @@ const routeTree = rootRoute.addChildren([
   mainRoute,
   productRoute,
   faqRoute,
+  contactsRoute,
   refundRoute,
   deliveryAndPaymentsRoute,
 ]);
