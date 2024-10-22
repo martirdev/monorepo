@@ -14,6 +14,7 @@ import { SkeletonVariants } from "./SkeletonVartiants";
 import tshirtImg from "./tshirt.png";
 import { Variants } from "./Variants";
 import { useMemo } from "react";
+import { financial } from "@/shared/lib/localization";
 
 const DEFAULT_CART_VALUE = {};
 
@@ -88,7 +89,7 @@ export function ProductSection() {
           ) : (
             <>
               <h1 className="h4 md:h2">{name}</h1>
-              <p className="h2 md:h1 font-black">{price} ₽</p>
+              <p className="h2 md:h1 font-black">{financial(price)}</p>
             </>
           )}
         </div>

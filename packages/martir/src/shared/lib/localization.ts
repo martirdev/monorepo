@@ -2,6 +2,13 @@ type Local = "ru";
 
 const local: Local = "ru" as const;
 
+export const financial = (value: number) =>
+  Intl.NumberFormat("ru-RU", {
+    style: "currency",
+    currency: "RUB",
+    trailingZeroDisplay: "stripIfInteger",
+  }).format(value);
+
 export const i18n = (key: string) => localization[key]?.[local] || key;
 
 export const localization: Record<string, Record<Local, string>> = {
