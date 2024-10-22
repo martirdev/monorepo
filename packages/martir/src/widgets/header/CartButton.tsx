@@ -15,6 +15,7 @@ import { useMemo, useCallback, useState } from "react";
 import { IconButton } from "./IconButton";
 import { TextLink } from "@/shared/ui/text-link";
 import { useProducts } from "@/shared/api/products";
+import { financial } from "@/shared/lib/localization";
 
 export function CartButton() {
   const [open, setOpen] = useState(false);
@@ -114,7 +115,9 @@ export function CartButton() {
                       </div>
                     </div>
                     <div className="flex gap-2 items-center">
-                      <div className="font-bold text-lg">{price} ₽</div>
+                      <div className="font-bold text-lg">
+                        {financial(Number(price || 0))}
+                      </div>
                       <div className="flex items-center gap-1 ml-auto">
                         <Button variant="outline" size="icon">
                           −
@@ -136,7 +139,7 @@ export function CartButton() {
           <div className="flex-1 space-y-2 md:space-y-4">
             <div className="flex items-center justify-center gap-1">
               <span className="text-sm">Итого:</span>
-              <span className="text-xl font-bold">{total} ₽</span>
+              <span className="text-xl font-bold">{financial(total)}</span>
             </div>
             <Button className="w-full display-block">
               Перейти к оформлению
