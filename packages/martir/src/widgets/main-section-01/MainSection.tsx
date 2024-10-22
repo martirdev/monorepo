@@ -2,11 +2,12 @@ import { Link } from "@tanstack/react-router";
 import img from "./tshirt.png";
 import { useProduct } from "@/shared/api/products";
 import { useMemo } from "react";
+import { cn } from "@/shared/lib/utils";
 
 const MASTER_PRODUCT = "ab2f2ae9-7111-4cad-a2dc-392f0d7e1293";
 
 export function MainSection() {
-  const { data } = useProduct(MASTER_PRODUCT);
+  const { data, isLoading } = useProduct(MASTER_PRODUCT);
 
   const productsCountByColor = useMemo(
     () =>
@@ -35,10 +36,15 @@ export function MainSection() {
         search={{ color: "black", size: "M" }}
         className="rounded-lg overflow-hidden relative"
       >
-        <div className="flex-1  h-full flex items-center justify-center bg-[#e7e7e7]">
+        <div
+          className={cn(
+            "flex-1  h-full flex items-center justify-center bg-[#e7e7e7] ease-in-out duration-500",
+            !productsCountByColor["black"] && !isLoading && "grayscale"
+          )}
+        >
           <img src={img} />
         </div>
-        {!productsCountByColor["black"] && (
+        {!productsCountByColor["black"] && !isLoading && (
           <div className="absolute bottom-1/2 w-full text-center bg-red-800 text-white text-2xl tracking-widest uppercase font-thin px-4 py-2">
             Распродано
           </div>
@@ -50,10 +56,15 @@ export function MainSection() {
         search={{ color: "white", size: "M" }}
         className="rounded-lg overflow-hidden relative  "
       >
-        <div className="flex-1 h-full flex items-center justify-center bg-[#e7e7e7]">
+        <div
+          className={cn(
+            "flex-1 h-full flex items-center justify-center bg-[#e7e7e7] ease-in-out duration-500",
+            !productsCountByColor["white"] && !isLoading && "grayscale"
+          )}
+        >
           <img src={img} alt="" />
         </div>
-        {!productsCountByColor["white"] && (
+        {!productsCountByColor["white"] && !isLoading && (
           <div className="absolute bottom-1/2 w-full text-center bg-red-800 text-white text-2xl tracking-widest uppercase font-thin px-4 py-2">
             Распродано
           </div>
@@ -65,10 +76,15 @@ export function MainSection() {
         search={{ color: "peach", size: "M" }}
         className="rounded-lg overflow-hidden relative"
       >
-        <div className="flex-1 h-full flex items-center justify-center bg-[#e7e7e7]">
+        <div
+          className={cn(
+            "flex-1 h-full flex items-center justify-center bg-[#e7e7e7] ease-in-out duration-500",
+            !productsCountByColor["peach"] && !isLoading && "grayscale"
+          )}
+        >
           <img src={img} alt="" />
         </div>
-        {!productsCountByColor["peach"] && (
+        {!productsCountByColor["peach"] && !isLoading && (
           <div className="absolute bottom-1/2 w-full text-center bg-red-800 text-white text-2xl tracking-widest uppercase font-thin px-4 py-2">
             Распродано
           </div>
