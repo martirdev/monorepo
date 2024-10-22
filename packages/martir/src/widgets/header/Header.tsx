@@ -30,6 +30,7 @@ function Nav({ className }: NavProps) {
       <Button
         variant="ghost"
         className="py-1.5 px-3 rounded-md hover:bg-gray-100 ease-in-out duration-200"
+        asChild
       >
         <Link to="/faq">FAQ</Link>
       </Button>
