@@ -49,6 +49,7 @@ export function Variants({ products, productParam }: VariantsProps) {
                     from="/product/$productId"
                     search={newParams}
                     className="capitalize"
+                    resetScroll={false}
                   >
                     {i18n(variant)}
                   </Link>
