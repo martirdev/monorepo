@@ -15,4 +15,9 @@ export const contactsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/contact",
   component: ContactsPage,
+  meta: () => [
+    {
+      title: "Контакты",
+    },
+  ],
 });

@@ -14,4 +14,9 @@ export const mainRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
   component: MainPage,
+  meta: () => [
+    {
+      title: "Оффициальный сайт бренда",
+    },
+  ],
 });

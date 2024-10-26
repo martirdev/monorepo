@@ -15,4 +15,9 @@ export const faqRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/faq",
   component: FaqPage,
+  meta: () => [
+    {
+      title: "FAQ",
+    },
+  ],
 });

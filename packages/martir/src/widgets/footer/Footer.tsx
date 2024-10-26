@@ -25,8 +25,8 @@ export function Footer() {
                   </a>
                 </li>
                 <li className="text-gray-600">
-                  Мы всегда готовы прийти на помощь, но наше время работы с
-                  10:00 до 20:00
+                  Мы всегда готовы прийти на помощь, мы работаем с 10:00 до
+                  20:00
                 </li>
               </ul>
             </div>
@@ -36,7 +36,7 @@ export function Footer() {
             <div className="mt-10 text-sm">
               <ul className="space-y-3">
                 <li>
-                  <TextLink to="/refund">Возврат</TextLink>
+                  <TextLink to="/refund">Обмен и возврат</TextLink>
                 </li>
                 <li>
                   <TextLink to="/delivery-and-payments">
