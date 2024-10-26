@@ -39,7 +39,9 @@ export function MainSection() {
         <div
           className={cn(
             "flex-1  h-full flex items-center justify-center bg-[#e7e7e7] ease-in-out duration-500",
-            !productsCountByColor["black"] && !isLoading && "grayscale"
+            !productsCountByColor["black"] &&
+              !isLoading &&
+              "grayscale opacity-80"
           )}
         >
           <img src={img} />
@@ -59,7 +61,9 @@ export function MainSection() {
         <div
           className={cn(
             "flex-1 h-full flex items-center justify-center bg-[#e7e7e7] ease-in-out duration-500",
-            !productsCountByColor["white"] && !isLoading && "grayscale"
+            !productsCountByColor["white"] &&
+              !isLoading &&
+              "grayscale opacity-80"
           )}
         >
           <img src={img} alt="" />
@@ -79,7 +83,9 @@ export function MainSection() {
         <div
           className={cn(
             "flex-1 h-full flex items-center justify-center bg-[#e7e7e7] ease-in-out duration-500",
-            !productsCountByColor["peach"] && !isLoading && "grayscale"
+            !productsCountByColor["peach"] &&
+              !isLoading &&
+              "grayscale opacity-80"
           )}
         >
           <img src={img} alt="" />

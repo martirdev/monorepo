@@ -44,4 +44,9 @@ export const productRoute = createRoute({
     };
   },
   component: ProductPage,
+  meta: () => [
+    {
+      title: "Страница товара",
+    },
+  ],
 });

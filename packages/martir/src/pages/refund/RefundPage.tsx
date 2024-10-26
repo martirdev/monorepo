@@ -15,4 +15,9 @@ export const refundRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/refund",
   component: RefundPage,
+  meta: () => [
+    {
+      title: "Обмен и возврат",
+    },
+  ],
 });

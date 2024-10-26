@@ -15,4 +15,9 @@ export const deliveryAndPaymentsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/delivery-and-payments",
   component: DeliveryPage,
+  meta: () => [
+    {
+      title: "Доставка и оплата",
+    },
+  ],
 });
