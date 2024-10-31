@@ -1,64 +1,76 @@
-import { i18n } from "@/shared/lib/localization";
-import { Button } from "@/shared/ui/components/button";
-import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
-
-type Params = Record<string, string>;
+import { Variant } from "./Variant";
+import { Params, Tree } from "./types";
+import { sortSizeValues } from "./utils";
 
 type VariantsProps = {
-  products: Record<string, { params: Params }>;
+  products: {
+    id: string;
+    count: number;
+    productToParams: {
+      params: {
+        value: string;
+        name: string;
+      };
+    }[];
+  }[];
   productParam: Params;
 };
 
 export function Variants({ products, productParam }: VariantsProps) {
-  const variantsList = useMemo(() => {
-    const variants = Object.values(products ?? []).reduce<
-      Record<string, Set<string>>
-    >((acc, product) => {
-      Object.entries(product.params).forEach(([key, value]) => {
-        (acc[key] ??= new Set()).add(value);
+  const variantsMap = useMemo(
+    () =>
+      products.reduce<Record<string, Set<string>>>((acc, product) => {
+        product.productToParams.forEach(({ params }) => {
+          (acc[params.name] ??= new Set()).add(params.value);
+        });
+        return acc;
+      }, {}),
+    [products]
+  );
+
+  const tree = useMemo(() => {
+    const rawTree: Tree = { leaf: {} };
+    products.forEach((product) => {
+      let node = rawTree;
+
+      product.productToParams.forEach(({ params }) => {
+        if (!node.leaf) {
+          node.leaf = {};
+        }
+        if (!node.leaf[params.name]) {
+          node.leaf[params.name] = {};
+        }
+        if (!node.leaf[params.name][params.value]) {
+          node.leaf[params.name][params.value] = {};
+        }
+        node = node.leaf[params.name][params.value];
       });
-      return acc;
-    }, {});
-    return Object.entries(variants).map(
-      ([key, value]) => [key, Array.from(value)] as const
-    );
-  }, [productParam]);
+
+      node.product = product;
+    });
+    return rawTree;
+  }, [products]);
 
   return (
     <>
-      {variantsList.map(([name, variants]) => (
-        <div key={name} className="space-y-4">
-          <div className="space-y-1">
-            <p className="font-medium capitalize">{i18n(name)}</p>
-          </div>
-          <div className="flex gap-2">
-            {variants.map((variant) => {
-              const newParams = { ...productParam, [name]: variant };
-
-              return (
-                <Button
-                  key={variant}
-                  variant={
-                    productParam[name] === variant ? "default" : "secondary"
-                  }
-                  asChild
-                >
-                  <Link
-                    to="/product/$productId"
-                    from="/product/$productId"
-                    search={newParams}
-                    className="capitalize"
-                    resetScroll={false}
-                  >
-                    {i18n(variant)}
-                  </Link>
-                </Button>
-              );
-            })}
-          </div>
-        </div>
-      ))}
+      {variantsMap["color"].size && (
+        <Variant
+          name="color"
+          variants={variantsMap["color"]}
+          productParam={productParam}
+          productsTree={tree}
+        />
+      )}
+      {variantsMap["size"].size && (
+        <Variant
+          name="size"
+          variants={variantsMap["size"]}
+          productParam={productParam}
+          sortSizeValues={sortSizeValues}
+          productsTree={tree}
+        />
+      )}
     </>
   );
 }

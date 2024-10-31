@@ -98,7 +98,10 @@ export function ProductSection() {
             <SkeletonVariants />
           ) : (
             <>
-              <Variants products={productMap} productParam={params} />
+              <Variants
+                products={data?.products?.products ?? []}
+                productParam={params}
+              />
               <form.Field
                 name="count"
                 validators={{
@@ -128,6 +131,8 @@ export function ProductSection() {
                           value={field.state.value}
                           onBlur={field.handleBlur}
                           onChange={field.handleChange}
+                          max={count - countInCart}
+                          min={1}
                         />
                       </div>
                       {field.state.meta.isTouched &&

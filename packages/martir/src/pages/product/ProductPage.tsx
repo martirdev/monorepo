@@ -29,11 +29,9 @@ export const productRoute = createRoute({
       productOptions(productId)
     );
 
-    const product = data?.products?.products.find((product) => {
-      return product.productToParams.every(
-        (param) => search[param.params.name] === param.params.value
-      );
-    });
+    const product = data?.products?.products.find(
+      (product) => product.id === search.id
+    );
 
     if (!product) {
       throw notFound();
