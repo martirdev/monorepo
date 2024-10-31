@@ -13,7 +13,7 @@ export function MainSection() {
     () =>
       data?.products?.products.find(
         (product, id) =>
-          !product.count ||
+          !!product.count ||
           (data?.products?.products.length &&
             id === data.products.products.length - 1)
       ),
@@ -28,7 +28,7 @@ export function MainSection() {
         to="/product/$productId"
         params={{ productId: MASTER_PRODUCT }}
         search={firstItem ? { id: firstItem.id } : undefined}
-        disabled={!firstItem}
+        disabled={!hasInStock}
         className="rounded-lg overflow-hidden relative w-full"
       >
         <div
