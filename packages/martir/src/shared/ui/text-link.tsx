@@ -19,3 +19,24 @@ export const TextLink = createLink(
     }
   )
 );
+
+export const BaseLink = createLink(
+  forwardRef(
+    (
+      props: Omit<HTMLProps<HTMLAnchorElement>, "preload">,
+      ref: ForwardedRef<HTMLAnchorElement>
+    ) => {
+      return (
+        <TanLink
+          {...props}
+          to={props.href}
+          ref={ref}
+          className={cn(
+            props.className,
+            "underline text-blue-700 hover:no-underline"
+          )}
+        />
+      );
+    }
+  )
+);
