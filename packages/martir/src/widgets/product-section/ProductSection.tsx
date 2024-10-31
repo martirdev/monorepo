@@ -174,7 +174,7 @@ export function ProductSection() {
             <Accordion
               type="single"
               className="w-full"
-              defaultValue={description ? "description" : "delivery"}
+              defaultValue="description"
             >
               {description && (
                 <AccordionItem value="description">
