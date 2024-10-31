@@ -30,6 +30,7 @@ export function productsOptions(ids: string[]) {
       });
       return response.json();
     },
+    enabled: !!ids.length,
   });
 }
 

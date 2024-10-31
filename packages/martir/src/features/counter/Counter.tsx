@@ -7,7 +7,7 @@ type CounterProps = {
   onChange?: (value: number) => void;
 } & Omit<InputProps, "onChange">;
 
-export function Counter({ value, onChange, ...rest }: CounterProps) {
+export function Counter({ value, min, max, onChange, ...rest }: CounterProps) {
   const addValue = useCallback(() => {
     const rawValue = Number(value);
     const preparedValue = Number.isNaN(rawValue) ? 0 : rawValue;
@@ -29,7 +29,12 @@ export function Counter({ value, onChange, ...rest }: CounterProps) {
 
   return (
     <div className="flex gap-2">
-      <Button variant="outline" size="icon" onClick={removeValue}>
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={removeValue}
+        disabled={min ? value <= Number(min) : undefined}
+      >
         −
       </Button>
       <Input
@@ -38,9 +43,15 @@ export function Counter({ value, onChange, ...rest }: CounterProps) {
         value={value.toFixed(0)}
         inputMode="numeric"
         type="number"
+        min={min}
         {...rest}
       />
-      <Button variant="outline" size="icon" onClick={addValue}>
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={addValue}
+        disabled={max ? value >= Number(max) : undefined}
+      >
         +
       </Button>
     </div>
