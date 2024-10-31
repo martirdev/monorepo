@@ -6,7 +6,7 @@ import { sortSizeValues } from "./utils";
 type VariantsProps = {
   products: {
     id: string;
-    count: number;
+    count: number | null;
     productToParams: {
       params: {
         value: string;
