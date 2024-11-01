@@ -6,7 +6,6 @@ export const financial = (value: number) =>
   Intl.NumberFormat("ru-RU", {
     style: "currency",
     currency: "RUB",
-    trailingZeroDisplay: "stripIfInteger",
   }).format(value);
 
 export const i18n = (key: string) => localization[key]?.[local] || key;
