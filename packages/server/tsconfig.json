@@ -1,10 +1,10 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "moduleResolution": "Node",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-  },
-  "exclude": ["typegen/*"]
+	"compilerOptions": {
+		"strict": true,
+		"moduleResolution": "Node",
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	},
+	"exclude": ["typegen/*", "node_modules"]
 }

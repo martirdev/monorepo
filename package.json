@@ -1,11 +1,13 @@
 {
-  "name": "butterfry",
+  "name": "martir",
   "scripts": {
-    "dev:client": "cd ./packages/butterfry && bun run dev",
+    "dev:butterfry": "cd ./packages/butterfry && bun run dev",
+    "dev:martir": "cd ./packages/martir && bun run dev",
     "dev:server": "cd ./packages/server && bun run dev",
     "dev": "concurrently \"bun run dev:*\"",
     "clean:common": "rm -rf bun.lockb node_modules",
-    "clean:client": "cd ./packages/butterfry && rm -rf bun.lockb node_modules",
+    "clean:butterfry": "cd ./packages/butterfry && rm -rf bun.lockb node_modules",
+    "clean:martir": "cd ./packages/martir && rm -rf bun.lockb node_modules",
     "clean:server": "cd ./packages/server && rm -rf bun.lockb node_modules",
     "clean": "concurrently \"bun run clean:*\""
   },

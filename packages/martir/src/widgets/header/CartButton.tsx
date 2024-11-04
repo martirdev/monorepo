@@ -82,7 +82,12 @@ export function CartButton() {
                 data.products.map(
                   ({ id, name, productToParams, price, masterProductId }) => (
                     <div className="flex gap-3 md:gap-6" key={id}>
-                      <Link to="/product/$productId" params={{ productId: id }}>
+                      <Link
+                        to="/product/$productId"
+                        params={{ productId: masterProductId }}
+                        search={{ id }}
+                        onClick={close}
+                      >
                         <div className="w-[80px] h-[80px] md:w-[150px] md:h-[150px] bg-[#e7e7e7] rounded-md flex-none"></div>
                       </Link>
                       <div className="space-y-3 md:space-y-5 flex-1">
@@ -91,12 +96,7 @@ export function CartButton() {
                             <TextLink
                               to="/product/$productId"
                               params={{ productId: masterProductId }}
-                              search={productToParams.reduce<
-                                Record<string, string>
-                              >((acc, { params: { name, value } }) => {
-                                acc[name] = value;
-                                return acc;
-                              }, {})}
+                              search={{ id }}
                               onClick={close}
                               className="flex-1"
                             >
@@ -114,7 +114,7 @@ export function CartButton() {
                           <div className="text-gray-500 space-y-1 text-[12px] leading-[16px] md:text-sm md:leading-[20px]">
                             {productToParams.map(
                               ({ params: { name, value } }) => (
-                                <div>
+                                <div key={name}>
                                   {name}: <b>{value}</b>
                                 </div>
                               )

@@ -29,6 +29,7 @@
     "@tanstack/router-devtools": "^1.45.11",
     "@tanstack/router-plugin": "^1.45.8",
     "@tanstack/zod-form-adapter": "^0.32.0",
+    "better-auth": "^0.7.0-beta.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",

@@ -12,14 +12,12 @@ function ProductPage() {
   );
 }
 
-const searchParamsScheme = z.record(z.string());
+const validateSearch = z.object({ id: z.string() });
 
 export const productRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/product/$productId",
-  validateSearch: (search) => {
-    return searchParamsScheme.parse(search);
-  },
+  validateSearch,
   loaderDeps: (ctx) => ctx,
   loader: async (ctx) => {
     const { productId } = ctx.params;

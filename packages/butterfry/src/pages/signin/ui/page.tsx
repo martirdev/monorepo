@@ -4,7 +4,7 @@ import { FC } from "react";
 import { sharedRoutes } from "@/pages/router";
 import { Button } from "@/shared/ui/button";
 
-const LoginPage: FC = () => {
+const SignInPage: FC = () => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-center py-12">
@@ -30,15 +30,15 @@ const LoginPage: FC = () => {
   );
 };
 
-export const loginRoute = createRoute({
-  beforeLoad: ({ context }) => {
-    if (context.userData?.user) {
+export const signInRoute = createRoute({
+  beforeLoad: async ({ context }) => {
+    if (context.user) {
       throw redirect({
         to: "/",
       });
     }
   },
-  component: LoginPage,
+  component: SignInPage,
   getParentRoute: () => sharedRoutes,
-  path: "login",
+  path: "signin",
 });

@@ -1,21 +1,21 @@
 import { FC, useMemo } from "react";
 
-import { useUser } from "@/features/lib/useUser";
+import { authClient } from "@/shared/lib/auth";
 import { Combobox, ComboboxPropsType } from "@/shared/ui/combobox";
 
 export const OrganizationsSelect: FC<Omit<ComboboxPropsType, "options">> = (
   props,
 ) => {
-  const { data, isLoading } = useUser();
+  const { data, isPending } = authClient.useListOrganizations();
 
   const options = useMemo(() => {
     return (
-      data?.organizations?.map((org) => ({
+      data?.map((org) => ({
         label: org.name,
         value: org.id,
       })) || []
     );
-  }, [data?.organizations]);
+  }, [data]);
 
-  return <Combobox isLoading={isLoading} options={options} {...props} />;
+  return <Combobox isLoading={isPending} options={options} {...props} />;
 };

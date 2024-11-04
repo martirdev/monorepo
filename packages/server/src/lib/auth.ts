@@ -1,55 +1,17 @@
-import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
-import { InferSelectModel } from "drizzle-orm";
-import { Effect } from "effect";
-import { Context } from "hono";
-import { setCookie } from "hono/cookie";
-import { validator } from "hono/validator";
-import { Lucia } from "lucia";
-import { z } from "zod";
-
-import { sessions, users } from "@/scheme";
-
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { bearer, jwt, organization } from "better-auth/plugins";
 import { db } from "./db";
 
-const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);
-
-export const lucia = new Lucia(adapter, {
-  sessionCookie: {
-    attributes: {
-      secure: process.env.NODE_ENV === "production",
-    },
+export const auth = betterAuth({
+  trustedOrigins: process.env.TRUSTED_ORIGINS?.split(","),
+  basePath: "/auth",
+  database: drizzleAdapter(db, {
+    provider: "pg",
+  }),
+  plugins: [organization(), jwt(), bearer()],
+  emailAndPassword: {
+    enabled: true,
   },
-  getUserAttributes: (attributes) => {
-    console.log({ attributes });
-    return attributes;
-  },
+  appName: "martir",
 });
-
-export const createUserSession =
-  (c: Context) =>
-  ({ id }: { id: string }) =>
-    Effect.promise(() => lucia.createSession(id, {})).pipe(
-      Effect.tap((session) => {
-        const cookie = lucia.createSessionCookie(session.id);
-        setCookie(c, cookie.name, cookie.value, cookie.attributes);
-      })
-    );
-
-const authCookieSchema = z.object({
-  auth_session: z.string(),
-});
-
-export const validateAuthCookie = validator("cookie", (value, c) => {
-  const parsed = authCookieSchema.safeParse(value);
-
-  return parsed.success
-    ? parsed.data
-    : c.json({ message: "Unauthorized" }, 401);
-});
-
-declare module "lucia" {
-  interface Register {
-    Lucia: typeof lucia;
-    DatabaseUserAttributes: InferSelectModel<typeof users>;
-  }
-}

@@ -1,15 +1,18 @@
 import { createRoute, redirect } from "@tanstack/react-router";
 
+import { authClient } from "@/shared/lib/auth";
+
 import { clientsRoute } from "./clients";
 import { dashboardRoute } from "./dashboard";
 import { homeRoute } from "./home";
 import { organizationRoute } from "./layouts/organization";
 import { rootRoute } from "./layouts/root";
-import { loginRoute } from "./login";
 import { ordersRoute } from "./orders";
 import { productsRoute } from "./products";
 import { profileRoute } from "./profile";
 import { settingsRoute } from "./settings";
+import { signInRoute } from "./signin";
+import { signUpRoute } from "./signup";
 
 export const sharedRoutes = createRoute({
   getParentRoute: () => rootRoute,
@@ -17,12 +20,18 @@ export const sharedRoutes = createRoute({
 });
 
 export const authenticatedRoutes = createRoute({
-  beforeLoad: ({ context }) => {
-    if (!context.userData?.user) {
+  beforeLoad: async ({ context }) => {
+    if (!context.user) {
       throw redirect({
-        to: "/login",
+        to: "/signin",
       });
     }
+
+    const { data: organizations } = await authClient.organization.list();
+
+    return {
+      organizations,
+    };
   },
   getParentRoute: () => rootRoute,
   meta: () => [
@@ -35,8 +44,8 @@ export const authenticatedRoutes = createRoute({
 });
 
 export const authenticatedHome = createRoute({
-  beforeLoad: ({ context }) => {
-    if (!context.userData.organizations[0]) {
+  beforeLoad: async ({ context }) => {
+    if (!context.organizations) {
       throw redirect({
         search: {
           code: "UserDontHaveOrg",
@@ -46,7 +55,7 @@ export const authenticatedHome = createRoute({
     }
     throw redirect({
       params: {
-        organization: context.userData.organizations[0]?.id,
+        organization: context.organizations[0]?.id,
       },
       to: "/console/$organization",
     });
@@ -56,7 +65,7 @@ export const authenticatedHome = createRoute({
 });
 
 export const routeTree = rootRoute.addChildren([
-  sharedRoutes.addChildren([loginRoute, homeRoute]),
+  sharedRoutes.addChildren([homeRoute, signInRoute, signUpRoute]),
   authenticatedRoutes.addChildren([
     authenticatedHome,
     profileRoute,

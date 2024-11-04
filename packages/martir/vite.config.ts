@@ -8,6 +8,9 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
+    preview: {
+      port: 8080,
+    },
     plugins: [
       mdx({
         providerImportSource: "@mdx-js/react",
@@ -18,6 +21,7 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     server: {
+      port: 4001,
       host: true,
       proxy: {
         "/api": {

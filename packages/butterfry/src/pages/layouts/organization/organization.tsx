@@ -167,9 +167,9 @@ export const organizationRoute = createRoute({
   component: OrganizationLayout,
   getParentRoute: () => authenticatedRoutes,
   meta: (context) => {
-    const userOrganizations =
-      context.match.context?.userData.organizations ?? [];
+    const userOrganizations = context.match.context?.organizations ?? [];
     const currentOrganization = context.params.organization;
+
     return [
       {
         id: "meta",
