@@ -1,3 +1,22 @@
+import { BlankSlate } from "@/features/blank-slate";
+import { currency } from "@/shared/lib/intlnumbers";
+import { Button } from "@/shared/ui/button";
+import { Checkbox } from "@/shared/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/shared/ui/dropdown-menu";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/shared/ui/table";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,42 +33,22 @@ import { ary } from "lodash/fp";
 import { MoreHorizontal, Snail } from "lucide-react";
 import { useState } from "react";
 
-import { BlankSlate } from "@/features/blank-slate";
-import { currency } from "@/shared/lib/intlnumbers";
-import { Button } from "@/shared/ui/button";
-import { Checkbox } from "@/shared/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/shared/ui/dropdown-menu";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/shared/ui/table";
-
+import { useProducts } from "@/shared/api/products";
+import { Link } from "@tanstack/react-router";
 import { ProductsCreateButton } from "./ProductsCreateButton";
 
 export type Product = {
-  //   category: string; TODO: #157 add category to products
   id: string;
   name: string;
   price: number;
-  stock: number;
+  count: number;
 };
 
 export const columns: ColumnDef<Product>[] = [
   {
     cell: ({ row }) => (
       <Checkbox
-        aria-label="Select row"
+        aria-label="Выбрать товар"
         checked={row.getIsSelected()}
         onCheckedChange={ary(1, row.toggleSelected)}
       />
@@ -69,9 +68,19 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: "name",
-    cell: ({ row }) => (
-      <div className="font-bold capitalize">{row.getValue("name")}</div>
-    ),
+    cell: ({ row }) => {
+      return (
+        <div className="truncate whitespace-nowrap font-bold">
+          <Link
+            to="/console/$organization/products"
+            from="/console/$organization/products"
+            search={{ id: row.original.id }}
+          >
+            {row.original.name}
+          </Link>
+        </div>
+      );
+    },
     header: "Название",
     size: undefined,
   },
@@ -79,15 +88,15 @@ export const columns: ColumnDef<Product>[] = [
     accessorKey: "price",
     cell: ({ row }) => (
       <div className="text-right font-medium">
-        {currency.format(row.getValue("price"))}
+        {currency.format(row.original.price)}
       </div>
     ),
     header: () => <div className="text-right">Цена</div>,
     size: 100,
   },
   {
-    accessorKey: "stock",
-    cell: ({ row }) => <div>{row.getValue("stock")}</div>,
+    accessorKey: "count",
+    cell: ({ row }) => <div className="text-right">{row.original.count}</div>,
     header: () => <div className="text-right">Наличие</div>,
     size: 100,
   },
@@ -96,20 +105,17 @@ export const columns: ColumnDef<Product>[] = [
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="h-8 w-8 p-0" variant="ghost">
-            <span className="sr-only">Open menu</span>
+            <span className="sr-only">Открыть меню</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuLabel>Действия</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => navigator.clipboard.writeText(row.original.id)}
           >
-            Copy payment ID
+            Скопировать ID
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>View customer</DropdownMenuItem>
-          <DropdownMenuItem>View payment details</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     ),
@@ -118,9 +124,8 @@ export const columns: ColumnDef<Product>[] = [
   },
 ];
 
-const DATA = [];
-
 export function ProductsTable() {
+  const { data } = useProducts();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -128,7 +133,7 @@ export function ProductsTable() {
 
   const table = useReactTable({
     columns,
-    data: DATA,
+    data: data?.products ?? [],
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -159,12 +164,11 @@ export function ProductsTable() {
                     }}
                     key={header.id}
                   >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                    {!header.isPlaceholder &&
+                      flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
                   </TableHead>
                 ))}
               </TableRow>

@@ -45,14 +45,6 @@ export const ProductsFilters = () => {
           />
         )}
       </form.Field>
-      {/* TODO: #157 add category to products */}
-      {/* <Combobox
-        className="w-[150px]"
-        emptyText="Категории не найдены"
-        options={[]}
-        placeholder="Категории"
-        searchPlaceholder="Свиттеры"
-      /> */}
       <MultiSelect
         className="w-[180px]"
         maxDisplay={1}

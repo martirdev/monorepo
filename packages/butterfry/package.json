@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "generate:api": "curl -H \"Content-Type: text/plain\" http://localhost:3000/codegen --output src/shared/types/codegen.d.ts"
   },
   "dependencies": {
     "@million/lint": "^1.0.0-rc.84",
