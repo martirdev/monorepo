@@ -3,7 +3,12 @@ const { dts } = require("rollup-plugin-dts");
 const config = [
   {
     input: "src/routes/shop/index.ts",
-    output: [{ file: "typegen/hono-api.d.ts", format: "es" }],
+    output: [{ file: "typegen/shop.d.ts", format: "es" }],
+    plugins: [dts()],
+  },
+  {
+    input: "src/index.ts",
+    output: [{ file: "typegen/all.d.ts", format: "es" }],
     plugins: [dts()],
   },
 ];

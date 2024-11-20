@@ -10,7 +10,7 @@ export const productsRouter = new Hono()
     async (c) => {
       const { ids } = c.req.valid("json");
 
-      const fetchedProducts = await db.query.products.findMany({
+      const products = await db.query.products.findMany({
         where: (products, { inArray }) => inArray(products.id, ids),
         with: {
           productToParams: {
@@ -31,7 +31,7 @@ export const productsRouter = new Hono()
         },
       });
 
-      return c.json({ products: fetchedProducts });
+      return c.json({ products });
     }
   )
   .get(

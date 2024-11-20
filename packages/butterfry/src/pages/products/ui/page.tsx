@@ -3,6 +3,9 @@ import { createRoute } from "@tanstack/react-router";
 import { organizationRoute } from "@/pages/layouts/organization";
 
 import { ProductsPage } from "./ProductsPage";
+import { z } from "zod";
+
+const validateSearch = z.object({ id: z.string().optional() });
 
 export const productsRoute = createRoute({
   component: ProductsPage,
@@ -14,4 +17,5 @@ export const productsRoute = createRoute({
     },
   ],
   path: "products",
+  validateSearch,
 });
