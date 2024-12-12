@@ -33,7 +33,6 @@ import { ary } from "lodash/fp";
 import { MoreHorizontal, Snail } from "lucide-react";
 import { useState } from "react";
 
-import { useProducts } from "@/shared/api/products";
 import { Link } from "@tanstack/react-router";
 import { ProductsCreateButton } from "./ProductsCreateButton";
 
@@ -125,7 +124,7 @@ export const columns: ColumnDef<Product>[] = [
 ];
 
 export function ProductsTable() {
-  const { data } = useProducts();
+  const data = { products: [] };
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
