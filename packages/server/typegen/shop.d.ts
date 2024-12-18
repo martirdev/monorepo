@@ -16,49 +16,48 @@ declare const shopRoutes: hono_hono_base.HonoBase<hono_types.BlankEnv, {
         $post: {
             input: {
                 json: {
-                    ids: string[];
+                    id: string;
                 };
             };
             output: {
                 products: {
                     id: string;
                     name: string;
-                    description: string | null;
-                    price: string | null;
-                    count: number | null;
-                    masterProductId: string;
-                    productToParams: {
-                        params: {
-                            value: string;
+                    productToProductCategory: {
+                        productId: string;
+                        productCategoryId: string;
+                        productCategory: {
+                            id: string;
                             name: string;
+                            parentCategoryId: string | null;
+                            isActive: boolean | null;
+                            meta: never;
                         };
                     }[];
-                }[];
-            };
-            outputFormat: "json";
-            status: hono_utils_http_status.StatusCode;
-        };
-    };
-    "/products/:id": {
-        $get: {
-            input: {
-                param: {
-                    id: string;
-                };
-            };
-            output: {
-                products: {
-                    id: string;
-                    name: string;
-                    products: {
+                    productVariants: {
                         id: string;
                         name: string;
                         description: string | null;
-                        price: string | null;
-                        count: number | null;
-                        productToParams: {
-                            params: {
+                        productId: string | null;
+                        meta: never;
+                        packageId: string | null;
+                        package: {
+                            length: number | null;
+                            id: string;
+                            width: number | null;
+                            height: number | null;
+                            weight: number | null;
+                        } | null;
+                        images: {
+                            id: string;
+                            productVariantId: string | null;
+                            url: string;
+                            alt: string | null;
+                        }[];
+                        productVariantsToProductParams: {
+                            productParam: {
                                 value: string;
+                                id: string;
                                 name: string;
                             };
                         }[];

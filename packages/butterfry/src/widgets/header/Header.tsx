@@ -34,7 +34,6 @@ export const Header: FC = () => {
             <div className="shrink-0 md:hidden">
               <Button size="icon" variant="outline">
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Открыть меню навигации</span>
               </Button>
             </div>
           </SheetTrigger>

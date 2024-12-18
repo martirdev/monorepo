@@ -97,7 +97,6 @@ export const columns: ColumnDef<Client>[] = [
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="h-8 w-8 p-0" variant="ghost">
-            <span className="sr-only">Открыть меню</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>

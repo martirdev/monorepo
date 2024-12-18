@@ -14,48 +14,47 @@ declare const app: hono_hono_base.HonoBase<{}, {
         $post: {
             input: {
                 json: {
-                    ids: string[];
+                    id: string;
                 };
             };
             output: {
                 products: {
                     id: string;
                     name: string;
-                    description: string | null;
-                    price: string | null;
-                    count: number | null;
-                    masterProductId: string;
-                    productToParams: {
-                        params: {
+                    productToProductCategory: {
+                        productId: string;
+                        productCategoryId: string;
+                        productCategory: {
+                            id: string;
                             name: string;
-                            value: string;
+                            parentCategoryId: string | null;
+                            isActive: boolean | null;
+                            meta: never;
                         };
                     }[];
-                }[];
-            };
-            outputFormat: "json";
-            status: hono_utils_http_status.StatusCode;
-        };
-    };
-    "/shop/products/:id": {
-        $get: {
-            input: {
-                param: {
-                    id: string;
-                };
-            };
-            output: {
-                products: {
-                    id: string;
-                    name: string;
-                    products: {
+                    productVariants: {
                         id: string;
                         name: string;
                         description: string | null;
-                        price: string | null;
-                        count: number | null;
-                        productToParams: {
-                            params: {
+                        productId: string | null;
+                        meta: never;
+                        packageId: string | null;
+                        package: {
+                            id: string;
+                            length: number | null;
+                            width: number | null;
+                            height: number | null;
+                            weight: number | null;
+                        } | null;
+                        images: {
+                            id: string;
+                            productVariantId: string | null;
+                            url: string;
+                            alt: string | null;
+                        }[];
+                        productVariantsToProductParams: {
+                            productParam: {
+                                id: string;
                                 name: string;
                                 value: string;
                             };
@@ -68,29 +67,6 @@ declare const app: hono_hono_base.HonoBase<{}, {
         };
     };
 } & {
-    "/admin/products/product": {
-        $get: {
-            input: {
-                query: {
-                    id: string;
-                };
-            };
-            output: {
-                product: {
-                    id: string;
-                    name: string;
-                    createdAt: string;
-                    updatedAt: string;
-                    description: string | null;
-                    price: string | null;
-                    count: number | null;
-                    masterProductId: string;
-                } | undefined;
-            };
-            outputFormat: "json";
-            status: hono_utils_http_status.StatusCode;
-        };
-    };
     "/admin/products/products": {
         $post: {
             input: {
@@ -104,15 +80,46 @@ declare const app: hono_hono_base.HonoBase<{}, {
                     name: string;
                     createdAt: string;
                     updatedAt: string;
-                    description: string | null;
-                    price: string | null;
-                    count: number | null;
-                    masterProductId: string;
-                    productToParams: {
-                        params: {
+                    productToProductCategory: {
+                        productId: string;
+                        productCategoryId: string;
+                        productCategory: {
+                            id: string;
                             name: string;
-                            value: string;
+                            parentCategoryId: string | null;
+                            isActive: boolean | null;
+                            meta: never;
                         };
+                    }[];
+                    productVariants: {
+                        id: string;
+                        name: string;
+                        createdAt: string;
+                        updatedAt: string;
+                        description: string | null;
+                        productId: string | null;
+                        meta: never;
+                        packageId: string | null;
+                        package: {
+                            id: string;
+                            length: number | null;
+                            width: number | null;
+                            height: number | null;
+                            weight: number | null;
+                        } | null;
+                        images: {
+                            id: string;
+                            productVariantId: string | null;
+                            url: string;
+                            alt: string | null;
+                        }[];
+                        productVariantsToProductParams: {
+                            productParam: {
+                                id: string;
+                                name: string;
+                                value: string;
+                            };
+                        }[];
                     }[];
                 }[];
             };
