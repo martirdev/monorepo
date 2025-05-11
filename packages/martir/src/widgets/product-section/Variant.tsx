@@ -1,8 +1,8 @@
 import { i18n } from "@/shared/lib/localization";
 import { Button } from "@/shared/ui/components/button";
-import { Link } from "@tanstack/react-router";
 import { Params, Tree } from "./types";
 import { useMemo } from "react";
+import Link from "next/link";
 
 type VariantsProps = {
   name: string;
@@ -45,22 +45,16 @@ export function Variant({
       <div className="flex gap-2">
         {sortedValues.map((variant) => {
           const newParams = { ...productParam, [name]: variant };
-          const { id, count } = getId(productsTree, newParams) ?? {};
+          const { id, stock } = getId(productsTree, newParams) ?? {};
 
           return (
             <Button
               key={variant}
               variant={productParam[name] === variant ? "default" : "secondary"}
-              disabled={!count}
+              disabled={!stock?.stockedQuantity}
               asChild
             >
-              <Link
-                to="/product/$productId"
-                from="/product/$productId"
-                search={id ? { id } : undefined}
-                className="capitalize"
-                resetScroll={false}
-              >
+              <Link href={`?id=${id}`} className="capitalize">
                 {i18n(variant)}
               </Link>
             </Button>

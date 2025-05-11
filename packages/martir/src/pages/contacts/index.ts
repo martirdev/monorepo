@@ -1,1 +1,0 @@
-export { contactsRoute } from "./ContactsPage";

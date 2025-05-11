@@ -1,4 +1,5 @@
-import { useProducts } from "@/shared/api/products";
+"use client";
+import { useVariants } from "@/shared/api/products";
 import { useLocalStorage } from "@/shared/hooks/use-local-storage";
 import { financial } from "@/shared/lib/localization";
 import { Button } from "@/shared/ui/components/button";
@@ -12,11 +13,12 @@ import {
   SheetTrigger,
 } from "@/shared/ui/components/sheet";
 import { TextLink } from "@/shared/ui/text-link";
-import { Link } from "@tanstack/react-router";
 import { ShoppingBag } from "lucide-react";
+import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import { CartEmptyState } from "./CartEmptyState";
 import { IconButton } from "./IconButton";
+import Image from "next/image";
 
 export function CartButton() {
   const [open, setOpen] = useState(false);
@@ -25,7 +27,7 @@ export function CartButton() {
   const itemsKeys = useMemo(() => Object.keys(cart), [cart]);
   const items = useMemo(() => Object.entries(cart), [cart]);
 
-  const { data } = useProducts(itemsKeys);
+  const { data } = useVariants(itemsKeys);
 
   const itemsInCart = useMemo(() => {
     return items.reduce((acc, [_id, item]) => acc + item, 0) || null;
@@ -33,11 +35,13 @@ export function CartButton() {
 
   const total = useMemo(() => {
     return (
-      data?.products.reduce((acc, product) => {
-        return acc + Number(product.price || 0) * cart[product.id] || 0;
+      data?.variants.reduce((acc, product) => {
+        return (
+          acc + Number(product.lastPrice?.price || 0) * cart[product.id] || 0
+        );
       }, 0) || 0
     );
-  }, [data?.products]);
+  }, [data?.variants]);
 
   const removeItemFromCart = useCallback(
     (id: string) => {
@@ -78,25 +82,35 @@ export function CartButton() {
         ) : (
           <>
             <SheetBody className="space-y-4">
-              {data?.products.length &&
-                data.products.map(
-                  ({ id, name, productToParams, price, masterProductId }) => (
+              {data?.variants.length &&
+                data?.variants.map(
+                  ({ id, name, params, lastPrice, product, images }) => (
                     <div className="flex gap-3 md:gap-6" key={id}>
                       <Link
-                        to="/product/$productId"
-                        params={{ productId: masterProductId }}
-                        search={{ id }}
+                        href={{
+                          pathname: `/products/${product.id}`,
+                          query: { id },
+                        }}
                         onClick={close}
                       >
-                        <div className="w-[80px] h-[80px] md:w-[150px] md:h-[150px] bg-[#e7e7e7] rounded-md flex-none"></div>
+                        <div className="w-[80px] h-[80px] md:w-[150px] md:h-[150px] bg-[#e7e7e7] rounded-md flex-none overflow-hidden">
+                          <Image
+                            width={150}
+                            height={150}
+                            src={images[0].image.url || ""}
+                            alt={images[0].image.alt || name}
+                            className="object-contain h-full"
+                          />
+                        </div>
                       </Link>
                       <div className="space-y-3 md:space-y-5 flex-1">
                         <div className="space-y-2 md:space-y-3">
                           <div className="flex gap-1 items-start">
                             <TextLink
-                              to="/product/$productId"
-                              params={{ productId: masterProductId }}
-                              search={{ id }}
+                              href={{
+                                pathname: `/products/${product.id}`,
+                                query: { id },
+                              }}
                               onClick={close}
                               className="flex-1"
                             >
@@ -112,18 +126,17 @@ export function CartButton() {
                             </button>
                           </div>
                           <div className="text-gray-500 space-y-1 text-[12px] leading-[16px] md:text-sm md:leading-[20px]">
-                            {productToParams.map(
-                              ({ params: { name, value } }) => (
-                                <div key={name}>
-                                  {name}: <b>{value}</b>
-                                </div>
-                              )
-                            )}
+                            {params.map(({ paramValue }) => (
+                              <div key={name}>
+                                {paramValue.param.name}:{" "}
+                                <b>{paramValue.value}</b>
+                              </div>
+                            ))}
                           </div>
                         </div>
                         <div className="flex gap-2 items-center">
                           <div className="font-bold text-lg">
-                            {financial(Number(price || 0))}
+                            {financial(Number(lastPrice?.price || 0))}
                           </div>
                           <div className="flex items-center gap-1 ml-auto">
                             <Button variant="outline" size="icon">

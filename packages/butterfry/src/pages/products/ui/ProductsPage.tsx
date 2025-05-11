@@ -4,7 +4,6 @@ import { ConsoleTitle } from "@/shared/ui/console-title";
 import { ProductsCreateButton } from "./ProductsCreateButton";
 import { ProductsFilters } from "./ProductsFilters";
 import { ProductsTable } from "./ProductsTable";
-import { ProductEditSidebar } from "./ProductEditSidebar";
 
 const TRIGGER_ARGS: ButtonProps = { size: "sm" };
 
@@ -20,7 +19,6 @@ export const ProductsPage = () => {
       </ConsoleTitle>
       <ProductsFilters />
       <ProductsTable />
-      <ProductEditSidebar />
     </div>
   );
 };

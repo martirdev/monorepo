@@ -13,6 +13,7 @@ import { profileRoute } from "./profile";
 import { settingsRoute } from "./settings";
 import { signInRoute } from "./signin";
 import { signUpRoute } from "./signup";
+import { categoriesRoute } from "./categories";
 
 export const sharedRoutes = createRoute({
   getParentRoute: () => rootRoute,
@@ -72,6 +73,7 @@ export const routeTree = rootRoute.addChildren([
     organizationRoute.addChildren([
       dashboardRoute,
       productsRoute,
+      categoriesRoute,
       ordersRoute,
       clientsRoute,
       settingsRoute,

@@ -1,32 +1,17 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { client } from "./hono";
 
-export function productOptions(id: string | undefined) {
+export const GET_PRODUCTS_KEY = "get-products";
+export const getProductsKey = (offset: number | undefined) => [
+  GET_PRODUCTS_KEY,
+  offset,
+];
+
+export function productsOptions(offset?: number) {
   return queryOptions({
-    queryKey: ["get-product", id],
+    queryKey: getProductsKey(offset),
     queryFn: async () => {
-      if (!id) return;
-
-      const response = await client.admin.products.product.$get({
-        query: {
-          id: id,
-        },
-      });
-      return response.json();
-    },
-    enabled: !!id,
-  });
-}
-
-export const useProduct = (id: string | undefined) => {
-  return useQuery(productOptions(id));
-};
-
-export function productsOptions(offset: number | undefined) {
-  return queryOptions({
-    queryKey: ["get-products", offset],
-    queryFn: async () => {
-      const response = await client.admin.products.products.$post({
+      const response = await client.admin.products.$post({
         json: {
           offset,
         },
@@ -38,4 +23,28 @@ export function productsOptions(offset: number | undefined) {
 
 export const useProducts = (offset?: number) => {
   return useQuery(productsOptions(offset));
+};
+
+export const GET_PRODUCTS_VARIANTS_KEY = "get-products-variants";
+export const getProductsVariantsKey = (search: string) => [
+  GET_PRODUCTS_VARIANTS_KEY,
+  search,
+];
+
+export function productsVariantsOptions(search: string = "") {
+  return queryOptions({
+    queryKey: getProductsVariantsKey(search),
+    queryFn: async () => {
+      const response = await client.admin.products.variants.$post({
+        json: {
+          search,
+        },
+      });
+      return response.json();
+    },
+  });
+}
+
+export const useProductsVariants = (search: string) => {
+  return useQuery(productsVariantsOptions(search));
 };

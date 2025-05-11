@@ -1,49 +1,46 @@
-import { Link } from "@tanstack/react-router";
-import img from "./tshirt.png";
-import { useProduct } from "@/shared/api/products";
-import { useMemo } from "react";
+import { client } from "@/shared/api/hono";
 import { cn } from "@/shared/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 
-const MASTER_PRODUCT = "ab2f2ae9-7111-4cad-a2dc-392f0d7e1293";
+const MASTER_PRODUCT = "17e89122-c970-4084-8ab8-22ef2304f411";
 
-export function MainSection() {
-  const { data, isLoading } = useProduct(MASTER_PRODUCT);
+export async function MainSection() {
+  const data = await client.products.products
+    .$post({
+      json: { id: MASTER_PRODUCT },
+    })
+    .then((res) => res.json());
 
-  const firstItem = useMemo(
-    () =>
-      data?.products?.products.find(
-        (product, id) =>
-          !!product.count ||
-          (data?.products?.products.length &&
-            id === data.products.products.length - 1)
-      ),
-    [data?.products?.products]
+  const firstItem = data.products?.productVariants.find(
+    (product, id) =>
+      !!product.stock.stockedQuantity ||
+      (data?.products?.productVariants.length &&
+        id === data.products.productVariants.length - 1)
   );
-
-  const hasInStock = !!firstItem?.count;
 
   return (
     <div className="px-4 xl:px-2 py-10 flex flex-col lg:flex-row gap-2 min-h-[70vh]">
       <Link
-        to="/product/$productId"
-        params={{ productId: MASTER_PRODUCT }}
-        search={firstItem ? { id: firstItem.id } : undefined}
-        disabled={!hasInStock}
+        href={{
+          pathname: `/products/${MASTER_PRODUCT}`,
+          query: firstItem ? { id: firstItem.id } : undefined,
+        }}
         className="rounded-lg overflow-hidden relative w-full"
       >
         <div
           className={cn(
-            "flex-1  h-full flex items-center justify-center bg-[#e7e7e7] ease-in-out duration-500",
-            !hasInStock && !isLoading && "grayscale opacity-80"
+            "flex-1 flex items-center justify-center bg-[#e7e7e7] h-[800px]"
           )}
         >
-          <img src={img} />
+          <Image
+            src={firstItem?.images[0]?.image.url || ""}
+            alt="Черная футболка Martir"
+            width={800}
+            height={800}
+            className="w-auto h-full"
+          />
         </div>
-        {!hasInStock && !isLoading && (
-          <div className="absolute bottom-1/2 w-full text-center bg-red-800 text-white text-2xl tracking-widest uppercase font-thin px-4 py-2">
-            Распродано
-          </div>
-        )}
       </Link>
     </div>
   );

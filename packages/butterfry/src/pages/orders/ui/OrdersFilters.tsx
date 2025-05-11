@@ -2,7 +2,7 @@ import { useForm } from "@tanstack/react-form";
 
 import { Input } from "@/shared/ui/input";
 
-import { OrdersFilterForm } from "./types";
+import { OrdersFilterForm } from "../types";
 
 export const OrdersFilters = () => {
   const form = useForm<OrdersFilterForm>({

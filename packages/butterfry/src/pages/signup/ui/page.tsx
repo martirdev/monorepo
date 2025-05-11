@@ -1,14 +1,18 @@
 import { useForm } from "@tanstack/react-form";
-import { createRoute, redirect } from "@tanstack/react-router";
-import { FC } from "react";
+import { createRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { FC, useState } from "react";
 
 import { sharedRoutes } from "@/pages/router";
 import { authClient } from "@/shared/lib/auth";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
+import { toast } from "sonner";
 
 const SignUpPage: FC = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const form = useForm({
     defaultValues: {
       email: "",
@@ -16,11 +20,29 @@ const SignUpPage: FC = () => {
       password: "",
     },
     onSubmit: async ({ value }) => {
-      authClient.signUp.email({
-        email: value.email,
-        name: value.name,
-        password: value.password,
-      });
+      authClient.signUp.email(
+        {
+          email: value.email,
+          name: value.name,
+          password: value.password,
+        },
+        {
+          onResponse: () => {
+            setLoading(false);
+          },
+          onRequest: () => {
+            setLoading(true);
+          },
+          onError: (ctx: any) => {
+            toast.error(ctx.error.message);
+          },
+          onSuccess: async () => {
+            navigate({
+              to: "/console",
+            });
+          },
+        },
+      );
     },
   });
 
@@ -77,7 +99,11 @@ const SignUpPage: FC = () => {
                 )}
               </form.Field>
             </div>
-            <Button className="w-full" onClick={form.handleSubmit}>
+            <Button
+              className="w-full"
+              onClick={form.handleSubmit}
+              disabled={loading}
+            >
               Создать
             </Button>
           </div>

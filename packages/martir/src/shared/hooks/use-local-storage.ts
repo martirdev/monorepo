@@ -1,3 +1,5 @@
+"use client";
+
 import {
   localStorageScheme,
   LocalStorageType,
@@ -18,6 +20,10 @@ export function useLocalStorage<K extends keyof LocalStorageType>(
 ) {
   const get = useCallback(() => {
     try {
+      if (typeof window === "undefined") {
+        return defaultValue;
+      }
+
       const stored = JSON.parse(localStorage.getItem(key)!);
       const parsed = localStorageScheme[key].safeParse(stored);
 
