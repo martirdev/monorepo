@@ -6,6 +6,7 @@ import { useParamsMessage } from "@/features/lib/useParamsMessage";
 import { rootRoute } from "@/pages/layouts/root";
 import Logo from "@/shared/assets/logo.svg?react";
 import { authClient } from "@/shared/lib/auth";
+import { router } from "@/shared/lib/routes";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 import { Button } from "@/shared/ui/button";
 import {
@@ -26,6 +27,11 @@ export const Header: FC = () => {
   const { user: data } = rootRoute.useRouteContext();
   useParamsMessage();
 
+  const handleSignOut = () => {
+    authClient.signOut();
+    router.invalidate();
+  };
+
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 px-4 backdrop-blur-md md:px-6">
       <div className="flex gap-4">
@@ -34,7 +40,6 @@ export const Header: FC = () => {
             <div className="shrink-0 md:hidden">
               <Button size="icon" variant="outline">
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Открыть меню навигации</span>
               </Button>
             </div>
           </SheetTrigger>
@@ -84,7 +89,7 @@ export const Header: FC = () => {
                 <DropdownMenuItem>Настройки</DropdownMenuItem>
                 <DropdownMenuItem>Поддержка</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => authClient.signOut()}>
+                <DropdownMenuItem onClick={handleSignOut}>
                   Выйти
                 </DropdownMenuItem>
               </DropdownMenuContent>

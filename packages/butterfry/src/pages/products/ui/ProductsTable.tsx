@@ -1,14 +1,18 @@
-import { BlankSlate } from "@/features/blank-slate";
-import { currency } from "@/shared/lib/intlnumbers";
-import { Button } from "@/shared/ui/button";
-import { Checkbox } from "@/shared/ui/checkbox";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from "@/shared/ui/dropdown-menu";
+  ColumnDef,
+  ExpandedState,
+  flexRender,
+  getCoreRowModel,
+  getExpandedRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { ChevronDown, Snail } from "lucide-react";
+import { Fragment, useState } from "react";
+
+import { BlankSlate } from "@/features/blank-slate";
+import { useProducts } from "@/shared/api/products";
+import { Button } from "@/shared/ui/button";
 import {
   Table,
   TableBody,
@@ -17,66 +21,101 @@ import {
   TableHeader,
   TableRow,
 } from "@/shared/ui/table";
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  SortingState,
-  useReactTable,
-  VisibilityState,
-} from "@tanstack/react-table";
-import { ary } from "lodash/fp";
-import { MoreHorizontal, Snail } from "lucide-react";
-import { useState } from "react";
 
-import { Link } from "@tanstack/react-router";
+import { CategoryName } from "@/features/category-name";
+import { Product, Variant } from "../types";
 import { ProductsCreateButton } from "./ProductsCreateButton";
+import { ProductsTableActionCell } from "./ProductsTableActionCell";
+import { ProductVariantSheet } from "./ProductVariantSheet";
+import { currency } from "@/shared/lib/intlnumbers";
 
-export type Product = {
-  id: string;
-  name: string;
-  price: number;
-  count: number;
-};
-
-export const columns: ColumnDef<Product>[] = [
-  {
-    cell: ({ row }) => (
-      <Checkbox
-        aria-label="Выбрать товар"
-        checked={row.getIsSelected()}
-        onCheckedChange={ary(1, row.toggleSelected)}
-      />
-    ),
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        aria-label="Выбрать все"
-        onCheckedChange={ary(1, table.toggleAllPageRowsSelected)}
-      />
-    ),
-    id: "select",
-    size: 50,
-  },
+export const columns: ColumnDef<Product | Variant>[] = [
+  // {
+  //   cell: ({ row }) => {
+  //     return (
+  //       <Checkbox
+  //         aria-label="Выбрать товар"
+  //         checked={
+  //           row.getIsSelected() ||
+  //           row.getIsAllSubRowsSelected() ||
+  //           (row.getIsSomeSelected() && "indeterminate")
+  //         }
+  //         onCheckedChange={ary(1, row.toggleSelected)}
+  //         className="block"
+  //       />
+  //     );
+  //   },
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={
+  //         table.getIsAllPageRowsSelected() ||
+  //         (table.getIsSomePageRowsSelected() && "indeterminate")
+  //       }
+  //       aria-label="Выбрать все"
+  //       onCheckedChange={ary(1, table.toggleAllPageRowsSelected)}
+  //       className="block"
+  //     />
+  //   ),
+  //   id: "select",
+  //   size: 50,
+  // },
   {
     accessorKey: "name",
     cell: ({ row }) => {
+      const variantProduct = row.original as Variant;
       return (
-        <div className="truncate whitespace-nowrap font-bold">
-          <Link
-            to="/console/$organization/products"
-            from="/console/$organization/products"
-            search={{ id: row.original.id }}
-          >
-            {row.original.name}
-          </Link>
+        <div>
+          {row.getCanExpand() ? (
+            <div
+              className="flex cursor-pointer items-center gap-1"
+              onClick={row.getToggleExpandedHandler()}
+            >
+              <div className="truncate whitespace-nowrap font-bold">
+                {row.original.name}
+              </div>
+              <ChevronDown
+                size="16"
+                className={!row.getIsExpanded() ? "-rotate-90" : undefined}
+              />
+            </div>
+          ) : (
+            <ProductVariantSheet
+              defaultValues={{
+                ...variantProduct,
+                category: variantProduct.categoryId,
+                description: variantProduct.description || "",
+                package: variantProduct.package || {},
+                meta: variantProduct.meta || "",
+                images:
+                  variantProduct.images.map((item) => ({
+                    imageId: item.image.id,
+                    url: item.image.url,
+                    type: "default" as const,
+                  })) || [],
+                params: variantProduct.params.map((item) => ({
+                  name: item.paramValue.param.name,
+                  values: [item.paramValue.value],
+                })),
+              }}
+            >
+              <div className="relative w-full">
+                <span className="cursor-pointer truncate whitespace-nowrap font-bold">
+                  {row.original.name}
+                </span>
+                {"params" in row.original && (
+                  <div className="absolute cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap text-xs leading-3 text-muted-foreground">
+                    {row.original.params.map((item, index) => (
+                      <Fragment key={index}>
+                        <b>{item.paramValue.param.name}</b>:{" "}
+                        {item.paramValue.value}
+                        {index !== row.original.params.length - 1 && ";"}
+                      </Fragment>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </ProductVariantSheet>
+          )}
         </div>
       );
     },
@@ -84,74 +123,102 @@ export const columns: ColumnDef<Product>[] = [
     size: undefined,
   },
   {
+    accessorKey: "category",
+    cell: ({ row }) => {
+      return (
+        <div className="w-[150px] truncate whitespace-nowrap">
+          {"categoryId" in row.original && (
+            <CategoryName id={row.original.categoryId} />
+          )}
+        </div>
+      );
+    },
+    header: () => <div>Категория</div>,
+    size: 150,
+  },
+  {
     accessorKey: "price",
-    cell: ({ row }) => (
-      <div className="text-right font-medium">
-        {currency.format(row.original.price)}
-      </div>
-    ),
-    header: () => <div className="text-right">Цена</div>,
+    cell: ({ row }) => {
+      return (
+        "lastPrice" in row.original &&
+        row.original.lastPrice && (
+          <div className="whitespace-nowrap text-right">
+            {currency.format(row.original.lastPrice.price || 0)}
+          </div>
+        )
+      );
+    },
+    header: () => <div className="whitespace-nowrap text-right">Цена</div>,
     size: 100,
   },
   {
-    accessorKey: "count",
-    cell: ({ row }) => <div className="text-right">{row.original.count}</div>,
-    header: () => <div className="text-right">Наличие</div>,
+    accessorKey: "reserved",
+    cell: ({ row }) => {
+      const stock = "stock" in row.original ? row.original.stock : undefined;
+      return (
+        <div className="whitespace-nowrap text-right">
+          {stock?.reservedQuantity}
+        </div>
+      );
+    },
+    header: () => <div className="whitespace-nowrap text-right">В заказах</div>,
     size: 100,
   },
   {
-    cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button className="h-8 w-8 p-0" variant="ghost">
-            <span className="sr-only">Открыть меню</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Действия</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(row.original.id)}
-          >
-            Скопировать ID
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
+    accessorKey: "stocked",
+    cell: ({ row }) => {
+      const stock = "stock" in row.original ? row.original.stock : undefined;
+      return (
+        <div className="whitespace-nowrap text-right">
+          {stock?.stockedQuantity}
+        </div>
+      );
+    },
+    header: () => <div className="whitespace-nowrap text-right">На складе</div>,
+    size: 100,
+  },
+  {
+    cell: ({ row }) => {
+      const stock = "stock" in row.original ? row.original.stock : undefined;
+      return (
+        <ProductsTableActionCell
+          id={row.original.id}
+          depth={row.depth}
+          stockId={stock?.id}
+          sku={stock?.sku}
+        />
+      );
+    },
     id: "actions",
     size: 50,
   },
 ];
 
 export function ProductsTable() {
-  const data = { products: [] };
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const { data } = useProducts();
   const [rowSelection, setRowSelection] = useState({});
+  const [expanded, setExpanded] = useState<ExpandedState>({});
 
   const table = useReactTable({
     columns,
     data: data?.products ?? [],
+    onExpandedChange: setExpanded,
+    getSubRows: (row) =>
+      "productVariants" in row ? row.productVariants : undefined,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
+    paginateExpandedRows: false,
     state: {
-      columnFilters,
-      columnVisibility,
+      expanded,
       rowSelection,
-      sorting,
     },
   });
 
   return (
     <div className="w-full">
-      <div className="rounded-md border">
+      <div className="overflow-auto rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

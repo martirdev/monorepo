@@ -1,31 +1,17 @@
 import {
   ColumnDef,
-  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
   getPaginationRowModel,
-  getSortedRowModel,
-  SortingState,
   useReactTable,
-  VisibilityState,
 } from "@tanstack/react-table";
-import { format } from "date-fns";
-import { ary } from "lodash/fp";
-import { Fish, MoreHorizontal } from "lucide-react";
+import { Fish } from "lucide-react";
 import { useState } from "react";
 
 import { BlankSlate } from "@/features/blank-slate";
+import { useClients } from "@/shared/api/clients";
+import { makeShortName } from "@/shared/lib/nameFormats";
 import { Button } from "@/shared/ui/button";
-import { Checkbox } from "@/shared/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/shared/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -35,35 +21,41 @@ import {
   TableRow,
 } from "@/shared/ui/table";
 
-import { Client } from "./types";
+import { Client } from "../types";
+import { ClientsCreateButton } from "./ClientsCreateButton";
+import { ClientsTableActionCell } from "./ClientsTableActionCell";
 
 export const columns: ColumnDef<Client>[] = [
-  {
-    cell: ({ row }) => (
-      <Checkbox
-        aria-label="Select row"
-        checked={row.getIsSelected()}
-        onCheckedChange={ary(1, row.toggleSelected)}
-      />
-    ),
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        aria-label="Выбрать все"
-        onCheckedChange={ary(1, table.toggleAllPageRowsSelected)}
-      />
-    ),
-    id: "id",
-    size: 50,
-  },
+  // {
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       aria-label="Select row"
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={ary(1, row.toggleSelected)}
+  //     />
+  //   ),
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={
+  //         table.getIsAllPageRowsSelected() ||
+  //         (table.getIsSomePageRowsSelected() && "indeterminate")
+  //       }
+  //       aria-label="Выбрать все"
+  //       onCheckedChange={ary(1, table.toggleAllPageRowsSelected)}
+  //     />
+  //   ),
+  //   id: "id",
+  //   size: 50,
+  // },
   {
     accessorKey: "name",
     cell: ({ row }) => (
       <div className="capitalizez whitespace-nowrap font-bold">
-        {row.getValue("name")}
+        {makeShortName(
+          row.original.firstName,
+          row.original.secondName,
+          row.original.thirdName,
+        )}
       </div>
     ),
     header: "Клиент",
@@ -71,86 +63,35 @@ export const columns: ColumnDef<Client>[] = [
   {
     accessorKey: "contact",
     cell: ({ row }) => (
-      <div className="whitespace-nowrap">{row.getValue("contact")}</div>
-    ),
-    header: "Контакт",
-  },
-  {
-    accessorKey: "createdAt",
-    cell: ({ row }) => (
       <div className="whitespace-nowrap">
-        {format(row.getValue("createdAt"), "HH:mm dd.MM.yyyy")}
+        {row.original.contacts?.[0].contact}{" "}
+        {row.original.contacts.length > 1 &&
+          `и еще ${row.original.contacts.length - 1}`}
       </div>
     ),
-    header: "Дата создания",
-  },
-  {
-    accessorKey: "orders",
-    cell: ({ row }) => (
-      <div className="text-right font-medium">{row.getValue("orders")}</div>
-    ),
-    header: () => <div className="text-right">Заказы</div>,
-    size: 100,
+    header: "Контакты",
   },
   {
     cell: ({ row }) => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button className="h-8 w-8 p-0" variant="ghost">
-            <span className="sr-only">Открыть меню</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Действия</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => navigator.clipboard.writeText(row.original.id)}
-          >
-            Скопировать ID клиента
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Просмотреть клиента</DropdownMenuItem>
-          <DropdownMenuItem>Показать заказы</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <ClientsTableActionCell id={row.original.id} client={row.original} />
     ),
     id: "actions",
     size: 50,
   },
 ];
 
-const DATA = [
-  {
-    contact: "+7(999)111-55-55",
-    createdAt: new Date(),
-    id: "1",
-    name: "Пушкарев Максим Иванович",
-    orders: 8,
-  },
-];
-
 export function ClientsTable() {
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+  const { data } = useClients();
   const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
     columns,
-    data: DATA,
+    data: data?.clients ?? [],
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
     state: {
-      columnFilters,
-      columnVisibility,
       rowSelection,
-      sorting,
     },
   });
 
@@ -207,6 +148,11 @@ export function ClientsTable() {
                     description="Добавьте их сейчас или перед созданием заказа"
                     icon={Fish}
                     title="Клиенты не найдены"
+                    primaryAction={
+                      <ClientsCreateButton>
+                        <Button>Добавить клиента</Button>
+                      </ClientsCreateButton>
+                    }
                   />
                 </TableCell>
               </TableRow>
@@ -218,24 +164,6 @@ export function ClientsTable() {
         <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} из{" "}
           {table.getFilteredRowModel().rows.length} клиентов выбранно.
-        </div>
-        <div className="space-x-2">
-          <Button
-            disabled={!table.getCanPreviousPage()}
-            size="sm"
-            variant="outline"
-            onClick={table.previousPage}
-          >
-            Предыдущая
-          </Button>
-          <Button
-            disabled={!table.getCanNextPage()}
-            size="sm"
-            variant="outline"
-            onClick={table.nextPage}
-          >
-            Следующая
-          </Button>
         </div>
       </div>
     </div>

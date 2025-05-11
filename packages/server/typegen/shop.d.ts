@@ -16,54 +16,142 @@ declare const shopRoutes: hono_hono_base.HonoBase<hono_types.BlankEnv, {
         $post: {
             input: {
                 json: {
-                    ids: string[];
+                    id: string;
                 };
             };
             output: {
                 products: {
                     id: string;
                     name: string;
-                    description: string | null;
-                    price: string | null;
-                    count: number | null;
-                    masterProductId: string;
-                    productToParams: {
+                    productVariants: {
+                        id: string;
+                        name: string;
+                        description: string | null;
+                        meta: never;
+                        productId: string;
+                        packageId: string | null;
+                        categoryId: string | null;
+                        lastPriceId: string | null;
                         params: {
-                            value: string;
+                            productVariantId: string;
+                            productParamValueId: string;
+                            paramValue: {
+                                value: string;
+                                id: string;
+                                paramId: string;
+                                param: {
+                                    id: string;
+                                    name: string;
+                                };
+                            };
+                        }[];
+                        category: {
+                            id: string;
                             name: string;
+                            meta: never;
+                            isActive: boolean | null;
+                            parentCategoryId: string | null;
+                        } | null;
+                        package: {
+                            length: number | null;
+                            id: string;
+                            productVariantId: string;
+                            width: number | null;
+                            height: number | null;
+                            weight: number | null;
+                        } | null;
+                        images: {
+                            productVariantId: string;
+                            imageId: string;
+                            image: {
+                                id: string;
+                                url: string;
+                                alt: string | null;
+                            };
+                        }[];
+                        stock: {
+                            id: string;
+                            createdAt: string;
+                            updatedAt: string;
+                            productVariantId: string;
+                            sku: string;
+                            stockedQuantity: number;
+                            reservedQuantity: number;
                         };
+                        lastPrice: {
+                            id: string;
+                            createdAt: string;
+                            productVariantId: string;
+                            price: string;
+                        } | null;
                     }[];
-                }[];
+                } | undefined;
             };
             outputFormat: "json";
             status: hono_utils_http_status.StatusCode;
         };
     };
-    "/products/:id": {
-        $get: {
+    "/products/variants": {
+        $post: {
             input: {
-                param: {
-                    id: string;
+                json: {
+                    ids: string[];
                 };
             };
             output: {
-                products: {
+                variants: {
                     id: string;
                     name: string;
-                    products: {
-                        id: string;
-                        name: string;
-                        description: string | null;
-                        price: string | null;
-                        count: number | null;
-                        productToParams: {
-                            params: {
-                                value: string;
+                    description: string | null;
+                    meta: never;
+                    productId: string;
+                    packageId: string | null;
+                    categoryId: string | null;
+                    lastPriceId: string | null;
+                    params: {
+                        productVariantId: string;
+                        productParamValueId: string;
+                        paramValue: {
+                            value: string;
+                            id: string;
+                            paramId: string;
+                            param: {
+                                id: string;
                                 name: string;
                             };
-                        }[];
+                        };
                     }[];
-                } | undefined;
+                    product: {
+                        id: string;
+                        name: string;
+                        createdAt: string;
+                        updatedAt: string;
+                    };
+                    images: {
+                        productVariantId: string;
+                        imageId: string;
+                        image: {
+                            id: string;
+                            url: string;
+                            alt: string | null;
+                        };
+                    }[];
+                    stock: {
+                        id: string;
+                        createdAt: string;
+                        updatedAt: string;
+                        productVariantId: string;
+                        sku: string;
+                        stockedQuantity: number;
+                        reservedQuantity: number;
+                    };
+                    lastPrice: {
+                        id: string;
+                        createdAt: string;
+                        productVariantId: string;
+                        price: string;
+                    } | null;
+                }[];
             };
             outputFormat: "json";
             status: hono_utils_http_status.StatusCode;

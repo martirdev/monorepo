@@ -59,7 +59,6 @@ const CustomBreadcrumb: FC<BreadcrumbProps> = ({ items }) => {
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1">
                   <BreadcrumbEllipsis className="h-4 w-4" />
-                  <span className="sr-only">Открыть меню</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   {items.slice(1, -2).map((item, index) => (
@@ -94,20 +93,6 @@ const OrganizationLayout: FC = () => {
       <div className="-m-1 flex min-w-[200px] gap-1 overflow-auto p-1 md:flex-col">
         <Button className="flex justify-start" variant="ghost" asChild>
           <Link
-            activeOptions={{
-              exact: true,
-            }}
-            activeProps={{
-              className: "bg-accent text-accent-foreground",
-            }}
-            from="/console/$organization"
-            to="/console/$organization"
-          >
-            Сводка
-          </Link>
-        </Button>
-        <Button className="flex justify-start" variant="ghost" asChild>
-          <Link
             activeProps={{
               className: "bg-accent text-accent-foreground",
             }}
@@ -115,6 +100,18 @@ const OrganizationLayout: FC = () => {
             to="/console/$organization/products"
           >
             Товары
+          </Link>
+        </Button>
+
+        <Button className="flex justify-start" variant="ghost" asChild>
+          <Link
+            activeProps={{
+              className: "bg-accent text-accent-foreground",
+            }}
+            from="/console/$organization"
+            to="/console/$organization/categories"
+          >
+            Категории
           </Link>
         </Button>
         <Button className="flex justify-start" variant="ghost" asChild>
@@ -139,19 +136,8 @@ const OrganizationLayout: FC = () => {
             Клиенты
           </Link>
         </Button>
-        <Button className="flex justify-start" variant="ghost" asChild>
-          <Link
-            activeProps={{
-              className: "bg-accent text-accent-foreground",
-            }}
-            from="/console/$organization"
-            to="/console/$organization/settings"
-          >
-            Настройки
-          </Link>
-        </Button>
       </div>
-      <div className="flex-1">
+      <div className="min-w-0 flex-1">
         <div className="flex h-10 items-center">
           <CustomBreadcrumb items={breadcrumbs} />
         </div>

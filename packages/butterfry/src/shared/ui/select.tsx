@@ -1,5 +1,5 @@
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, LoaderCircle } from "lucide-react";
 import * as React from "react";
 import { ComponentPropsWithoutRef } from "react";
 
@@ -14,8 +14,11 @@ const SelectValue = SelectPrimitive.Value;
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ children, className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {
+    value?: unknown;
+    isLoading?: boolean;
+  }
+>(({ children, className, isLoading, value, ...props }, ref) => (
   <SelectPrimitive.Trigger
     className={cn(
       "flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
@@ -25,9 +28,16 @@ const SelectTrigger = React.forwardRef<
     {...props}
   >
     {children}
-    <SelectPrimitive.Icon asChild>
-      <ChevronDown className="h-4 w-4 opacity-50" />
-    </SelectPrimitive.Icon>
+    <div className="flex gap-1">
+      {isLoading && (
+        <SelectPrimitive.Icon asChild>
+          <LoaderCircle className="h-4 w-4 animate-spin opacity-50" />
+        </SelectPrimitive.Icon>
+      )}
+      <SelectPrimitive.Icon asChild>
+        <ChevronDown className="h-4 w-4 opacity-50" />
+      </SelectPrimitive.Icon>
+    </div>
   </SelectPrimitive.Trigger>
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
@@ -146,15 +156,37 @@ const SelectSeparator = React.forwardRef<
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
-type SelectCommonProps = { items: Option[] } & ComponentPropsWithoutRef<
-  typeof SelectPrimitive.Trigger
-> &
-  ComponentPropsWithoutRef<typeof SelectPrimitive.Value>;
+export type SelectCommonProps = {
+  items: Option[];
+  defaultValue?: string;
+  onChange?: (value: string) => void;
+} & Omit<
+  ComponentPropsWithoutRef<typeof SelectTrigger> &
+    ComponentPropsWithoutRef<typeof SelectPrimitive.Value>,
+  "onChange" | "defaultValue"
+>;
 
-function Select({ className, items, placeholder }: SelectCommonProps) {
+function Select({
+  className,
+  items,
+  placeholder,
+  isLoading,
+  defaultValue,
+  onChange,
+}: SelectCommonProps) {
+  const [value, setValue] = React.useState(defaultValue || undefined);
+
+  const onValueChange = React.useCallback(
+    (value: string) => {
+      setValue(value);
+      onChange?.(value);
+    },
+    [setValue, onChange],
+  );
+
   return (
-    <SelectBase>
-      <SelectTrigger className={className}>
+    <SelectBase value={value} onValueChange={onValueChange}>
+      <SelectTrigger value={value} className={className} isLoading={isLoading}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

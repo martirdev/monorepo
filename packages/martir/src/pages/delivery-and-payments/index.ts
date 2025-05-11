@@ -1,1 +1,0 @@
-export { deliveryAndPaymentsRoute } from "./DeliveryAndPaymentsPage";

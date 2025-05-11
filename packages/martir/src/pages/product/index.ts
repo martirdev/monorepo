@@ -1,1 +1,0 @@
-export { productRoute } from "./ProductPage";

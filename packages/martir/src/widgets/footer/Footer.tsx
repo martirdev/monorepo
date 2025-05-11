@@ -36,15 +36,15 @@ export function Footer() {
             <div className="mt-10 text-sm">
               <ul className="space-y-3">
                 <li>
-                  <TextLink to="/refund">Обмен и возврат</TextLink>
+                  <TextLink href="/refund">Обмен и возврат</TextLink>
                 </li>
                 <li>
-                  <TextLink to="/delivery-and-payments">
+                  <TextLink href="/delivery-and-payments">
                     Доставка и опалата
                   </TextLink>
                 </li>
                 <li>
-                  <TextLink to="/faq">FAQ</TextLink>
+                  <TextLink href="/faq">FAQ</TextLink>
                 </li>
               </ul>
             </div>

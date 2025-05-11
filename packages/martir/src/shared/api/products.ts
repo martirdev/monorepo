@@ -1,29 +1,11 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { client } from "./hono";
 
-export function productOptions(id: string) {
+export function variantsOptions(ids: string[]) {
   return queryOptions({
-    queryKey: ["product", id],
+    queryKey: ["product-variants", ids],
     queryFn: async () => {
-      const response = await client.products[":id"].$get({
-        param: {
-          id,
-        },
-      });
-      return response.json();
-    },
-  });
-}
-
-export const useProduct = (id: string) => {
-  return useQuery(productOptions(id));
-};
-
-export function productsOptions(ids: string[]) {
-  return queryOptions({
-    queryKey: ["products", ids],
-    queryFn: async () => {
-      const response = await client.products.products.$post({
+      const response = await client.products.variants.$post({
         json: {
           ids,
         },
@@ -34,6 +16,6 @@ export function productsOptions(ids: string[]) {
   });
 }
 
-export const useProducts = (ids: string[]) => {
-  return useQuery(productsOptions(ids));
+export const useVariants = (ids: string[]) => {
+  return useQuery(variantsOptions(ids));
 };
