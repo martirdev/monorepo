@@ -1,11 +1,10 @@
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/components/button";
 import { Container } from "@/shared/ui/layouts/container";
-import { Package } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { CartButton } from "./CartButton";
-import { IconButton } from "./IconButton";
-import Logo from "./Logo.svg";
+import logo from "./Logo.svg";
 import { MenuButton } from "./MenuButton";
 
 type NavProps = {
@@ -43,7 +42,7 @@ export function Header() {
     <header className="flex items-center gap-2 py-3 sticky top-0 bg-white/60 backdrop-blur-md z-50">
       <Container className="gap-10 flex items-center">
         <Link href="/">
-          <Logo />
+          <Image src={logo} alt="logo" width="40" height="40" />
         </Link>
         <Nav className="hidden" />
         <div className="ml-auto flex items-center gap-3">
