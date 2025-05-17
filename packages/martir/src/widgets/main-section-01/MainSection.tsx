@@ -3,7 +3,7 @@ import { cn } from "@/shared/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-const MASTER_PRODUCT = "17e89122-c970-4084-8ab8-22ef2304f411";
+const MASTER_PRODUCT = process.env.MAIN_SECTTION_01_ID!;
 
 export async function MainSection() {
   const data = await client.products.products
