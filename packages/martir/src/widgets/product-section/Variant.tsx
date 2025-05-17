@@ -35,7 +35,7 @@ export function Variant({
     const items = Array.from(variants);
 
     return sortSizeValues ? items.sort(sortSizeValues) : items;
-  }, [variants]);
+  }, [variants, sortSizeValues]);
 
   return (
     <div className="space-y-4">

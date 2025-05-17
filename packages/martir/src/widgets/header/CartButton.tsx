@@ -14,11 +14,11 @@ import {
 } from "@/shared/ui/components/sheet";
 import { TextLink } from "@/shared/ui/text-link";
 import { ShoppingBag } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useMemo, useState } from "react";
 import { CartEmptyState } from "./CartEmptyState";
 import { IconButton } from "./IconButton";
-import Image from "next/image";
 
 export function CartButton() {
   const [open, setOpen] = useState(false);
@@ -41,7 +41,7 @@ export function CartButton() {
         );
       }, 0) || 0
     );
-  }, [data?.variants]);
+  }, [cart, data?.variants]);
 
   const removeItemFromCart = useCallback(
     (id: string) => {
